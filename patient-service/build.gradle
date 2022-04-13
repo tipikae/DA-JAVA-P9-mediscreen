@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'org.liquibase.gradle'
 }
 
 group = 'com.tipikae'
@@ -47,4 +48,21 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+ext.springProps = new Properties()
+InputStream is = new FileInputStream("src/main/resources/liquibase.properties")
+springProps.load(is)
+
+liquibase {
+    activities {
+        main {
+        	changeLogFile springProps['changeLogFile']
+        	driver springProps['driver']
+            url springProps['url']
+            username springProps['username']
+            password springProps['password']
+         }
+    }
+    runList = 'main'
 }
