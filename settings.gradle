@@ -1,0 +1,6 @@
+rootProject.name = 'mediscreen'
+include 'mediscreen-config'
+include 'mediscreen-discovery'
+include 'mediscreen-proxy'
+include 'mediscreen-UI'
+include 'patient-service'
