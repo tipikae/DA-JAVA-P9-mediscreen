@@ -50,19 +50,17 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-ext.springProps = new Properties()
-InputStream is = new FileInputStream("src/main/resources/liquibase.properties")
-springProps.load(is)
-
 liquibase {
     activities {
         main {
-        	changeLogFile springProps['changeLogFile']
-        	driver springProps['driver']
-            url springProps['url']
-            username springProps['username']
-            password springProps['password']
+        	File propsFile = new File("${project.rootDir}/src/main/resources/liquibase.properties")
+		    Properties properties = new Properties()
+		    properties.load(new FileInputStream(propsFile))
+        	change-log-file properties['changeLogFile']
+        	driver properties['driver']
+            url properties['url']
+            username properties['username']
+            password properties['password']
          }
     }
-    runList = 'main'
 }
