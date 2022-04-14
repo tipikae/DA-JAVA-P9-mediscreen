@@ -3,8 +3,6 @@
  */
 package com.tipikae.mediscreenUI.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -24,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
-import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.HttpClientException;
+import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
+import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 
 /**
  * Controller for Mediscreeen-UI.
@@ -49,9 +50,16 @@ public class MediscreenUIController {
 	@GetMapping("/list")
 	public String getAllPatients(Model model) {
 		LOGGER.info("Getting all patients");
-		List<Patient> patients = patientClient.getPatients();
-		model.addAttribute("patients", patients);
-		return "patient/list";
+		try {
+			model.addAttribute("patients", patientClient.getPatients());
+			return "patient/list";
+		} catch (BadRequestException e) {
+			log("getAllPatients", e);
+			return "error/400";
+		} catch (HttpClientException e) {
+			log("getAllPatients", e);
+			return "error/400";
+		}
 	}
 	
 	/**
@@ -63,9 +71,19 @@ public class MediscreenUIController {
 	@GetMapping("/{id}")
 	public String getPatient(@PathVariable("id") @Positive Integer id, Model model) {
 		LOGGER.info("Getting patient with id=" + id);
-		Patient patient = patientClient.getPatient(id);
-		model.addAttribute("patient", patient);
-		return "patient/get";
+		try {
+			model.addAttribute("patient", patientClient.getPatient(id));
+			return "patient/get";
+		} catch (PatientNotFoundException e) {
+			log("getPatient", e);
+			return "error/404";
+		} catch (BadRequestException e) {
+			log("getPatient", e);
+			return "error/400";
+		} catch (HttpClientException e) {
+			log("getPatient", e);
+			return "error/400";
+		}
 	}
 	
 	/**
@@ -75,6 +93,7 @@ public class MediscreenUIController {
 	 */
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
+		LOGGER.info("Getting add patient form");
 		return "patient/add";
 	}
 
@@ -90,7 +109,27 @@ public class MediscreenUIController {
 			@ModelAttribute("patient") @Valid NewPatientDTO newPatientDTO,
 			BindingResult result, 
     		Model model) {
-		return null;
+		LOGGER.info("Adding a new patient");
+		if(result.hasErrors()) {
+    		StringBuilder sb = new StringBuilder();
+    		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
+			LOGGER.debug("addPatient: has errors:" + sb);
+			return "patient/add";
+    	}
+		
+		try {
+			model.addAttribute("patient", patientClient.addPatient(newPatientDTO));
+			return "redirect:/patient/list?success=New patient added.";
+		} catch (PatientAlreadyExistException e) {
+			log("addPatient", e);
+			return "redirect:/patient/list?error=Patient already exists.";
+		} catch (BadRequestException e) {
+			log("addPatient", e);
+			return "redirect:/patient/list?error=Request error.";
+		} catch (HttpClientException e) {
+			log("addPatient", e);
+			return "redirect:/patient/list?error=An error occured.";
+		}
 	}
 	
 	/**
@@ -101,7 +140,20 @@ public class MediscreenUIController {
 	 */
 	@GetMapping("/update/{id}")
 	public String showUpdateForm(@PathVariable("id") @Positive Integer id, Model model) {
-		return "patient/update";
+		LOGGER.info("Getting update form for patient with id=" + id);
+		try {
+			model.addAttribute("patient", patientClient.getPatient(id));
+			return "patient/update";
+		} catch (PatientNotFoundException e) {
+			log("showUpdateForm", e);
+			return "error/404";
+		} catch (BadRequestException e) {
+			log("showUpdateForm", e);
+			return "error/400";
+		} catch (HttpClientException e) {
+			log("showUpdateForm", e);
+			return "error/400";
+		}
 	}
 	
 	/**
@@ -118,6 +170,30 @@ public class MediscreenUIController {
     		@ModelAttribute("bidList") @Valid UpdatePatientDTO updatePatientDTO,
             BindingResult result, 
     		Model model) {
-		return null;
+		LOGGER.info("Updating a patient with id=" + id);
+		if(result.hasErrors()) {
+    		StringBuilder sb = new StringBuilder();
+    		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
+			LOGGER.debug("updatePatient: has errors:" + sb);
+			return "redirect:/patient/update/" + id + "?error=" + sb;
+    	}
+		
+		try {
+			patientClient.updatePatient(id, updatePatientDTO);
+			return "redirect:/patient/list?success=Patient updated.";
+		} catch (PatientNotFoundException e) {
+			log("updatePatient", e);
+			return "redirect:/patient/list?error=Patient not found.";
+		} catch (BadRequestException e) {
+			log("updatePatient", e);
+			return "redirect:/patient/list?error=Request error.";
+		} catch (HttpClientException e) {
+			log("updatePatient", e);
+			return "redirect:/patient/list?error=An error occured.";
+		}
+	}
+	
+	private void log(String method, Exception e) {
+		LOGGER.debug(method + ": " + e.getClass().getSimpleName() + ": " + e.getMessage());
 	}
 }
