@@ -14,7 +14,7 @@ import com.tipikae.patientservice.model.Patient;
  * @version 1.0
  *
  */
-@RepositoryRestResource
-public interface IPatientRepository extends JpaRepository<Patient, Integer> {
+@RepositoryRestResource(collectionResourceRel = "patients", path = "patients")
+public interface IPatientRepository extends JpaRepository<Patient, Long> {
 
 }
