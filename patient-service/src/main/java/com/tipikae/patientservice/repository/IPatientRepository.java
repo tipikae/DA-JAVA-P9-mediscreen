@@ -1,10 +1,12 @@
 /**
  * 
  */
-package com.tipikae.patientservice.model;
+package com.tipikae.patientservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.tipikae.patientservice.model.Patient;
 
 /**
  * Patient repository.
