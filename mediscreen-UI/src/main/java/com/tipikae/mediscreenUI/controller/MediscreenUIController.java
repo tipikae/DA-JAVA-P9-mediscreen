@@ -23,7 +23,6 @@ import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
-import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 
@@ -47,16 +46,13 @@ public class MediscreenUIController {
 	 * @param model Model
 	 * @return String
 	 */
-	@GetMapping("/list")
+	@GetMapping("/all")
 	public String getAllPatients(Model model) {
 		LOGGER.info("Getting all patients");
 		try {
-			model.addAttribute("patients", patientClient.getPatients());
+			model.addAttribute("patients", patientClient.getPatients().getContent());
 			return "patient/list";
-		} catch (BadRequestException e) {
-			log("getAllPatients", e);
-			return "error/400";
-		} catch (HttpClientException e) {
+		} catch (Exception e) {
 			log("getAllPatients", e);
 			return "error/400";
 		}
@@ -72,15 +68,12 @@ public class MediscreenUIController {
 	public String getPatient(@PathVariable("id") @Positive Integer id, Model model) {
 		LOGGER.info("Getting patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id));
+			model.addAttribute("patient", patientClient.getPatient(id).getContent());
 			return "patient/get";
 		} catch (PatientNotFoundException e) {
 			log("getPatient", e);
 			return "error/404";
-		} catch (BadRequestException e) {
-			log("getPatient", e);
-			return "error/400";
-		} catch (HttpClientException e) {
+		} catch (Exception e) {
 			log("getPatient", e);
 			return "error/400";
 		}
@@ -126,7 +119,7 @@ public class MediscreenUIController {
 		} catch (BadRequestException e) {
 			log("addPatient", e);
 			return "redirect:/patient/list?error=Request error.";
-		} catch (HttpClientException e) {
+		} catch (Exception e) {
 			log("addPatient", e);
 			return "redirect:/patient/list?error=An error occured.";
 		}
@@ -147,10 +140,7 @@ public class MediscreenUIController {
 		} catch (PatientNotFoundException e) {
 			log("showUpdateForm", e);
 			return "error/404";
-		} catch (BadRequestException e) {
-			log("showUpdateForm", e);
-			return "error/400";
-		} catch (HttpClientException e) {
+		} catch (Exception e) {
 			log("showUpdateForm", e);
 			return "error/400";
 		}
@@ -187,7 +177,7 @@ public class MediscreenUIController {
 		} catch (BadRequestException e) {
 			log("updatePatient", e);
 			return "redirect:/patient/list?error=Request error.";
-		} catch (HttpClientException e) {
+		} catch (Exception e) {
 			log("updatePatient", e);
 			return "redirect:/patient/list?error=An error occured.";
 		}
