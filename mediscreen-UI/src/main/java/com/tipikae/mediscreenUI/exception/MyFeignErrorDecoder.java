@@ -31,7 +31,7 @@ public class MyFeignErrorDecoder implements ErrorDecoder {
 					return new BadRequestException(response.status() + ": " + response.reason());
 				case 404:
 					return new PatientNotFoundException(response.status() + ": " + response.reason());
-				case 405:
+				case 409:
 					return new PatientAlreadyExistException(response.status() + ": " + response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
