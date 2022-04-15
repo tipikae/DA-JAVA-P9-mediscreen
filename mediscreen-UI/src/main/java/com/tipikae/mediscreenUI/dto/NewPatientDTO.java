@@ -23,16 +23,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NewPatientDTO {
 
-	@NotBlank
+	@NotBlank(message = "Lastname must not be empty.")
 	private String family;
-	@NotBlank
+	@NotBlank(message = "Firstname must not be empty.")
 	private String given;
-	@NotNull
+	@NotNull(message = "Birthdate must not be empty.")
 	private LocalDate dob;
-	@NotBlank
+	@NotNull(message = "Sex must not be empty.")
 	private char sex;
-	@NotBlank
+	@NotBlank(message = "Address must not be empty.")
 	private String address;
-	@NotBlank
+	@NotBlank(message = "Phone number must not be empty.")
 	private String phone;
 }
