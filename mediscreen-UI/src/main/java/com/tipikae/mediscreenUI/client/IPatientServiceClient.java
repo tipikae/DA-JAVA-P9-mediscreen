@@ -2,8 +2,8 @@
  * 
  */
 package com.tipikae.mediscreenUI.client;
-
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -27,36 +27,36 @@ public interface IPatientServiceClient {
 
 	/**
 	 * Get patients list.
-	 * @return List
+	 * @return CollectionModel
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /")
-	List<Patient> getPatients() throws BadRequestException, HttpClientException;
+	@RequestLine("GET /patients")
+	CollectionModel<Patient> getPatients() throws BadRequestException, HttpClientException;
 	
 	/**
 	 * Get a patient.
 	 * @param id Integer
-	 * @return Patient
+	 * @return EntityModel
 	 * @throws PatientNotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /{id}")
-	Patient getPatient(@Param("id") Integer id) 
+	@RequestLine("GET /patients/{id}")
+	EntityModel<Patient> getPatient(@Param("id") Integer id) 
 			throws PatientNotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Add new patient.
 	 * @param newPatientDTO NewPatientDTO
-	 * @return Patient
+	 * @return EntityModel
 	 * @throws PatientAlreadyExistException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("POST /")
+	@RequestLine("POST /patients")
     @Headers("Content-Type: application/json")
-	Patient addPatient(NewPatientDTO newPatientDTO) 
+	EntityModel<Patient> addPatient(NewPatientDTO newPatientDTO) 
 			throws PatientAlreadyExistException, BadRequestException, HttpClientException;
 	
 	/**
@@ -67,7 +67,7 @@ public interface IPatientServiceClient {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("PUT /{id}")
+	@RequestLine("PUT /patients/{id}")
     @Headers("Content-Type: application/json")
 	void updatePatient(@Param("id") Integer id, UpdatePatientDTO updatePatientDTO) 
 			 throws PatientNotFoundException, BadRequestException, HttpClientException;
