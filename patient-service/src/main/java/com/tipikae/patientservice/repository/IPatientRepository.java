@@ -3,7 +3,10 @@
  */
 package com.tipikae.patientservice.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.tipikae.patientservice.model.Patient;
@@ -15,6 +18,12 @@ import com.tipikae.patientservice.model.Patient;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "patients", path = "patients")
-public interface IPatientRepository extends JpaRepository<Patient, Long> {
+public interface IPatientRepository extends PagingAndSortingRepository<Patient, Long> {
 
+	/**
+	 * Find patients by family name.
+	 * @param family String
+	 * @return List
+	 */
+	List<Patient> findByFamily(@Param("family") String family);
 }
