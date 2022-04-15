@@ -33,16 +33,22 @@ public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	@NotBlank
 	private String family;
+	
 	@NotBlank
 	private String given;
+	
 	@NotNull
 	private LocalDate dob;
+	
 	@NotNull
 	private char sex;
+	
 	@NotBlank
 	private String address;
+	
 	@NotBlank
 	private String phone;
 }
