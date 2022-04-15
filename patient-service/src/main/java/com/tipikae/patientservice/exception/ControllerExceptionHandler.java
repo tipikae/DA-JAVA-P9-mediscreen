@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,6 +40,20 @@ public class ControllerExceptionHandler {
 		logException(e.getClass().getSimpleName(), HttpStatus.NOT_FOUND.value(), 
 				e.getMessage());
 		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Resource not found.");
+	}
+	
+	/**
+	 * Handle a DataIntegrityViolationException.
+	 * @param e	DataIntegrityViolationException
+	 * @return ControllerException
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	ControllerException exceptionHandler(DataIntegrityViolationException e) {
+		logException(e.getClass().getSimpleName(), HttpStatus.CONFLICT.value(), 
+				e.getMessage());
+		return new ControllerException(HttpStatus.CONFLICT.value(), "Resource already exists.");
 	}
 	
 	/**
