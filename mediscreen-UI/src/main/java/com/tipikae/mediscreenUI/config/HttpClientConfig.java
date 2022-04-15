@@ -25,6 +25,7 @@ import com.tipikae.mediscreenUI.exception.MyFeignErrorDecoder;
 import feign.Feign;
 import feign.Logger;
 import feign.codec.Decoder;
+import feign.jackson.JacksonEncoder;
 
 /**
  * Configuration for Feign clients.
@@ -42,6 +43,7 @@ public class HttpClientConfig {
 	@Bean
 	public IPatientServiceClient getPatientServiceClient() {
 		return Feign.builder()
+				.encoder(new JacksonEncoder())
 				.decoder(feignDecoder())
 				.errorDecoder(new MyFeignErrorDecoder())
 				.target(IPatientServiceClient.class, patientServiceUrl);
