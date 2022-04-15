@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -25,6 +26,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ControllerExceptionHandler {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+	
+	/**
+	 * Handle a ResourceNotFoundException.
+	 * @param e	ResourceNotFoundException
+	 * @return ControllerException
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ResourceNotFoundException.class)
+	ControllerException exceptionHandler(ResourceNotFoundException e) {
+		logException(e.getClass().getSimpleName(), HttpStatus.NOT_FOUND.value(), 
+				e.getMessage());
+		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Resource not found.");
+	}
 	
 	/**
 	 * Handle a MethodArgumentNotValidException.
