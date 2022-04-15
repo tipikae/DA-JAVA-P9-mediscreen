@@ -107,7 +107,7 @@ public class MediscreenUIController {
     		StringBuilder sb = new StringBuilder();
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("addPatient: has errors:" + sb);
-			return "patient/add";
+			return "redirect:patient/add?error=" + sb;
     	}
 		
 		try {
@@ -157,7 +157,7 @@ public class MediscreenUIController {
 	@PutMapping("/update/{id}")
 	public String updatePatient(
     		@PathVariable("id") @Positive Integer id, 
-    		@ModelAttribute("bidList") @Valid UpdatePatientDTO updatePatientDTO,
+    		@ModelAttribute("patient") @Valid UpdatePatientDTO updatePatientDTO,
             BindingResult result, 
     		Model model) {
 		LOGGER.info("Updating a patient with id=" + id);
