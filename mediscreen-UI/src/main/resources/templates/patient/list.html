@@ -5,6 +5,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Lastname</th>
+							<th>Firstname</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="patient : ${patients}">
+							<td th:text="${patient.family}"></td>
+							<td th:text="${patient.given}"></td>
+						</tr>
+					</tbody>
+				</table>
 </body>
 </html>
