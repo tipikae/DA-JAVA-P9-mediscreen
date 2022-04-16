@@ -26,9 +26,12 @@
 					</thead>
 					<tbody>
 						<tr th:each="patient : ${patients}">
-							<td th:text="${patient.family}"></td>
+							<td>
+								<a  th:text="${patient.family}" 
+									th:href="@{/patient/{id}(id=${patient.id})}">family</a>
+							</td>
 							<td th:text="${patient.given}"></td>
-							<td h:text="${patient.dob}"></td>
+							<td th:text="${patient.dob}"></td>
 						</tr>
 					</tbody>
 				</table>

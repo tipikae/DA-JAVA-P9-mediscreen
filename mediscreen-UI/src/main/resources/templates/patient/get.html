@@ -11,10 +11,15 @@
 <div layout:fragment="content">
 	<div class="section">
 		<div class="container" th:object="${patient}">
-			<div class="row"><h2 th:text="${patient.given} ${patient.family}">Patient</h2></div>
+			<div class="row green" th:text="${#httpServletRequest.getParameter('success')}"></div>
+			<div class="row red" th:text="${#httpServletRequest.getParameter('error')}"></div>
+			<div class="row"><h2 th:text="${patient.given} + ' ' + ${patient.family}">Patient</h2></div>
 			<div class="row">
-				<a th:ref="@{/patient/update/{id}(id=${patient.id})}" 
-					class="btn btn-primary btn-sm">Update the patient</a>
+				<a class="btn btn-primary btn-sm" href="/patient/all">Back to the list</a>
+				<div>
+					<a th:href="@{/patient/update/{id}(id=${patient.id})}" 
+						class="btn btn-primary btn-sm">Update the patient</a>
+				</div>
 				<table class="table table-no-bordered">
 					<tbody>
 						<tr>

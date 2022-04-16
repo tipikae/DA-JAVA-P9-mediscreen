@@ -17,7 +17,7 @@
 				</div>
 				<div class="row">
 					<form action="#" th:action="@{/patient/update/{id}(id=${patient.id})}" 
-						th:object="${patient}" method="put" class="form-horizontal">
+						th:object="${patient}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<label for="family" class="col-sm-12 control-label">Lastname</label>
 							<div class="col-sm-12">
@@ -35,7 +35,7 @@
 						<div class="form-group">
 							<label for="dob" class="col-sm-12 control-label">Birthdate</label>
 							<div class="col-sm-12">
-								<input type="date" th:field="*{dob}" id="dob" >
+								<input type="date" th:field="*{dob}" id="dob" th:value="*{dob}" >
 								<p class="text-danger" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></p>
 							</div>
 						</div>
@@ -67,7 +67,7 @@
 						<div class="form-group">
 							<div class="col-sm-12">
 								<a class="btn btn-danger btn-sm" 
-									th:ref="@{/patient/get/{id}(id=${patient.id})}">Cancel</a>
+									th:href="@{/patient/{id}(id=${patient.id})}">Cancel</a>
 								<input class="btn btn-primary btn-sm" type="submit" value="Update Patient">
 							</div>
 						</div>
