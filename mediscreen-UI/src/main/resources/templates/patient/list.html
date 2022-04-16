@@ -1,23 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{template-menu}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>All patients - Mediscreen</title>
 </head>
 <body>
+<div layout:fragment="content">
+	<div class="section">
+		<div class="container">
+			<div class="row green" th:text="${#httpServletRequest.getParameter('success')}"></div>
+			<div class="row red" th:text="${#httpServletRequest.getParameter('error')}"></div>
+			<div class="row"><h2>All patients</h2></div>
+			<div class="row">
+				<a href="/patient/add" class="btn btn-primary btn-sm">Add New</a>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 							<th>Lastname</th>
 							<th>Firstname</th>
+							<th>Birthdate</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="patient : ${patients}">
 							<td th:text="${patient.family}"></td>
 							<td th:text="${patient.given}"></td>
+							<td h:text="${patient.dob}"></td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

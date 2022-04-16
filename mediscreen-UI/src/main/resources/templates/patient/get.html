@@ -1,23 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{template-menu}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Patient - Mediscreen</title>
 </head>
 <body>
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Lastname</th>
-							<th>Firstname</th>
-						</tr>
-					</thead>
+<div layout:fragment="content">
+	<div class="section">
+		<div class="container" th:object="${patient}">
+			<div class="row"><h2 th:text="${patient.given} ${patient.family}">Patient</h2></div>
+			<div class="row">
+				<a th:ref="@{/patient/update/{id}(id=${patient.id})}" 
+					class="btn btn-primary btn-sm">Update the patient</a>
+				<table class="table table-no-bordered">
 					<tbody>
 						<tr>
+							<td>Lastname</td>
 							<td th:text="${patient.family}"></td>
+						</tr>
+						<tr>
+							<td>Firstname</td>
 							<td th:text="${patient.given}"></td>
+						</tr>
+						<tr>
+							<td>Birthdate</td>
+							<td th:text="${patient.dob}"></td>
+						</tr>
+						<tr>
+							<td>Sex</td>
+							<td th:text="${patient.sex}"></td>
+						</tr>
+						<tr>
+							<td>Address</td>
+							<td th:text="${patient.address}"></td>
+						</tr>
+						<tr>
+							<td>Phone</td>
+							<td th:text="${patient.phone}"></td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
