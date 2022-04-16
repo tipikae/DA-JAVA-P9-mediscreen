@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
@@ -25,6 +24,7 @@ import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.model.Patient;
 
 /**
  * Controller for Mediscreeen-UI.
@@ -87,6 +87,9 @@ public class MediscreenUIController {
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
 		LOGGER.info("Getting add patient form");
+		if(!model.containsAttribute("patient")) {
+    		model.addAttribute("patient", new Patient());
+    	}
 		return "patient/add";
 	}
 
@@ -107,21 +110,21 @@ public class MediscreenUIController {
     		StringBuilder sb = new StringBuilder();
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("addPatient: has errors:" + sb);
-			return "redirect:patient/add?error=" + sb;
+			return "patient/add";
     	}
 		
 		try {
 			model.addAttribute("patient", patientClient.addPatient(newPatientDTO));
-			return "redirect:/patient/list?success=New patient added.";
+			return "redirect:/patient/all?success=New patient added.";
 		} catch (PatientAlreadyExistException e) {
 			log("addPatient", e);
-			return "redirect:/patient/list?error=Patient already exists.";
+			return "redirect:/patient/all?error=Patient already exists.";
 		} catch (BadRequestException e) {
 			log("addPatient", e);
-			return "redirect:/patient/list?error=Request error.";
+			return "redirect:/patient/all?error=Request error.";
 		} catch (Exception e) {
 			log("addPatient", e);
-			return "redirect:/patient/list?error=An error occured.";
+			return "redirect:/patient/all?error=An error occured.";
 		}
 	}
 	
@@ -135,7 +138,7 @@ public class MediscreenUIController {
 	public String showUpdateForm(@PathVariable("id") @Positive Integer id, Model model) {
 		LOGGER.info("Getting update form for patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id));
+			model.addAttribute("patient", patientClient.getPatient(id).getContent());
 			return "patient/update";
 		} catch (PatientNotFoundException e) {
 			log("showUpdateForm", e);
@@ -154,7 +157,7 @@ public class MediscreenUIController {
 	 * @param model Model
 	 * @return String
 	 */
-	@PutMapping("/update/{id}")
+	@PostMapping("/update/{id}")
 	public String updatePatient(
     		@PathVariable("id") @Positive Integer id, 
     		@ModelAttribute("patient") @Valid UpdatePatientDTO updatePatientDTO,
@@ -170,16 +173,16 @@ public class MediscreenUIController {
 		
 		try {
 			patientClient.updatePatient(id, updatePatientDTO);
-			return "redirect:/patient/list?success=Patient updated.";
+			return "redirect:/patient/" + id + "?success=Patient updated.";
 		} catch (PatientNotFoundException e) {
 			log("updatePatient", e);
-			return "redirect:/patient/list?error=Patient not found.";
+			return "redirect:/patient/all?error=Patient not found.";
 		} catch (BadRequestException e) {
 			log("updatePatient", e);
-			return "redirect:/patient/list?error=Request error.";
+			return "redirect:/patient/all?error=Request error.";
 		} catch (Exception e) {
 			log("updatePatient", e);
-			return "redirect:/patient/list?error=An error occured.";
+			return "redirect:/patient/all?error=An error occured.";
 		}
 	}
 	

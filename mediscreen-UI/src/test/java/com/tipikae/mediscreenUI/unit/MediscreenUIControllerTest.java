@@ -7,7 +7,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -98,7 +97,7 @@ class MediscreenUIControllerTest {
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?success=New patient added."));
+			.andExpect(view().name("redirect:/patient/all?success=New patient added."));
 	}
 
 	@Test
@@ -106,8 +105,8 @@ class MediscreenUIControllerTest {
 		NewPatientDTO newPatientDTO = new NewPatientDTO("family", "", LocalDate.now(), 'F', "address", "phone");
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
-			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:patient/add?error=Firstname must not be empty. "));
+			.andExpect(status().isOk())
+			.andExpect(view().name("patient/add"));
 	}
 
 	@Test
@@ -117,7 +116,7 @@ class MediscreenUIControllerTest {
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?error=Patient already exists."));
+			.andExpect(view().name("redirect:/patient/all?error=Patient already exists."));
 	}
 
 	@Test
@@ -127,7 +126,7 @@ class MediscreenUIControllerTest {
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?error=Request error."));
+			.andExpect(view().name("redirect:/patient/all?error=Request error."));
 	}
 
 	@Test
@@ -148,13 +147,14 @@ class MediscreenUIControllerTest {
 
 	@Test
 	void updatePatientReturns200WhenOk() throws Exception {
+		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
 		doNothing().when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
-		mockMvc.perform(put(ROOT + "/update/1")
+		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?success=Patient updated."));
+			.andExpect(view().name("redirect:/patient/" + id + "?success=Patient updated."));
 	}
 
 	@Test
@@ -162,7 +162,7 @@ class MediscreenUIControllerTest {
 		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO("", "given", LocalDate.now(), 'F', "address", "phone");
-		mockMvc.perform(put(ROOT + "/update/" + id)
+		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/update/" + id + "?error=" + "Lastname must not be empty. "));
@@ -174,21 +174,22 @@ class MediscreenUIControllerTest {
 				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
 		doThrow(PatientNotFoundException.class)
 			.when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
-		mockMvc.perform(put(ROOT + "/update/1")
+		mockMvc.perform(post(ROOT + "/update/1")
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?error=Patient not found."));
+			.andExpect(view().name("redirect:/patient/all?error=Patient not found."));
 	}
 
 	@Test
 	void updatePatientReturnsListWhenBadRequest() throws Exception {
+		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
 		doThrow(BadRequestException.class).when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
-		mockMvc.perform(put(ROOT + "/update/1")
+		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/list?error=Request error."));
+			.andExpect(view().name("redirect:/patient/all?error=Request error."));
 	}
 
 }
