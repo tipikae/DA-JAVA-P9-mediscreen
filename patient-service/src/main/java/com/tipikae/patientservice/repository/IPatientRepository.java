@@ -3,10 +3,11 @@
  */
 package com.tipikae.patientservice.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.google.common.base.Optional;
 import com.tipikae.patientservice.model.Patient;
 
 /**
@@ -24,5 +25,5 @@ public interface IPatientRepository extends JpaRepository<Patient, Long> {
 	 * @param given String
 	 * @return Optional
 	 */
-	Optional<Patient> findByFamilyAndGiven(String family, String given);
+	List<Patient> findByFamilyAndGiven(String family, String given);
 }

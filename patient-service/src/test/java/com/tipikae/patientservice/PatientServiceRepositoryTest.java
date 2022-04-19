@@ -37,7 +37,7 @@ class PatientServiceRepositoryTest {
 		// find by family and given names
 		String otherGiven = "otherGiven";
 		patientRepository.save(new Patient(0, family, otherGiven, dob, sex, address, phone));
-		assertTrue(patientRepository.findByFamilyAndGiven(family, otherGiven).get().getGiven().equals(otherGiven));
+		assertTrue(patientRepository.findByFamilyAndGiven(family, otherGiven).size() == 1);
 		
 		// update
 		String newAddress = "newAddress";
