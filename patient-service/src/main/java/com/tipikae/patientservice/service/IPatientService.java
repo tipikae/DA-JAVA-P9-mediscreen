@@ -8,7 +8,7 @@ import java.util.List;
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;
-import com.tipikae.patientservice.exception.PatientAlreadyExists;
+import com.tipikae.patientservice.exception.PatientAlreadyExistsException;
 import com.tipikae.patientservice.exception.PatientNotFoundException;
 
 /**
@@ -23,17 +23,17 @@ public interface IPatientService {
 	 * Add a new patient.
 	 * @param newPatientDTO NewPatientDTO
 	 * @return PatientDTO
-	 * @throws PatientAlreadyExists
+	 * @throws PatientAlreadyExistsException
 	 */
-	PatientDTO addPatient(NewPatientDTO newPatientDTO) throws PatientAlreadyExists;
+	PatientDTO addPatient(NewPatientDTO newPatientDTO) throws PatientAlreadyExistsException;
 	
 	/**
 	 * Get a patient by its id.
-	 * @param id int
+	 * @param id long
 	 * @return PatientDTO
 	 * @throws PatientNotFoundException
 	 */
-	PatientDTO getPatientById(int id) throws PatientNotFoundException;
+	PatientDTO getPatientById(long id) throws PatientNotFoundException;
 	
 	/**
 	 * Get all patients.
@@ -47,5 +47,12 @@ public interface IPatientService {
 	 * @param updatePatientDTO UpdatePatientDTO
 	 * @throws PatientNotFoundException
 	 */
-	void updatePatient(int id, UpdatePatientDTO updatePatientDTO) throws PatientNotFoundException;
+	void updatePatient(long id, UpdatePatientDTO updatePatientDTO) throws PatientNotFoundException;
+	
+	/**
+	 * Delete a patient by its id.
+	 * @param id long
+	 * @throws PatientNotFoundException
+	 */
+	void deletePatient(long id) throws PatientNotFoundException;
 }
