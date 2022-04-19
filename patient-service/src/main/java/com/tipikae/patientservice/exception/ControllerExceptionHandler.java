@@ -7,8 +7,6 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -29,31 +27,31 @@ public class ControllerExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 	
 	/**
-	 * Handle a ResourceNotFoundException.
-	 * @param e	ResourceNotFoundException
+	 * Handle a PatientNotFoundException.
+	 * @param e	PatientNotFoundException
 	 * @return ControllerException
 	 */
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(ResourceNotFoundException.class)
-	ControllerException exceptionHandler(ResourceNotFoundException e) {
+	@ExceptionHandler(PatientNotFoundException.class)
+	ControllerException exceptionHandler(PatientNotFoundException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.NOT_FOUND.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Resource not found.");
+		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Patient not found.");
 	}
 	
 	/**
-	 * Handle a DataIntegrityViolationException.
-	 * @param e	DataIntegrityViolationException
+	 * Handle a PatientAlreadyExistsException.
+	 * @param e	PatientAlreadyExistsException
 	 * @return ControllerException
 	 */
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	ControllerException exceptionHandler(DataIntegrityViolationException e) {
+	@ExceptionHandler(PatientAlreadyExistsException.class)
+	ControllerException exceptionHandler(PatientAlreadyExistsException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.CONFLICT.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.CONFLICT.value(), "Resource already exists.");
+		return new ControllerException(HttpStatus.CONFLICT.value(), "Patient already exists.");
 	}
 	
 	/**
