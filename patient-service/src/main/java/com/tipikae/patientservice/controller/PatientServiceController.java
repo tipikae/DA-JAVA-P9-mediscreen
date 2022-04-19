@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
@@ -37,7 +37,7 @@ import com.tipikae.patientservice.service.IPatientServiceService;
  * @version 1.0
  *
  */
-@Component
+@RestController
 @Validated
 @RequestMapping("/patients")
 public class PatientServiceController {
