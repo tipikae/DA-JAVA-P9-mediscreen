@@ -27,9 +27,9 @@ import com.tipikae.patientservice.repository.IPatientRepository;
  *
  */
 @Service
-public class PatientServiceImpl implements IPatientService {
+public class PatientServiceServiceImpl implements IPatientServiceService {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceServiceImpl.class);
 	
 	@Autowired
 	private IPatientRepository patientRepository;

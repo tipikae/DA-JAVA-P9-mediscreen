@@ -28,10 +28,10 @@ import com.tipikae.patientservice.exception.PatientAlreadyExistsException;
 import com.tipikae.patientservice.exception.PatientNotFoundException;
 import com.tipikae.patientservice.model.Patient;
 import com.tipikae.patientservice.repository.IPatientRepository;
-import com.tipikae.patientservice.service.PatientServiceImpl;
+import com.tipikae.patientservice.service.PatientServiceServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-class PatientServiceTest {
+class PatientServiceServiceTest {
 	
 	@Mock
 	private IConverterPatientDTO converterPatientDTO;
@@ -40,7 +40,7 @@ class PatientServiceTest {
 	private IPatientRepository patientRepository;
 	
 	@InjectMocks
-	private PatientServiceImpl patientService;
+	private PatientServiceServiceImpl patientService;
 	
 	private static long id;
 	private static String family;

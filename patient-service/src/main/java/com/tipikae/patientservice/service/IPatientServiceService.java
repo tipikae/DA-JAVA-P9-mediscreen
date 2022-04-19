@@ -17,7 +17,7 @@ import com.tipikae.patientservice.exception.PatientNotFoundException;
  * @version 1.0
  *
  */
-public interface IPatientService {
+public interface IPatientServiceService {
 
 	/**
 	 * Add a new patient.
