@@ -41,10 +41,7 @@ public class ConverterPatientDTOImpl implements IConverterPatientDTO {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Patient convertUpdatePatientDTOToPatient(UpdatePatientDTO updatePatientDTO) {
-		Patient patient = new Patient();
-		patient.setFamily(updatePatientDTO.getFamily());
-		patient.setGiven(updatePatientDTO.getGiven());
+	public Patient convertUpdatePatientDTOToPatient(UpdatePatientDTO updatePatientDTO, Patient patient) {
 		patient.setDob(updatePatientDTO.getDob());
 		patient.setSex(updatePatientDTO.getSex());
 		patient.setAddress(updatePatientDTO.getAddress());

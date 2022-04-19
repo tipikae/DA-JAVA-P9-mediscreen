@@ -34,8 +34,9 @@ class ConvertPatientDTOTest {
 	@Test
 	void convertUpdatePatientDTOToPatient() {
 		String newAddress = "newAddress";
-		UpdatePatientDTO updatePatientDTO = new UpdatePatientDTO(family, given, dob, sex, newAddress, phone);
-		assertEquals(newAddress, converter.convertUpdatePatientDTOToPatient(updatePatientDTO).getAddress());
+		Patient patient = new Patient(1, family, given, dob, sex, address, phone);
+		UpdatePatientDTO updatePatientDTO = new UpdatePatientDTO(dob, sex, newAddress, phone);
+		assertEquals(newAddress, converter.convertUpdatePatientDTOToPatient(updatePatientDTO, patient).getAddress());
 	}
 
 	@Test

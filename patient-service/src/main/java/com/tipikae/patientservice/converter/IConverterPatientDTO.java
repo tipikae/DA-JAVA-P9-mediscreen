@@ -28,9 +28,10 @@ public interface IConverterPatientDTO {
 	/**
 	 * Convert UpdatePatientDTO.
 	 * @param updatePatientDTO UpdatePatientDTO
+	 * @param patient Patient
 	 * @return Patient
 	 */
-	Patient convertUpdatePatientDTOToPatient(UpdatePatientDTO updatePatientDTO);
+	Patient convertUpdatePatientDTOToPatient(UpdatePatientDTO updatePatientDTO, Patient patient);
 	
 	/**
 	 * Convert a Patient to PatientDTO.
