@@ -30,12 +30,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdatePatientDTO {
 
-	@NotBlank(message = "Lastname must not be empty.")
-	private String family;
-	
-	@NotBlank(message = "Firstname must not be empty.")
-	private String given;
-	
 	@NotNull(message = "Birthdate must not be empty.")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
