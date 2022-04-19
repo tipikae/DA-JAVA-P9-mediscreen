@@ -36,17 +36,21 @@ import feign.jackson.JacksonEncoder;
 @Configuration
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class HttpClientConfig {
+	
+	private static final String PATIENT_SERVICE_URL = "/patient-service";
 
-	@Value(value = "${client.patientService.url:}")
-	private String patientServiceUrl;
+	@Value(value = "${proxy.url:}")
+	private String proxyUrl;
 	
 	@Bean
 	public IPatientServiceClient getPatientServiceClient() {
+		
+	
 		return Feign.builder()
 				.encoder(new JacksonEncoder())
 				.decoder(feignDecoder())
 				.errorDecoder(new MyFeignErrorDecoder())
-				.target(IPatientServiceClient.class, patientServiceUrl);
+				.target(IPatientServiceClient.class, proxyUrl + PATIENT_SERVICE_URL);
 	}
 	
 	@Bean
