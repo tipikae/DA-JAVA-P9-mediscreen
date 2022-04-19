@@ -44,8 +44,6 @@ public class HttpClientConfig {
 	
 	@Bean
 	public IPatientServiceClient getPatientServiceClient() {
-		
-	
 		return Feign.builder()
 				.encoder(new JacksonEncoder())
 				.decoder(feignDecoder())
