@@ -3,8 +3,10 @@
  */
 package com.tipikae.patientservice.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import com.tipikae.patientservice.model.Patient;
 
@@ -14,7 +16,14 @@ import com.tipikae.patientservice.model.Patient;
  * @version 1.0
  *
  */
-@RepositoryRestResource
-public interface IPatientRepository extends JpaRepository<Patient, Integer> {
+@Repository
+public interface IPatientRepository extends JpaRepository<Patient, Long> {
 
+	/**
+	 * Find a patient by its family name AND its given name.
+	 * @param family String
+	 * @param given String
+	 * @return Optional
+	 */
+	List<Patient> findByFamilyAndGiven(String family, String given);
 }
