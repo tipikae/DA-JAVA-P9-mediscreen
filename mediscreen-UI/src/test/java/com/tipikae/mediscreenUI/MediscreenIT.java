@@ -15,79 +15,58 @@ import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.model.Patient;
 
 @SpringBootTest
 class MediscreenIT {
 	
 	@Autowired
 	private IPatientServiceClient patientClient;
-
+	
 	@Test
-	void getPatientsReturnsListWhenOk() throws BadRequestException, HttpClientException {
-		assertTrue(patientClient.getPatients().getContent().size() > 0);
-	}
-
-	@Test
-	void getPatientReturnsPatientWhenOk() throws PatientNotFoundException, BadRequestException, HttpClientException {
-		assertTrue(patientClient.getPatient(1).getContent().getGiven().equals("Test"));
-	}
-
-	@Test
-	void getPatientReturnsNotFoundWhenNotFound() {
-		assertThrows(PatientNotFoundException.class, () -> patientClient.getPatient(10000));
-	}
-
-	@Test
-	void addPatientReturnsPatientWhenOk() 
-			throws PatientAlreadyExistException, BadRequestException, HttpClientException {
-		String lastname = "TestUI";
-		NewPatientDTO newPatientDTO = new NewPatientDTO(lastname, "UI", LocalDate.now(), 'M', "address", "phone");
-		assertTrue(patientClient.addPatient(newPatientDTO).getContent().getFamily().equals(lastname));
-	}
-
-	@Test
-	void addPatientReturnsAlreadyExistsWhenAlreadyExists() 
-			throws PatientAlreadyExistException, BadRequestException, HttpClientException {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("TestUI2", "UI", LocalDate.now(), 'M', "address", "phone");
-		patientClient.addPatient(newPatientDTO);
-		assertThrows(PatientAlreadyExistException.class, () -> patientClient.addPatient(newPatientDTO));
-	}
-
-	@Test
-	void addPatientReturnsBadRequestWhenInvalidParameter() {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("", "UI", LocalDate.now(), 'M', "address", "phone");
-		assertThrows(BadRequestException.class, () -> patientClient.addPatient(newPatientDTO));
-	}
-
-	@Test
-	void updatePatientWhenOk() 
+	void test() 
 			throws PatientAlreadyExistException, BadRequestException, HttpClientException, PatientNotFoundException {
-		String family = "TestUI3";
-		String given = "UI3";
-		LocalDate date = LocalDate.now();
-		char sex = 'M';
+		long id;
+		String family = "UIfamily";
+		String given = "UIgiven";
+		LocalDate dob = LocalDate.of(2000, 01, 01);
+		char sex = 'F';
 		String address = "address";
 		String phone = "phone";
+		
+		// save
+		NewPatientDTO newPatientDTO = 
+				new NewPatientDTO(family, given, dob, sex, address, phone);
+		Patient patient = patientClient.addPatient(newPatientDTO);
+		assertTrue(patient.getFamily().equals(family));
+		assertThrows(PatientAlreadyExistException.class, () -> patientClient.addPatient(newPatientDTO));
+		
+		NewPatientDTO newPatientDTO2 = new NewPatientDTO("", given, dob, sex, address, phone);
+		assertThrows(BadRequestException.class, () -> patientClient.addPatient(newPatientDTO2));
+		
+		// get all
+		assertTrue(patientClient.getPatients().size() > 0);
+		
+		// get one
+		id = patient.getId();
+		assertTrue(patientClient.getPatient(id).getGiven().equals(given));
+		assertThrows(PatientNotFoundException.class, () -> patientClient.getPatient(10000));
+		
+		// update
 		String updatedAddress = "updatedAddress";
-		NewPatientDTO newPatientDTO = new NewPatientDTO(family, given, date, sex, address, phone);
-		int id = (int) patientClient.addPatient(newPatientDTO).getContent().getId();
-		UpdatePatientDTO updatePatientDTO = new UpdatePatientDTO(family, given, date, sex, updatedAddress, phone);
+		UpdatePatientDTO updatePatientDTO = new UpdatePatientDTO(dob, sex, updatedAddress, phone);
 		patientClient.updatePatient(id, updatePatientDTO);
-		assertTrue(patientClient.getPatient(id).getContent().getAddress().equals(updatedAddress));
-	}
-
-	/*@Test
-	void updatePatientReturnsNotFoundWhenNotFound() {
-		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("updateWhen", "notFound", LocalDate.now(), 'F', "address", "phone");
+		assertTrue(patientClient.getPatient(id).getAddress().equals(updatedAddress));
 		assertThrows(PatientNotFoundException.class, () -> patientClient.updatePatient(10000, updatePatientDTO));
-	}*/
-
-	@Test
-	void updatePatientReturnsBadRequestWhenInvalidParameter() {
-		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("family", "", LocalDate.now(), 'F', "address", "phone");
-		assertThrows(BadRequestException.class, () -> patientClient.updatePatient(10000, updatePatientDTO));
+		
+		UpdatePatientDTO updatePatientDTO2 = 
+				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "");
+		assertThrows(BadRequestException.class, () -> patientClient.updatePatient(10000, updatePatientDTO2));
+		
+		// delete
+		assertThrows(PatientNotFoundException.class, () -> patientClient.deletePatient(10000));
+		patientClient.deletePatient(id);
+		assertThrows(PatientNotFoundException.class, () -> patientClient.deletePatient(id));
 	}
 
 }

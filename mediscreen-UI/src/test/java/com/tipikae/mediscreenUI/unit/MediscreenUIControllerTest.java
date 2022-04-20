@@ -1,7 +1,7 @@
 package com.tipikae.mediscreenUI.unit;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
@@ -42,9 +40,12 @@ class MediscreenUIControllerTest {
 	@MockBean
 	private IPatientServiceClient patientClient;
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Get all patients
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void getAllPatientsReturnsListWhenOk() throws Exception {
-		when(patientClient.getPatients()).thenReturn(CollectionModel.of(new ArrayList<>()));
+	void getAllPatientsReturns200ListWhenOk() throws Exception {
+		when(patientClient.getPatients()).thenReturn(new ArrayList<>());
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/list"));
@@ -58,10 +59,13 @@ class MediscreenUIControllerTest {
 			.andExpect(view().name("error/400"));
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Get a patient
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void getPatientReturnsPatientWhenOk() throws Exception {
-		Patient patient = new Patient(1L, "family", "given", LocalDate.now(), 'F', "address", "phone");
-		when(patientClient.getPatient(anyInt())).thenReturn(EntityModel.of(patient));
+	void getPatientReturns200PatientWhenOk() throws Exception {
+		Patient patient = new Patient(1L, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
+		when(patientClient.getPatient(anyLong())).thenReturn(patient);
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/get"));
@@ -69,7 +73,7 @@ class MediscreenUIControllerTest {
 
 	@Test
 	void getPatientReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyInt());
+		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -77,23 +81,30 @@ class MediscreenUIControllerTest {
 
 	@Test
 	void getPatientReturns400WhenHttpClientException() throws Exception {
-		doThrow(HttpClientException.class).when(patientClient).getPatient(anyInt());
+		doThrow(HttpClientException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/400"));
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Show add form
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void showAddFormReturnsAdd() throws Exception {
+	void showAddFormReturns200Add() throws Exception {
 		mockMvc.perform(get(ROOT + "/add"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/add"));
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Add a patient
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void addPatientReturnsListWhenOk() throws Exception {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
-		when(patientClient.addPatient(any(NewPatientDTO.class))).thenReturn(EntityModel.of(new Patient()));
+	void addPatientReturns3xxSuccessWhenOk() throws Exception {
+		NewPatientDTO newPatientDTO = 
+				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
+		when(patientClient.addPatient(any(NewPatientDTO.class))).thenReturn(new Patient());
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -101,8 +112,9 @@ class MediscreenUIControllerTest {
 	}
 
 	@Test
-	void addPatientReturnsAddWhenBadParameter() throws Exception {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("family", "", LocalDate.now(), 'F', "address", "phone");
+	void addPatientReturns200WhenBadField() throws Exception {
+		NewPatientDTO newPatientDTO = 
+				new NewPatientDTO("family", "", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().isOk())
@@ -110,8 +122,9 @@ class MediscreenUIControllerTest {
 	}
 
 	@Test
-	void addPatientReturnsListWhenPatientAlreadyExists() throws Exception {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
+	void addPatientReturns3xxErrorWhenPatientAlreadyExists() throws Exception {
+		NewPatientDTO newPatientDTO = 
+				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
 		doThrow(PatientAlreadyExistException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
@@ -120,8 +133,9 @@ class MediscreenUIControllerTest {
 	}
 
 	@Test
-	void addPatientReturnsListWhenBadRequest() throws Exception {
-		NewPatientDTO newPatientDTO = new NewPatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
+	void addPatientReturns3xxErrorWhenBadRequest() throws Exception {
+		NewPatientDTO newPatientDTO = 
+				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
 		doThrow(BadRequestException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
@@ -129,9 +143,13 @@ class MediscreenUIControllerTest {
 			.andExpect(view().name("redirect:/patient/all?error=Request error."));
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Show update form
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void showUpdateFormReturnsUpdateWhenOk() throws Exception {
-		when(patientClient.getPatient(anyInt())).thenReturn(EntityModel.of(new Patient()));
+	void showUpdateFormReturns200UpdateWhenOk() throws Exception {
+		when(patientClient.getPatient(anyLong()))
+			.thenReturn(new Patient(1, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone"));
 		mockMvc.perform(get(ROOT + "/update/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/update"));
@@ -139,18 +157,21 @@ class MediscreenUIControllerTest {
 
 	@Test
 	void showUpdateFormReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyInt());
+		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/update/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Update a patient
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
-	void updatePatientReturns200WhenOk() throws Exception {
+	void updatePatientReturns3xxSuccessWhenOk() throws Exception {
 		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
-		doNothing().when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
+				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
+		doNothing().when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -158,22 +179,22 @@ class MediscreenUIControllerTest {
 	}
 
 	@Test
-	void updatePatientReturnsErrorWhenBadParameter() throws Exception {
-		int id = 1;
+	void updatePatientReturns3xxErrorWhenBadField() throws Exception {
+		long id = 1;
 		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("", "given", LocalDate.now(), 'F', "address", "phone");
+				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "", "phone");
 		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/patient/update/" + id + "?error=" + "Lastname must not be empty. "));
+			.andExpect(view().name("redirect:/patient/update/" + id + "?error=" + "Address must not be empty. "));
 	}
 
 	@Test
-	void updatePatientReturnsListWhenPatientNotFound() throws Exception {
+	void updatePatientReturns3xxErrorWhenPatientNotFound() throws Exception {
 		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
+				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
 		doThrow(PatientNotFoundException.class)
-			.when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
+			.when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/1")
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -181,11 +202,11 @@ class MediscreenUIControllerTest {
 	}
 
 	@Test
-	void updatePatientReturnsListWhenBadRequest() throws Exception {
+	void updatePatientReturns3xxErrorWhenBadRequest() throws Exception {
 		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
-				new UpdatePatientDTO("family", "given", LocalDate.now(), 'F', "address", "phone");
-		doThrow(BadRequestException.class).when(patientClient).updatePatient(anyInt(), any(UpdatePatientDTO.class));
+				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
+		doThrow(BadRequestException.class).when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
