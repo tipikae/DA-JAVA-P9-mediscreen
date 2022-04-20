@@ -4,6 +4,7 @@
 package com.tipikae.mediscreenUI.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class MediscreenUIController {
 	public String getAllPatients(Model model) {
 		LOGGER.info("Getting all patients");
 		try {
-			model.addAttribute("patients", patientClient.getPatients().getContent());
+			model.addAttribute("patients", patientClient.getPatients());
 			return "patient/list";
 		} catch (Exception e) {
 			log("getAllPatients", e);
@@ -60,15 +61,15 @@ public class MediscreenUIController {
 	
 	/**
 	 * Get a patient.
-	 * @param id Integer
+	 * @param id long
 	 * @param model Model
 	 * @return String
 	 */
 	@GetMapping("/{id}")
-	public String getPatient(@PathVariable("id") @Positive Integer id, Model model) {
+	public String getPatient(@PathVariable("id") @NotNull @Positive long id, Model model) {
 		LOGGER.info("Getting patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id).getContent());
+			model.addAttribute("patient", patientClient.getPatient(id));
 			return "patient/get";
 		} catch (PatientNotFoundException e) {
 			log("getPatient", e);
@@ -90,6 +91,7 @@ public class MediscreenUIController {
 		if(!model.containsAttribute("patient")) {
     		model.addAttribute("patient", new Patient());
     	}
+		
 		return "patient/add";
 	}
 
@@ -130,15 +132,15 @@ public class MediscreenUIController {
 	
 	/**
 	 * Get update form.
-	 * @param id Integer
+	 * @param id long
 	 * @param model Model
 	 * @return String
 	 */
 	@GetMapping("/update/{id}")
-	public String showUpdateForm(@PathVariable("id") @Positive Integer id, Model model) {
+	public String showUpdateForm(@PathVariable("id") @NotNull @Positive long id, Model model) {
 		LOGGER.info("Getting update form for patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id).getContent());
+			model.addAttribute("patient", patientClient.getPatient(id));
 			return "patient/update";
 		} catch (PatientNotFoundException e) {
 			log("showUpdateForm", e);
@@ -151,7 +153,7 @@ public class MediscreenUIController {
 	
 	/**
 	 * Update a	patient.
-	 * @param id Integer
+	 * @param id long
 	 * @param updatePatientDTO UpdatePatientDTO
 	 * @param result BindingResult
 	 * @param model Model
@@ -159,7 +161,7 @@ public class MediscreenUIController {
 	 */
 	@PostMapping("/update/{id}")
 	public String updatePatient(
-    		@PathVariable("id") @Positive Integer id, 
+    		@PathVariable("id") @NotNull @Positive long id, 
     		@ModelAttribute("patient") @Valid UpdatePatientDTO updatePatientDTO,
             BindingResult result, 
     		Model model) {
@@ -182,6 +184,24 @@ public class MediscreenUIController {
 			return "redirect:/patient/all?error=Request error.";
 		} catch (Exception e) {
 			log("updatePatient", e);
+			return "redirect:/patient/all?error=An error occured.";
+		}
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String deletePatient(@PathVariable("id") @NotNull @Positive long id) {
+		LOGGER.info("Deleting patient with id=" + id);
+		try {
+			patientClient.deletePatient(id);
+			return "redirect:/patient/all?success=Patient deleted.";
+		} catch (PatientNotFoundException e) {
+			log("deletePatient", e);
+			return "redirect:/patient/all?error=Patient not found.";
+		} catch (BadRequestException e) {
+			log("deletePatient", e);
+			return "redirect:/patient/all?error=Request error.";
+		} catch (Exception e) {
+			log("deletePatient", e);
 			return "redirect:/patient/all?error=An error occured.";
 		}
 	}

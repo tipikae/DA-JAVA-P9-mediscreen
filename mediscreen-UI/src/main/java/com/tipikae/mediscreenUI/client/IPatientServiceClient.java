@@ -2,8 +2,7 @@
  * 
  */
 package com.tipikae.mediscreenUI.client;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
+import java.util.List;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -27,41 +26,41 @@ public interface IPatientServiceClient {
 
 	/**
 	 * Get patients list.
-	 * @return CollectionModel
+	 * @return List
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /patients")
-	CollectionModel<Patient> getPatients() throws BadRequestException, HttpClientException;
+	@RequestLine("GET /patients/")
+	List<Patient> getPatients() throws BadRequestException, HttpClientException;
 	
 	/**
 	 * Get a patient.
-	 * @param id Integer
-	 * @return EntityModel
+	 * @param id long
+	 * @return Patient
 	 * @throws PatientNotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /patients/{id}")
-	EntityModel<Patient> getPatient(@Param("id") Integer id) 
+	Patient getPatient(@Param("id") long id) 
 			throws PatientNotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Add new patient.
 	 * @param newPatientDTO NewPatientDTO
-	 * @return EntityModel
+	 * @return Patient
 	 * @throws PatientAlreadyExistException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("POST /patients")
+	@RequestLine("POST /patients/")
     @Headers("Content-Type: application/json")
-	EntityModel<Patient> addPatient(NewPatientDTO newPatientDTO) 
+	Patient addPatient(NewPatientDTO newPatientDTO) 
 			throws PatientAlreadyExistException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Update a patient.
-	 * @param id Integer
+	 * @param id long
 	 * @param updatePatientDTO UpdatePatientDTO
 	 * @throws PatientNotFoundException
 	 * @throws BadRequestException
@@ -69,6 +68,18 @@ public interface IPatientServiceClient {
 	 */
 	@RequestLine("PUT /patients/{id}")
     @Headers("Content-Type: application/json")
-	void updatePatient(@Param("id") Integer id, UpdatePatientDTO updatePatientDTO) 
+	void updatePatient(@Param("id") long id, UpdatePatientDTO updatePatientDTO) 
 			 throws PatientNotFoundException, BadRequestException, HttpClientException;
+	
+	/**
+	 * Delete a patient.
+	 * @param id long
+	 * @throws PatientNotFoundException
+	 * @throws BadRequestException
+	 * @throws HttpClientException
+	 */
+	@RequestLine("DELETE /patients/{id}")
+	void deletePatient(@Param("id") long id) 
+			 throws PatientNotFoundException, BadRequestException, HttpClientException;
+	
 }
