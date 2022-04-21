@@ -1,1 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<changeSet id="1" author="tipikae">
+	<ext:createCollection collectionName="note">
+		<ext:options>
+			{
+			validator: {
+				$jsonSchema: {
+					bsonType: "object",
+					required: ["patId", "date", "e"],
+					properties: {
+						patId: {
+							bsonType: "long",
+							description: "Patient Id"
+						},
+						date: {
+							bsonType: "date",
+							description: "Note date"
+						},
+						e: {
+							bsonType: "string",
+							description: "Note"
+						}
+					}
+				}
+			},
+			validationAction: "warn",
+			validationLevel: "strict"
+			}
+		</ext:options>
+	</ext:createCollection>
+</changeSet>
