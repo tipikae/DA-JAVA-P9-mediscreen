@@ -35,7 +35,6 @@ dependencies {
 	implementation 'org.liquibase.ext:liquibase-mongodb:4.9.1'
 	implementation 'org.mongodb:mongo-java-driver:3.12.10'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.5'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
