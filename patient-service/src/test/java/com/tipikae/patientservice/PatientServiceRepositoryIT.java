@@ -12,7 +12,7 @@ import com.tipikae.patientservice.model.Patient;
 import com.tipikae.patientservice.repository.IPatientRepository;
 
 @SpringBootTest
-class PatientServiceRepositoryTest {
+class PatientServiceRepositoryIT {
 	
 	@Autowired
 	private IPatientRepository patientRepository;
