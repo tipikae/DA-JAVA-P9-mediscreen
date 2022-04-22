@@ -48,6 +48,11 @@ public class NoteServiceController {
 	@Autowired
 	private INoteServiceService noteService;
 	
+	/**
+	 * Add a ne note.
+	 * @param newNoteDTO NewNoteDTO
+	 * @return ResponseEntity
+	 */
 	@PostMapping(value = "/", consumes = {"application/json"})
 	public ResponseEntity<NoteDTO> addNewNote(@RequestBody @Valid NewNoteDTO newNoteDTO) {
 		LOGGER.info("Adding a new note");
@@ -56,6 +61,12 @@ public class NoteServiceController {
 		return new ResponseEntity<NoteDTO>(noteDTO, HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Get a note.
+	 * @param id String
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<NoteDTO> getNote(@PathVariable("id") @NotBlank String id) 
 			throws NoteNotFoundException {
@@ -65,6 +76,11 @@ public class NoteServiceController {
 		return new ResponseEntity<NoteDTO>(noteDTO, HttpStatus.OK);
 	}
 	
+	/**
+	 * Get all patient's notes.
+	 * @param patId long
+	 * @return ResponseEntity
+	 */
 	@GetMapping("/search")
 	public ResponseEntity<List<NoteDTO>> getPatientNotes(
 			@RequestParam(name = "patId", required = true) @NotNull @Positive long patId) {
@@ -74,6 +90,13 @@ public class NoteServiceController {
 		return new ResponseEntity<List<NoteDTO>>(noteDTOs, HttpStatus.OK);
 	}
 	
+	/**
+	 * Update a note.
+	 * @param id String
+	 * @param updateNoteDTO
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
 	@PutMapping(value = "/{id}", consumes = {"application/json"})
 	public ResponseEntity<Object> updateNote(
 			@PathVariable("id") @NotBlank String id, 
@@ -85,6 +108,12 @@ public class NoteServiceController {
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 	
+	/**
+	 * Delete a note.
+	 * @param id String
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteNote(@PathVariable("id") @NotBlank String id) 
 			throws NoteNotFoundException {
