@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.noteservice.logging;
+package com.tipikae.noteservice.exception;
 
 /**
  * Parent exception for all application's exceptions.
