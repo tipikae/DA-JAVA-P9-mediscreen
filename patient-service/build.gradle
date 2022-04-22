@@ -53,13 +53,15 @@ liquibase {
     activities {
         main {
         	File propsFile = new File("${project.rootDir}/patient-service/src/main/resources/liquibase.properties")
-		    Properties properties = new Properties()
-		    properties.load(new FileInputStream(propsFile))
-        	changeLogFile properties['changeLogFile']
-        	driver properties['driver']
-            url properties['url']
-            username properties['username']
-            password properties['password']
+		    Properties props = new Properties()
+		    InputStream fis = new FileInputStream(propsFile)
+		    props.load(fis)
+            fis.close()
+            
+        	driver props['driver']
+            url props['url']
+            username props['username']
+            password props['password']
          }
     }
 }
