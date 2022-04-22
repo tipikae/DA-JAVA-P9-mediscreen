@@ -1,23 +1,28 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.exception;
+package com.tipikae.mediscreenUI.errorDecoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.HttpClientException;
+import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
+import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
 /**
- * Custom Feign error decoder.
+ * Patient service error decoder.
  * @author tipikae
  * @version 1.0
  *
  */
-public class MyFeignErrorDecoder implements ErrorDecoder {
+public class PatientServiceErrorDecoder implements ErrorDecoder {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(MyFeignErrorDecoder.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceErrorDecoder.class);
 	
 	private final ErrorDecoder defaultErrorDecoder = new Default();
 
