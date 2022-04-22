@@ -16,14 +16,14 @@ import com.tipikae.noteservice.repository.INoteServiceRepository;
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableMongoRepositories
+//@EnableMongoRepositories
 public class NoteServiceApplication implements CommandLineRunner {
 	
 	@Autowired
 	private Environment env;
 	
-	@Autowired
-	private INoteServiceRepository noteRepository;
+	/*@Autowired
+	private INoteServiceRepository noteRepository;*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(NoteServiceApplication.class, args);
@@ -31,7 +31,7 @@ public class NoteServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// save notes only in dev profile for integration testing with others microservices
+		/*// save notes only in dev profile for integration testing with others microservices
 		if(env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
 			// delete all
 			noteRepository.deleteAll();
@@ -46,7 +46,7 @@ public class NoteServiceApplication implements CommandLineRunner {
 			Note note4 = new Note(null, 3, LocalDate.of(2022, 01, 01), 
 					"Patient: TestInDanger Practitioner's notes/recommendations: Patient states that they are short term Smoker");
 			Note note5 = new Note(null, 3, LocalDate.of(2022, 04, 01), 
-							"Patient: TestInDanger Practitioner's notes/recommendations: Patient states that they quit within last year Patient also complains that of Abnormal breathing spells Lab reports Cholesterol LDL high");
+					"Patient: TestInDanger Practitioner's notes/recommendations: Patient states that they quit within last year Patient also complains that of Abnormal breathing spells Lab reports Cholesterol LDL high");
 			Note note6 = new Note(null, 4, LocalDate.of(2022, 01, 01), 
 					"Patient: TestEarlyOnset Practitioner's notes/recommendations: Patient states that walking up stairs has become difficult Patient also complains that they are having shortness of breath Lab results indicate Antibodies present elevated Reaction to medication");
 			Note note7 = new Note(null, 4, LocalDate.of(2022, 02, 01), 
@@ -57,7 +57,7 @@ public class NoteServiceApplication implements CommandLineRunner {
 					"Patient: TestEarlyOnset Practitioner's notes/recommendations: Patient states that Body Height, Body Weight, Cholesterol, Dizziness and Reaction");
 			List<Note> notes = List.of(note1, note2, note3, note4, note5, note6, note7, note8, note9);
 			noteRepository.saveAll(notes);
-		}
+		}*/
 	}
 
 }
