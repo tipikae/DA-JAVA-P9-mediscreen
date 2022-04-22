@@ -13,6 +13,7 @@ import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 
 import feign.Headers;
+import feign.Param;
 import feign.RequestLine;
 
 /**
@@ -31,7 +32,7 @@ public interface INoteServiceClient {
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /notes/search?patId={patId}")
-	List<Note> getPatientNotes(long patId) 
+	List<Note> getPatientNotes(@Param("patId") long patId) 
 			throws BadRequestException, HttpClientException;
 
 	/**
@@ -43,7 +44,7 @@ public interface INoteServiceClient {
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /notes/id/{id}")
-	Note getNote(String id) 
+	Note getNote(@Param("id") String id) 
 			throws NoteNotFoundException, BadRequestException, HttpClientException;
 	
 	/**
@@ -68,7 +69,7 @@ public interface INoteServiceClient {
 	 */
 	@RequestLine("PUT /notes/{id}")
     @Headers("Content-Type: application/json")
-	void updateNote(String id, UpdateNoteDTO updateNoteDTO) 
+	void updateNote(@Param("id") String id, UpdateNoteDTO updateNoteDTO) 
 			throws NoteNotFoundException, BadRequestException, HttpClientException;
 
 	/**
@@ -79,6 +80,6 @@ public interface INoteServiceClient {
 	 * @throws HttpClientException
 	 */
 	@RequestLine("DELETE /notes/{id}")
-	void deleteNote(String id) 
+	void deleteNote(@Param("id") String id) 
 			throws NoteNotFoundException, BadRequestException, HttpClientException;
 }
