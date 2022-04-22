@@ -19,8 +19,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
-import com.tipikae.mediscreenUI.controller.MediscreenUIController;
+import com.tipikae.mediscreenUI.controller.PatientController;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
@@ -29,8 +30,8 @@ import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
-@WebMvcTest(controllers = MediscreenUIController.class)
-class MediscreenUIControllerTest {
+@WebMvcTest(controllers = PatientController.class)
+class PatientControllerTest {
 	
 	private static final String ROOT = "/patient"; 
 	
@@ -39,6 +40,9 @@ class MediscreenUIControllerTest {
 	
 	@MockBean
 	private IPatientServiceClient patientClient;
+	
+	@MockBean
+	private INoteServiceClient noteClient;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Get all patients

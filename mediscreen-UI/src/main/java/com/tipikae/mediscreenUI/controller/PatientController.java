@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -35,12 +36,15 @@ import com.tipikae.mediscreenUI.model.Patient;
  */
 @Controller
 @RequestMapping("/patient")
-public class MediscreenUIController {
+public class PatientController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MediscreenUIController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
 	
 	@Autowired
 	private IPatientServiceClient patientClient;
+	
+	@Autowired
+	private INoteServiceClient noteClient;
 	
 	/**
 	 * Get all patients list.
@@ -70,6 +74,7 @@ public class MediscreenUIController {
 		LOGGER.info("Getting patient with id=" + id);
 		try {
 			model.addAttribute("patient", patientClient.getPatient(id));
+			model.addAttribute("notes", noteClient.getPatientNotes(id));
 			return "patient/get";
 		} catch (PatientNotFoundException e) {
 			log("getPatient", e);
