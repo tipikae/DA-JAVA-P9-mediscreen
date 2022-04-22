@@ -34,7 +34,7 @@ class NoteServiceRepositoryIT {
 		assertEquals(e, noteRepository.findById(id).get().getE());
 		
 		// findAll
-		assertTrue(noteRepository.findAll().size() > 0);
+		assertTrue(noteRepository.findByPatId(patId).size() > 0);
 		
 		// update
 		String updatedE = e + " updated";
