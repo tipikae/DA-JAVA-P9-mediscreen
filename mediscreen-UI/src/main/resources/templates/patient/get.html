@@ -52,6 +52,29 @@
 				</table>
 			</div>
 		</div>
+		
+		<div class="container" th:object="${notes}">
+			<div class="row">
+				<a href="/note/add" class="btn btn-primary btn-sm">Add new note</a>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="note : ${notes}">
+							<td>
+								<a  th:text="${note.date}" 
+									th:href="@{/note/{id}(id=${note.id})}">date</a>
+							</td>
+							<td><a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 </body>
