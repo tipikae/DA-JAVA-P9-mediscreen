@@ -1,11 +1,11 @@
 package com.tipikae.mediscreenUI.unit;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +28,7 @@ import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.model.Patient;
 
 @WebMvcTest(controllers = NoteController.class)
 class NoteControllerTest {
@@ -48,32 +49,27 @@ private static final String ROOT = "/note";
 	@Test
 	void getNoteReturns200AndNoteWhenOk() throws Exception {
 		when(noteClient.getNote(anyString())).thenReturn(new Note());
+		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/get"));
 	}
 	
 	@Test
-	void getNoteReturns404WhenNNoteotFound() throws Exception {
-		doThrow(NoteNotFoundException.class).when(noteClient.getNote(anyString()));
+	void getNoteReturns404WhenNoteNotFound() throws Exception {
+		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		doThrow(NoteNotFoundException.class).when(noteClient).getNote(anyString());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
-			.andExpect(status().is(404))
+			.andExpect(status().is(200))
 			.andExpect(view().name("error/404"));
 	}
 	
 	@Test
 	void getNoteReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(noteClient.getNote(anyString()));
+		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
-			.andExpect(status().is(404))
+			.andExpect(status().is(200))
 			.andExpect(view().name("error/404"));
-	}
-	
-	@Test
-	void getNoteReturns400WhenBlankId() throws Exception {
-		mockMvc.perform(get(ROOT + "/1/"))
-			.andExpect(status().is(400))
-			.andExpect(view().name("error/400"));
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +77,8 @@ private static final String ROOT = "/note";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void showAddFormNoteReturns200FormWhenOk() throws Exception {
-		mockMvc.perform(get(ROOT + "/add"))
+		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		mockMvc.perform(get(ROOT + "/add/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/add"));
 		}
@@ -94,7 +91,7 @@ private static final String ROOT = "/note";
 		long patId = 1;
 		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, LocalDate.now(), "message");
 		when(noteClient.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
-		mockMvc.perform(post(ROOT + "/add")
+		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?success=New note added."));
@@ -104,7 +101,7 @@ private static final String ROOT = "/note";
 	void addNoteReturns200WhenBadField() throws Exception {
 		NewNoteDTO newNoteDTO = new NewNoteDTO(1, LocalDate.now(), "");
 		when(noteClient.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
-		mockMvc.perform(post(ROOT + "/add")
+		mockMvc.perform(post(ROOT + "/add/1")
 				.flashAttr("note", newNoteDTO))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/add"));
@@ -115,7 +112,7 @@ private static final String ROOT = "/note";
 		long patId = 1;
 		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, LocalDate.now(), "message");
 		doThrow(BadRequestException.class).when(noteClient).addNote(any(NewNoteDTO.class));
-		mockMvc.perform(post(ROOT + "/add")
+		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Request error."));
@@ -127,15 +124,17 @@ private static final String ROOT = "/note";
 	@Test
 	void showUpdateFormNoteReturns200AndNoteWhenOk() throws Exception {
 		when(noteClient.getNote(anyString())).thenReturn(new Note());
-		mockMvc.perform(get(ROOT + "/update/pouet"))
+		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		mockMvc.perform(get(ROOT + "/update/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/update"));
 	}
 	
 	@Test
 	void showUpdateFormNoteReturns404WhenNoteNotFound() throws Exception {
+		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
 		doThrow(NoteNotFoundException.class).when(noteClient).getNote(anyString());
-		mockMvc.perform(get(ROOT + "/update/pouet"))
+		mockMvc.perform(get(ROOT + "/update/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
 	}
@@ -148,7 +147,7 @@ private static final String ROOT = "/note";
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
 		doNothing().when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
-		mockMvc.perform(post(ROOT + "/update/pouet")
+		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?success=Note updated."));
@@ -158,10 +157,10 @@ private static final String ROOT = "/note";
 	void updateNoteReturns3xxErrorWhenBadField() throws Exception {
 		String id = "pouet";
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("");
-		mockMvc.perform(post(ROOT + "/update/" + id)
+		mockMvc.perform(post(ROOT + "/update/1/" + id)
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/note/update/" + id + "?error=Note must not be empty. "));
+			.andExpect(view().name("redirect:/note/update/1/" + id + "?error=Note must not be empty. "));
 	}
 	
 	@Test
@@ -169,7 +168,7 @@ private static final String ROOT = "/note";
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
 		doThrow(NoteNotFoundException.class).when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
-		mockMvc.perform(post(ROOT + "/update/pouet")
+		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Note not found."));
@@ -180,7 +179,7 @@ private static final String ROOT = "/note";
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
 		doThrow(BadRequestException.class).when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
-		mockMvc.perform(post(ROOT + "/update/pouet")
+		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Request error."));
@@ -193,7 +192,7 @@ private static final String ROOT = "/note";
 	void deleteNoteReturns3xxSuccessWhenOk() throws Exception {
 		long patId = 1;
 		doNothing().when(noteClient).deleteNote(anyString());
-		mockMvc.perform(delete(ROOT + "/pouet"))
+		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?success=Note deleted."));
 	}
@@ -202,7 +201,7 @@ private static final String ROOT = "/note";
 	void deleteNoteReturns3xxErrorWhenNoteNotFound() throws Exception {
 		long patId = 1;
 		doThrow(NoteNotFoundException.class).when(noteClient).deleteNote(anyString());
-		mockMvc.perform(delete(ROOT + "/pouet"))
+		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Note not found."));
 	}
@@ -211,7 +210,7 @@ private static final String ROOT = "/note";
 	void deleteNoteReturns3xxErrorWhenBadRequest() throws Exception {
 		long patId = 1;
 		doThrow(BadRequestException.class).when(noteClient).deleteNote(anyString());
-		mockMvc.perform(delete(ROOT + "/pouet"))
+		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Request error."));
 	}

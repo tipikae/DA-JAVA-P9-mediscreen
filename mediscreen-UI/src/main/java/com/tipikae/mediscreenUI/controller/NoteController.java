@@ -24,6 +24,10 @@ import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
+import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
+import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.model.Note;
 
 /**
  * Note controller.
@@ -55,7 +59,18 @@ public class NoteController {
 			@PathVariable("patId") @NotNull @Positive long patId, 
 			@PathVariable("id") @NotBlank String id, 
 			Model model) {
-		return null;
+		LOGGER.info("Getting a note with patientId=" + patId + " and id=" + id);
+		try {
+			model.addAttribute("patient", patientClient.getPatient(patId));
+			model.addAttribute("note", noteClient.getNote(id));
+			return "note/get";
+		} catch (NoteNotFoundException | PatientNotFoundException e) {
+			log("getNote", e);
+			return "error/404";
+		} catch (Exception e) {
+			log("getNote", e);
+			return "error/400";
+		}
 	}
 
 	/**
@@ -68,7 +83,21 @@ public class NoteController {
 	public String showAddFormNote(
 			@PathVariable("patId") @NotNull @Positive long patId, 
 			Model model) {
-		return null;
+		LOGGER.info("Getting add note form with patientId=" + patId);
+		if(!model.containsAttribute("note")) {
+    		model.addAttribute("note", new Note());
+    	}
+		
+		try {
+			model.addAttribute("patient", patientClient.getPatient(patId));
+			return "note/add";
+		} catch (PatientNotFoundException e) {
+			log("showAddFormNote", e);
+			return "error/404";
+		} catch (Exception e) {
+			log("showAddFormNote", e);
+			return "error/400";
+		}
 	}
 	
 	/**
@@ -85,7 +114,24 @@ public class NoteController {
 			@ModelAttribute("note") @Valid NewNoteDTO newNoteDTO,
 			BindingResult result, 
     		Model model) {
-		return null;
+		LOGGER.info("Adding a note for patientId=" + patId);
+		if(result.hasErrors()) {
+    		StringBuilder sb = new StringBuilder();
+    		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
+			LOGGER.debug("addNote: has errors:" + sb);
+			return "note/add";
+    	}
+		
+		try {
+			noteClient.addNote(newNoteDTO);
+			return "redirect:/patient/" + patId + "?success=New note added.";
+		} catch (BadRequestException e) {
+			log("addNote", e);
+			return "redirect:/patient/" + patId + "?error=Request error.";
+		} catch (Exception e) {
+			log("addNote", e);
+			return "redirect:/patient/" + patId + "?error=An error occured.";
+		}
 	}
 	
 	/**
@@ -100,7 +146,18 @@ public class NoteController {
 			@PathVariable("patId") @NotNull @Positive long patId, 
 			@PathVariable("id") @NotBlank String id, 
 			Model model) {
-		return null;
+		LOGGER.info("Getting update form with patientId=" + patId + " and id=" + id);
+		try {
+			model.addAttribute("patient", patientClient.getPatient(patId));
+			model.addAttribute("note", noteClient.getNote(id));
+			return "note/update";
+		} catch (PatientNotFoundException | NoteNotFoundException e) {
+			log("showUpdateFormNote", e);
+			return "error/404";
+		} catch (Exception e) {
+			log("showUpdateFormNote", e);
+			return "error/400";
+		}
 	}
 	
 	/**
@@ -119,7 +176,27 @@ public class NoteController {
     		@ModelAttribute("note") @Valid UpdateNoteDTO updateNoteDTO,
             BindingResult result, 
     		Model model) {
-		return null;
+		LOGGER.info("Updating a note with patientId=" + patId + " and id=" + id);
+		if(result.hasErrors()) {
+    		StringBuilder sb = new StringBuilder();
+    		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
+			LOGGER.debug("updateNote: has errors:" + sb);
+			return "redirect:/note/update/" + patId + "/" + id + "?error=" + sb;
+    	}
+		
+		try {
+			noteClient.updateNote(id, updateNoteDTO);
+			return "redirect:/patient/" + patId + "?success=Note updated.";
+		} catch (NoteNotFoundException e) {
+			log("updateNote", e);
+			return "redirect:/patient/" + patId + "?error=Note not found.";
+		} catch (BadRequestException e) {
+			log("updateNote", e);
+			return "redirect:/patient/" + patId + "?error=Request error.";
+		} catch (Exception e) {
+			log("updateNote", e);
+			return "redirect:/patient/" + patId + "?error=An error occured.";
+		}
 	}
 	
 	/**
@@ -132,7 +209,20 @@ public class NoteController {
 	public String deleteNote(
 			@PathVariable("patId") @NotNull @Positive long patId,
 			@PathVariable("id") @NotBlank String id) {
-		return null;
+		LOGGER.info("Deleting note with id=" + id);
+		try {
+			noteClient.deleteNote(id);
+			return "redirect:/patient/" + patId + "?success=Note deleted.";
+		} catch (NoteNotFoundException e) {
+			log("deleteNote", e);
+			return "redirect:/patient/" + patId + "?error=Note not found.";
+		} catch (BadRequestException e) {
+			log("deleteNote", e);
+			return "redirect:/patient/" + patId + "?error=Request error.";
+		} catch (Exception e) {
+			log("deleteNote", e);
+			return "redirect:/patient/" + patId + "?error=An error occured.";
+		}
 	}
 	
 	private void log(String method, Exception e) {
