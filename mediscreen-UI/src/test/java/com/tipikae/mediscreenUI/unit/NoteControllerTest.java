@@ -26,6 +26,7 @@ import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
+import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 
 @WebMvcTest(controllers = NoteController.class)
@@ -47,22 +48,30 @@ private static final String ROOT = "/note";
 	@Test
 	void getNoteReturns200AndNoteWhenOk() throws Exception {
 		when(noteClient.getNote(anyString())).thenReturn(new Note());
-		mockMvc.perform(get(ROOT + "/pouet"))
+		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/get"));
 	}
 	
 	@Test
-	void getNoteReturns404WhenNotFound() throws Exception {
+	void getNoteReturns404WhenNNoteotFound() throws Exception {
 		doThrow(NoteNotFoundException.class).when(noteClient.getNote(anyString()));
-		mockMvc.perform(get(ROOT + "/pouet"))
+		mockMvc.perform(get(ROOT + "/1/pouet"))
+			.andExpect(status().is(404))
+			.andExpect(view().name("error/404"));
+	}
+	
+	@Test
+	void getNoteReturns404WhenPatientNotFound() throws Exception {
+		doThrow(PatientNotFoundException.class).when(noteClient.getNote(anyString()));
+		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().is(404))
 			.andExpect(view().name("error/404"));
 	}
 	
 	@Test
 	void getNoteReturns400WhenBlankId() throws Exception {
-		mockMvc.perform(get(ROOT + "/"))
+		mockMvc.perform(get(ROOT + "/1/"))
 			.andExpect(status().is(400))
 			.andExpect(view().name("error/400"));
 	}
