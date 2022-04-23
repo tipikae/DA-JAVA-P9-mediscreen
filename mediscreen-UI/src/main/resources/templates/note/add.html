@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{template-empty}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>New note- Mediscreen</title>
 </head>
 <body>
-
+<div layout:fragment="content">
+	<div class="section">
+		<div class="container">
+			<div class="col-lg-12 spacer20">
+				<div class="row" th:object="${patient}">
+					<h2 th:text="*{given} + ' ' + *{family} + ': new note'">New note</h2>
+				</div>
+				<div class="row">
+					<form action="#" th:action="@{/note/add/{id}(id=${patient.id})}" 
+							th:object="${note}" method="post" class="form-horizontal">
+						<div class="form-group">
+							<label for="e" class="col-lg-12 control-label">Note</label>
+							<div class="col-lg-12">
+								<textarea th:field="*{e}" id="e" name="e" placeholder="Note" class="col-12" 
+										rows="10" cols="100" wrap="hard">
+								</textarea>
+								<p class="text-danger" th:if="${#fields.hasErrors('e')}" th:errors="*{e}"></p>
+							</div>
+						</div>
+						<input type="hidden" name="patId" th:value="${patient.id}" >
+						<div class="red" th:text="${#httpServletRequest.getParameter('error')}"></div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<a class="btn btn-danger btn-sm" 
+									th:href="@{/patient/{id}(id=${patient.id})}">Cancel</a>
+								<input class="btn btn-primary btn-sm" type="submit" value="Add note">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

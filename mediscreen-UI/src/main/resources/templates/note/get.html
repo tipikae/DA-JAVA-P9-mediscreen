@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{template-menu}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Note - Mediscreen</title>
 </head>
 <body>
-
+<div layout:fragment="content">
+	<div class="section">
+		<div class="container" th:object="${patient}">
+			<div class="row green" th:text="${#httpServletRequest.getParameter('success')}"></div>
+			<div class="row red" th:text="${#httpServletRequest.getParameter('error')}"></div>
+			<div class="row">
+				<a class="btn btn-link" th:href="@{/patient/{id}(id=${patient.id})}">Back to the patient</a>
+			</div>
+			<div class="row">
+				<h2 th:text="${patient.given} + ' ' + ${patient.family} + ': ' + ${note.date}">Patient</h2>
+			</div>
+			<div class="row">
+				<div>
+					<a th:href="@{/note/update/{patId}/{id}(patId=${patient.id}, id=${note.id})}" 
+						class="btn btn-primary btn-sm">Update the note</a>
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					<textarea th:field="${note.e}" id="e" name="e" placeholder="Note" class="col-12" 
+							rows="10" cols="100" wrap="hard" readonly>
+					</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
