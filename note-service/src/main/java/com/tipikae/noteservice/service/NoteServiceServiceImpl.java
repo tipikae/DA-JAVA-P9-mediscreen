@@ -3,6 +3,7 @@
  */
 package com.tipikae.noteservice.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +43,11 @@ public class NoteServiceServiceImpl implements INoteServiceService {
 	@Override
 	public NoteDTO addNote(NewNoteDTO newNoteDTO) {
 		LOGGER.debug("addNote: patId=" + newNoteDTO.getPatId());
+		Note note = noteConverter.convertNewNoteDTOToNote(newNoteDTO);
+		note.setDate(LocalDate.now());
+		
 		return noteConverter.convertNoteToNoteDTO(
-				noteRepository.save(
-						noteConverter.convertNewNoteDTOToNote(newNoteDTO)));
+				noteRepository.save(note));
 	}
 
 	/**

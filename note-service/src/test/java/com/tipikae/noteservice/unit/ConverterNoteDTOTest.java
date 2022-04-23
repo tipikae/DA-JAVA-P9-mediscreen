@@ -19,12 +19,12 @@ class ConverterNoteDTOTest {
 	
 	private String id = "id";
 	private long patId = 1;
-	private LocalDate date = LocalDate.of(2022, 01, 01);
+	private LocalDate date = LocalDate.now();
 	private String e = "message";
 
 	@Test
 	void convertNewNoteDTOToNote() {
-		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, date, e);
+		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, e);
 		assertEquals(patId, noteConverter.convertNewNoteDTOToNote(newNoteDTO).getPatId());
 	}
 

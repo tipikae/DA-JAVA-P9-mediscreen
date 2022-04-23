@@ -28,7 +28,6 @@ public class ConverterNoteDTOImpl implements IConverterNoteDTO {
 	@Override
 	public Note convertNewNoteDTOToNote(NewNoteDTO newNoteDTO) {
 		Note note = new Note();
-		note.setDate(newNoteDTO.getDate());
 		note.setE(newNoteDTO.getE());
 		note.setPatId(newNoteDTO.getPatId());
 		

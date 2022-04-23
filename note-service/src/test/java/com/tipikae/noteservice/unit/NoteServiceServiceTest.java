@@ -56,11 +56,11 @@ class NoteServiceServiceTest {
 	private static void setUp() {
 		id = "id";
 		patId = 1;
-		date = LocalDate.of(2022, 01, 01);
 		e = "message";
+		date = LocalDate.now();
 		note = new Note(id, patId, date, e);
 		noteDTO = new NoteDTO(id, patId, date, e);
-		newNoteDTO = new NewNoteDTO(patId, date, e);
+		newNoteDTO = new NewNoteDTO(patId, e);
 		updatedE = e + " updated";
 		updateNoteDTO = new UpdateNoteDTO(updatedE);
 		notes = List.of(note);

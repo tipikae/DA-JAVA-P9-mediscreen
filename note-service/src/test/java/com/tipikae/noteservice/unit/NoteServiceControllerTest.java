@@ -54,7 +54,7 @@ class NoteServiceControllerTest {
 	private static void setUp() {
 		id = "id";
 		patId = 1;
-		date = LocalDate.of(2022, 01, 01);
+		date = LocalDate.now();
 		e = "message";
 		noteDTO = new NoteDTO(id, patId, date, e);
 		noteDTOs = List.of(noteDTO);
@@ -67,7 +67,6 @@ class NoteServiceControllerTest {
 		mockMvc.perform(post(ROOT + "/")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"patId\": \"" + patId + "\","
-						+ "\"date\": \"" + date + "\","
 						+ "\"e\": \"" + e + "\"}"))
 			.andExpect(status().is(201))
 			.andExpect(jsonPath("$.patId", is(1)));
@@ -78,18 +77,6 @@ class NoteServiceControllerTest {
 		mockMvc.perform(post(ROOT + "/0")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"patId\": \"0\","
-						+ "\"date\": \"" + date + "\","
-						+ "\"e\": \"" + e + "\"}"))
-			.andExpect(status().is(400));
-	}
-
-	@Test
-	void addNewNoteReturns400WhenFutureDate() throws Exception {
-		LocalDate badDate = LocalDate.of(2030, 01, 01);
-		mockMvc.perform(post(ROOT + "/")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"patId\": \"" + patId + "\","
-						+ "\"date\": \"" + badDate + "\","
 						+ "\"e\": \"" + e + "\"}"))
 			.andExpect(status().is(400));
 	}
