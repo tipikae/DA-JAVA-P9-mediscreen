@@ -13,7 +13,7 @@
 		<div class="container" th:object="${patient}">
 			<div class="row green" th:text="${#httpServletRequest.getParameter('success')}"></div>
 			<div class="row red" th:text="${#httpServletRequest.getParameter('error')}"></div>
-			<div class="row"><a class="btn btn-link" href="/patient/all">Back to the list</a></div>
+			<div class="row"><a class="btn btn-link" href="/patient/all">Back to the patients</a></div>
 			<div class="row">
 				<h2 th:text="${patient.given} + ' ' + ${patient.family}">Patient</h2>
 			</div>
@@ -55,21 +55,24 @@
 		
 		<div class="container" th:object="${notes}">
 			<div class="row">
-				<a href="/note/add" class="btn btn-primary btn-sm">Add new note</a>
+				<a th:href="@{/note/add/{patId}(patId=${patient.id})}" 
+						class="btn btn-primary btn-sm">Add new note</a>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>Date</th>
+							<th>History</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="note : ${notes}">
 							<td>
-								<a  th:text="${note.date}" 
-									th:href="@{/note/{id}(id=${note.id})}">date</a>
+								<a th:text="${note.date}" 
+									th:href="@{/note/{patId}/{id}(patId=${patient.id}, id=${note.id})}">Date</a>
 							</td>
-							<td><a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a></td>
+							<td width="15%">
+								<a th:href="@{/note/delete/{patId}/{id}(patId=${patient.id}, id=${note.id})}">Delete</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
