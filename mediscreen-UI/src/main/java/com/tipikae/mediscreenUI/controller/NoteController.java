@@ -45,34 +45,43 @@ public class NoteController {
 
 	/**
 	 * Get a note.
+	 * @param patId long
 	 * @param id String
 	 * @param model Model
 	 * @return String
 	 */
-	@GetMapping("/{id}")
-	public String getNote(@PathVariable("id") @NotBlank String id, Model model) {
+	@GetMapping("/{patId}/{id}")
+	public String getNote(
+			@PathVariable("patId") @NotNull @Positive long patId, 
+			@PathVariable("id") @NotBlank String id, 
+			Model model) {
 		return null;
 	}
 
 	/**
 	 * Show note add form.
+	 * @param patId long
 	 * @param model Model
 	 * @return String
 	 */
-	@GetMapping("/add")
-	public String showAddFormNote(Model model) {
+	@GetMapping("/add/{patId}")
+	public String showAddFormNote(
+			@PathVariable("patId") @NotNull @Positive long patId, 
+			Model model) {
 		return null;
 	}
 	
 	/**
 	 * Add a note.
+	 * @param patId long
 	 * @param newNoteDTO NewNoteDTO
 	 * @param result BindingResult
 	 * @param model Model
 	 * @return String
 	 */
-	@PostMapping("/add")
+	@PostMapping("/add/{patId}")
 	public String addNote(
+			@PathVariable("patId") @NotNull @Positive long patId, 
 			@ModelAttribute("note") @Valid NewNoteDTO newNoteDTO,
 			BindingResult result, 
     		Model model) {
@@ -81,25 +90,31 @@ public class NoteController {
 	
 	/**
 	 * Show note update form.
+	 * @param patId long
 	 * @param id String
 	 * @param model Model
 	 * @return String
 	 */
-	@GetMapping("/update/{id}")
-	public String showUpdateFormNote(@PathVariable("id") @NotBlank String id, Model model) {
+	@GetMapping("/update/{patId}/{id}")
+	public String showUpdateFormNote(
+			@PathVariable("patId") @NotNull @Positive long patId, 
+			@PathVariable("id") @NotBlank String id, 
+			Model model) {
 		return null;
 	}
 	
 	/**
 	 * Update a note.
+	 * @param patId long
 	 * @param id String
 	 * @param updateNoteDTO UpdateNoteDTO
 	 * @param result BindingResult
 	 * @param model Model
 	 * @return String
 	 */
-	@PostMapping("/update/{id}")
+	@PostMapping("/update/{patId}/{id}")
 	public String updateNote(
+			@PathVariable("patId") @NotNull @Positive long patId, 
 			@PathVariable("id") @NotBlank String id, 
     		@ModelAttribute("note") @Valid UpdateNoteDTO updateNoteDTO,
             BindingResult result, 
@@ -109,11 +124,14 @@ public class NoteController {
 	
 	/**
 	 * Delete a note.
+	 * @param patId long
 	 * @param id String
 	 * @return String
 	 */
-	@GetMapping("/delete/{id}")
-	public String deleteNote(@PathVariable("id") @NotBlank String id) {
+	@GetMapping("/delete/{patId}/{id}")
+	public String deleteNote(
+			@PathVariable("patId") @NotNull @Positive long patId,
+			@PathVariable("id") @NotBlank String id) {
 		return null;
 	}
 	
