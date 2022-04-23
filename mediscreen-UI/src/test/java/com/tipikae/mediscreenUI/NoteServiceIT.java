@@ -26,18 +26,17 @@ class NoteServiceIT {
 	void test() throws BadRequestException, HttpClientException, NoteNotFoundException {
 		String id = null;
 		long patId = 10;
-		LocalDate date = LocalDate.of(2022, 01, 01);
 		String e = "message";
 		
 		// save
-		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, date, e);
+		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, e);
 		Note note = noteClient.addNote(newNoteDTO);
 		assertEquals(e, note.getE());
-		assertThrows(BadRequestException.class, () -> noteClient.addNote(new NewNoteDTO(patId, date, "")));
+		assertThrows(BadRequestException.class, () -> noteClient.addNote(new NewNoteDTO(patId, "")));
 		
 		// get
 		id = note.getId();
-		assertEquals(date, noteClient.getNote(id).getDate());
+		assertEquals(LocalDate.now(), noteClient.getNote(id).getDate());
 		assertThrows(NoteNotFoundException.class, () -> noteClient.getNote("pouet"));
 		assertThrows(BadRequestException.class, () -> noteClient.getNote(""));
 		

@@ -11,8 +11,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -89,7 +87,7 @@ private static final String ROOT = "/note";
 	@Test
 	void addNoteReturns3xxSuccessWhenOk() throws Exception {
 		long patId = 1;
-		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, LocalDate.now(), "message");
+		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, "message");
 		when(noteClient.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
 		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
@@ -98,19 +96,9 @@ private static final String ROOT = "/note";
 	}
 	
 	@Test
-	void addNoteReturns200WhenBadField() throws Exception {
-		NewNoteDTO newNoteDTO = new NewNoteDTO(1, LocalDate.now(), "");
-		when(noteClient.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
-		mockMvc.perform(post(ROOT + "/add/1")
-				.flashAttr("note", newNoteDTO))
-			.andExpect(status().isOk())
-			.andExpect(view().name("note/add"));
-	}
-	
-	@Test
 	void addNoteReturns3xxErrorWhenBadRequest() throws Exception {
 		long patId = 1;
-		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, LocalDate.now(), "message");
+		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, "message");
 		doThrow(BadRequestException.class).when(noteClient).addNote(any(NewNoteDTO.class));
 		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
@@ -151,16 +139,6 @@ private static final String ROOT = "/note";
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?success=Note updated."));
-	}
-	
-	@Test
-	void updateNoteReturns3xxErrorWhenBadField() throws Exception {
-		String id = "pouet";
-		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("");
-		mockMvc.perform(post(ROOT + "/update/1/" + id)
-				.flashAttr("note", updateNoteDTO))
-			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/note/update/1/" + id + "?error=Note must not be empty. "));
 	}
 	
 	@Test

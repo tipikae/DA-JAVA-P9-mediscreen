@@ -119,7 +119,16 @@ public class NoteController {
     		StringBuilder sb = new StringBuilder();
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("addNote: has errors:" + sb);
-			return "note/add";
+			try {
+				model.addAttribute("patient", patientClient.getPatient(patId));
+				return "note/add";
+			} catch (PatientNotFoundException e1) {
+				log("addNote", e1);
+				return "error/404";
+			} catch (Exception e1) {
+				log("addNote", e1);
+				return "error/400";
+			}
     	}
 		
 		try {
@@ -181,7 +190,16 @@ public class NoteController {
     		StringBuilder sb = new StringBuilder();
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("updateNote: has errors:" + sb);
-			return "redirect:/note/update/" + patId + "/" + id + "?error=" + sb;
+			try {
+				model.addAttribute("patient", patientClient.getPatient(patId));
+				return "redirect:/note/update/" + patId + "/" + id + "?error=" + sb;
+			} catch (PatientNotFoundException e1) {
+				log("updateNote", e1);
+				return "redirect:/note/" + patId + "/" + id + "?error=Patient not found.";
+			} catch (Exception e1) {
+				log("updateNote", e1);
+				return "redirect:/note/" + patId + "/" + id + "?error=An error occured.";
+			}
     	}
 		
 		try {
