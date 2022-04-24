@@ -18,24 +18,28 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import com.tipikae.noteservice.controller.NoteServiceController;
 import com.tipikae.noteservice.dto.NewNoteDTO;
 import com.tipikae.noteservice.dto.NoteDTO;
 import com.tipikae.noteservice.dto.UpdateNoteDTO;
 import com.tipikae.noteservice.exception.NoteNotFoundException;
 import com.tipikae.noteservice.service.INoteServiceService;
 
-@WebMvcTest(controllers = NoteServiceController.class)
+@SpringBootTest
 class NoteServiceControllerTest {
 	
 	@Autowired
+    private WebApplicationContext webApplicationContext;
+	
 	private MockMvc mockMvc;
 	
 	@MockBean
@@ -59,6 +63,13 @@ class NoteServiceControllerTest {
 		noteDTO = new NoteDTO(id, patId, date, e);
 		noteDTOs = List.of(noteDTO);
 	}
+	
+	@BeforeEach
+    public void setup() {
+       mockMvc = MockMvcBuilders.
+            webAppContextSetup(webApplicationContext)
+            .build();
+    }
 
 
 	@Test
