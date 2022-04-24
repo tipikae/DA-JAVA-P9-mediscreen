@@ -2,7 +2,6 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.liquibase.gradle' version '2.1.1'
 }
 
 group = 'com.tipikae'
@@ -25,16 +24,13 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.liquibase:liquibase-core:4.9.1'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -47,21 +43,4 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-liquibase {
-    activities {
-        main {
-        	File propsFile = new File("${project.rootDir}/patient-service/src/main/resources/liquibase.properties")
-		    Properties props = new Properties()
-		    InputStream fis = new FileInputStream(propsFile)
-		    props.load(fis)
-            fis.close()
-            
-        	driver props['driver']
-            url props['url']
-            username props['username']
-            password props['password']
-         }
-    }
 }

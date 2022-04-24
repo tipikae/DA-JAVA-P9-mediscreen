@@ -18,7 +18,7 @@ import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
 @SpringBootTest
-class MediscreenIT {
+class PatientServiceIT {
 	
 	@Autowired
 	private IPatientServiceClient patientClient;
