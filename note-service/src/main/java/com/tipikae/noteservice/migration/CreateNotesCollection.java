@@ -3,7 +3,6 @@
  */
 package com.tipikae.noteservice.migration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import io.mongock.api.annotations.BeforeExecution;
@@ -13,20 +12,19 @@ import io.mongock.api.annotations.RollbackBeforeExecution;
 import io.mongock.api.annotations.RollbackExecution;
 
 /**
- * Create collection changeUnit for Mongock
+ * Create notes collection.
  * @author tipikae
  * @version 1.0
  *
  */
-@ChangeUnit(id = "createCollection", order = "1", author = "tipikae")
-public class CreateCollection {
-
+@ChangeUnit(id = "createNotesCollection", order = "1", author = "tipikae")
+public class CreateNotesCollection {
+	
+	private final static String NOTES_COLL_NAME = "notes";
+	
 	private final MongoTemplate mongoTemplate;
 	
-	@Value("${mongo.database.collection.notes.name:notes}")
-	private String collName;
-	
-	public CreateCollection(MongoTemplate mongoTemplate) {
+	public CreateNotesCollection(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
 	}
 	
@@ -42,11 +40,13 @@ public class CreateCollection {
 	
 	@Execution
 	public void migrationMethod() {
-		mongoTemplate.createCollection(collName);
+		mongoTemplate.createCollection(NOTES_COLL_NAME);
 	}
 	
 	@RollbackExecution
 	public void rollback() {
-		mongoTemplate.dropCollection(collName);
+		if(mongoTemplate.collectionExists(NOTES_COLL_NAME)) {
+			mongoTemplate.dropCollection(NOTES_COLL_NAME);
+		}
 	}
 }
