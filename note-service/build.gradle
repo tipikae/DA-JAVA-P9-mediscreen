@@ -2,7 +2,6 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'org.liquibase.gradle' version '2.1.1'
 }
 
 group = 'com.tipikae'
@@ -31,9 +30,6 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	//implementation 'org.liquibase:liquibase-core:4.9.1'
-	//implementation 'org.liquibase.ext:liquibase-mongodb:4.9.1'
-	//implementation 'org.mongodb:mongo-java-driver:3.12.10'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -48,17 +44,3 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-/*liquibase {
-    activities {
-        main {
-        	File propsFile = new File("${project.rootDir}/note-service/src/main/resources/liquibase.properties")
-		    Properties properties = new Properties()
-		    properties.load(new FileInputStream(propsFile))
-        	changeLogFile properties['changeLogFile']
-            url properties['url']
-            username properties['username']
-            password properties['password']
-         }
-    }
-}*/
