@@ -13,9 +13,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
@@ -32,7 +33,7 @@ import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class AssessmentServiceServiceTest {
 	
 	@Mock
@@ -117,14 +118,6 @@ class AssessmentServiceServiceTest {
 		when(processData.calculate(any(Patient.class), anyList())).thenReturn(assessment);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);
-	}
-
-	@Test
-	void assessDiabetesByFamilyNameThrowsExceptionWhenBadRequest() 
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
-		doThrow(BadRequestException.class).when(noteClient).getPatientNotes(anyLong());
-		assertThrows(BadRequestException.class, 
-				() -> assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO));
 	}
 
 }

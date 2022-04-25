@@ -3,6 +3,7 @@
  */
 package com.tipikae.assessmentservice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +21,9 @@ import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
 import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.model.Assessment;
+import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.model.Patient;
 
 /**
  * Assessment service service.
@@ -48,20 +52,54 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO dto)
+	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO assessmentByIdDTO)
 			throws PatientNotFoundException, BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("assessDiabetesById: id=" + assessmentByIdDTO.getPatId());
+		Patient patient = patientService.getPatientById(assessmentByIdDTO.getPatId());
+		List<Note> notes = noteClient.getPatientNotes(assessmentByIdDTO.getPatId());
+		
+		return assessmentConverter.convertModelToDTO(getAssessment(patient, notes));
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<AssessmentDTO> assessDiabetesByFamilyName(AssessmentByFamilyDTO dto)
+	public List<AssessmentDTO> assessDiabetesByFamilyName(AssessmentByFamilyDTO assessmentByFamilyDTO)
 			throws BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("assessDiabetesByFamilyName: family=" + assessmentByFamilyDTO.getFamilyName());
+		List<Patient> patients = patientService.getPatientsByFamilyName(assessmentByFamilyDTO.getFamilyName());
+		List<AssessmentDTO> assessmentDTOs = new ArrayList<>();
+		
+		for(Patient patient: patients) {
+			List<Note> notes = noteClient.getPatientNotes(patient.getId());
+			assessmentDTOs.add(assessmentConverter.convertModelToDTO(getAssessment(patient, notes)));
+		}
+		
+		patients.forEach(patient -> {
+			try {
+				List<Note> notes;
+				notes = noteClient.getPatientNotes(patient.getId());
+				assessmentDTOs.add(assessmentConverter.convertModelToDTO(getAssessment(patient, notes)));
+			} catch (BadRequestException e) {
+				LOGGER.debug("assessDiabetesByFamilyName: BadRequestException: " + e.getMessage());
+				assessmentDTOs.add(assessmentConverter
+						.convertModelToDTO(
+								new Assessment("Patient id=" + patient.getId() + ": error getting notes.")));
+			} catch (HttpClientException e) {
+				LOGGER.debug("assessDiabetesByFamilyName: HttpClientException: " + e.getMessage());
+				assessmentDTOs.add(assessmentConverter
+						.convertModelToDTO(
+								new Assessment("Patient id=" + patient.getId() + ": error getting notes.")));
+			}
+		});
+		
+		return assessmentDTOs;
+	}
+	
+	private Assessment getAssessment(Patient patient, List<Note> notes) {
+		LOGGER.debug("getAssessment: patId=" + patient.getId());
+		return processData.calculate(patient, notes);
 	}
 
 }
