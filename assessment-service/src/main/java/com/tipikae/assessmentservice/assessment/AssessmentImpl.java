@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.model.Note;
 
@@ -16,6 +17,7 @@ import com.tipikae.assessmentservice.model.Note;
  * @version 1.0
  *
  */
+@Component
 public class AssessmentImpl implements IAssessment {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentImpl.class);
