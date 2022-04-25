@@ -24,7 +24,7 @@ public class AssessmentImpl implements IAssessment {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String assessDiabetes(List<Note> notes) {
+	public String assessDiabetes(int age, char sex, List<Note> notes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

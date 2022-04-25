@@ -17,8 +17,10 @@ public interface IAssessment {
 
 	/**
 	 * Assess diabetes risk of a patient.
+	 * @param age int
+	 * @param sex char
 	 * @param notes List
 	 * @return String
 	 */
-	String assessDiabetes(List<Note> notes);
+	String assessDiabetes(int age, char sex, List<Note> notes);
 }
