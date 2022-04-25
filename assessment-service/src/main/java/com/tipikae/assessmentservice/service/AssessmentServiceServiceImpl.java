@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
 import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
@@ -39,6 +40,9 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	
 	@Autowired
 	private INoteServiceClient noteClient;
+	
+	@Autowired
+	private IProcessData processData;
 
 	/**
 	 * {@inheritDoc}
