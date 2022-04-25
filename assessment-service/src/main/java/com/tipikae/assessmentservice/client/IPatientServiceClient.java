@@ -3,6 +3,8 @@
  */
 package com.tipikae.assessmentservice.client;
 
+import java.util.List;
+
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
 import com.tipikae.assessmentservice.exception.PatientNotFoundException;
@@ -27,7 +29,11 @@ public interface IPatientServiceClient {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /patients/{id}")
-	Patient getPatient(@Param("id") long id) 
+	@RequestLine("GET /patients/id/{id}")
+	Patient getPatientById(@Param("id") long id) 
 			throws PatientNotFoundException, BadRequestException, HttpClientException;
+	
+	@RequestLine("GET /patients/family/{family}")
+	List<Patient> getPatientsByFamilyName(@Param("family") String family) 
+			throws BadRequestException, HttpClientException;
 }
