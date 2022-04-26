@@ -2,7 +2,6 @@ package com.tipikae.assessmentservice.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyChar;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -20,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.tipikae.assessmentservice.assessment.Gender;
 import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
@@ -100,7 +100,7 @@ class AssessmentServiceServiceTest {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
-		when(processData.getRisk(anyInt(), anyChar(), anyList())).thenReturn(message);
+		when(processData.getRisk(anyInt(), any(Gender.class), anyList())).thenReturn(message);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertEquals(message, assessmentService.assessDiabetesById(assessmentByIdDTO).getMessage());
 	}
@@ -127,7 +127,7 @@ class AssessmentServiceServiceTest {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
-		when(processData.getRisk(anyInt(), anyChar(), anyList())).thenReturn(message);
+		when(processData.getRisk(anyInt(), any(Gender.class), anyList())).thenReturn(message);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);
 	}

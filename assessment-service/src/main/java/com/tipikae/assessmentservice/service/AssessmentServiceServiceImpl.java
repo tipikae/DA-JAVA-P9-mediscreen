@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tipikae.assessmentservice.assessment.Gender;
 import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
@@ -107,7 +108,14 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
 		int age = util.calculateAge(patient.getDob());
-		String result = processData.getRisk(age, patient.getSex(), notes);
+		
+		Gender gender;
+		if(patient.getSex() == 'M') {
+			gender = Gender.MALE;
+		} else {
+			gender = Gender.FEMALE;
+		}
+		String result = processData.getRisk(age, gender, notes);
 		
 		return new Assessment(viewResult.getResultView(patient, age, result));
 	}
