@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tipikae.assessmentservice.assessment.IProcessData;
+import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
 import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
@@ -24,6 +25,7 @@ import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
+import com.tipikae.assessmentservice.util.IUtil;
 
 /**
  * Assessment service service.
@@ -40,13 +42,19 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private IConverterAssessmentDTO assessmentConverter;
 	
 	@Autowired
-	private IPatientServiceClient patientService;
+	private IPatientServiceClient patientClient;
 	
 	@Autowired
 	private INoteServiceClient noteClient;
 	
 	@Autowired
 	private IProcessData processData;
+	
+	@Autowired
+	private IViewResult viewResult;
+	
+	@Autowired
+	private IUtil util;
 
 	/**
 	 * {@inheritDoc}
@@ -55,7 +63,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO assessmentByIdDTO)
 			throws PatientNotFoundException, BadRequestException, HttpClientException {
 		LOGGER.debug("assessDiabetesById: id=" + assessmentByIdDTO.getPatId());
-		Patient patient = patientService.getPatientById(assessmentByIdDTO.getPatId());
+		Patient patient = patientClient.getPatientById(assessmentByIdDTO.getPatId());
 		List<Note> notes = noteClient.getPatientNotes(assessmentByIdDTO.getPatId());
 		
 		return assessmentConverter.convertModelToDTO(getAssessment(patient, notes));
@@ -68,7 +76,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	public List<AssessmentDTO> assessDiabetesByFamilyName(AssessmentByFamilyDTO assessmentByFamilyDTO)
 			throws BadRequestException, HttpClientException {
 		LOGGER.debug("assessDiabetesByFamilyName: family=" + assessmentByFamilyDTO.getFamilyName());
-		List<Patient> patients = patientService.getPatientsByFamilyName(assessmentByFamilyDTO.getFamilyName());
+		List<Patient> patients = patientClient.getPatientsByFamilyName(assessmentByFamilyDTO.getFamilyName());
 		List<AssessmentDTO> assessmentDTOs = new ArrayList<>();
 		
 		for(Patient patient: patients) {
@@ -84,22 +92,31 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 			} catch (BadRequestException e) {
 				LOGGER.debug("assessDiabetesByFamilyName: BadRequestException: " + e.getMessage());
 				assessmentDTOs.add(assessmentConverter
-						.convertModelToDTO(
-								new Assessment("Patient id=" + patient.getId() + ": error getting notes.")));
+						.convertModelToDTO(getError(patient, "BadRequestException")));
 			} catch (HttpClientException e) {
 				LOGGER.debug("assessDiabetesByFamilyName: HttpClientException: " + e.getMessage());
 				assessmentDTOs.add(assessmentConverter
-						.convertModelToDTO(
-								new Assessment("Patient id=" + patient.getId() + ": error getting notes.")));
+						.convertModelToDTO(getError(patient, "HttpClientException")));
 			}
 		});
 		
 		return assessmentDTOs;
 	}
 	
+	// calculates risk and returns assessment
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
-		return processData.calculate(patient, notes);
+		int age = util.calculateAge(patient.getDob());
+		String result = processData.calculate(age, patient.getSex(), notes);
+		
+		return new Assessment(viewResult.getResultView(patient, age, result));
+	}
+	
+	// returns assessment with error message
+	private Assessment getError(Patient patient, String error) {
+		LOGGER.debug("getError: patientId=" + patient.getId());
+		
+		return new Assessment(viewResult.getErrorView(patient, error));
 	}
 
 }

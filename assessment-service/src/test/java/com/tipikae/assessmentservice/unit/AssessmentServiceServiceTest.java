@@ -2,6 +2,8 @@ package com.tipikae.assessmentservice.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyChar;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -19,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tipikae.assessmentservice.assessment.IProcessData;
+import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
 import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
@@ -32,6 +35,7 @@ import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
+import com.tipikae.assessmentservice.util.IUtil;
 
 @ExtendWith(MockitoExtension.class)
 class AssessmentServiceServiceTest {
@@ -48,6 +52,12 @@ class AssessmentServiceServiceTest {
 	@Mock
 	private IProcessData processData;
 	
+	@Mock
+	private IViewResult viewResult;
+	
+	@Mock
+	private IUtil util;
+	
 	@InjectMocks
 	private AssessmentServiceServiceImpl assessmentService;
 	
@@ -56,12 +66,12 @@ class AssessmentServiceServiceTest {
 	private static String given;
 	private static LocalDate dob;
 	private static char sex;
+	private static int age;
 	private static String message;
 	private static Patient patient;
 	private static Note note;
 	private static AssessmentByIdDTO assessmentByIdDTO;
 	private static AssessmentByFamilyDTO assessmentByFamilyDTO;
-	private static Assessment assessment;
 	private static AssessmentDTO assessmentDTO;
 	private static List<Note> notes;
 	private static List<Patient> patients;
@@ -73,12 +83,12 @@ class AssessmentServiceServiceTest {
 		given = "given";
 		dob = LocalDate.of(2000, 01, 01);
 		sex = 'M';
+		age = 22;
 		message = "message";
 		patient = new Patient(patId, family, given, dob, sex, "address", "phone");
 		note = new Note("id", patId, dob, "e");
 		assessmentByIdDTO = new AssessmentByIdDTO(patId);
 		assessmentByFamilyDTO = new AssessmentByFamilyDTO(family);
-		assessment = new Assessment(message);
 		assessmentDTO = new AssessmentDTO(message);
 		notes = List.of(note);
 		patients = List.of(patient);
@@ -89,7 +99,8 @@ class AssessmentServiceServiceTest {
 			throws PatientNotFoundException, BadRequestException, HttpClientException {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(processData.calculate(any(Patient.class), anyList())).thenReturn(assessment);
+		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
+		when(processData.calculate(anyInt(), anyChar(), anyList())).thenReturn(message);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertEquals(message, assessmentService.assessDiabetesById(assessmentByIdDTO).getMessage());
 	}
@@ -115,7 +126,8 @@ class AssessmentServiceServiceTest {
 			throws PatientNotFoundException, BadRequestException, HttpClientException {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(processData.calculate(any(Patient.class), anyList())).thenReturn(assessment);
+		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
+		when(processData.calculate(anyInt(), anyChar(), anyList())).thenReturn(message);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);
 	}
