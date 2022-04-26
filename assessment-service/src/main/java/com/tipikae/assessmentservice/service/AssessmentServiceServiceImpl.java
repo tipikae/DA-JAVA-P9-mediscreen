@@ -107,7 +107,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
 		int age = util.calculateAge(patient.getDob());
-		String result = processData.calculate(age, patient.getSex(), notes);
+		String result = processData.getRisk(age, patient.getSex(), notes);
 		
 		return new Assessment(viewResult.getResultView(patient, age, result));
 	}
