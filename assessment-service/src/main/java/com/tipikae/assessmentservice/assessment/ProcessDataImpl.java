@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.model.Note;
@@ -22,11 +23,14 @@ public class ProcessDataImpl implements IProcessData {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessDataImpl.class);
 	
+	@Autowired
+	private ITermCounter termCounter;
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String calculate(int age, char sex, List<Note> notes) {
+	public String getRisk(int age, char sex, List<Note> notes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

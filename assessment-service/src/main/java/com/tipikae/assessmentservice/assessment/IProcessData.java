@@ -16,11 +16,11 @@ import com.tipikae.assessmentservice.model.Note;
 public interface IProcessData {
 
 	/**
-	 * Calculate health risk.
+	 * Get health risk.
 	 * @param age int
 	 * @param sex char
 	 * @param notes List
 	 * @return String
 	 */
-	String calculate(int age, char sex, List<Note> notes);
+	String getRisk(int age, char sex, List<Note> notes);
 }
