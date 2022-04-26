@@ -18,9 +18,9 @@ public interface IProcessData {
 	/**
 	 * Get health risk.
 	 * @param age int
-	 * @param sex char
+	 * @param gender Gender
 	 * @param notes List
 	 * @return String
 	 */
-	String getRisk(int age, char sex, List<Note> notes);
+	String getRisk(int age, Gender gender, List<Note> notes);
 }
