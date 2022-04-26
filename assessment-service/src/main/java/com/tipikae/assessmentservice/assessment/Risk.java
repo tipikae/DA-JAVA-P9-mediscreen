@@ -13,13 +13,17 @@ public enum Risk {
 
 	NONE ("None"),
 	BORDERLINE ("Borderline"),
-	DANGER ("In Danger"),
-	EARLY ("Early onset");
+	INDANGER ("In Danger"),
+	EARLYONSET ("Early onset");
 	
 	@SuppressWarnings("unused")
 	private final String label;
 	
 	Risk(String label) {
 		this.label = label;
+	}
+	
+	public String getLabel() {
+		return label;
 	}
 }
