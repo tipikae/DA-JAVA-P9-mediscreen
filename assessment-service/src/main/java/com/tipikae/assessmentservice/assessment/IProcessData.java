@@ -5,9 +5,7 @@ package com.tipikae.assessmentservice.assessment;
 
 import java.util.List;
 
-import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
-import com.tipikae.assessmentservice.model.Patient;
 
 /**
  * Process data for assessment.
@@ -19,9 +17,10 @@ public interface IProcessData {
 
 	/**
 	 * Calculate health risk.
-	 * @param patient Patient
+	 * @param age int
+	 * @param sex char
 	 * @param notes List
-	 * @return Assessment
+	 * @return String
 	 */
-	Assessment calculate(Patient patient, List<Note> notes);
+	String calculate(int age, char sex, List<Note> notes);
 }

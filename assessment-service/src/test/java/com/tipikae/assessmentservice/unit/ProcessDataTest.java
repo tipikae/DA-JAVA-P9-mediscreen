@@ -1,30 +1,43 @@
 package com.tipikae.assessmentservice.unit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tipikae.assessmentservice.assessment.IAssessment;
+import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.assessment.ProcessDataImpl;
-import com.tipikae.assessmentservice.util.IUtil;
 
-@SpringBootTest
 class ProcessDataTest {
 	
-	@Mock
-	private IAssessment assessment;
+	private IProcessData processData = new ProcessDataImpl();
 	
-	@Mock
-	private IUtil util;
+	private static char sexM = 'M';
+	private static char sexF = 'F';
+	private static int age29 = 29;
+	private static int age30 = 30;
 	
-	@InjectMocks
-	private ProcessDataImpl processData;
+	
+	@BeforeAll
+	private static void setUp() {
+		
+	}
 
 	@Test
-	void calculate() {
+	void calculateReturnsNoneWhenNoTerm() {
+		
+	}
+
+	@Test
+	void calculateReturnsBorderlineWhen2TermsAndMore30() {
+		
+	}
+
+	@Test
+	void calculateReturnsInDangerWhenLess30AndManAnd3TermsOrWomanAnd4TermsOrMore30And6Terms() {
+		
+	}
+
+	@Test
+	void calculateReturnsEarlyOnsetWhenLess30AndManAnd5TermsOrWomanAnd7TermsOrMore30And8Terms() {
 		
 	}
 
