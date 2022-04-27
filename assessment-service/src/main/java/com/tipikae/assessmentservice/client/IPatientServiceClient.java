@@ -33,7 +33,7 @@ public interface IPatientServiceClient {
 	Patient getPatientById(@Param("id") long id) 
 			throws PatientNotFoundException, BadRequestException, HttpClientException;
 	
-	@RequestLine("GET /patients/family/{family}")
-	List<Patient> getPatientsByFamilyName(@Param("family") String family) 
+	@RequestLine("GET /patients/familyName/{familyName}")
+	List<Patient> getPatientsByFamilyName(@Param("familyName") String familyName) 
 			throws BadRequestException, HttpClientException;
 }
