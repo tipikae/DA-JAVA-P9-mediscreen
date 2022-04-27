@@ -55,14 +55,17 @@
 		
 		<div class="container">
 			<div class="row">
-				<a href="javascript:void(0);" th:onClick="assessHealth('byId', ${patient.id})"
-						class="btn btn-primary btn-sm">Assess patient</a>
-				<a href="javascript:void(0);" th:onClick="assessHealth('byFamily', ${patient.family})" 
-						class="btn btn-primary btn-sm">Assess family</a>
+				<a href="javascript:void(0);" th:data-assesstype="id" th:data-patid="${patient.id}"
+						class="btn btn-primary btn-sm assess">Assess patient</a>
+				<a href="javascript:void(0);" th:data-assesstype="family" th:data-family="${patient.family}" 
+						class="btn btn-primary btn-sm assess">Assess family</a>
 			</div>
 			<div class="row">
-				<div id="assessmentById" style="display: none;"></div>
-				<div id="assessmentByFamily" style="display: none;"></div>
+				<div id="assessmentById" th:if="${assessment != null && assessment.message != null}" 
+						th:text="${assessment.message}"></div>
+				<div id="assessmentByFamily" th:if="${assessments != null}" th:each="assessment : ${assessments}">
+					<div th:text="${assessment.message}"></div>
+				</div>
 			</div>
 		</div>
 		
