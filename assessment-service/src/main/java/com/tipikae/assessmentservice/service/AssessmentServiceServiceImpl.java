@@ -76,14 +76,10 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	@Override
 	public List<AssessmentDTO> assessDiabetesByFamilyName(AssessmentByFamilyDTO assessmentByFamilyDTO)
 			throws BadRequestException, HttpClientException {
-		LOGGER.debug("assessDiabetesByFamilyName: family=" + assessmentByFamilyDTO.getFamilyName());
 		List<Patient> patients = patientClient.getPatientsByFamilyName(assessmentByFamilyDTO.getFamilyName());
+		LOGGER.debug("assessDiabetesByFamilyName: family=" + assessmentByFamilyDTO.getFamilyName() 
+			+ ", size=" + patients.size());
 		List<AssessmentDTO> assessmentDTOs = new ArrayList<>();
-		
-		for(Patient patient: patients) {
-			List<Note> notes = noteClient.getPatientNotes(patient.getId());
-			assessmentDTOs.add(assessmentConverter.convertModelToDTO(getAssessment(patient, notes)));
-		}
 		
 		patients.forEach(patient -> {
 			try {
