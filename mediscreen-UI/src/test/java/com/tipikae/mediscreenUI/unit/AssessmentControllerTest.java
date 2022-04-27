@@ -43,7 +43,7 @@ class AssessmentControllerTest {
 			.thenReturn(new Assessment(message));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("assessmentById"))
+			.andExpect(model().attributeExists("assessment"))
 			.andExpect(view().name("patient/get :: #assessmentById"));
 	}
 
@@ -54,8 +54,8 @@ class AssessmentControllerTest {
 			.when(assessmentClient).getAssessmentById(any(AssessmentByIdDTO.class));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("assessmentById"))
-			.andExpect(model().attribute("assessmentById", is(expected)))
+			.andExpect(model().attributeExists("assessment"))
+			.andExpect(model().attribute("assessment", is(expected)))
 			.andExpect(view().name("patient/get :: #assessmentById"));
 	}
 
@@ -65,7 +65,7 @@ class AssessmentControllerTest {
 			.thenReturn(List.of(new Assessment(message)));
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("assessmentByFamily"))
+			.andExpect(model().attributeExists("assessment"))
 			.andExpect(view().name("patient/get :: #assessmentByFamily"));
 	}
 
@@ -76,8 +76,8 @@ class AssessmentControllerTest {
 			.thenReturn(List.of());
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("assessmentByFamily"))
-			.andExpect(model().attribute("assessmentByFamily", is(expected)))
+			.andExpect(model().attributeExists("assessments"))
+			.andExpect(model().attribute("assessments", is(expected)))
 			.andExpect(view().name("patient/get :: #assessmentByFamily"));
 	}
 

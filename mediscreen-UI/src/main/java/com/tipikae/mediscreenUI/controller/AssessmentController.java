@@ -53,12 +53,12 @@ public class AssessmentController {
 		LOGGER.info("getAssessmentById: id=" + id);
 		
 		try {
-			model.addAttribute("assessmentById", 
+			model.addAttribute("assessment", 
 					assessmentClient.getAssessmentById(new AssessmentByIdDTO(id)));
 			return "patient/get :: #assessmentById";
 		} catch (PatientNotFoundException e) {
 			LOGGER.debug("getAssessmentById: patient with id=" + id + " not found.");
-			model.addAttribute("assessmentById", "Error: patient not found.");
+			model.addAttribute("assessment", new Assessment("Error: patient not found."));
 			return "patient/get :: #assessmentById";
 		}
 	}
@@ -76,11 +76,11 @@ public class AssessmentController {
 		LOGGER.info("getAssessmentByFamily: family=" + family);
 		List<Assessment> assessments = assessmentClient.getAssessmentsByFamily(new AssessmentByFamilyDTO(family));
 		if(assessments.isEmpty()) {
-			model.addAttribute("assessmentByFamily", "No family members.");
+			model.addAttribute("assessments", List.of(new Assessment("No family members.")));
 			return "patient/get :: #assessmentByFamily";
 		}
 		
-		model.addAttribute("assessmentByFamily", assessments);
+		model.addAttribute("assessments", assessments);
 		return "patient/get :: #assessmentByFamily";
 	}
 	
