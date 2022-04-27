@@ -16,7 +16,6 @@ public enum Risk {
 	INDANGER ("In Danger"),
 	EARLYONSET ("Early onset");
 	
-	@SuppressWarnings("unused")
 	private final String label;
 	
 	Risk(String label) {

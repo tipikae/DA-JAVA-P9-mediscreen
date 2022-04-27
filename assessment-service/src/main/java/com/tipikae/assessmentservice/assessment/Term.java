@@ -23,7 +23,6 @@ public enum Term {
 	REACTION ("Réaction"),
 	ANTICORPS ("Anticorps");
 	
-	@SuppressWarnings("unused")
 	private String label;
 	
 	Term(String label) {
