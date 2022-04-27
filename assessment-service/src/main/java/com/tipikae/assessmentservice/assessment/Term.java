@@ -11,17 +11,17 @@ package com.tipikae.assessmentservice.assessment;
  */
 public enum Term {
 
-	HEMOGLOBINEA1C ("Hémoglobine A1C"),
-	MICROALBUMINE ("Microalbumine"),
-	TAILLE ("Taille"),
-	POIDS ("Poids"),
-	FUMEUR ("Fumeur"),
-	ANORMAL ("Anormal"),
-	CHOLESTEROL ("Cholestérol"),
-	VERTIGE ("Vertige"),
-	RECHUTE ("Rechute"),
-	REACTION ("Réaction"),
-	ANTICORPS ("Anticorps");
+	HEMOGLOBINEA1C ("Hemoglobin A1C"),// ("Hémoglobine A1C"),
+	MICROALBUMINE ("Microalbumin"),// ("Microalbumine"),
+	TAILLE ("Height"),// ("Taille"),
+	POIDS  ("Weight"),// ("Poids"),
+	FUMEUR  ("Smoker"),// ("Fumeur"),
+	ANORMAL  ("Abnormal"),// ("Anormal"),
+	CHOLESTEROL  ("Cholesterol"),// ("Cholestérol"),
+	VERTIGE  ("Dizziness"),// ("Vertige"),
+	RECHUTE  ("Relapse"),// ("Rechute"),
+	REACTION  ("Reaction"),// ("Réaction"),
+	ANTICORPS  ("Antibodies");// ("Anticorps");
 	
 	private String label;
 	
