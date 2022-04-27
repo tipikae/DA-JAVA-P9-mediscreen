@@ -55,11 +55,11 @@ public class AssessmentController {
 		try {
 			model.addAttribute("assessmentById", 
 					assessmentClient.getAssessmentById(new AssessmentByIdDTO(id)));
-			return "patient/ get :: #assessmentById";
+			return "patient/get :: #assessmentById";
 		} catch (PatientNotFoundException e) {
 			LOGGER.debug("getAssessmentById: patient with id=" + id + " not found.");
 			model.addAttribute("assessmentById", "Error: patient not found.");
-			return "patient/ get :: #assessmentById";
+			return "patient/get :: #assessmentById";
 		}
 	}
 	
