@@ -6,6 +6,7 @@ package com.tipikae.patientservice.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -65,13 +66,27 @@ public class PatientServiceController {
 	 * @return ResponseEntity
 	 * @throws PatientNotFoundException
 	 */
-	@GetMapping("/{id}")
-	public ResponseEntity<PatientDTO> getPatient(@PathVariable("id") @NotNull @Positive long id) 
+	@GetMapping("/id/{id}")
+	public ResponseEntity<PatientDTO> getPatientById(@PathVariable("id") @NotNull @Positive long id) 
 			throws PatientNotFoundException {
 		LOGGER.info("Getting patient with id=" + id);
 		PatientDTO patientDTO = patientService.getPatientById(id);
 		
 		return new ResponseEntity<PatientDTO>(patientDTO, HttpStatus.OK);
+	}
+	
+	/**
+	 * Get a patients list by family name.
+	 * @param familyName String
+	 * @return ResponseEntity
+	 */
+	@GetMapping("/familyName/{familyName}")
+	public ResponseEntity<List<PatientDTO>> getPatientsByFamily(
+			@PathVariable("familyName") @NotBlank String family) {
+		LOGGER.info("Getting patients with familyName=" + family);
+		List<PatientDTO> patientDTOs = patientService.getPatientsByFamily(family);
+		
+		return new ResponseEntity<List<PatientDTO>>(patientDTOs, HttpStatus.OK);
 	}
 	
 	/**
