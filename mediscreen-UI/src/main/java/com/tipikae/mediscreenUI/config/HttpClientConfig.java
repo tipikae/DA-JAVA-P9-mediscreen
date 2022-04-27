@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
+import com.tipikae.mediscreenUI.errorDecoder.AssessmentServiceErrorDecoder;
 import com.tipikae.mediscreenUI.errorDecoder.NoteServiceErrorDecoder;
 import com.tipikae.mediscreenUI.errorDecoder.PatientServiceErrorDecoder;
 
@@ -28,6 +30,7 @@ public class HttpClientConfig {
 	
 	private static final String PATIENT_SERVICE_URL = "/patient-service";
 	private static final String NOTE_SERVICE_URL = "/note-service";
+	private static final String ASSESSMENT_SERVICE_URL = "/assessment-service";
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
@@ -48,6 +51,15 @@ public class HttpClientConfig {
 				.decoder(new JacksonDecoder())
 				.errorDecoder(new NoteServiceErrorDecoder())
 				.target(INoteServiceClient.class, proxyUrl + NOTE_SERVICE_URL);
+	}
+	
+	@Bean
+	public IAssessmentServiceClient getAssessmentServiceClient() {
+		return Feign.builder()
+				.encoder(new JacksonEncoder())
+				.decoder(new JacksonDecoder())
+				.errorDecoder(new AssessmentServiceErrorDecoder())
+				.target(IAssessmentServiceClient.class, proxyUrl + ASSESSMENT_SERVICE_URL);
 	}
 	
 	@Bean
