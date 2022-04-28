@@ -35,7 +35,6 @@ function assessHealth(type, param) {
 	}
 	
 	$.get(endpoint).done(function(fragment) {
-		console.log('fragment=' + fragment);
 		$(elemYes).replaceWith(fragment);
 		$(elemYes).show();
 		$(elemNo).hide();
