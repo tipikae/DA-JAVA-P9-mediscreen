@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.validation;
+package com.tipikae.patientservice.validation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import javax.validation.ConstraintValidatorContext;
  *
  */
 public class GenderValidator implements ConstraintValidator<ValidGender, Character> {
-	
+
 	private List<String> acceptedValues;
 
 	/**
