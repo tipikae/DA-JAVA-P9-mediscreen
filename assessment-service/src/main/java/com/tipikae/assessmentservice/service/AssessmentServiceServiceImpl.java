@@ -81,7 +81,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 			+ ", size=" + patients.size());
 		List<AssessmentDTO> assessmentDTOs = new ArrayList<>();
 		
-		patients.forEach(patient -> {
+		patients.parallelStream().forEach(patient -> {
 			try {
 				List<Note> notes;
 				notes = noteClient.getPatientNotes(patient.getId());
