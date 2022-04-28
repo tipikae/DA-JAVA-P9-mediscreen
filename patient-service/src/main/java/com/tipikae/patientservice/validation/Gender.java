@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.validation;
+package com.tipikae.patientservice.validation;
 
 /**
- * Gender of a patient.
+ * Gender enumeration.
  * @author tipikae
  * @version 1.0
  *
