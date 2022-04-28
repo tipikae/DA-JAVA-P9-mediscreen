@@ -4,6 +4,9 @@ header {
 .spacer20 {
 	margin-top: 20px;
 }
+.spacer40 {
+	margin-top: 40px;
+}
 .red {
 	color: red;
 }
@@ -36,4 +39,10 @@ header {
 	top: 0;
 	left: 0;
 	margin: 40px;
+}
+.bold {
+	font-weight: bold;
+}
+.spacer-right20 {
+	margin-right: 20px;
 }
