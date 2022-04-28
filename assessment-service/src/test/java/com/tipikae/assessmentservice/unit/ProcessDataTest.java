@@ -13,10 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.assessment.Gender;
 import com.tipikae.assessmentservice.assessment.ITermCounter;
 import com.tipikae.assessmentservice.assessment.ProcessDataImpl;
 import com.tipikae.assessmentservice.assessment.Risk;
+import com.tipikae.assessmentservice.validation.Gender;
 
 @ExtendWith(MockitoExtension.class)
 class ProcessDataTest {

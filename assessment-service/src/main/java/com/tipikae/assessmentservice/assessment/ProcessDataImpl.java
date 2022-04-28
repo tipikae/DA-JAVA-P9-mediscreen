@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.validation.Gender;
 
 /**
  * Process data for assessment.
