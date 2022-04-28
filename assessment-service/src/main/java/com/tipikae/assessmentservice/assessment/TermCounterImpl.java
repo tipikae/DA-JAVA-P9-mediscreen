@@ -3,12 +3,12 @@
  */
 package com.tipikae.assessmentservice.assessment;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.model.Note;
@@ -23,21 +23,24 @@ import com.tipikae.assessmentservice.model.Note;
 public class TermCounterImpl implements ITermCounter {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TermCounterImpl.class);
+	
+	@Autowired
+	private ITermReader termsReader;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public int countTerms(List<Note> notes) {
-		LOGGER.debug("countTerms: notes size=" + notes.size());
-		List<Term> terms = Arrays.asList(Term.values());
+		List<String> terms = termsReader.read();
+		LOGGER.debug("countTerms: notes size=" + notes.size() + ", terms size=" + terms.size());
 		
 		return notes.parallelStream()
 						.map(note -> {
 							AtomicInteger count = new AtomicInteger(0);
 							String message = note.getE().toLowerCase();
 							terms.forEach(term -> {
-								if(message.contains(term.getLabel().toLowerCase())) {
+								if(message.contains(term.toLowerCase())) {
 									count.incrementAndGet();
 								}
 							});
