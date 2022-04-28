@@ -35,8 +35,8 @@ class ProcessDataTest {
 	
 	@BeforeAll
 	private static void setUp() {
-		sexM = Gender.MALE;
-		sexF = Gender.FEMALE;
+		sexM = Gender.M;
+		sexF = Gender.F;
 		age29 = 29;
 		age30 = 30;
 	}

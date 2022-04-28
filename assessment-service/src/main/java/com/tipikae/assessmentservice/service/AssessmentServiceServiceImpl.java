@@ -107,9 +107,9 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 		
 		Gender gender;
 		if(patient.getSex() == 'M') {
-			gender = Gender.MALE;
+			gender = Gender.M;
 		} else {
-			gender = Gender.FEMALE;
+			gender = Gender.F;
 		}
 		String result = processData.getRisk(age, gender, notes);
 		

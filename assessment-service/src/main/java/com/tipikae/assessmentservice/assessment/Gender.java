@@ -11,16 +11,6 @@ package com.tipikae.assessmentservice.assessment;
  */
 public enum Gender {
 
-	MALE ('M'),
-	FEMALE ('F');
-	
-	private char label;
-	
-	Gender(char label) {
-		this.label = label;
-	}
-	
-	public char getLabel() {
-		return label;
-	}
+	M,
+	F;
 }

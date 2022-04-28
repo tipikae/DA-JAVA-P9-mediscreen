@@ -53,7 +53,7 @@ public class ProcessDataImpl implements IProcessData {
 				break;
 			case 3:
 				if(age < LIMIT) {
-					if(gender == Gender.MALE) {
+					if(gender == Gender.M) {
 						risk = Risk.INDANGER;
 					} else {
 						risk = Risk.NONE;
@@ -71,7 +71,7 @@ public class ProcessDataImpl implements IProcessData {
 				break;
 			case 5:
 				if(age < LIMIT) {
-					if(gender == Gender.MALE) {
+					if(gender == Gender.M) {
 						risk = Risk.EARLYONSET;
 					} else {
 						risk = Risk.INDANGER;
@@ -82,7 +82,7 @@ public class ProcessDataImpl implements IProcessData {
 				break;
 			case 6:
 				if(age < LIMIT) {
-					if(gender == Gender.MALE) {
+					if(gender == Gender.M) {
 						risk = Risk.EARLYONSET;
 					} else {
 						risk = Risk.INDANGER;
