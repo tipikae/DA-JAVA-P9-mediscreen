@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.assessmentservice.assessment.Gender;
 import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
@@ -27,6 +26,7 @@ import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.util.IUtil;
+import com.tipikae.assessmentservice.validation.Gender;
 
 /**
  * Assessment service service.

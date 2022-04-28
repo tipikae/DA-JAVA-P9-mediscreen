@@ -19,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.assessment.Gender;
 import com.tipikae.assessmentservice.assessment.IProcessData;
 import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
@@ -36,6 +35,7 @@ import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
 import com.tipikae.assessmentservice.util.IUtil;
+import com.tipikae.assessmentservice.validation.Gender;
 
 @ExtendWith(MockitoExtension.class)
 class AssessmentServiceServiceTest {

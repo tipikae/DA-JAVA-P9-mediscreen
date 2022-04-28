@@ -6,6 +6,7 @@ package com.tipikae.assessmentservice.assessment;
 import java.util.List;
 
 import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.validation.Gender;
 
 /**
  * Process data for assessment.
