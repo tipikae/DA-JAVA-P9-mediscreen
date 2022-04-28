@@ -50,12 +50,13 @@ class AssessmentControllerTest {
 	@Test
 	void getAssessmentByIdReturns200ErrorWhenNotFound() throws Exception {
 		String expected = "Error: patient not found.";
+		Assessment assessment = new Assessment(expected);
 		doThrow(PatientNotFoundException.class)
 			.when(assessmentClient).getAssessmentById(any(AssessmentByIdDTO.class));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("assessment"))
-			.andExpect(model().attribute("assessment", is(expected)))
+			.andExpect(model().attribute("assessment", is(assessment)))
 			.andExpect(view().name("patient/get :: #assessmentById"));
 	}
 
@@ -65,19 +66,20 @@ class AssessmentControllerTest {
 			.thenReturn(List.of(new Assessment(message)));
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("assessment"))
+			.andExpect(model().attributeExists("assessments"))
 			.andExpect(view().name("patient/get :: #assessmentByFamily"));
 	}
 
 	@Test
 	void getAssessmentByFamilyReturns200ErrorWhenEmpty() throws Exception {
 		String expected = "No family members.";
+		List<Assessment> assessments = List.of(new Assessment(expected));
 		when(assessmentClient.getAssessmentsByFamily(any(AssessmentByFamilyDTO.class)))
 			.thenReturn(List.of());
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("assessments"))
-			.andExpect(model().attribute("assessments", is(expected)))
+			.andExpect(model().attribute("assessments", is(assessments)))
 			.andExpect(view().name("patient/get :: #assessmentByFamily"));
 	}
 
