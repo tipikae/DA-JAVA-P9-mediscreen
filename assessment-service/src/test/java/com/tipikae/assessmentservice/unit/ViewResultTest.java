@@ -27,7 +27,7 @@ class ViewResultTest {
 
 	@Test
 	void getErrorView() {
-		String expected = patient.getGiven() + ": no result, error getting notes.";
+		String expected = patient.getGiven() + ": service unavailable.";
 		assertEquals(expected, viewResult.getErrorView(patient, "error"));
 	}
 
