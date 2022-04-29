@@ -36,7 +36,7 @@ public class ViewResultImpl implements IViewResult {
 	@Override
 	public String getErrorView(Patient patient, String error) {
 		LOGGER.debug("getErrorView: patientId=" + patient.getId() + ", error=" + error);
-		return patient.getGiven() + ": no result, error getting notes.";
+		return patient.getGiven() + ": service unavailable.";
 	}
 
 }
