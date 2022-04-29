@@ -16,6 +16,7 @@ public interface ITermReader {
 	/**
 	 * Read all terms.
 	 * @return List
+	 * @throws TermReaderException
 	 */
-	List<String> read();
+	List<String> read() throws TermReaderException;
 }

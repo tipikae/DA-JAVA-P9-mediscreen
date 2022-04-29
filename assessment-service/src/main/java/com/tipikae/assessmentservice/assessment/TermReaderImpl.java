@@ -35,7 +35,7 @@ public class TermReaderImpl implements ITermReader {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> read() {
+	public List<String> read() throws TermReaderException {
 		LOGGER.debug("read: dir=" + dir);
 		List<String> terms = new ArrayList<>();
 		
@@ -48,7 +48,8 @@ public class TermReaderImpl implements ITermReader {
 	          .map(Path::toString)
 	          .collect(Collectors.toSet());
 	    } catch (IOException e) {
-			LOGGER.debug("read: list files: IOException: " + e.getMessage());
+			LOGGER.debug("read: get list files: IOException: " + e.getMessage());
+			throw new TermReaderException(e.getMessage());
 		}
 		
 		// get all lines from each file
@@ -56,7 +57,8 @@ public class TermReaderImpl implements ITermReader {
 			try (Stream<String> lines = Files.lines(Paths.get(dir + "/" + file))) {
 				lines.forEach(line -> terms.add(line));
 			} catch (IOException e) {
-				LOGGER.debug("read: lines: IOException: " + e.getMessage());
+				LOGGER.debug("read: get lines: IOException: " + e.getMessage());
+				throw new RuntimeException(e.getMessage());
 			}
 		});
 		

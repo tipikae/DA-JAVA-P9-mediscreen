@@ -32,7 +32,7 @@ public class ProcessDataImpl implements IProcessData {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getRisk(int age, Gender gender, List<Note> notes) {
+	public String getRisk(int age, Gender gender, List<Note> notes) throws Exception {
 		int counter = termCounter.countTerms(notes);
 		LOGGER.debug("getRisk: age=" + age + ", sex=" + gender + ", terms=" + counter);
 		Risk risk;

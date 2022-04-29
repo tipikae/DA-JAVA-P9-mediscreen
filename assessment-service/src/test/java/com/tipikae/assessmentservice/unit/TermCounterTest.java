@@ -51,25 +51,25 @@ class TermCounterTest {
 	}
 
 	@Test
-	void countTermsReturns0When0Term() {
+	void countTermsReturns0When0Term() throws Exception {
 		when(termReader.read()).thenReturn(terms);
 		assertEquals(0, termCounter.countTerms(List.of(noteWithNoTerm, noteWithNoTerm, noteWithNoTerm)));
 	}
 
 	@Test
-	void countTermsReturns1When1() {
+	void countTermsReturns1When1() throws Exception {
 		when(termReader.read()).thenReturn(terms);
 		assertEquals(1, termCounter.countTerms(List.of(noteWithNoTerm, noteWith1Term1, noteWithNoTerm)));
 	}
 
 	@Test
-	void countTermsReturns4When1NoteWith4Terms() {
+	void countTermsReturns4When1NoteWith4Terms() throws Exception {
 		when(termReader.read()).thenReturn(terms);
 		assertEquals(4, termCounter.countTerms(List.of(noteWithNoTerm, noteWith4Terms, noteWithNoTerm)));
 	}
 
 	@Test
-	void countTermsReturns4When4NotesWith1Term() {
+	void countTermsReturns4When4NotesWith1Term() throws Exception {
 		when(termReader.read()).thenReturn(terms);
 		assertEquals(4, termCounter.countTerms(List.of(noteWithNoTerm, noteWith1Term1, noteWith1Term2, 
 				noteWithNoTerm, noteWith1Term3, noteWithNoTerm, noteWith1Term4)));

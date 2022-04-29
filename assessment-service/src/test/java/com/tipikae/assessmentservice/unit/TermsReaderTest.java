@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.tipikae.assessmentservice.assessment.ITermReader;
+import com.tipikae.assessmentservice.assessment.TermReaderException;
 import com.tipikae.assessmentservice.assessment.TermReaderImpl;
 
 class TermsReaderTest {
@@ -12,7 +13,7 @@ class TermsReaderTest {
 	private ITermReader termsReader = new TermReaderImpl();
 
 	@Test
-	void test() {
+	void test() throws TermReaderException {
 		assertTrue(termsReader.read().size() > 0);
 	}
 

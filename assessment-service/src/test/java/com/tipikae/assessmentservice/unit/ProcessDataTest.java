@@ -42,7 +42,7 @@ class ProcessDataTest {
 	}
 
 	@Test
-	void getRiskReturnsNone() {
+	void getRiskReturnsNone() throws Exception {
 		String expected = Risk.NONE.getLabel();
 		// no terms
 		when(termCounter.countTerms(anyList())).thenReturn(0, 0, 0, 0);
@@ -66,7 +66,7 @@ class ProcessDataTest {
 	}
 
 	@Test
-	void getRiskReturnsBorderline() {
+	void getRiskReturnsBorderline() throws Exception {
 		String expected = Risk.BORDERLINE.getLabel();
 		// more 30 - 2 terms
 		when(termCounter.countTerms(anyList())).thenReturn(2, 2);
@@ -87,7 +87,7 @@ class ProcessDataTest {
 	}
 
 	@Test
-	void getRiskReturnsInDanger() {
+	void getRiskReturnsInDanger() throws Exception {
 		String expected = Risk.INDANGER.getLabel();
 		// less 30 - man - 3 terms
 		when(termCounter.countTerms(anyList())).thenReturn(3);
@@ -115,7 +115,7 @@ class ProcessDataTest {
 	}
 
 	@Test
-	void getRiskReturnsEarlyOnset() {
+	void getRiskReturnsEarlyOnset() throws Exception {
 		String expected = Risk.EARLYONSET.getLabel();
 		// less 30 - man - 5 terms
 		when(termCounter.countTerms(anyList())).thenReturn(5);

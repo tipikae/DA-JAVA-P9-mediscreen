@@ -19,6 +19,7 @@ public interface ITermCounter {
 	 * Count terms in notes list.
 	 * @param notes List
 	 * @return int
+	 * @throws Exception
 	 */
-	int countTerms(List<Note> notes);
+	int countTerms(List<Note> notes) throws Exception;
 }

@@ -22,6 +22,7 @@ public interface IProcessData {
 	 * @param gender Gender
 	 * @param notes List
 	 * @return String
+	 * @throws Exception
 	 */
-	String getRisk(int age, Gender gender, List<Note> notes);
+	String getRisk(int age, Gender gender, List<Note> notes) throws Exception;
 }
