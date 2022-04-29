@@ -16,7 +16,10 @@ import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.tipikae.assessmentservice.config.TermsConfigProperties;
 
 /**
  * Terms reader.
@@ -29,13 +32,15 @@ public class TermReaderImpl implements ITermReader {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TermReaderImpl.class);
 	
-	private String dir = "terms";
+	@Autowired
+	private TermsConfigProperties termsConfig;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public List<String> read() throws TermReaderException {
+		String dir = termsConfig.getPath();
 		LOGGER.debug("read: dir=" + dir);
 		List<String> terms = new ArrayList<>();
 		
