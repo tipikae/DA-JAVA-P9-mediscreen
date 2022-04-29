@@ -41,7 +41,7 @@ public interface IPatientServiceClient {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /patients/{id}")
+	@RequestLine("GET /patients/id/{id}")
 	Patient getPatient(@Param("id") long id) 
 			throws PatientNotFoundException, BadRequestException, HttpClientException;
 	

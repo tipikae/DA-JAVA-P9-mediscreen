@@ -75,6 +75,15 @@ public class PatientServiceServiceImpl implements IPatientServiceService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<PatientDTO> getPatientsByFamily(String family) {
+		LOGGER.debug("getPatientsByFamily: family=" + family);
+		return converterPatientDTO.convertPatientsToDTOs(patientRepository.findByFamily(family));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<PatientDTO> getAllPatients() {
 		LOGGER.debug("getAllPatients");
 		return converterPatientDTO.convertPatientsToDTOs(patientRepository.findAll());

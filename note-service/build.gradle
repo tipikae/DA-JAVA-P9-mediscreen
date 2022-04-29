@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.tipikae'
@@ -45,4 +46,48 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }               
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+	afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                "com/tipikae/noteservice/dto/*",
+                "com/tipikae/noteservice/model/*",
+                "com/tipikae/noteservice/exception/*"
+            ])
+        }))
+    }
+    
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.5
+      }
+    }
+  }
 }

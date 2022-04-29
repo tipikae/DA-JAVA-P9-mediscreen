@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.tipikae'
@@ -26,9 +27,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'io.github.openfeign:feign-jackson'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -42,4 +45,48 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }               
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+	afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                "com/tipikae/assessmentservice/dto/*",
+                "com/tipikae/assessmentservice/model/*",
+                "com/tipikae/assessmentservice/exception/*"
+            ])
+        }))
+    }
+    
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.5
+      }
+    }
+  }
 }

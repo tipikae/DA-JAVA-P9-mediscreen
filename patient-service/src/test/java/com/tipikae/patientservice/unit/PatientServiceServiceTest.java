@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -97,6 +98,13 @@ class PatientServiceServiceTest {
 	void getPatientByIdThrowsExceptionWhenNotFound() {
 		when(patientRepository.findById(anyLong())).thenReturn(Optional.empty());
 		assertThrows(PatientNotFoundException.class, () -> patientService.getPatientById(10));
+	}
+	
+	@Test
+	void getPatientsByFamily() {
+		when(patientRepository.findByFamily(anyString())).thenReturn(List.of(patient));
+		when(converterPatientDTO.convertPatientsToDTOs(anyList())).thenReturn(Arrays.asList(patientDTO));
+		assertTrue(patientService.getPatientsByFamily(family).size() == 1);
 	}
 
 	@Test

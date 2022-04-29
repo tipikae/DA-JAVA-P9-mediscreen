@@ -39,6 +39,9 @@ class PatientServiceRepositoryIT {
 		patientRepository.save(new Patient(0, family, otherGiven, dob, sex, address, phone));
 		assertTrue(patientRepository.findByFamilyAndGiven(family, otherGiven).size() == 1);
 		
+		// find by family
+		assertTrue(patientRepository.findByFamily(family).size() == 2);
+		
 		// update
 		String newAddress = "newAddress";
 		patient2.setAddress(newAddress);

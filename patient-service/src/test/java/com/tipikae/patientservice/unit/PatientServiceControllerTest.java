@@ -3,6 +3,7 @@ package com.tipikae.patientservice.unit;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -73,24 +74,32 @@ class PatientServiceControllerTest {
 	}
 
 	@Test
-	void getPatientReturns200PatientWhenOk() throws Exception {
+	void getPatientByIdReturns200PatientWhenOk() throws Exception {
 		when(patientService.getPatientById(anyLong())).thenReturn(patientDTO);
-		mockMvc.perform(get(ROOT + "/" + id))
+		mockMvc.perform(get(ROOT + "/id/" + id))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.given", is(given)));
 	}
 
 	@Test
-	void getPatientReturns404WhenNotFound() throws Exception {
+	void getPatientByIdReturns404WhenNotFound() throws Exception {
 		doThrow(PatientNotFoundException.class).when(patientService).getPatientById(anyLong());
-		mockMvc.perform(get(ROOT + "/" + id))
+		mockMvc.perform(get(ROOT + "/id/" + id))
 			.andExpect(status().is(404));
 	}
 
 	@Test
-	void getPatientReturns400WhenBadIdParameter() throws Exception {
-		mockMvc.perform(get(ROOT + "/0"))
+	void getPatientByIdReturns400WhenBadIdParameter() throws Exception {
+		mockMvc.perform(get(ROOT + "/id/0"))
 			.andExpect(status().is(400));
+	}
+
+	@Test
+	void getPatientsByFamilyReturns200ListWhenOk() throws Exception {
+		when(patientService.getPatientsByFamily(anyString())).thenReturn(Arrays.asList(patientDTO));
+		mockMvc.perform(get(ROOT + "/familyName/" + family))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.[0].family", is(family)));
 	}
 
 	@Test

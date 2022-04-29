@@ -53,7 +53,34 @@
 			</div>
 		</div>
 		
-		<div class="container" th:object="${notes}">
+		<div class="container">
+			<h4>Diabetes risk assessment:</h4>
+			<div class="row">
+				<a href="javascript:void(0);" th:data-assesstype="id" th:data-patid="${patient.id}"
+						class="btn btn-primary btn-sm assess spacer-right20">Assess patient</a>
+				<a href="javascript:void(0);" th:data-assesstype="family" th:data-family="${patient.family}" 
+						class="btn btn-primary btn-sm assess">Assess family</a>
+			</div>
+			<div class="row">
+				<div id="assessmentById">
+					<div th:if="${assessment} != null">
+						<div class="bold">Patient assessment:</div>
+						<div th:text="${assessment.message}"></div>
+					</div>
+				</div>
+				<div id="assessmentByFamily">
+					<div th:if="${assessments} != null">
+						<div class="bold">Family assessments:</div>
+						<div th:each="assessment : ${assessments}">
+							<div th:text="${assessment.message}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container spacer40" th:object="${notes}">
+			<h4>History:</h4>
 			<div class="row">
 				<a th:href="@{/note/add/{patId}(patId=${patient.id})}" 
 						class="btn btn-primary btn-sm">Add new note</a>

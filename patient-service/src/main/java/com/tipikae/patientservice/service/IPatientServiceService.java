@@ -36,6 +36,13 @@ public interface IPatientServiceService {
 	PatientDTO getPatientById(long id) throws PatientNotFoundException;
 	
 	/**
+	 * Get a patients list by family name.
+	 * @param family String
+	 * @return List
+	 */
+	List<PatientDTO> getPatientsByFamily(String family);
+	
+	/**
 	 * Get all patients.
 	 * @return List
 	 */
