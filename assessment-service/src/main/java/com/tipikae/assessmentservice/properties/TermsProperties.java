@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.config;
+package com.tipikae.assessmentservice.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
@@ -13,9 +14,10 @@ import lombok.Data;
  * @version 1.0
  *
  */
+@Configuration
 @ConfigurationProperties(prefix = "terms")
 @Data
-public class TermsConfigProperties {
+public class TermsProperties {
 
 	private String path;
 	
