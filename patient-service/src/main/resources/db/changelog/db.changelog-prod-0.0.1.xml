@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+  	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="
+		http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext 
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+		
+	<changeSet author="tipikae" id="1">
+		<loadData encoding="UTF-8"
+				file="data/patients.csv"
+				quotchar="'"
+				relativeToChangelogFile="true"
+				separator="," 
+	            tableName="patient">
+			<column header="Last Name " name="family" type="string" />
+			<column header="First Name " name="given" type="string" />
+			<column header="Date of Birth " name="dob" type="date" />
+			<column header="Sex " name="sex" type="string" />
+			<column header="Home Address" name="address" type="string" />
+			<column header="Phone number " name="phone" type="string" />
+		</loadData>
+	</changeSet>
+</databaseChangeLog>
