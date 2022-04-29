@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.config.TermsConfigProperties;
+import com.tipikae.assessmentservice.properties.TermsProperties;
 
 /**
  * Terms reader.
@@ -33,7 +33,7 @@ public class TermReaderImpl implements ITermReader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TermReaderImpl.class);
 	
 	@Autowired
-	private TermsConfigProperties termsConfig;
+	private TermsProperties termsConfig;
 
 	/**
 	 * {@inheritDoc}

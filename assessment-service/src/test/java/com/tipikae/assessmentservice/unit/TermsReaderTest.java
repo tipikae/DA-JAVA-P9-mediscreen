@@ -11,13 +11,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tipikae.assessmentservice.assessment.TermReaderException;
 import com.tipikae.assessmentservice.assessment.TermReaderImpl;
-import com.tipikae.assessmentservice.config.TermsConfigProperties;
+import com.tipikae.assessmentservice.properties.TermsProperties;
 
 @ExtendWith(MockitoExtension.class)
 class TermsReaderTest {
 	
 	@Mock
-	private TermsConfigProperties termsConfig;
+	private TermsProperties termsConfig;
 	
 	@InjectMocks
 	private TermReaderImpl termsReader;
