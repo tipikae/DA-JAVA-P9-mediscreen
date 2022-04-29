@@ -12,7 +12,7 @@
 		
 	<changeSet author="tipikae" id="1">
 		<loadData encoding="UTF-8"
-				file="data/patients.csv"
+				file="data/patients-prod.csv"
 				quotchar="'"
 				relativeToChangelogFile="true"
 				separator="," 
