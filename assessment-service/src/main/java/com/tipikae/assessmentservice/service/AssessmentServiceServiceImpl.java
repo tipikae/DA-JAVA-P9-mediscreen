@@ -111,9 +111,14 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 		} else {
 			gender = Gender.F;
 		}
-		String result = processData.getRisk(age, gender, notes);
 		
-		return new Assessment(viewResult.getResultView(patient, age, result));
+		try {
+			String result = processData.getRisk(age, gender, notes);
+			return new Assessment(viewResult.getResultView(patient, age, result));
+		} catch (Exception e) {
+			LOGGER.debug("getAssessment: processData error: " + e.getMessage());
+			return getError(patient, "Exception");
+		}
 	}
 	
 	// returns assessment with error message

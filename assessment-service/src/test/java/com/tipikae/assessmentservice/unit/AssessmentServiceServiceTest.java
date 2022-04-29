@@ -96,7 +96,7 @@ class AssessmentServiceServiceTest {
 
 	@Test
 	void assessDiabetesByIdReturnsAssessmentWhenOk() 
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws Exception {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
@@ -123,7 +123,7 @@ class AssessmentServiceServiceTest {
 
 	@Test
 	void assessDiabetesByFamilyNameReturnsAssessmentWhenOk() 
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws Exception {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
