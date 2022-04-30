@@ -20,7 +20,7 @@ class NoteServiceRepositoryIT {
 	@Test
 	void test() {
 		String id = null;
-		long patId = 1;
+		long patId = 100;
 		LocalDate date = LocalDate.of(2022, 01, 01);
 		String e = "prout";
 		
@@ -34,7 +34,9 @@ class NoteServiceRepositoryIT {
 		assertEquals(e, noteRepository.findById(id).get().getE());
 		
 		// findAll
-		assertTrue(noteRepository.findByPatId(patId).size() > 0);
+		Note note2 = noteRepository.save(new Note(null, patId, LocalDate.now(), e));
+		assertTrue(noteRepository.findByPatIdOrderByDateDesc(patId).size() > 0);
+		assertEquals(note2.getId(), noteRepository.findByPatIdOrderByDateDesc(patId).get(0).getId());
 		
 		// update
 		String updatedE = e + " updated";
@@ -43,6 +45,7 @@ class NoteServiceRepositoryIT {
 		
 		// delete
 		noteRepository.deleteById(id);
+		noteRepository.deleteById(note2.getId());;
 		assertTrue(noteRepository.findById(id).isEmpty());
 	}
 

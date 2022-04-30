@@ -90,7 +90,7 @@ class NoteServiceServiceTest {
 
 	@Test
 	void getPatientNotesReturnsNoteDTOsWhenOk() {
-		when(noteRepository.findByPatId(anyLong())).thenReturn(notes);
+		when(noteRepository.findByPatIdOrderByDateDesc(anyLong())).thenReturn(notes);
 		when(noteConverter.convertNotesToNoteDTOs(anyList())).thenReturn(noteDTOs);
 		assertEquals(noteDTOs.size(), noteService.getPatientNotes(patId).size());
 	}

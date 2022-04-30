@@ -20,9 +20,9 @@ import com.tipikae.noteservice.model.Note;
 public interface INoteServiceRepository extends MongoRepository<Note, String> {
 
 	/**
-	 * Find notes by patient id.
+	 * Find notes by patient id order by date desc.
 	 * @param patId long
 	 * @return List
 	 */
-	List<Note> findByPatId(long patId);
+	List<Note> findByPatIdOrderByDateDesc(long patId);
 }

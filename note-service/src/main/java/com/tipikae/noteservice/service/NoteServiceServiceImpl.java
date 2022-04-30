@@ -71,7 +71,7 @@ public class NoteServiceServiceImpl implements INoteServiceService {
 	@Override
 	public List<NoteDTO> getPatientNotes(long patId) {
 		LOGGER.debug("getPatientNotes: patId=" + patId);
-		return noteConverter.convertNotesToNoteDTOs(noteRepository.findByPatId(patId));
+		return noteConverter.convertNotesToNoteDTOs(noteRepository.findByPatIdOrderByDateDesc(patId));
 	}
 
 	/**
