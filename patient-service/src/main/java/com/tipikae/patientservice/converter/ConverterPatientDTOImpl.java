@@ -5,6 +5,8 @@ package com.tipikae.patientservice.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.patientservice.dto.NewPatientDTO;
@@ -76,6 +78,17 @@ public class ConverterPatientDTOImpl implements IConverterPatientDTO {
 		patients.forEach(patient -> patientDTOs.add(convertPatientToDTO(patient)));
 		
 		return patientDTOs;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Page<PatientDTO> convertPagePatientsToPagePatientDTOs(Page<Patient> patients) {
+		Page<PatientDTO> pageDTO = patients.map(patient -> {
+			return convertPatientToDTO(patient);
+		});
+		return pageDTO;
 	}
 
 	

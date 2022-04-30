@@ -7,10 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import com.tipikae.patientservice.converter.ConverterPatientDTOImpl;
 import com.tipikae.patientservice.converter.IConverterPatientDTO;
 import com.tipikae.patientservice.dto.NewPatientDTO;
+import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;
 import com.tipikae.patientservice.model.Patient;
 
@@ -51,6 +54,15 @@ class ConvertPatientDTOTest {
 		Patient patient = new Patient(1, family, given, dob, sex, address, phone);
 		List<Patient> patients = Arrays.asList(patient);
 		assertTrue(converter.convertPatientsToDTOs(patients).size() == 1);
+	}
+	
+	@Test
+	void convertPagePatientsToPagePatientDTOs() {
+		Patient patient = new Patient(1, family, given, dob, sex, address, phone);
+		Page<Patient> pages = new PageImpl<>(List.of(patient));
+		Page<PatientDTO> pageDTOs = converter.convertPagePatientsToPagePatientDTOs(pages);
+		assertEquals(1, pageDTOs.getNumberOfElements());
+		assertEquals(phone, pageDTOs.getContent().get(0).getPhone());
 	}
 
 }
