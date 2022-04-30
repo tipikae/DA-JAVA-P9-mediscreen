@@ -4,9 +4,13 @@
 package com.tipikae.mediscreenUI.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.openfeign.support.PageJacksonModule;
+import org.springframework.cloud.openfeign.support.SortJacksonModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
@@ -38,9 +42,10 @@ public class HttpClientConfig {
 	@Bean
 	public IPatientServiceClient getPatientServiceClient() {
 		return Feign.builder()
-				.encoder(new JacksonEncoder())
-				.decoder(new JacksonDecoder())
+				.encoder(new JacksonEncoder(provideObjectMapper()))
+				.decoder(new JacksonDecoder(provideObjectMapper()))
 				.errorDecoder(new PatientServiceErrorDecoder())
+				.logLevel(Logger.Level.FULL)
 				.target(IPatientServiceClient.class, proxyUrl + PATIENT_SERVICE_URL);
 	}
 	
@@ -50,6 +55,7 @@ public class HttpClientConfig {
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
 				.errorDecoder(new NoteServiceErrorDecoder())
+				.logLevel(Logger.Level.FULL)
 				.target(INoteServiceClient.class, proxyUrl + NOTE_SERVICE_URL);
 	}
 	
@@ -59,11 +65,14 @@ public class HttpClientConfig {
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
 				.errorDecoder(new AssessmentServiceErrorDecoder())
+				.logLevel(Logger.Level.FULL)
 				.target(IAssessmentServiceClient.class, proxyUrl + ASSESSMENT_SERVICE_URL);
 	}
 	
-	@Bean
-    Logger.Level feignLoggerLevel() {
-        return Logger.Level.FULL;
-    }
+	private ObjectMapper provideObjectMapper() {
+	    return new ObjectMapper()
+	        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+	        .registerModule(new PageJacksonModule())
+	        .registerModule(new SortJacksonModule());
+	  }
 }
