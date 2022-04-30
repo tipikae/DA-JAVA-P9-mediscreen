@@ -2,6 +2,7 @@ package com.tipikae.patientservice.unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -16,12 +17,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -67,10 +70,10 @@ class PatientServiceControllerTest {
 
 	@Test
 	void getAllPatientsReturns200ListWhenOk() throws Exception {
-		when(patientService.getAllPatients()).thenReturn(Arrays.asList(patientDTO));
+		when(patientService.getAllPatients(anyInt(), anyInt())).thenReturn(new PageImpl<>(List.of(patientDTO)));
 		mockMvc.perform(get(ROOT + "/"))
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.[0].family", is(family)));
+			.andExpect(jsonPath("$.content.[0].family", is(family)));
 	}
 
 	@Test

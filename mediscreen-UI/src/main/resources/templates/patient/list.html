@@ -37,6 +37,14 @@
 						</tr>
 					</tbody>
 				</table>
+				<div th:if="${pages}" class="pagination">
+					<ul class="nav nav-pills">
+						<li th:each="page:${pages}">
+							<a th:href="@{/patient/all(page=${page})}" th:text="${page + 1}"
+								th:class="${page == (patients.number)} ? 'btn disabled'"></a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

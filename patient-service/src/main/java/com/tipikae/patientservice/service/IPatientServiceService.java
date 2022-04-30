@@ -5,6 +5,8 @@ package com.tipikae.patientservice.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;
@@ -44,9 +46,11 @@ public interface IPatientServiceService {
 	
 	/**
 	 * Get all patients.
+	 * @param page int
+	 * @param size int
 	 * @return List
 	 */
-	List<PatientDTO> getAllPatients();
+	Page<PatientDTO> getAllPatients(int page, int size);
 	
 	/**
 	 * Update a patient.

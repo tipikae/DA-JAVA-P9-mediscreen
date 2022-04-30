@@ -5,6 +5,8 @@ package com.tipikae.patientservice.converter;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;
@@ -46,4 +48,11 @@ public interface IConverterPatientDTO {
 	 * @return List
 	 */
 	List<PatientDTO> convertPatientsToDTOs(List<Patient> patients);
+	
+	/**
+	 * Convert a Patient page to a PatientDTO page.
+	 * @param patients Page
+	 * @return Page
+	 */
+	Page<PatientDTO> convertPagePatientsToPagePatientDTOs(Page<Patient> patients);
 }

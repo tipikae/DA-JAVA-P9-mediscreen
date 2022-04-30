@@ -2,7 +2,8 @@
  * 
  */
 package com.tipikae.mediscreenUI.client;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -26,12 +27,15 @@ public interface IPatientServiceClient {
 
 	/**
 	 * Get patients list.
-	 * @return List
+	 * @param page int
+	 * @param size int
+	 * @return Page
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	@RequestLine("GET /patients/")
-	List<Patient> getPatients() throws BadRequestException, HttpClientException;
+	@RequestLine("GET /patients/?page={page}&size={size}")
+	Page<Patient> getPatients(@Param("page") int page, @Param("size") int size) 
+			throws BadRequestException, HttpClientException;
 	
 	/**
 	 * Get a patient.

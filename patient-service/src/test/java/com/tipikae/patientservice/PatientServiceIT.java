@@ -46,7 +46,7 @@ class PatientServiceIT {
 		assertTrue(patientService.getPatientsByFamily("anyFamily").isEmpty());
 		
 		// get all
-		assertTrue(patientService.getAllPatients().size() > 0);
+		assertTrue(patientService.getAllPatients(0, 5).getContent().size() > 0);
 		
 		// update patient
 		String updatedAddress = "updatedeAddress";

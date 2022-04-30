@@ -20,6 +20,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import com.tipikae.patientservice.converter.IConverterPatientDTO;
 import com.tipikae.patientservice.dto.NewPatientDTO;
@@ -109,9 +111,10 @@ class PatientServiceServiceTest {
 
 	@Test
 	void getAllPatients() {
-		when(patientRepository.findAll()).thenReturn(Arrays.asList(patient));
-		when(converterPatientDTO.convertPatientsToDTOs(anyList())).thenReturn(Arrays.asList(patientDTO));
-		assertEquals(1, patientService.getAllPatients().size());
+		when(patientRepository.findAll(any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(patient)));
+		when(converterPatientDTO.convertPagePatientsToPagePatientDTOs(any()))
+			.thenReturn(new PageImpl<>(List.of(patientDTO)));
+		assertEquals(1, patientService.getAllPatients(0, 5).getContent().size());
 	}
 
 	@Test
