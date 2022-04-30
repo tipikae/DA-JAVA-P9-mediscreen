@@ -3,6 +3,10 @@
  */
 package com.tipikae.mediscreenUI.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -10,6 +14,7 @@ import javax.validation.constraints.Positive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
@@ -49,13 +55,27 @@ public class PatientController {
 	/**
 	 * Get all patients list.
 	 * @param model Model
+	 * @param page int
+	 * @param size int
 	 * @return String
 	 */
 	@GetMapping("/all")
-	public String getAllPatients(Model model) {
+	public String getAllPatients(
+			Model model,
+			@RequestParam(name="page", defaultValue="0")int page, 
+			@RequestParam(name="size", defaultValue="5")int size) {
 		LOGGER.info("Getting all patients");
 		try {
-			model.addAttribute("patients", patientClient.getPatients());
+			Page<Patient> patients = patientClient.getPatients(page, size);
+			model.addAttribute("patients", patients);
+			
+			if(patients.getTotalPages() > 1) {
+				List<Integer> pages = IntStream.rangeClosed(0, patients.getTotalPages() - 1)
+						.boxed()
+						.collect(Collectors.toList());
+				model.addAttribute("pages", pages);
+			}
+			
 			return "patient/list";
 		} catch (Exception e) {
 			log("getAllPatients", e);

@@ -45,7 +45,7 @@ class PatientServiceIT {
 		assertThrows(BadRequestException.class, () -> patientClient.addPatient(newPatientDTO2));
 		
 		// get all
-		assertTrue(patientClient.getPatients().size() > 0);
+		assertTrue(patientClient.getPatients(0, 5).getContent().size() > 0);
 		
 		// get one
 		id = patient.getId();

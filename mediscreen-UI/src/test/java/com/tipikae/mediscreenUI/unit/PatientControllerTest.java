@@ -1,6 +1,7 @@
 package com.tipikae.mediscreenUI.unit;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -11,12 +12,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
@@ -49,7 +51,8 @@ class PatientControllerTest {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void getAllPatientsReturns200ListWhenOk() throws Exception {
-		when(patientClient.getPatients()).thenReturn(new ArrayList<>());
+		Patient patient = new Patient(1L, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
+		when(patientClient.getPatients(anyInt(), anyInt())).thenReturn(new PageImpl<>(List.of(patient)));
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/list"));
@@ -57,7 +60,7 @@ class PatientControllerTest {
 
 	@Test
 	void getAllPatientsReturns400WhenBadRequest() throws Exception {
-		doThrow(BadRequestException.class).when(patientClient).getPatients();
+		doThrow(BadRequestException.class).when(patientClient).getPatients(anyInt(), anyInt());
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/400"));
