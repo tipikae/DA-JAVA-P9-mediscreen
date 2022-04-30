@@ -28,7 +28,7 @@ public interface IPatientRepository extends JpaRepository<Patient, Long> {
 	List<Patient> findByFamilyAndGiven(String family, String given);
 
 	/**
-	 * Find a patient by its family name.
+	 * Find patients by family name.
 	 * @param family String
 	 * @return List
 	 */

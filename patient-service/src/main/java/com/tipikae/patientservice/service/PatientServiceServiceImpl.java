@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tipikae.patientservice.converter.IConverterPatientDTO;
@@ -86,7 +87,8 @@ public class PatientServiceServiceImpl implements IPatientServiceService {
 	@Override
 	public List<PatientDTO> getAllPatients() {
 		LOGGER.debug("getAllPatients");
-		return converterPatientDTO.convertPatientsToDTOs(patientRepository.findAll());
+		return converterPatientDTO.convertPatientsToDTOs(
+				patientRepository.findAll(Sort.by("family", "given").ascending()));
 	}
 
 	/**
