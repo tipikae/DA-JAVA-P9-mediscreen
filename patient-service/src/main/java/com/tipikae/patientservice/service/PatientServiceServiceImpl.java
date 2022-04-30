@@ -9,6 +9,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -85,10 +87,10 @@ public class PatientServiceServiceImpl implements IPatientServiceService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<PatientDTO> getAllPatients() {
+	public Page<PatientDTO> getAllPatients(int page, int size) {
 		LOGGER.debug("getAllPatients");
-		return converterPatientDTO.convertPatientsToDTOs(
-				patientRepository.findAll(Sort.by("family", "given").ascending()));
+		return converterPatientDTO.convertPagePatientsToPagePatientDTOs(
+				patientRepository.findAll(PageRequest.of(page, size, Sort.by("family", "given").ascending())));
 	}
 
 	/**

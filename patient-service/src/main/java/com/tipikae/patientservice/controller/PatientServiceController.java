@@ -13,6 +13,7 @@ import javax.validation.constraints.Positive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tipikae.patientservice.dto.NewPatientDTO;
@@ -50,14 +52,18 @@ public class PatientServiceController {
 	
 	/**
 	 * Get all patients.
+	 * @param page int
+	 * @param size int
 	 * @return ResponseEntity
 	 */
 	@GetMapping("/")
-	public ResponseEntity<List<PatientDTO>> getAllPatients() {
+	public ResponseEntity<Page<PatientDTO>> getAllPatients(
+			@RequestParam(name="page", defaultValue="0")int page, 
+			@RequestParam(name="size", defaultValue="5")int size) {
 		LOGGER.info("Getting all patients.");
-		List<PatientDTO> patientDTOs = patientService.getAllPatients();
+		Page<PatientDTO> patientDTOs = patientService.getAllPatients(page, size);
 		
-		return new ResponseEntity<List<PatientDTO>>(patientDTOs, HttpStatus.OK);
+		return new ResponseEntity<Page<PatientDTO>>(patientDTOs, HttpStatus.OK);
 	}
 	
 	/**
