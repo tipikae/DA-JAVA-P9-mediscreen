@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.assessment.TermReaderException;
 import com.tipikae.assessmentservice.assessment.TermReaderImpl;
+import com.tipikae.assessmentservice.exception.TermReaderException;
 import com.tipikae.assessmentservice.properties.TermsProperties;
 
 @ExtendWith(MockitoExtension.class)

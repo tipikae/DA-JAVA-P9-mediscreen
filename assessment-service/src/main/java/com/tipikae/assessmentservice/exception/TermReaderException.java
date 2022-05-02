@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.assessment;
-
-import com.tipikae.assessmentservice.exception.AssessmentServiceException;
+package com.tipikae.assessmentservice.exception;
 
 /**
  * Exception when reading terms storage.

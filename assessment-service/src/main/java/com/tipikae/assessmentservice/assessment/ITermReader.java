@@ -5,6 +5,8 @@ package com.tipikae.assessmentservice.assessment;
 
 import java.util.List;
 
+import com.tipikae.assessmentservice.exception.TermReaderException;
+
 /**
  * Terms storage reader.
  * @author tipikae
