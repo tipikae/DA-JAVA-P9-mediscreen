@@ -21,7 +21,7 @@ class FormulaRepositoryIT {
 		String formula = "formula";
 		
 		// save
-		Formula formula1 = formulaRepository.save(new Formula(0L, formula));
+		Formula formula1 = formulaRepository.save(new Formula(0L, 1L, formula));
 		id = formula1.getId();
 		
 		// find by id
