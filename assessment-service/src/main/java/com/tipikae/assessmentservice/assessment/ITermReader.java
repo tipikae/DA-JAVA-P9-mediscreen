@@ -16,9 +16,9 @@ import com.tipikae.assessmentservice.exception.TermReaderException;
 public interface ITermReader {
 
 	/**
-	 * Read all terms.
+	 * Get all terms.
 	 * @return List
 	 * @throws TermReaderException
 	 */
-	List<String> read() throws TermReaderException;
+	List<String> getTerms() throws TermReaderException;
 }

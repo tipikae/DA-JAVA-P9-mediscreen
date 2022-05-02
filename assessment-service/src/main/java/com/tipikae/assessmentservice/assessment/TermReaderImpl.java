@@ -28,7 +28,7 @@ import com.tipikae.assessmentservice.properties.TermsProperties;
  * @version 1.0
  *
  */
-@Component
+//@Component
 public class TermReaderImpl implements ITermReader {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TermReaderImpl.class);
@@ -40,7 +40,7 @@ public class TermReaderImpl implements ITermReader {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> read() throws TermReaderException {
+	public List<String> getTerms() throws TermReaderException {
 		String dir = termsConfig.getPath();
 		LOGGER.debug("read: dir=" + dir);
 		List<String> terms = new ArrayList<>();

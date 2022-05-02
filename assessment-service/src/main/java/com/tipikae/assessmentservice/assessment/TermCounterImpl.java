@@ -32,7 +32,7 @@ public class TermCounterImpl implements ITermCounter {
 	 */
 	@Override
 	public int countTerms(List<Note> notes) throws Exception {
-		List<String> terms = termsReader.read();
+		List<String> terms = termsReader.getTerms();
 		LOGGER.debug("countTerms: notes size=" + notes.size() + ", terms size=" + terms.size());
 		
 		return notes.parallelStream()

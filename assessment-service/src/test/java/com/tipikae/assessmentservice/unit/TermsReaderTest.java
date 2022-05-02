@@ -25,7 +25,7 @@ class TermsReaderTest {
 	@Test
 	void test() throws TermReaderException {
 		when(termsConfig.getPath()).thenReturn("terms");
-		assertTrue(termsReader.read().size() > 0);
+		assertTrue(termsReader.getTerms().size() > 0);
 	}
 
 }
