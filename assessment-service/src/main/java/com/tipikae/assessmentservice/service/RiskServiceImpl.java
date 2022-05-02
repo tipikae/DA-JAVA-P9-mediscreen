@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+package com.tipikae.assessmentservice.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.tipikae.assessmentservice.assessment.Risk;
+import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.validation.Gender;
+
+/**
+ * FormulaService.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Service
+public class RiskServiceImpl implements IRiskService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RiskServiceImpl.class);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Risk getRisk(int age, Gender gender, List<Note> notes) throws RiskNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
