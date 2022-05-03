@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.util;
+package com.tipikae.assessmentservice.risk.parser;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ public interface IFormulaParser {
 	List<String> getExpressions(String formula);
 	
 	/**
-	 * Get operandes from string.
+	 * Get operands from string.
 	 * @param formula String
 	 * @return List
 	 */
-	List<String> getOperandes(String formula);
+	List<String> getOperands(String formula);
 }
