@@ -13,5 +13,5 @@ public interface IEvaluator {
 	 * @param expression String
 	 * @return boolean
 	 */
-	boolean evaluate(String expression);
+	boolean evaluateExpression(String expression);
 }
