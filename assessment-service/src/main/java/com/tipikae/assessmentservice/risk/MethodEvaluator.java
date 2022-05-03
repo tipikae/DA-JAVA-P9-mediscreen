@@ -9,7 +9,7 @@ package com.tipikae.assessmentservice.risk;
  * @version 1.0
  *
  */
-public class MethodEvaluator extends Evaluator {
+public class MethodEvaluator extends AbstractEvaluator {
 	
 	private int count;
 
@@ -21,8 +21,8 @@ public class MethodEvaluator extends Evaluator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Validator createValidator(String expression) {
-		return new CountValidator(expression, count);
+	protected AbstractValidator createValidator(String expression) {
+		return new MethodCountValidator(expression, count);
 	}
 
 }

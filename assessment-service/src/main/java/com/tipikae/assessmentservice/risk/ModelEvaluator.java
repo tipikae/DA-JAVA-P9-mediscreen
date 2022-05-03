@@ -9,7 +9,7 @@ package com.tipikae.assessmentservice.risk;
  * @version 1.0
  *
  */
-public class ModelEvaluator extends Evaluator {
+public class ModelEvaluator extends AbstractEvaluator {
 	
 	private int age;
 	private char sex;
@@ -23,8 +23,8 @@ public class ModelEvaluator extends Evaluator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Validator createValidator(String expression) {
-		return new PatientValidator(expression, age, sex);
+	protected AbstractValidator createValidator(String expression) {
+		return new ModelPatientValidator(expression, age, sex);
 	}
 
 }
