@@ -11,20 +11,20 @@ import com.tipikae.assessmentservice.exception.ExpressionValidationException;
  * @version 1.0
  *
  */
-public abstract class Evaluator implements IEvaluator {
+public abstract class AbstractEvaluator implements IEvaluator {
 	
 	/**
 	 * Create validator.
 	 * @return Validator
 	 */
-	protected abstract Validator createValidator(String expression);
+	protected abstract AbstractValidator createValidator(String expression);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean evaluateExpression(String expression) throws ExpressionValidationException {
-		Validator validator = this.createValidator(expression);
+		AbstractValidator validator = this.createValidator(expression);
 		return validator.valid();
 	}
 
