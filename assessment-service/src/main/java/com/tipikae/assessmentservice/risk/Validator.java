@@ -3,6 +3,8 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import com.tipikae.assessmentservice.exception.ExpressionValidationException;
+
 /**
  * Expression validator.
  * @author tipikae
@@ -18,8 +20,9 @@ public abstract class Validator {
 	}
 
 	/**
-	 * Validate or not an expression.
+	 * Check if an expression is true or false.
 	 * @return boolean
+	 * @throws ExpressionValidationException
 	 */
-	public abstract boolean valid();
+	public abstract boolean valid() throws ExpressionValidationException;
 }

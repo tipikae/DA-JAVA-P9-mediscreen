@@ -3,6 +3,8 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import com.tipikae.assessmentservice.exception.ExpressionValidationException;
+
 /**
  * Validator with model object.
  * @author tipikae
@@ -20,8 +22,11 @@ public class PatientValidator extends Validator {
 		this.sex = sex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public boolean valid() {
+	public boolean valid() throws ExpressionValidationException {
 		
 		return false;
 	}
