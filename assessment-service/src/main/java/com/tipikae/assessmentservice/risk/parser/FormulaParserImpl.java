@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.util;
+package com.tipikae.assessmentservice.risk.parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class FormulaParserImpl implements IFormulaParser {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getOperandes(String formula) {
+	public List<String> getOperands(String formula) {
 		LOGGER.debug("getOperandes: from formula=" + formula);
 		List<String> operandes = new ArrayList<>();
 		Matcher matcher = Pattern.compile(OPERANDE).matcher(formula);

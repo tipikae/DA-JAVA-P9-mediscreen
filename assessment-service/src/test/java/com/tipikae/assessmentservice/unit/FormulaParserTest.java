@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.assessmentservice.util.FormulaParserImpl;
-import com.tipikae.assessmentservice.util.IFormulaParser;
+import com.tipikae.assessmentservice.risk.parser.FormulaParserImpl;
+import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
 
 class FormulaParserTest {
 	
@@ -31,15 +31,15 @@ class FormulaParserTest {
 
 	@Test
 	void getOperandesReturnsNotEmptyWhenMatches() {
-		assertEquals(2, formulaParser.getOperandes(RIGHT_FORMULA1).size());
-		assertEquals(2, formulaParser.getOperandes(RIGHT_FORMULA2).size());
-		assertEquals("AND", formulaParser.getOperandes(RIGHT_FORMULA1).get(0));
-		assertEquals("OR", formulaParser.getOperandes(RIGHT_FORMULA1).get(1));
+		assertEquals(2, formulaParser.getOperands(RIGHT_FORMULA1).size());
+		assertEquals(2, formulaParser.getOperands(RIGHT_FORMULA2).size());
+		assertEquals("AND", formulaParser.getOperands(RIGHT_FORMULA1).get(0));
+		assertEquals("OR", formulaParser.getOperands(RIGHT_FORMULA1).get(1));
 	}
 
 	@Test
 	void getOperandesReturnsEmptyWhenNoMatches() {
-		assertTrue(formulaParser.getOperandes(BAD_FORMULA).isEmpty());
+		assertTrue(formulaParser.getOperands(BAD_FORMULA).isEmpty());
 	}
 
 }
