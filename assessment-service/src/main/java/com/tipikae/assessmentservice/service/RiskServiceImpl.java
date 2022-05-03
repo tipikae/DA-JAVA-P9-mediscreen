@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.tipikae.assessmentservice.assessment.ITermCounter;
 import com.tipikae.assessmentservice.assessment.Risk;
+import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
 

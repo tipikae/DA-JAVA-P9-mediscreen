@@ -3,8 +3,8 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Risk;
-import com.tipikae.assessmentservice.service.RiskNotFoundException;
 
 /**
  * Risk calculator.

@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Risk;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
 import com.tipikae.assessmentservice.repository.IRiskRepository;
-import com.tipikae.assessmentservice.service.RiskNotFoundException;
 
 /**
  * Risk calculator.
@@ -31,13 +31,20 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	private IFormulaRepository formulaRepository;
 	
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Risk calculateRisk(int count, int age, char sex) throws RiskNotFoundException {
 		// get formules
-		// loop: parse formule
-		//		loop evaluate expression
+		// loop formules: 
+		//		parse formule: expressions, operandes
+		//		loop expressions:
+		//			evaluate expression -> boolean[]
 		// 		loop operande
-		// return risk
+		//		eval boolean if true
+		// only one true -> if not throw
+		// return risk by id
 		return null;
 	}
 

@@ -6,6 +6,7 @@ package com.tipikae.assessmentservice.service;
 import java.util.List;
 
 import com.tipikae.assessmentservice.assessment.Risk;
+import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Note;
 
 /**
