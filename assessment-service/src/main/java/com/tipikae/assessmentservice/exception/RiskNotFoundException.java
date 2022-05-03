@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.service;
-
-import com.tipikae.assessmentservice.exception.AssessmentServiceException;
+package com.tipikae.assessmentservice.exception;
 
 /**
  * Risk not found exception.
