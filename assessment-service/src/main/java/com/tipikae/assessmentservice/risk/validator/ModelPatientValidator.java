@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk;
+package com.tipikae.assessmentservice.risk.validator;
 
 import java.util.List;
 
@@ -19,26 +19,25 @@ import com.tipikae.assessmentservice.util.IUtil;
 import com.tipikae.assessmentservice.util.UtilImpl;
 
 /**
- * Validator with model object.
+ * Model Patient validator.
  * @author tipikae
  * @version 1.0
  *
  */
-public class ModelPatientValidator extends AbstractValidator {
+public class ModelPatientValidator implements IModelValidator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelPatientValidator.class);
 	private static final char PREFIX = 'P';
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
-	
+
 	private IExpressionParser expressionParser = new ExpressionParserImpl();
 	private IComparator comparator = new ComparatorImpl();
 	private IUtil util = new UtilImpl();
 	
 	private Patient patient;
-
-	public ModelPatientValidator(String expression, Patient patient) {
-		super(expression);
+	
+	public ModelPatientValidator(Patient patient) {
 		this.patient = patient;
 	}
 
@@ -46,8 +45,9 @@ public class ModelPatientValidator extends AbstractValidator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean valid() throws ExpressionValidationException {
-		LOGGER.debug("valid: model expression=" + expression + ", patientId=" + patient.getId());
+	public boolean valid(String expression) 
+			throws ExpressionValidationException {
+		LOGGER.debug("valid patientId=" + patient.getId() + ", expression=" + expression);
 		List<String> elements = expressionParser.getModelElements(PREFIX, expression);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
@@ -57,7 +57,7 @@ public class ModelPatientValidator extends AbstractValidator {
 			
 			if (field.equals(AGE)) {
 				int age = util.calculateAge(patient.getDob());
-				
+
 				try {
 					return comparator.compareInt(operand, age, Integer.parseInt(value));
 				} catch (NumberFormatException | OperandNotFoundException e) {
@@ -72,7 +72,7 @@ public class ModelPatientValidator extends AbstractValidator {
 			} 
 		}
 		
-		throw new ExpressionValidationException("Field not found: expression=" + expression);
+		throw new ExpressionValidationException("Expression incorrect: expression=" + expression);
 	}
 
 }

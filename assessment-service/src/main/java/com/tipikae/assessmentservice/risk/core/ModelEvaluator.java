@@ -1,21 +1,21 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk;
+package com.tipikae.assessmentservice.risk.core;
 
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 
 /**
- * Evaluator with a method.
+ * Evaluator with a model object.
  * @author tipikae
  * @version 1.0
  *
  */
-public class MethodEvaluator extends AbstractEvaluator {
+public class ModelEvaluator extends AbstractEvaluator {
 	
 	private Object object;
 
-	public MethodEvaluator(Object object) {
+	public ModelEvaluator(Object object) {
 		this.object = object;
 	}
 
@@ -24,7 +24,7 @@ public class MethodEvaluator extends AbstractEvaluator {
 	 */
 	@Override
 	protected AbstractValidator createValidator(String expression) throws ValidatorNotFoundException {
-		return new MethodValidator(expression, object);
+		return new ModelValidator(expression, object);
 	}
 
 }

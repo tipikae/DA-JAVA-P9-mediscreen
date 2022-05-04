@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk;
+package com.tipikae.assessmentservice.risk.core;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
+import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 
 /**
  * Expression validator.
@@ -23,6 +24,7 @@ public abstract class AbstractValidator {
 	 * Check if an expression is true or false.
 	 * @return boolean
 	 * @throws ExpressionValidationException
+	 * @throws ValidatorNotFoundException 
 	 */
-	public abstract boolean valid() throws ExpressionValidationException;
+	public abstract boolean valid() throws ExpressionValidationException, ValidatorNotFoundException;
 }
