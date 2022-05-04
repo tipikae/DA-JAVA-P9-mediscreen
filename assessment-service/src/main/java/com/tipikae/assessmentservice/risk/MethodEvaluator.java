@@ -3,6 +3,8 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
+
 /**
  * Evaluator with a method.
  * @author tipikae
@@ -11,18 +13,18 @@ package com.tipikae.assessmentservice.risk;
  */
 public class MethodEvaluator extends AbstractEvaluator {
 	
-	private int count;
+	private Object object;
 
-	public MethodEvaluator(int count) {
-		this.count = count;
+	public MethodEvaluator(Object object) {
+		this.object = object;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected AbstractValidator createValidator(String expression) {
-		return new MethodCountValidator(expression, count);
+	protected AbstractValidator createValidator(String expression) throws ValidatorNotFoundException {
+		return new MethodValidator(expression, object);
 	}
 
 }

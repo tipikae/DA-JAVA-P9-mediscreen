@@ -4,6 +4,7 @@
 package com.tipikae.assessmentservice.risk;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
+import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 
 /**
  * Abstract evaluator.
@@ -16,14 +17,16 @@ public abstract class AbstractEvaluator implements IEvaluator {
 	/**
 	 * Create validator.
 	 * @return Validator
+	 * @throws ValidatorNotFoundException 
 	 */
-	protected abstract AbstractValidator createValidator(String expression);
+	protected abstract AbstractValidator createValidator(String expression) throws ValidatorNotFoundException;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean evaluateExpression(String expression) throws ExpressionValidationException {
+	public boolean evaluateExpression(String expression) 
+			throws ExpressionValidationException, ValidatorNotFoundException {
 		AbstractValidator validator = this.createValidator(expression);
 		return validator.valid();
 	}

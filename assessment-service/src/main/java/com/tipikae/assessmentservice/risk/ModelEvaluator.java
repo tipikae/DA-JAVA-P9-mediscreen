@@ -3,6 +3,9 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
+import com.tipikae.assessmentservice.model.Patient;
+
 /**
  * Evaluator with a model object.
  * @author tipikae
@@ -11,20 +14,23 @@ package com.tipikae.assessmentservice.risk;
  */
 public class ModelEvaluator extends AbstractEvaluator {
 	
-	private int age;
-	private char sex;
+	private Object model;
 
-	public ModelEvaluator(int age, char sex) {
-		this.age = age;
-		this.sex = sex;
+	public ModelEvaluator(Object model) {
+		this.model = model;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected AbstractValidator createValidator(String expression) {
-		return new ModelPatientValidator(expression, age, sex);
+	protected AbstractValidator createValidator(String expression) throws ValidatorNotFoundException {
+		if(model instanceof Patient) {
+			return new ModelPatientValidator(expression, (Patient) model);
+		}
+		
+		throw new ValidatorNotFoundException("validator model for " + model.getClass().getSimpleName() 
+				+ " object not found");
 	}
 
 }

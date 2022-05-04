@@ -7,14 +7,16 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.OperandNotFoundException;
+import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.comparator.ComparatorImpl;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
 import com.tipikae.assessmentservice.risk.parser.ExpressionParserImpl;
 import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
+import com.tipikae.assessmentservice.util.IUtil;
+import com.tipikae.assessmentservice.util.UtilImpl;
 
 /**
  * Validator with model object.
@@ -25,22 +27,19 @@ import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
 public class ModelPatientValidator extends AbstractValidator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelPatientValidator.class);
+	private static final char PREFIX = 'P';
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
 	
-	//@Autowired
 	private IExpressionParser expressionParser = new ExpressionParserImpl();
-	
-	@Autowired
 	private IComparator comparator = new ComparatorImpl();
+	private IUtil util = new UtilImpl();
 	
-	private int age;
-	private char sex;
+	private Patient patient;
 
-	public ModelPatientValidator(String expression, int age, char sex) {
+	public ModelPatientValidator(String expression, Patient patient) {
 		super(expression);
-		this.age = age;
-		this.sex = sex;
+		this.patient = patient;
 	}
 
 	/**
@@ -48,25 +47,32 @@ public class ModelPatientValidator extends AbstractValidator {
 	 */
 	@Override
 	public boolean valid() throws ExpressionValidationException {
-		LOGGER.debug("valid: expression=" + expression + ", age=" + age + ", sex=" + sex);
-		List<String> elements = expressionParser.getModelElements('P', expression);
+		LOGGER.debug("valid: model expression=" + expression + ", patientId=" + patient.getId());
+		List<String> elements = expressionParser.getModelElements(PREFIX, expression);
 		
-		if (!elements.isEmpty()) {
-			if (elements.get(0).equals(AGE)) {
+		if (!elements.isEmpty() && elements.size() == 3) {
+			String field = elements.get(0);
+			String operand = elements.get(1);
+			String value = elements.get(2);
+			
+			if (field.equals(AGE)) {
+				int age = util.calculateAge(patient.getDob());
+				
 				try {
-					return comparator.compareInt(elements.get(1), age, Integer.parseInt(elements.get(2)));
+					return comparator.compareInt(operand, age, Integer.parseInt(value));
 				} catch (NumberFormatException | OperandNotFoundException e) {
 					throw new ExpressionValidationException(e.getMessage());
 				}
-			} else if (elements.get(0).equals(SEX)) {
+			} else if (field.equals(SEX)) {
 				try {
-					return comparator.compareCharacter(elements.get(1), sex, elements.get(2).charAt(0));
+					return comparator.compareCharacter(operand, patient.getSex(), value.charAt(0));
 				} catch (OperandNotFoundException e) {
 					throw new ExpressionValidationException(e.getMessage());
 				}
 			} 
 		}
-		throw new ExpressionValidationException("Field not found.");
+		
+		throw new ExpressionValidationException("Field not found: expression=" + expression);
 	}
 
 }

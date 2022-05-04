@@ -1,6 +1,7 @@
 package com.tipikae.assessmentservice.risk;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
+import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 
 /**
  * Evaluator.
@@ -15,6 +16,8 @@ public interface IEvaluator {
 	 * @param expression String
 	 * @return boolean
 	 * @throws ExpressionValidationException 
+	 * @throws ValidatorNotFoundException 
 	 */
-	boolean evaluateExpression(String expression) throws ExpressionValidationException;
+	boolean evaluateExpression(String expression) 
+			throws ExpressionValidationException, ValidatorNotFoundException;
 }
