@@ -12,8 +12,8 @@ import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk.IEvaluator;
-import com.tipikae.assessmentservice.risk.ModelEvaluator;
+import com.tipikae.assessmentservice.risk.core.IEvaluator;
+import com.tipikae.assessmentservice.risk.core.ModelEvaluator;
 
 @SpringBootTest
 class EvaluatorPatientIT {
