@@ -61,17 +61,20 @@ public class ModelPatientValidator implements IModelValidator {
 				try {
 					return comparator.compareInt(operand, age, Integer.parseInt(value));
 				} catch (NumberFormatException | OperandNotFoundException e) {
+					LOGGER.debug("valid: " + e.getClass().getSimpleName() + " occured when comparator called");
 					throw new ExpressionValidationException(e.getMessage());
 				}
 			} else if (field.equals(SEX)) {
 				try {
 					return comparator.compareCharacter(operand, patient.getSex(), value.charAt(0));
 				} catch (OperandNotFoundException e) {
+					LOGGER.debug("valid: " + e.getClass().getSimpleName() + " occured when comparator called");
 					throw new ExpressionValidationException(e.getMessage());
 				}
 			} 
 		}
 		
+		LOGGER.debug("Expression incorrect: expression=" + expression);
 		throw new ExpressionValidationException("Expression incorrect: expression=" + expression);
 	}
 

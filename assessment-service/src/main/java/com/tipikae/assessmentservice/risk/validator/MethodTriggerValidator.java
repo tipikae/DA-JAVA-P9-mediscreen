@@ -8,9 +8,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.assessment.ITermCounter;
+import com.tipikae.assessmentservice.assessment.TermCounterImpl;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.OperandNotFoundException;
@@ -25,7 +25,6 @@ import com.tipikae.assessmentservice.risk.comparator.IComparator;
  * @version 1.0
  *
  */
-@Component
 public class MethodTriggerValidator implements IMethodValidator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MethodTriggerValidator.class);
@@ -33,14 +32,12 @@ public class MethodTriggerValidator implements IMethodValidator {
 	@Autowired
 	private INoteServiceClient noteClient;
 	
-	@Autowired
-	private ITermCounter termCounter;
-	
+	private ITermCounter termCounter = new TermCounterImpl();
 	private IComparator comparator = new ComparatorImpl();
 	private int count;
 	
 	/**
-	 * Count trigger terms.
+	 * Count trigger terms and set count field.
 	 * @param object Object
 	 * @throws ExpressionValidationException
 	 */

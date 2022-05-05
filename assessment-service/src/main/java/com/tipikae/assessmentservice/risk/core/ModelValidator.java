@@ -44,6 +44,8 @@ public class ModelValidator extends AbstractValidator {
 			return modelValidator.valid(expression);
 		}
 		
+		LOGGER.debug("valid: validator model for " + object.getClass().getSimpleName()
+				+ " object not found");
 		throw new ValidatorNotFoundException("validator model for " + object.getClass().getSimpleName() 
 				+ " object not found");
 	}
