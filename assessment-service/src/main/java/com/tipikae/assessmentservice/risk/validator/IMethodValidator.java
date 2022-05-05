@@ -6,19 +6,25 @@ package com.tipikae.assessmentservice.risk.validator;
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 
 /**
- * Method validator.
+ * Method validate of an expression.
  * @author tipikae
- * @version1.0
+ * @version 1.0
  *
  */
 public interface IMethodValidator {
+	
+	/**
+	 * Set object.
+	 * @param obj
+	 */
+	void setObject(Object obj);
 
 	/**
-	 * Check if the expression is valid or not.
+	 * Check if an expression is valid.
 	 * @param operand String
-	 * @param value String
+	 * @param expected String
 	 * @return boolean
 	 * @throws ExpressionValidationException 
 	 */
-	boolean valid(String operand, String value) throws ExpressionValidationException;
+	boolean valid(String operand, String expected) throws ExpressionValidationException;
 }

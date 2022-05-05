@@ -7,47 +7,56 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.OperandNotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk.comparator.ComparatorImpl;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
-import com.tipikae.assessmentservice.risk.parser.ExpressionParserImpl;
 import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
 import com.tipikae.assessmentservice.util.IUtil;
-import com.tipikae.assessmentservice.util.UtilImpl;
 
 /**
- * Model Patient validator.
+ * Validator for a Patient object.
  * @author tipikae
  * @version 1.0
  *
  */
+@Component
 public class ModelPatientValidator implements IModelValidator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ModelPatientValidator.class);
 	private static final char PREFIX = 'P';
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
-
-	private IExpressionParser expressionParser = new ExpressionParserImpl();
-	private IComparator comparator = new ComparatorImpl();
-	private IUtil util = new UtilImpl();
+	
+	@Autowired
+	private IExpressionParser expressionParser;
+	
+	@Autowired
+	private IComparator comparator;
+	
+	@Autowired
+	private IUtil util;
 	
 	private Patient patient;
-	
-	public ModelPatientValidator(Patient patient) {
-		this.patient = patient;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setObject(Object obj) {
+		LOGGER.debug("setObject");
+		patient = (Patient) obj;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean valid(String expression) 
-			throws ExpressionValidationException {
-		LOGGER.debug("valid patientId=" + patient.getId() + ", expression=" + expression);
+	public boolean valid(String expression) throws ExpressionValidationException {
+		LOGGER.debug("valid: patientId=" + patient.getId() + ", expression=" + expression);
 		List<String> elements = expressionParser.getModelElements(PREFIX, expression);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
@@ -57,21 +66,22 @@ public class ModelPatientValidator implements IModelValidator {
 			
 			if (field.equals(AGE)) {
 				int age = util.calculateAge(patient.getDob());
-
 				try {
 					return comparator.compareInt(operand, age, Integer.parseInt(value));
 				} catch (NumberFormatException | OperandNotFoundException e) {
-					LOGGER.debug("valid: " + e.getClass().getSimpleName() + " occured when comparator called");
+					LOGGER.debug("valid: " + e.getClass().getSimpleName() 
+							+ " occured when comparator called");
 					throw new ExpressionValidationException(e.getMessage());
 				}
 			} else if (field.equals(SEX)) {
 				try {
 					return comparator.compareCharacter(operand, patient.getSex(), value.charAt(0));
 				} catch (OperandNotFoundException e) {
-					LOGGER.debug("valid: " + e.getClass().getSimpleName() + " occured when comparator called");
+					LOGGER.debug("valid: " + e.getClass().getSimpleName() 
+							+ " occured when comparator called");
 					throw new ExpressionValidationException(e.getMessage());
 				}
-			} 
+			}
 		}
 		
 		LOGGER.debug("Expression incorrect: expression=" + expression);

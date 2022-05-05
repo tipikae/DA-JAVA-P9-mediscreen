@@ -32,4 +32,19 @@ public class UtilImpl implements IUtil {
 		return age;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean matches(String expression, String regex) {
+		LOGGER.debug("matches: expression=" + expression + ", regex=" + regex);
+		if(expression.matches(regex)) {
+			LOGGER.debug("matches: yes");
+			return true;
+		}
+		
+		LOGGER.debug("matches: no");
+		return false;
+	}
+
 }

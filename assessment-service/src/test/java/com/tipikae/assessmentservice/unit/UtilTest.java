@@ -18,5 +18,12 @@ class UtilTest {
 		LocalDate dob = LocalDate.of(2000, 01, 01);
 		assertEquals(22, util.calculateAge(dob));
 	}
+	
+	@Test
+	void matches() {
+		String regex = "(^[A-Z]{1,2}\\.).*";
+		assertTrue(util.matches("P.age < 30", regex));
+		assertFalse(util.matches("trigger = 2", regex));
+	}
 
 }

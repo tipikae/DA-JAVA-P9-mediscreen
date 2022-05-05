@@ -19,4 +19,12 @@ public interface IUtil {
 	 * @return int
 	 */
 	int calculateAge(LocalDate dob);
+	
+	/**
+	 * Check if an expression matches with a regex.
+	 * @param expression String
+	 * @param regex String
+	 * @return boolean
+	 */
+	boolean matches(String expression, String regex);
 }

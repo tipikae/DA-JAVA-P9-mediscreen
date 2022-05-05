@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
@@ -13,10 +14,12 @@ import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.core.IEvaluator;
-import com.tipikae.assessmentservice.risk.core.ModelEvaluator;
 
 @SpringBootTest
 class EvaluatorPatientIT {
+	
+	@Autowired
+	private IEvaluator evaluator;
 	
 	private static Patient patient;
 	
@@ -28,32 +31,32 @@ class EvaluatorPatientIT {
 	@Test
 	void evaluateExpressionReturnsTrueWhenTrue() 
 			throws ExpressionValidationException, ValidatorNotFoundException {
-		IEvaluator evaluator = new ModelEvaluator(patient);
-		assertTrue(evaluator.evaluateExpression("P.age < 30"));
-		assertTrue(evaluator.evaluateExpression("P.sex = M"));
+		assertTrue(evaluator.evaluateExpression(patient, "P.age < 30"));
+		assertTrue(evaluator.evaluateExpression(patient, "P.sex = M"));
 	}
 	
 	@Test
 	void evaluateExpressionReturnsFalseWhenFalse() 
 			throws ExpressionValidationException, ValidatorNotFoundException {
-		IEvaluator evaluator = new ModelEvaluator(patient);
-		assertFalse(evaluator.evaluateExpression("P.age > 30"));
-		assertFalse(evaluator.evaluateExpression("P.sex = F"));
+		assertFalse(evaluator.evaluateExpression(patient, "P.age > 30"));
+		assertFalse(evaluator.evaluateExpression(patient, "P.sex = F"));
 	}
 	
 	@Test
 	void evaluateExpressionThrowsExpressionValidationExceptionWhenExpressionError() {
-		IEvaluator evaluator = new ModelEvaluator(patient);
-		assertThrows(ExpressionValidationException.class, () -> evaluator.evaluateExpression("M.age > 30"));
-		assertThrows(ExpressionValidationException.class, () -> evaluator.evaluateExpression("P.age & 30"));
-		assertThrows(ExpressionValidationException.class, () -> evaluator.evaluateExpression("P.field > 30"));
+		assertThrows(ExpressionValidationException.class, 
+				() -> evaluator.evaluateExpression(patient, "M.age > 30"));
+		assertThrows(ExpressionValidationException.class, 
+				() -> evaluator.evaluateExpression(patient, "P.age & 30"));
+		assertThrows(ExpressionValidationException.class, 
+				() -> evaluator.evaluateExpression(patient, "P.field > 30"));
 	}
 	
 	@Test
 	void evaluateExpressionThrowsValidatorNotFoundExceptionWhenBadModel() {
 		Note note = new Note("id", 1L, LocalDate.now(), "message");
-		IEvaluator evaluator = new ModelEvaluator(note);
-		assertThrows(ValidatorNotFoundException.class, () -> evaluator.evaluateExpression("N.age > 30"));
+		assertThrows(ValidatorNotFoundException.class, 
+				() -> evaluator.evaluateExpression(note, "N.age > 30"));
 	}
 
 }

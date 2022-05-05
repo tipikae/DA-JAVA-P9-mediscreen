@@ -7,12 +7,12 @@ import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 
 /**
- * Expression evaluator.
+ * Method evaluator of an expression.
  * @author tipikae
  * @version 1.0
  *
  */
-public interface IEvaluator {
+public interface IMethodEvaluator {
 
 	/**
 	 * Evaluate an expression.
@@ -24,4 +24,5 @@ public interface IEvaluator {
 	 */
 	boolean evaluateExpression(Object obj, String expression) 
 			throws ValidatorNotFoundException, ExpressionValidationException;
+
 }

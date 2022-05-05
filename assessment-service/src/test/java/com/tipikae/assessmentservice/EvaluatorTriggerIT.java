@@ -6,16 +6,19 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.core.IEvaluator;
-import com.tipikae.assessmentservice.risk.core.MethodEvaluator;
 
 @SpringBootTest
 class EvaluatorTriggerIT {
+	
+	@Autowired
+	private IEvaluator evaluator;
 	
 	private static Patient patientNone;
 	private static Patient patientBorderline;
@@ -33,41 +36,31 @@ class EvaluatorTriggerIT {
 	@Test
 	void evaluateExpressionReturnsTrueWhenTrue() 
 			throws ExpressionValidationException, ValidatorNotFoundException {
-		IEvaluator evaluator = new MethodEvaluator(patientNone);
-		assertTrue(evaluator.evaluateExpression("trigger = 1"));
-		evaluator = new MethodEvaluator(patientBorderline);
-		assertTrue(evaluator.evaluateExpression("trigger = 2"));
-		evaluator = new MethodEvaluator(patientInDanger);
-		assertTrue(evaluator.evaluateExpression("trigger = 3"));
-		evaluator = new MethodEvaluator(patientEarlyOnset);
-		assertTrue(evaluator.evaluateExpression("trigger = 9"));
+		assertTrue(evaluator.evaluateExpression(patientNone, "trigger = 1"));
+		assertTrue(evaluator.evaluateExpression(patientBorderline, "trigger = 2"));
+		assertTrue(evaluator.evaluateExpression(patientInDanger, "trigger = 3"));
+		assertTrue(evaluator.evaluateExpression(patientEarlyOnset, "trigger = 9"));
 	}
 
 	@Test
 	void evaluateExpressionReturnsFalseWhenFalse() 
 			throws ExpressionValidationException, ValidatorNotFoundException {
-		IEvaluator evaluator = new MethodEvaluator(patientNone);
-		assertFalse(evaluator.evaluateExpression("trigger = 0"));
-		evaluator = new MethodEvaluator(patientBorderline);
-		assertFalse(evaluator.evaluateExpression("trigger = 0"));
-		evaluator = new MethodEvaluator(patientInDanger);
-		assertFalse(evaluator.evaluateExpression("trigger = 0"));
-		evaluator = new MethodEvaluator(patientEarlyOnset);
-		assertFalse(evaluator.evaluateExpression("trigger = 0"));
+		assertFalse(evaluator.evaluateExpression(patientNone, "trigger = 0"));
+		assertFalse(evaluator.evaluateExpression(patientBorderline, "trigger = 0"));
+		assertFalse(evaluator.evaluateExpression(patientInDanger, "trigger = 0"));
+		assertFalse(evaluator.evaluateExpression(patientEarlyOnset, "trigger = 0"));
 	}
 
 	@Test
 	void evaluateExpressionThrowsExpressionValidationExceptionWhenExpressionError() {
-		IEvaluator evaluator = new MethodEvaluator(patientNone);
 		assertThrows(ExpressionValidationException.class, 
-				() -> evaluator.evaluateExpression("trigger & 0"));
+				() -> evaluator.evaluateExpression(patientNone, "trigger & 0"));
 	}
 
 	@Test
 	void evaluateExpressionThrowsValidatorNotFoundExceptionWhenBadMethod() {
-		IEvaluator evaluator = new MethodEvaluator(patientNone);
 		assertThrows(ValidatorNotFoundException.class, 
-				() -> evaluator.evaluateExpression("add = 0"));
+				() -> evaluator.evaluateExpression(patientNone, "add = 0"));
 	}
 
 }
