@@ -32,4 +32,14 @@ public interface IComparator {
 	 * @throws OperandNotFoundException
 	 */
 	boolean compareCharacter(String operand, char a, char b) throws OperandNotFoundException;
+	
+	/**
+	 * Compare 2 boolean.
+	 * @param operand String
+	 * @param a boolean
+	 * @param b boolean
+	 * @return boolean
+	 * @throws OperandNotFoundException
+	 */
+	boolean compareBoolean(String operand, boolean a, boolean b) throws OperandNotFoundException;
 }

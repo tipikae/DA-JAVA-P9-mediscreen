@@ -19,6 +19,16 @@ import com.tipikae.assessmentservice.exception.OperandNotFoundException;
 public class ComparatorImpl implements IComparator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComparatorImpl.class);
+	private static final String EQUALS = "=";
+	private static final String LESS_THAN = "<";
+	private static final String LESS_THAN_OR_EQUALS1 = "<=";
+	private static final String LESS_THAN_OR_EQUALS2 = "=<";
+	private static final String GREATER_THAN = ">";
+	private static final String GREATER_THAN_OR_EQUALS1 = ">=";
+	private static final String GREATER_THAN_OR_EQUALS2 = "=>";
+	private static final String DIFFERENTS = "!=";
+	private static final String AND = "AND";
+	private static final String OR = "OR";
 
 	/**
 	 * {@inheritDoc}
@@ -27,17 +37,21 @@ public class ComparatorImpl implements IComparator {
 	public boolean compareInt(String operand, int a, int b) throws OperandNotFoundException {
 		LOGGER.debug("compareInt: operand=" + operand + ", a=" + a + ", b=" + b);
 		switch(operand) {
-			case "=":
+			case EQUALS:
 				return intEquals(a, b);
-			case "<":
+			case LESS_THAN:
 				return intLessThan(a, b);
-			case "<=":
+			case LESS_THAN_OR_EQUALS1:
 				return intLessThanOrEquals(a, b);
-			case ">":
+			case LESS_THAN_OR_EQUALS2:
+				return intLessThanOrEquals(a, b);
+			case GREATER_THAN:
 				return intGreaterThan(a, b);
-			case ">=":
+			case GREATER_THAN_OR_EQUALS1:
 				return intGreaterThanOrEquals(a, b);
-			case "!=":
+			case GREATER_THAN_OR_EQUALS2:
+				return intGreaterThanOrEquals(a, b);
+			case DIFFERENTS:
 				return intDifferents(a, b);
 			default:
 				throw new OperandNotFoundException("operand=" + operand + " not found");
@@ -50,11 +64,29 @@ public class ComparatorImpl implements IComparator {
 	@Override
 	public boolean compareCharacter(String operand, char a, char b) throws OperandNotFoundException {
 		LOGGER.debug("compareCharacter: operand=" + operand + ", a=" + a + ", b=" + b);
+		operand = operand.toUpperCase();
 		switch(operand) {
-			case "=":
+			case EQUALS:
 				return charEquals(a, b);
-			case "!=":
+			case DIFFERENTS:
 				return charDifferents(a, b);
+			default:
+				throw new OperandNotFoundException("operand=" + operand + " not found");
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean compareBoolean(String operand, boolean a, boolean b) throws OperandNotFoundException {
+		LOGGER.debug("compareBoolean: operand=" + operand + ", a=" + a + ", b=" + b);
+		operand = operand.toUpperCase();
+		switch(operand) {
+			case AND:
+				return and(a, b);
+			case OR:
+				return or(a, b);
 			default:
 				throw new OperandNotFoundException("operand=" + operand + " not found");
 		}
@@ -90,6 +122,14 @@ public class ComparatorImpl implements IComparator {
 	
 	private boolean charDifferents(char a, char b) {
 		return a != b;
+	}
+	
+	private boolean and(boolean a, boolean b) {
+		return a && b;
+	}
+	
+	private boolean or(boolean a, boolean b) {
+		return a || b;
 	}
 
 }

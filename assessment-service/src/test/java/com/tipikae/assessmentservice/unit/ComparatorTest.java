@@ -55,5 +55,25 @@ class ComparatorTest {
 	void compareCharacterThrowsExceptionWhenNotFound() throws OperandNotFoundException {
 		assertThrows(OperandNotFoundException.class, () -> comparator.compareCharacter("&", 'M', 'F'));
 	}
+	
+	@Test
+	void compareBooleanReturnsTrueWhenTrue() throws OperandNotFoundException {
+		assertTrue(comparator.compareBoolean("AND", true, true));
+		assertTrue(comparator.compareBoolean("and", true, true));
+		assertTrue(comparator.compareBoolean("OR", true, false));
+		assertTrue(comparator.compareBoolean("or", true, false));
+		assertTrue(comparator.compareBoolean("OR", true, true));	
+	}
+	
+	@Test
+	void compareBooleanReturnsFalseWhenFalse() throws OperandNotFoundException {
+		assertFalse(comparator.compareBoolean("AND", true, false));
+		assertFalse(comparator.compareBoolean("and", true, false));
+	}
+	
+	@Test
+	void compareBooleanThrowsExceptionWhenNotFound() {
+		assertThrows(OperandNotFoundException.class, () -> comparator.compareBoolean("ADD", true, true));
+	}
 
 }
