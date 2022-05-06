@@ -11,8 +11,8 @@ CREATE TABLE risk (
 
 --changeset tipikae:2
 /*insert values into risk table*/
-INSERT INTO risk(label) 
-	VALUES('None'),
+INSERT INTO risk(label) VALUES
+	('None'),
 	('Borderline'),
 	('In Danger'),
 	('Early onset');
@@ -30,8 +30,18 @@ CREATE TABLE formula (
 
 --changeset tipikae:4
 /*insert values into formula table*/
-INSERT INTO formula(risk_id, form) 
-	VALUES(1, 'formula');
+INSERT INTO formula(risk_id, form) VALUES
+	(1, 'trigger < 2'),
+	(1, 'trigger = 2 AND age < 30'),
+	(1, 'trigger = 3 AND age < 30 AND sex = F'),
+	(2, 'trigger >= 2 AND trigger < 6 AND age >= 30'),
+	(3, 'trigger = 3 AND age < 30 AND sex = M'),
+	(3, 'trigger = 4 AND age < 30'),
+	(3, 'trigger = 5 AND trigger = 6 AND age < 30 AND sex = F'),
+	(3, 'trigger = 6 AND trigger = 7 AND age >= 30'),
+	(4, 'trigger = 6 AND age < 30 AND sex = M'),
+	(4, 'trigger = 7 AND age < 30'),
+	(4, 'trigger >= 8');
 
 --changeset tipikae:5
 /*create table trigger*/
@@ -44,8 +54,8 @@ CREATE TABLE trigger (
 
 --changeset tipikae:6
 /*insert values into trigger table*/
-INSERT INTO trigger(term) 
-	VALUES ('Hemoglobin A1C'), 
+INSERT INTO trigger(term) VALUES 
+	('Hemoglobin A1C'), 
 	('Microalbumin'), 
 	('Height'), 
 	('Weight'), 
