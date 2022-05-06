@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.assessmentservice.assessment.ITermCounter;
 import com.tipikae.assessmentservice.assessment.Risk;
 import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Note;
@@ -28,9 +27,6 @@ public class RiskServiceImpl implements IRiskService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RiskServiceImpl.class);
 	
 	@Autowired
-	private ITermCounter termCounter;
-	
-	@Autowired
 	private IRiskCalculator riskCalculator;
 
 	/**
@@ -38,7 +34,6 @@ public class RiskServiceImpl implements IRiskService {
 	 */
 	@Override
 	public Risk getRisk(int age, char sex, List<Note> notes) throws RiskNotFoundException {
-		// count term
 		// calculate risk
 		return null;
 	}

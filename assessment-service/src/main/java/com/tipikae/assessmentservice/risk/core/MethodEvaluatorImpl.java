@@ -3,7 +3,6 @@
  */
 package com.tipikae.assessmentservice.risk.core;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -64,6 +63,7 @@ public class MethodEvaluatorImpl implements IMethodEvaluator {
 		throw new ExpressionValidationException("Expression errror: expression=" + expression);
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean trigger(Object obj, String operand, String expected) 
 			throws ExpressionValidationException {
 		LOGGER.debug("trigger: operand=" + operand + ", expected=" + expected);
