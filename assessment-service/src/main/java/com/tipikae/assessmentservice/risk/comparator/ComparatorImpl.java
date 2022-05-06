@@ -93,43 +93,63 @@ public class ComparatorImpl implements IComparator {
 	}
 	
 	private boolean intEquals(int a, int b) {
-		return a == b;
+		boolean result = (a == b);
+		LOGGER.debug("intEquals: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean intLessThan(int a, int b) {
-		return a < b;
+		boolean result = (a < b);
+		LOGGER.debug("intLessThan: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean intLessThanOrEquals(int a, int b) {
-		return a <= b;
+		boolean result = (a <= b);
+		LOGGER.debug("intLessThanOrEquals: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean intGreaterThan(int a, int b) {
-		return a > b;
+		boolean result = (a > b);
+		LOGGER.debug("intGreaterThan: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean intGreaterThanOrEquals(int a, int b) {
-		return a >= b;
+		boolean result = (a >= b);
+		LOGGER.debug("intGreaterThanOrEquals: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean intDifferents(int a, int b) {
-		return a != b;
+		boolean result = (a != b);
+		LOGGER.debug("intDifferents: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean charEquals(char a, char b) {
-		return a == b;
+		boolean result = (a == b);
+		LOGGER.debug("charEquals: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean charDifferents(char a, char b) {
-		return a != b;
+		boolean result = (a != b);
+		LOGGER.debug("charDifferents: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean and(boolean a, boolean b) {
-		return a && b;
+		boolean result = (a && b);
+		LOGGER.debug("and: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 	
 	private boolean or(boolean a, boolean b) {
-		return a || b;
+		boolean result = (a || b);
+		LOGGER.debug("or: a=" + a + ", b=" + b + " => " + result);
+		return result;
 	}
 
 }
