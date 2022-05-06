@@ -50,7 +50,7 @@ public class MethodTriggerValidator implements IMethodValidator {
 	 */
 	@Override
 	public boolean valid(String operand, String expected) throws ExpressionValidationException {
-		LOGGER.debug("valid: patientId=" + patient.getId() + "operand=" + operand 
+		LOGGER.debug("valid: patientId=" + patient.getId() + ", operand=" + operand 
 				+ ", expected=" + expected);
 		try {
 			List<Note> notes = noteClient.getPatientNotes(patient.getId());
