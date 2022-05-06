@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.assessment;
+package com.tipikae.assessmentservice.view;
 
 import com.tipikae.assessmentservice.model.Patient;
 

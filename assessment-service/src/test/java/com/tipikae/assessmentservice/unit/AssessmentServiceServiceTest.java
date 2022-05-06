@@ -2,8 +2,6 @@ package com.tipikae.assessmentservice.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -19,8 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.assessment.IProcessData;
-import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
 import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
@@ -33,9 +29,11 @@ import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
+import com.tipikae.assessmentservice.model.Risk;
+import com.tipikae.assessmentservice.risk.IRiskCalculator;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
 import com.tipikae.assessmentservice.util.IUtil;
-import com.tipikae.assessmentservice.validation.Gender;
+import com.tipikae.assessmentservice.view.IViewResult;
 
 @ExtendWith(MockitoExtension.class)
 class AssessmentServiceServiceTest {
@@ -50,7 +48,7 @@ class AssessmentServiceServiceTest {
 	private INoteServiceClient noteClient;
 	
 	@Mock
-	private IProcessData processData;
+	private IRiskCalculator riskCalculator;
 	
 	@Mock
 	private IViewResult viewResult;
@@ -75,6 +73,7 @@ class AssessmentServiceServiceTest {
 	private static AssessmentDTO assessmentDTO;
 	private static List<Note> notes;
 	private static List<Patient> patients;
+	private static Risk risk;
 	
 	@BeforeAll
 	private static void setUp() {
@@ -92,6 +91,7 @@ class AssessmentServiceServiceTest {
 		assessmentDTO = new AssessmentDTO(message);
 		notes = List.of(note);
 		patients = List.of(patient);
+		risk = new Risk(1L, message);
 	}
 
 	@Test
@@ -100,7 +100,7 @@ class AssessmentServiceServiceTest {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
-		when(processData.getRisk(anyInt(), any(Gender.class), anyList())).thenReturn(message);
+		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertEquals(message, assessmentService.assessDiabetesById(assessmentByIdDTO).getMessage());
 	}
@@ -127,7 +127,7 @@ class AssessmentServiceServiceTest {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
 		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
-		when(processData.getRisk(anyInt(), any(Gender.class), anyList())).thenReturn(message);
+		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);
 	}

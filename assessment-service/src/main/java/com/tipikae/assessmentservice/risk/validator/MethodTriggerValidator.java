@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.assessment.ITermCounter;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
+import com.tipikae.assessmentservice.risk.term.ITermCounter;
 
 /**
  * Validator for trigger method.

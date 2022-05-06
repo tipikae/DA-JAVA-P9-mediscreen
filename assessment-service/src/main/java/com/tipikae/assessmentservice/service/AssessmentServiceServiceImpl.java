@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.assessmentservice.assessment.IProcessData;
-import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
 import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
@@ -25,8 +23,9 @@ import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
+import com.tipikae.assessmentservice.risk.IRiskCalculator;
 import com.tipikae.assessmentservice.util.IUtil;
-import com.tipikae.assessmentservice.validation.Gender;
+import com.tipikae.assessmentservice.view.IViewResult;
 
 /**
  * Assessment service service.
@@ -49,13 +48,13 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private INoteServiceClient noteClient;
 	
 	@Autowired
-	private IProcessData processData;
-	
-	@Autowired
 	private IViewResult viewResult;
 	
 	@Autowired
 	private IUtil util;
+	
+	@Autowired
+	private IRiskCalculator riskCalculator;
 
 	/**
 	 * {@inheritDoc}
@@ -105,15 +104,8 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
 		int age = util.calculateAge(patient.getDob());
 		
-		Gender gender;
-		if(patient.getSex() == 'M') {
-			gender = Gender.M;
-		} else {
-			gender = Gender.F;
-		}
-		
 		try {
-			String result = processData.getRisk(age, gender, notes);
+			String result = riskCalculator.calculateRisk(patient).getLabel();
 			return new Assessment(viewResult.getResultView(patient, age, result));
 		} catch (Exception e) {
 			LOGGER.debug("getAssessment: processData error: " + e.getMessage());

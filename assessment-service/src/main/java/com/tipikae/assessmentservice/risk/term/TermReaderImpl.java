@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.assessment;
+package com.tipikae.assessmentservice.risk.term;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ import com.tipikae.assessmentservice.repository.ITriggerRepository;
  *
  */
 @Component
-public class TermReaderImpl2 implements ITermReader {
+public class TermReaderImpl implements ITermReader {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TermReaderImpl.class);
 	

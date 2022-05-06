@@ -13,9 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.assessment.ITermReader;
-import com.tipikae.assessmentservice.assessment.TermCounterImpl;
 import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.risk.term.ITermReader;
+import com.tipikae.assessmentservice.risk.term.TermCounterImpl;
 
 @ExtendWith(MockitoExtension.class)
 class TermCounterTest {

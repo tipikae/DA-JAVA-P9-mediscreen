@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.assessment;
+package com.tipikae.assessmentservice.risk.term;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
