@@ -1,4 +1,4 @@
-package com.tipikae.assessmentservice.unit;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
