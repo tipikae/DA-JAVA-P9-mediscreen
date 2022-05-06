@@ -74,7 +74,8 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			// check expressions size = operands size + 1
 			// if not -> new iteration
 			if(expressions.size() != (operands.size() + 1)) {
-				LOGGER.debug("calculateRisk: expressions size != operands size + 1, formula=" + formula);
+				LOGGER.debug("calculateRisk: expressions size=" + expressions.size() 
+					+ " != operands size=" + operands.size() + " + 1, formula=" + formula);
 				return;
 			}
 			
@@ -89,6 +90,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			
 			// if all results are true -> formula is valid and set riskId
 			if(!results.stream().anyMatch(result -> result == false)) {
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
 				countValidFormulas.incrementAndGet();
 				riskId.set(formula.getRisk_id());
 			}
@@ -158,15 +160,20 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			throws AssessmentServiceException {
 		LOGGER.debug("evaluateOperands");
 		List<Boolean> results = new ArrayList<>();
-		for(int i = 0; i < operands.size(); i++) {
-			String operand = operands.get(i);
-			boolean left = expressionsEvaluated.get(i);
-			boolean right = expressionsEvaluated.get(i + 1);
-			try {
-				results.add(comparator.compareBoolean(operand, left, right));
-			} catch (OperandNotFoundException e) {
-				LOGGER.debug("calculateRisk: operand " + operand + " not found");
-				throw new AssessmentServiceException(e.getMessage());
+		
+		if(operands.isEmpty()) {
+			results.add(expressionsEvaluated.get(0));
+		} else {
+			for(int i = 0; i < operands.size(); i++) {
+				String operand = operands.get(i);
+				boolean left = expressionsEvaluated.get(i);
+				boolean right = expressionsEvaluated.get(i + 1);
+				try {
+					results.add(comparator.compareBoolean(operand, left, right));
+				} catch (OperandNotFoundException e) {
+					LOGGER.debug("calculateRisk: operand " + operand + " not found");
+					throw new AssessmentServiceException(e.getMessage());
+				}
 			}
 		}
 		
