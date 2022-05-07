@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.validation;
+package com.tipikae.assessmentservice.annotation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;

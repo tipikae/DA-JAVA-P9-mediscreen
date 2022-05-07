@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.validation;
+package com.tipikae.assessmentservice.annotation;
 
 import java.util.List;
 import java.util.stream.Collectors;

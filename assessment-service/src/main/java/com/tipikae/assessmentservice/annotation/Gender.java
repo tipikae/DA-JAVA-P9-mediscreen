@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.validation;
+package com.tipikae.assessmentservice.annotation;
 
 /**
  * Gender of a patient.
