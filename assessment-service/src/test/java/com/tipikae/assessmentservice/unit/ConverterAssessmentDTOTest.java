@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.assessmentservice.converterDTO.ConverterAssessmentDTOImpl;
-import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
+import com.tipikae.assessmentservice.dto.ConverterAssessmentDTOImpl;
+import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.model.Assessment;
 
 class ConverterAssessmentDTOTest {

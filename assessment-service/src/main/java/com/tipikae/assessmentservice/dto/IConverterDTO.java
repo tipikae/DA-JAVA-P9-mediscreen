@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.converterDTO;
+package com.tipikae.assessmentservice.dto;
 
 /**
  * Converter DTO generic.

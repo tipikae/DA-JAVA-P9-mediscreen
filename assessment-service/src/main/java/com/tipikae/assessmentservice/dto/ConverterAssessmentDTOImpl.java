@@ -1,11 +1,10 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.converterDTO;
+package com.tipikae.assessmentservice.dto;
 
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.model.Assessment;
 
 /**

@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
-import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByFamilyDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
+import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
 import com.tipikae.assessmentservice.exception.PatientNotFoundException;
