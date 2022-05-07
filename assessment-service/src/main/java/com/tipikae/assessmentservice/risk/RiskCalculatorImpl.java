@@ -89,6 +89,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			}
 			
 			// if all results are true -> formula is valid and set riskId
+			// TODO must accept OR, only AND is accepted
 			if(!results.stream().anyMatch(result -> result == false)) {
 				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
 				countValidFormulas.incrementAndGet();
