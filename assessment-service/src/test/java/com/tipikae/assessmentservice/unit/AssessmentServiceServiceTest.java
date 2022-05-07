@@ -29,7 +29,6 @@ import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.model.Risk;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
 import com.tipikae.assessmentservice.risk.IViewResult;
 import com.tipikae.assessmentservice.service.AgeProvider;
@@ -73,7 +72,7 @@ class AssessmentServiceServiceTest {
 	private static AssessmentDTO assessmentDTO;
 	private static List<Note> notes;
 	private static List<Patient> patients;
-	private static Risk risk;
+	private static String risk;
 	
 	@BeforeAll
 	private static void setUp() {
@@ -91,7 +90,7 @@ class AssessmentServiceServiceTest {
 		assessmentDTO = new AssessmentDTO(message);
 		notes = List.of(note);
 		patients = List.of(patient);
-		risk = new Risk(1L, message);
+		risk =  message;
 	}
 
 	@Test

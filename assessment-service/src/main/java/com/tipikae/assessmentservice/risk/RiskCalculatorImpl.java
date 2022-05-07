@@ -5,9 +5,8 @@ package com.tipikae.assessmentservice.risk;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +20,7 @@ import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Formula;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.model.Risk;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
-import com.tipikae.assessmentservice.repository.IRiskRepository;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
 import com.tipikae.assessmentservice.risk.core.IEvaluator;
 import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
@@ -38,9 +35,6 @@ import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
 public class RiskCalculatorImpl implements IRiskCalculator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RiskCalculatorImpl.class);
-	
-	@Autowired
-	private IRiskRepository riskRepository;
 	
 	@Autowired
 	private IFormulaRepository formulaRepository;
@@ -59,10 +53,10 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Risk calculateRisk(Patient patient) throws RiskNotFoundException {
+	public String calculateRisk(Patient patient) throws RiskNotFoundException {
 		LOGGER.debug("calculateRisk: patientId=" + patient.getId());
 		AtomicInteger countValidFormulas = new AtomicInteger(0);
-		AtomicLong riskId = new AtomicLong(0);
+		AtomicReference<String> risk = new AtomicReference<>();
 		
 		// get all formulas
 		List<Formula> formulas = formulaRepository.findAll();
@@ -93,7 +87,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			if(!results.stream().anyMatch(result -> result == false)) {
 				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
 				countValidFormulas.incrementAndGet();
-				riskId.set(formula.getRisk_id());
+				risk.set(formula.getRisk());
 			}
 		});
 		
@@ -107,14 +101,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			throw new RiskNotFoundException("multiple formulas found");
 		}
 		
-		// return risk by id
-		Optional<Risk> optional = riskRepository.findById(riskId.get());
-		if(optional.isEmpty()) {
-			LOGGER.debug("calculateRisk: risk with id=" + riskId.get() + " not found");
-			throw new RiskNotFoundException("risk with id=" + riskId.get() + " found");
-		}
-		
-		return optional.get();
+		return risk.get();
 	}
 	
 	/**

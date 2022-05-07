@@ -3,14 +3,12 @@ package com.tipikae.assessmentservice.unit.risk;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,9 +23,7 @@ import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Formula;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.model.Risk;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
-import com.tipikae.assessmentservice.repository.IRiskRepository;
 import com.tipikae.assessmentservice.risk.RiskCalculatorImpl;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
 import com.tipikae.assessmentservice.risk.core.IEvaluator;
@@ -35,9 +31,6 @@ import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
 
 @ExtendWith(MockitoExtension.class)
 class RiskCalculatorTest {
-	
-	@Mock
-	private IRiskRepository riskRepository;
 	
 	@Mock
 	private IFormulaRepository formulaRepository;
@@ -55,6 +48,7 @@ class RiskCalculatorTest {
 	private RiskCalculatorImpl riskCalculator;
 	
 	private static Patient patient;
+	private static String riskNone;
 	private static String expression1;
 	private static String expression2;
 	private static String operand;
@@ -66,11 +60,12 @@ class RiskCalculatorTest {
 	@BeforeAll
 	private static void setUp() {
 		patient = new Patient(1L, "", "", LocalDate.of(2000, 01, 01), 'F', "", "");
+		riskNone = "None";
 		expression1 = "trigger = 2";
 		expression2 = "age < 30";
 		operand = "AND";
-		rightFormula = new Formula(1L, 1L, expression1 + operand + expression2);
-		badFormula = new Formula(1L, 1L, "expression1 + operand");
+		rightFormula = new Formula(1L, riskNone, expression1 + operand + expression2);
+		badFormula = new Formula(1L, riskNone, "expression1 + operand");
 		rightFormulas = List.of(rightFormula);
 		badFormulas = List.of(badFormula);
 	}
@@ -84,8 +79,7 @@ class RiskCalculatorTest {
 		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand));
 		when(evaluator.evaluateExpression(any(Patient.class), anyString())).thenReturn(true, true);
 		when(comparator.compareBoolean(anyString(), anyBoolean(), anyBoolean())).thenReturn(true);
-		when(riskRepository.findById(anyLong())).thenReturn(Optional.of(new Risk(1L, "None")));
-		assertEquals("None", riskCalculator.calculateRisk(patient).getLabel());
+		assertEquals("None", riskCalculator.calculateRisk(patient));
 	}
 
 	@Test

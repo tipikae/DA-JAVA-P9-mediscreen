@@ -104,7 +104,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 		int age = ageProvider.calculateAge(patient.getDob());
 		
 		try {
-			String result = riskCalculator.calculateRisk(patient).getLabel();
+			String result = riskCalculator.calculateRisk(patient);
 			return new Assessment(viewResult.getResultView(patient, age, result));
 		} catch (Exception e) {
 			LOGGER.debug("getAssessment: processData error: " + e.getMessage());

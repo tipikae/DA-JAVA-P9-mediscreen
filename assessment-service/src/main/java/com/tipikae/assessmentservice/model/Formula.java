@@ -29,6 +29,6 @@ public class Formula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private long risk_id;
+	private String risk;
 	private String form;
 }

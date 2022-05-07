@@ -36,15 +36,15 @@ class RiskcalculatorIT {
 
 	@Test
 	void calculateRiskReturnsRiskWhenOk() throws RiskNotFoundException {
-		assertEquals("None", riskCalculator.calculateRisk(patientNoneMore30F).getLabel());
-		assertEquals("Borderline", riskCalculator.calculateRisk(patientBorderlineMore30M).getLabel());
-		assertEquals("In Danger", riskCalculator.calculateRisk(patientInDangerLess30M).getLabel());
-		assertEquals("Early onset", riskCalculator.calculateRisk(patientEarlyOnsetLess30F).getLabel());
+		assertEquals("None", riskCalculator.calculateRisk(patientNoneMore30F));
+		assertEquals("Borderline", riskCalculator.calculateRisk(patientBorderlineMore30M));
+		assertEquals("In Danger", riskCalculator.calculateRisk(patientInDangerLess30M));
+		assertEquals("Early onset", riskCalculator.calculateRisk(patientEarlyOnsetLess30F));
 	}
 	
 	@Test
 	void calculateRiskThrowsRiskNotFoundExceptionWhenPatientNotFound() throws RiskNotFoundException {
-		assertEquals("None", riskCalculator.calculateRisk(patientNotFound).getLabel());
+		assertEquals("None", riskCalculator.calculateRisk(patientNotFound));
 	}
 
 }

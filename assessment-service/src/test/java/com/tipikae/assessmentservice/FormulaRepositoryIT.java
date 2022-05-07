@@ -19,9 +19,10 @@ class FormulaRepositoryIT {
 	void test() {
 		long id;
 		String formula = "formula";
+		String risk = "None";
 		
 		// save
-		Formula formula1 = formulaRepository.save(new Formula(0L, 1L, formula));
+		Formula formula1 = formulaRepository.save(new Formula(0L, risk, formula));
 		id = formula1.getId();
 		
 		// find by id
