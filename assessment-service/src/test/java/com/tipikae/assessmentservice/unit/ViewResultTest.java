@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.view.IViewResult;
-import com.tipikae.assessmentservice.view.ViewResultImpl;
+import com.tipikae.assessmentservice.risk.IViewResult;
+import com.tipikae.assessmentservice.risk.ViewResultImpl;
 
 class ViewResultTest {
 	

@@ -24,7 +24,7 @@ import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
-import com.tipikae.assessmentservice.view.IViewResult;
+import com.tipikae.assessmentservice.risk.IViewResult;
 
 /**
  * Assessment service service.
