@@ -82,7 +82,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			List<Boolean> results;
 			try {
 				List<Boolean> expressionsEvaluated = evaluateExpressions(patient, expressions);
-				results = evaluateOperands(operands, expressionsEvaluated);
+				results = evaluateWithOperands(operands, expressionsEvaluated);
 			} catch (Exception e) {
 				LOGGER.debug("calculateRisk: error=" + e.getMessage() + ", formula=" + formula);
 				return;
@@ -156,7 +156,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	 * @return List
 	 * @throws AssessmentServiceException 
 	 */
-	private List<Boolean> evaluateOperands(List<String> operands, List<Boolean> expressionsEvaluated) 
+	private List<Boolean> evaluateWithOperands(List<String> operands, List<Boolean> expressionsEvaluated) 
 			throws AssessmentServiceException {
 		LOGGER.debug("evaluateOperands");
 		List<Boolean> results = new ArrayList<>();
