@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.exception.ExpressionValidationException;
 import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
-import com.tipikae.assessmentservice.util.IUtil;
 
 /**
  * Expression evaluator.
@@ -29,9 +28,6 @@ public class EvaluatorImpl implements IEvaluator {
 	
 	@Autowired
 	private IModelEvaluator modelEvaluator;
-	
-	@Autowired
-	private IUtil util;
 
 	/**
 	 * {@inheritDoc}
@@ -41,7 +37,7 @@ public class EvaluatorImpl implements IEvaluator {
 			throws ValidatorNotFoundException, ExpressionValidationException {
 		LOGGER.debug("evaluateExpression: expression=" + expression);
 		
-		if(util.matches(expression, START_MODEL)) {
+		if(expression.matches(START_MODEL)) {
 			return modelEvaluator.evaluateExpression(obj, expression);
 		}
 		
