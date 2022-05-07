@@ -24,7 +24,6 @@ import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
-import com.tipikae.assessmentservice.util.IUtil;
 import com.tipikae.assessmentservice.view.IViewResult;
 
 /**
@@ -51,7 +50,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private IViewResult viewResult;
 	
 	@Autowired
-	private IUtil util;
+	private AgeProvider ageProvider;
 	
 	@Autowired
 	private IRiskCalculator riskCalculator;
@@ -102,7 +101,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	// calculates risk and returns assessment
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
-		int age = util.calculateAge(patient.getDob());
+		int age = ageProvider.calculateAge(patient.getDob());
 		
 		try {
 			String result = riskCalculator.calculateRisk(patient).getLabel();

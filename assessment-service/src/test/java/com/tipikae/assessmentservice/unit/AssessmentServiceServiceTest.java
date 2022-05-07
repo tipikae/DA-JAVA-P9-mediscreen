@@ -31,8 +31,8 @@ import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.model.Risk;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
+import com.tipikae.assessmentservice.service.AgeProvider;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
-import com.tipikae.assessmentservice.util.IUtil;
 import com.tipikae.assessmentservice.view.IViewResult;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,7 +54,7 @@ class AssessmentServiceServiceTest {
 	private IViewResult viewResult;
 	
 	@Mock
-	private IUtil util;
+	private AgeProvider ageProvider;
 	
 	@InjectMocks
 	private AssessmentServiceServiceImpl assessmentService;
@@ -99,7 +99,7 @@ class AssessmentServiceServiceTest {
 			throws Exception {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
+		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(age);
 		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertEquals(message, assessmentService.assessDiabetesById(assessmentByIdDTO).getMessage());
@@ -126,7 +126,7 @@ class AssessmentServiceServiceTest {
 			throws Exception {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(util.calculateAge(any(LocalDate.class))).thenReturn(age);
+		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(age);
 		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);

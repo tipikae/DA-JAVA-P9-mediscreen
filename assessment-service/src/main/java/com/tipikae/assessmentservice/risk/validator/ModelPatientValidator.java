@@ -15,7 +15,7 @@ import com.tipikae.assessmentservice.exception.OperandNotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.comparator.IComparator;
 import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
-import com.tipikae.assessmentservice.util.IUtil;
+import com.tipikae.assessmentservice.service.AgeProvider;
 
 /**
  * Validator for a Patient object.
@@ -38,7 +38,7 @@ public class ModelPatientValidator implements IModelValidator {
 	private IComparator comparator;
 	
 	@Autowired
-	private IUtil util;
+	private AgeProvider ageProvider;
 	
 	private Patient patient;
 
@@ -65,7 +65,7 @@ public class ModelPatientValidator implements IModelValidator {
 			String value = elements.get(2);
 			
 			if (field.equals(AGE)) {
-				int age = util.calculateAge(patient.getDob());
+				int age = ageProvider.calculateAge(patient.getDob());
 				try {
 					return comparator.compareInt(operand, age, Integer.parseInt(value));
 				} catch (NumberFormatException | OperandNotFoundException e) {

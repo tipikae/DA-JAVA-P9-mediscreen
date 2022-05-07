@@ -6,17 +6,16 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.assessmentservice.util.IUtil;
-import com.tipikae.assessmentservice.util.UtilImpl;
+import com.tipikae.assessmentservice.service.AgeProvider;
 
-class UtilTest {
+class AgeProviderTest {
 	
-	private IUtil util = new UtilImpl();
+	private AgeProvider ageProvider = new AgeProvider();
 
 	@Test
 	void calculateAge() {
 		LocalDate dob = LocalDate.of(2000, 01, 01);
-		assertEquals(22, util.calculateAge(dob));
+		assertEquals(22, ageProvider.calculateAge(dob));
 	}
 
 }
