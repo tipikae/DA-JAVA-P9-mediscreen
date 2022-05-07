@@ -1,27 +1,26 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.errorDecoder;
+package com.tipikae.assessmentservice.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
 /**
- * Patient service error decoder.
+ * Note service error decoder.
  * @author tipikae
  * @version 1.0
  *
  */
-public class PatientServiceErrorDecoder implements ErrorDecoder {
+public class NoteServiceErrorDecoder implements ErrorDecoder {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceErrorDecoder.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceErrorDecoder.class);
 	
 	private final ErrorDecoder defaultErrorDecoder = new Default();
 
@@ -33,8 +32,6 @@ public class PatientServiceErrorDecoder implements ErrorDecoder {
 			switch (response.status()) {
 				case 400:
 					return new BadRequestException(response.status() + ": " + response.reason());
-				case 404:
-					return new PatientNotFoundException(response.status() + ": " + response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
 			}

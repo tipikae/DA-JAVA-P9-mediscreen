@@ -1,4 +1,4 @@
-package com.tipikae.assessmentservice.config;
+package com.tipikae.assessmentservice.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -6,10 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
-import com.tipikae.assessmentservice.client.INoteServiceClient;
-import com.tipikae.assessmentservice.client.IPatientServiceClient;
-import com.tipikae.assessmentservice.errorDecoder.NoteServiceErrorDecoder;
-import com.tipikae.assessmentservice.errorDecoder.PatientServiceErrorDecoder;
 
 import feign.Feign;
 import feign.Logger;
