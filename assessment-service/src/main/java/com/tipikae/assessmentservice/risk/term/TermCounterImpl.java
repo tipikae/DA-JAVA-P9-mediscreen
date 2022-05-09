@@ -31,7 +31,7 @@ public class TermCounterImpl implements ITermCounter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int countTerms(List<Note> notes) throws Exception {
+	public int countTerms(List<Note> notes) {
 		List<String> terms = termsReader.getTerms();
 		LOGGER.debug("countTerms: notes size=" + notes.size() + ", terms size=" + terms.size());
 		

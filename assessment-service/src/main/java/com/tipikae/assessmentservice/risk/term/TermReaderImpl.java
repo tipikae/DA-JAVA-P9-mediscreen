@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.exception.TermReaderException;
 import com.tipikae.assessmentservice.repository.ITriggerRepository;
 
 /**
@@ -32,7 +31,7 @@ public class TermReaderImpl implements ITermReader {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getTerms() throws TermReaderException {
+	public List<String> getTerms() {
 		LOGGER.debug("getTerms from repository");
 		return triggerRepository.findAll().stream()
 				.map(trigger -> trigger.getTerm())
