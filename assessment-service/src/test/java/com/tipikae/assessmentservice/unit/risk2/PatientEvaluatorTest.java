@@ -17,6 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.tipikae.assessmentservice.exception.BadOperationException2;
+import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
+import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
 import com.tipikae.assessmentservice.risk2.PatientEvaluator;
@@ -81,7 +84,8 @@ class PatientEvaluatorTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void evaluateReturnsTrueWhenTrue() {
+	void evaluateReturnsTrueWhenTrue() 
+			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(expressionParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageLess30Array, sexEqualMaleArray, ageMore30Array, sexEqualMaleArray);
@@ -101,8 +105,9 @@ class PatientEvaluatorTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void evaluateReturnsFalseWhenFalse() {
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(42, 22, 42, 22);
+	void evaluateReturnsFalseWhenFalse() 
+			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
+		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(expressionParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageMore30Array, sexEqualFemaleArray, ageLess30Array, sexEqualFemaleArray);
 		assertFalse(patientEvaluator.evaluate(maleLess30, ageMore30));
