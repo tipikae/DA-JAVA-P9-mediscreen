@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EvaluatorFactory {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluatorFactory.class);
+	private static final String START_MODEL = "(^[A-Z]{1,2}\\.).*";
 
 	@Autowired
 	private IEvaluator patientEvaluator;
@@ -25,7 +26,9 @@ public class EvaluatorFactory {
 	
 	public IEvaluator getEvaluator(String operation) {
 		LOGGER.debug("getEvaluator: operation=" + operation);
-		
-		return null;
+		if(operation.matches(START_MODEL)) {
+			return patientEvaluator;
+		}
+		return triggerEvaluator;
 	}
 }
