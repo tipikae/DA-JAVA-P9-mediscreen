@@ -31,6 +31,8 @@ class BooleanOperatorTest {
 		assertTrue(BooleanOperator.valueOfOperator(or).apply(true, true));
 		assertTrue(BooleanOperator.valueOfOperator(or).apply(false, true));
 		assertFalse(BooleanOperator.valueOfOperator(or).apply(false, false));
+		
+		assertNull(BooleanOperator.valueOfOperator("XOR"));
 	}
 
 }

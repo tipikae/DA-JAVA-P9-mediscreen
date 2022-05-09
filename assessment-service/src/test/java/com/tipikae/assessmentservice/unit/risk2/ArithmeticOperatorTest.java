@@ -63,6 +63,8 @@ class ArithmeticOperatorTest {
 		
 		assertFalse(ArithmeticOperator.valueOfOperator(differents).apply(1, 1));
 		assertTrue(ArithmeticOperator.valueOfOperator(differents).apply(1, 2));
+		
+		assertNull(ArithmeticOperator.valueOfOperator("++"));
 	}
 
 }
