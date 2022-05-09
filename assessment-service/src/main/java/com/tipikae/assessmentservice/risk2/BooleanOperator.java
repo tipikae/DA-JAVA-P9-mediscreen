@@ -26,7 +26,6 @@ public enum BooleanOperator implements BinaryOperator<Boolean> {
 		}
 	};
 	
-	@SuppressWarnings("unused")
 	private String operator;
 	
 	private BooleanOperator(String operator) {

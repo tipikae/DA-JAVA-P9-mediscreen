@@ -50,7 +50,6 @@ public enum ArithmeticOperator implements BiFunction<Integer, Integer, Boolean> 
 		}
 	};
 	
-	@SuppressWarnings("unused")
 	private String operator;
 	
 	private ArithmeticOperator(String operator) {
