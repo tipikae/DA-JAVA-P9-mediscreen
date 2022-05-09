@@ -13,7 +13,6 @@ import com.tipikae.assessmentservice.exception.BadOperationException2;
 import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
 import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk.parser.IExpressionParser;
 import com.tipikae.assessmentservice.service.AgeProvider;
 
 /**
@@ -33,7 +32,7 @@ public class PatientEvaluator implements IEvaluator {
 	private AgeProvider ageProvider;
 	
 	@Autowired
-	private IExpressionParser expressionParser;
+	private OperationParser operationParser;
 
 	/**
 	 * {@inheritDoc}
@@ -42,14 +41,15 @@ public class PatientEvaluator implements IEvaluator {
 	public boolean evaluate(Patient patient, String operation) 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		LOGGER.debug("evaluate: patientId=" + patient.getId() + ", operation=" + operation);
-		List<String> elements = expressionParser.getModelElements(PREFIX, operation);
+		List<String> elements = operationParser.getModelElements(PREFIX, operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
 			String field = elements.get(0);
 			String operator = elements.get(1);
 			String expected = elements.get(2);
+			LOGGER.debug("field=" + field + ", operator=" + operator + ", expected=" + expected);
 			
-			if (field.equals(PREFIX + "." + AGE)) {
+			if (field.equals(AGE)) {
 				int age = ageProvider.calculateAge(patient.getDob());
 				
 				if(ArithmeticOperator.valueOfOperator(operator) != null) {
@@ -59,7 +59,7 @@ public class PatientEvaluator implements IEvaluator {
 				LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
 				throw new OperatorNotFoundException2("Arithmetic operator=" + operator + " not found.");
 			
-			} else if (field.equals(PREFIX + "." + SEX)) {
+			} else if (field.equals(SEX)) {
 				if(CharacterOperator.valueOfOperator(operator) != null) {
 					return CharacterOperator.valueOfOperator(operator)
 							.apply(patient.getSex(), expected.charAt(0));
