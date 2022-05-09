@@ -86,7 +86,7 @@ class PatientEvaluatorTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void evaluateReturnsTrueWhenTrue() 
+	void evaluateReturnsTrueWhenOperationIsTrue() 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(operationParser.getModelElements(anyChar(), anyString()))
@@ -107,7 +107,7 @@ class PatientEvaluatorTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void evaluateReturnsFalseWhenFalse() 
+	void evaluateReturnsFalseWhenOperationIsFalse() 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(operationParser.getModelElements(anyChar(), anyString()))

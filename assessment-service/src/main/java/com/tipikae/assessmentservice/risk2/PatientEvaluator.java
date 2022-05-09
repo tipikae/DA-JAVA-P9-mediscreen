@@ -40,7 +40,7 @@ public class PatientEvaluator implements IEvaluator {
 	@Override
 	public boolean evaluate(Patient patient, String operation) 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
-		LOGGER.debug("evaluate: patientId=" + patient.getId() + ", operation=" + operation);
+		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
 		List<String> elements = operationParser.getModelElements(PREFIX, operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
