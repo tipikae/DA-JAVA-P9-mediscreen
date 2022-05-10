@@ -1,13 +1,11 @@
-package com.tipikae.assessmentservice.unit.risk;
+package com.tipikae.assessmentservice.unit.risk2;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -17,17 +15,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.exception.ExpressionValidationException;
-import com.tipikae.assessmentservice.exception.OperandNotFoundException;
+import com.tipikae.assessmentservice.exception.BadOperationException2;
+import com.tipikae.assessmentservice.exception.ClientException;
+import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
+import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.exception.RiskNotFoundException;
-import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Formula;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
-import com.tipikae.assessmentservice.risk.RiskCalculatorImpl;
-import com.tipikae.assessmentservice.risk.comparator.IComparator;
-import com.tipikae.assessmentservice.risk.core.IEvaluator;
-import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
+import com.tipikae.assessmentservice.risk2.EvaluatorFactory;
+import com.tipikae.assessmentservice.risk2.FormulaParser;
+import com.tipikae.assessmentservice.risk2.FormulaValidator;
+import com.tipikae.assessmentservice.risk2.IEvaluator;
+import com.tipikae.assessmentservice.risk2.RiskCalculatorImpl;
 
 @ExtendWith(MockitoExtension.class)
 class RiskCalculatorTest {
@@ -36,94 +36,110 @@ class RiskCalculatorTest {
 	private IFormulaRepository formulaRepository;
 	
 	@Mock
-	private IFormulaParser formulaParser;
+	private FormulaValidator formulaValidator;
+	
+	@Mock
+	private FormulaParser formulaParser;
+	
+	@Mock
+	private EvaluatorFactory evaluatorFactory;
 	
 	@Mock
 	private IEvaluator evaluator;
-	
-	@Mock
-	private IComparator comparator;
 	
 	@InjectMocks
 	private RiskCalculatorImpl riskCalculator;
 	
 	private static Patient patient;
-	private static String riskNone;
-	private static String expression1;
-	private static String expression2;
-	private static String operand;
+	private static String operation1;
+	private static String operation2;
+	private static String operation3;
+	private static String operator1;
+	private static String operator2;
+	private static String rightForm;
+	private static String badForm;
+	private static String risk = "None";
 	private static Formula rightFormula;
 	private static Formula badFormula;
-	private static List<Formula> rightFormulas;
-	private static List<Formula> badFormulas;
+	private static List<String> operations;
+	private static List<String> operators;
+	
 	
 	@BeforeAll
 	private static void setUp() {
-		patient = new Patient(1L, "", "", LocalDate.of(2000, 01, 01), 'F', "", "");
-		riskNone = "None";
-		expression1 = "trigger = 2";
-		expression2 = "age < 30";
-		operand = "AND";
-		rightFormula = new Formula(1L, riskNone, expression1 + operand + expression2);
-		badFormula = new Formula(1L, riskNone, "expression1 + operand");
-		rightFormulas = List.of(rightFormula);
-		badFormulas = List.of(badFormula);
+		patient = new Patient();
+		operation1 = "trigger = 2";
+		operation2 = "P.age < 30";
+		operation3 = "P.sex = M";
+		operator1 = "OR";
+		operator2 = "AND";
+		rightForm = operation1 + " " + operator1 + " " + operation2 + " " + operator2 + " " + operation3;
+		badForm = operation1 + operation2;
+		rightFormula = new Formula(0, risk, rightForm);
+		badFormula = new Formula(0, risk, badForm);
+		operations = List.of(operation1, operation2, operation3);
+		operators = List.of(operator1, operator2);
 	}
 
 	@Test
-	void calculateRiskReturnsRiskWhenOk() 
-			throws ValidatorNotFoundException, ExpressionValidationException, OperandNotFoundException, 
-			RiskNotFoundException {
-		when(formulaRepository.findAll()).thenReturn(rightFormulas);
-		when(formulaParser.getExpressions(anyString())).thenReturn(List.of(expression1, expression2));
-		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand));
-		when(evaluator.evaluateExpression(any(Patient.class), anyString())).thenReturn(true, true);
-		when(comparator.compareBoolean(anyString(), anyBoolean(), anyBoolean())).thenReturn(true);
-		assertEquals("None", riskCalculator.calculateRisk(patient));
+	void calculateRiskReturnsRiskWhenOneFormulaValidAndEvaluated() 
+			throws OperatorNotFoundException2, FieldNotFoundException2, 
+			BadOperationException2, ClientException, RiskNotFoundException {
+		when(formulaRepository.findAll()).thenReturn(List.of(badFormula, rightFormula));
+		when(formulaValidator.validate(anyString())).thenReturn(false, true);
+		when(formulaParser.getOperations(anyString())).thenReturn(operations);
+		when(formulaParser.getOperators(anyString())).thenReturn(operators);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
+		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, true, true);
+		assertEquals(risk, riskCalculator.calculateRisk(patient));
 	}
-
+	
 	@Test
-	void calculateRiskThrowsRiskNotFoundExceptionWhenBadFormulas() {
-		when(formulaRepository.findAll()).thenReturn(badFormulas);
-		when(formulaParser.getExpressions(anyString())).thenReturn(List.of(expression1));
-		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand));
+	void calculateRiskThrowsRiskNotFoundExceptionWhenOneFormulaValidAndNotEvaluated() 
+			throws OperatorNotFoundException2, FieldNotFoundException2, 
+			BadOperationException2, ClientException {
+		when(formulaRepository.findAll()).thenReturn(List.of(badFormula, rightFormula));
+		when(formulaValidator.validate(anyString())).thenReturn(false, true);
+		when(formulaParser.getOperations(anyString())).thenReturn(operations);
+		when(formulaParser.getOperators(anyString())).thenReturn(operators);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);	
+		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, false, true);
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	@Test
-	void calculateRiskThrowsRiskNotFoundExceptionWhenMultipleRightFormulas() 
-			throws ValidatorNotFoundException, ExpressionValidationException, OperandNotFoundException {
-		when(formulaRepository.findAll()).thenReturn(List.of(rightFormula, rightFormula));
-		when(formulaParser.getExpressions(anyString()))
-			.thenReturn(List.of(expression1, expression2), List.of(expression1, expression2));
-		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand), List.of(operand));
-		when(evaluator.evaluateExpression(any(Patient.class), anyString()))
-			.thenReturn(true, true, true, true);
-		when(comparator.compareBoolean(anyString(), anyBoolean(), anyBoolean())).thenReturn(true, true);
+	void calculateRiskThrowsRiskNotFoundExceptionWhenEvaluatorError() 
+			throws OperatorNotFoundException2, FieldNotFoundException2, 
+			BadOperationException2, ClientException {
+		when(formulaRepository.findAll()).thenReturn(List.of(badFormula, rightFormula));
+		when(formulaValidator.validate(anyString())).thenReturn(false, true);
+		when(formulaParser.getOperations(anyString())).thenReturn(operations);
+		when(formulaParser.getOperators(anyString())).thenReturn(operators);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
+		doThrow(OperatorNotFoundException2.class)
+			.when(evaluator).evaluate(any(Patient.class), anyString());
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
-
+	
 	@Test
-	void calculateRiskThrowsRiskNotFoundExceptionWhenEvaluatorfailed() 
-			throws ValidatorNotFoundException, ExpressionValidationException {
-		when(formulaRepository.findAll()).thenReturn(rightFormulas);
-		when(formulaParser.getExpressions(anyString())).thenReturn(List.of(expression1, expression2));
-		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand));
-		doThrow(ValidatorNotFoundException.class)
-			.when(evaluator).evaluateExpression(any(Patient.class), anyString());
+	void calculateRiskThrowsRiskNotFoundExceptionWhenNoFormula() {
+		when(formulaRepository.findAll()).thenReturn(List.of());
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
-
+	
 	@Test
-	void calculateRiskThrowsRiskNotFoundExceptionWhenComparatorfailed() 
-			throws ValidatorNotFoundException, ExpressionValidationException, OperandNotFoundException {
-		when(formulaRepository.findAll()).thenReturn(rightFormulas);
-		when(formulaParser.getExpressions(anyString())).thenReturn(List.of(expression1, expression2));
-		when(formulaParser.getOperands(anyString())).thenReturn(List.of(operand));
-		when(evaluator.evaluateExpression(any(Patient.class), anyString())).thenReturn(true, true);
-		doThrow(OperandNotFoundException.class)
-			.when(comparator).compareBoolean(anyString(), anyBoolean(), anyBoolean());
+	void calculateRiskThrowsRiskNotFoundExceptionWhenNoFormulaValid() {
+		when(formulaRepository.findAll()).thenReturn(List.of(badFormula, badFormula));
+		when(formulaValidator.validate(anyString())).thenReturn(false, false);
+		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
+	}
+	
+	@Test
+	void calculateRiskThrowsRiskNotFoundExceptionWhenOperationsAndOperatorsSizeMismatched() {
+		when(formulaRepository.findAll()).thenReturn(List.of(badFormula, rightFormula));
+		when(formulaValidator.validate(anyString())).thenReturn(false, true);
+		when(formulaParser.getOperations(anyString())).thenReturn(operations);
+		when(formulaParser.getOperators(anyString())).thenReturn(List.of());
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
 

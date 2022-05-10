@@ -1,29 +1,20 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk;
+package com.tipikae.assessmentservice.risk2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.exception.AssessmentServiceException;
-import com.tipikae.assessmentservice.exception.ExpressionValidationException;
-import com.tipikae.assessmentservice.exception.OperandNotFoundException;
 import com.tipikae.assessmentservice.exception.RiskNotFoundException;
-import com.tipikae.assessmentservice.exception.ValidatorNotFoundException;
 import com.tipikae.assessmentservice.model.Formula;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
-import com.tipikae.assessmentservice.risk.comparator.IComparator;
-import com.tipikae.assessmentservice.risk.core.IEvaluator;
-import com.tipikae.assessmentservice.risk.parser.IFormulaParser;
 
 /**
  * Risk calculator.
@@ -40,13 +31,13 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	private IFormulaRepository formulaRepository;
 	
 	@Autowired
-	private IFormulaParser formulaParser;
+	private FormulaValidator formulaValidator;
 	
 	@Autowired
-	private IEvaluator evaluator;
+	private FormulaParser formulaParser;
 	
 	@Autowired
-	private IComparator comparator;
+	private EvaluatorFactory evaluatorFactory;
 	
 
 	/**
@@ -55,117 +46,71 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	@Override
 	public String calculateRisk(Patient patient) throws RiskNotFoundException {
 		LOGGER.debug("calculateRisk: patientId=" + patient.getId());
-		AtomicInteger countValidFormulas = new AtomicInteger(0);
-		AtomicReference<String> risk = new AtomicReference<>();
 		
-		// get all formulas
+		// get formulas list
 		List<Formula> formulas = formulaRepository.findAll();
-		formulas.forEach(formula -> {
-			// parse formula -> expressions and operands
-			List<String> expressions = formulaParser.getExpressions(formula.getForm());
-			List<String> operands = formulaParser.getOperands(formula.getForm());
-			
-			// check expressions size = operands size + 1
-			// if not -> new iteration
-			if(expressions.size() != (operands.size() + 1)) {
-				LOGGER.debug("calculateRisk: expressions size=" + expressions.size() 
-					+ " != operands size=" + operands.size() + " + 1, formula=" + formula);
-				return;
-			}
-			
-			List<Boolean> results;
-			try {
-				List<Boolean> expressionsEvaluated = evaluateExpressions(patient, expressions);
-				results = evaluateWithOperands(operands, expressionsEvaluated);
-			} catch (Exception e) {
-				LOGGER.debug("calculateRisk: error=" + e.getMessage() + ", formula=" + formula);
-				return;
-			}
-			
-			// if all results are true -> formula is valid and set riskId
-			// TODO must accept OR, only AND is accepted
-			if(!results.stream().anyMatch(result -> result == false)) {
-				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
-				countValidFormulas.incrementAndGet();
-				risk.set(formula.getRisk());
-			}
-		});
-		
-		// only one formula must be true
-		int count = countValidFormulas.get();
-		if(count == 0) {
-			LOGGER.debug("calculateRisk: no formula found");
-			throw new RiskNotFoundException("no formula found");
-		} else if(count > 1) {
-			LOGGER.debug("calculateRisk: multiple formulas found");
-			throw new RiskNotFoundException("multiple formulas found");
+		if(formulas.isEmpty()) {
+			LOGGER.debug("calculateRisk: no formulas found.");
+			throw new RiskNotFoundException("No formulas found.");
 		}
 		
-		return risk.get();
-	}
-	
-	/**
-	 * Evaluate an expressions list.
-	 * @param patient Patient
-	 * @param expressions List
-	 * @return List
-	 * @throws AssessmentServiceException 
-	 */
-	private List<Boolean> evaluateExpressions(Patient patient, List<String> expressions) 
-			throws AssessmentServiceException {
-		LOGGER.debug("evaluateExpression");
-		List<Boolean> expressionsEvaluated = new ArrayList<>();
-		AtomicInteger error = new AtomicInteger(0);
-		
-		expressions.forEach(expression -> {
-			try {
-				expressionsEvaluated.add(evaluator.evaluateExpression(patient, expression));
-			} catch (ValidatorNotFoundException e) {
-				LOGGER.debug("evaluateExpressions: validator not found: " + e.getMessage());
-				error.incrementAndGet();
-			} catch (ExpressionValidationException e) {
-				LOGGER.debug("evaluateExpressions: exception occured when validating expression: " 
-						+ e.getMessage());
-				error.incrementAndGet();
+		// search first formula valid and evaluated
+		formulas: 
+		for(Formula formula: formulas) {
+			if(!formulaValidator.validate(formula.getForm())) {
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is not valid.");
+				continue formulas;
 			}
-		});
-		
-		if(error.get() != 0) {
-			throw new AssessmentServiceException("Exception occured when evaluating expressions");
-		}
-		
-		return expressionsEvaluated;
-	}
-	
-	/**
-	 * Evaluate an operands list.
-	 * @param operands List
-	 * @param expressionsEvaluated List
-	 * @return List
-	 * @throws AssessmentServiceException 
-	 */
-	private List<Boolean> evaluateWithOperands(List<String> operands, List<Boolean> expressionsEvaluated) 
-			throws AssessmentServiceException {
-		LOGGER.debug("evaluateOperands");
-		List<Boolean> results = new ArrayList<>();
-		
-		if(operands.isEmpty()) {
-			results.add(expressionsEvaluated.get(0));
-		} else {
-			for(int i = 0; i < operands.size(); i++) {
-				String operand = operands.get(i);
-				boolean left = expressionsEvaluated.get(i);
-				boolean right = expressionsEvaluated.get(i + 1);
+			
+			// parse formula in operations and boolean operators
+			List<String> operations = formulaParser.getOperations(formula.getForm());
+			List<String> operators = formulaParser.getOperators(formula.getForm());
+			if(operations.size() != (operators.size() + 1)) {
+				LOGGER.debug("calculateRisk: operations size=" + operations.size() 
+					+ " != operators size=" + operators.size() + " + 1");
+				continue formulas;
+			}
+			
+			// evaluate each operation
+			List<Boolean> results = new ArrayList<>();
+			for(String operation: operations) {
+				IEvaluator evaluator = evaluatorFactory.getEvaluator(operation);
+				
 				try {
-					results.add(comparator.compareBoolean(operand, left, right));
-				} catch (OperandNotFoundException e) {
-					LOGGER.debug("calculateRisk: operand " + operand + " not found");
-					throw new AssessmentServiceException(e.getMessage());
+					boolean result = evaluator.evaluate(patient, operation);
+					results.add(result);
+				} catch (Exception e) {
+					LOGGER.debug("calculateRisk: evaluator error: " + e.getClass().getSimpleName() 
+							+ ": " + e.getMessage());
+					continue formulas;
 				}
 			}
+			
+			if(results.isEmpty()) {
+				LOGGER.debug("calculateRisk: no operation evaluated with formula=" + formula.getForm());
+				continue;
+			}
+			
+			// evaluate final results
+			boolean result = true;
+			for(int i = 0; i < operators.size(); i++) {
+				String operator = operators.get(i);
+				boolean left = results.get(i);
+				boolean right = results.get(i + 1);
+				
+				if(BooleanOperator.valueOfOperator(operator) != null) {
+					result = result && (BooleanOperator.valueOfOperator(operator).apply(left, right));
+				}
+			}
+			
+			if(result) {
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
+				return formula.getRisk();
+			}
 		}
 		
-		return results;
+		LOGGER.debug("calculateRisk: no valid formula found");
+		throw new RiskNotFoundException("No valid formula found.");
 	}
 
 }
