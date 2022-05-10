@@ -55,38 +55,35 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 		}
 		
 		// search first formula valid and evaluated
+		formulas: 
 		for(Formula formula: formulas) {
 			if(!formulaValidator.validate(formula.getForm())) {
-				LOGGER.debug("calculateRisk: formula=" + formula + " is not valid.");
-				continue;
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is not valid.");
+				continue formulas;
 			}
 			
+			// parse formula in operations and boolean operators
 			List<String> operations = formulaParser.getOperations(formula.getForm());
 			List<String> operators = formulaParser.getOperators(formula.getForm());
 			if(operations.size() != (operators.size() + 1)) {
 				LOGGER.debug("calculateRisk: operations size=" + operations.size() 
 					+ " != operators size=" + operators.size() + " + 1");
-				continue;
+				continue formulas;
 			}
 			
+			// evaluate each operation
 			List<Boolean> results = new ArrayList<>();
 			for(String operation: operations) {
 				IEvaluator evaluator = evaluatorFactory.getEvaluator(operation);
-				boolean result = false;
 				
 				try {
-					result = evaluator.evaluate(patient, operation);
+					boolean result = evaluator.evaluate(patient, operation);
+					results.add(result);
 				} catch (Exception e) {
 					LOGGER.debug("calculateRisk: evaluator error: " + e.getClass().getSimpleName() 
 							+ ": " + e.getMessage());
-					break;
+					continue formulas;
 				}
-				
-				if(!result) {
-					LOGGER.debug("calculateRisk: evaluator returns false for operation=" + operation);
-					break;
-				}
-				results.add(result);
 			}
 			
 			if(results.isEmpty()) {
@@ -94,15 +91,26 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 				continue;
 			}
 			
+			// evaluate final results
+			boolean result = true;
+			for(int i = 0; i < operators.size(); i++) {
+				String operator = operators.get(i);
+				boolean left = results.get(i);
+				boolean right = results.get(i + 1);
+				
+				if(BooleanOperator.valueOfOperator(operator) != null) {
+					result = result && (BooleanOperator.valueOfOperator(operator).apply(left, right));
+				}
+			}
 			
+			if(result) {
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
+				return formula.getRisk();
+			}
 		}
 		
 		LOGGER.debug("calculateRisk: no valid formula found");
 		throw new RiskNotFoundException("No valid formula found.");
-	}
-	
-	private boolean evaluateResults(List<Boolean> results, List<Boolean> operators) {
-		return false;
 	}
 
 }

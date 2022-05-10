@@ -53,7 +53,9 @@ class RiskCalculatorTest {
 	private static Patient patient;
 	private static String operation1;
 	private static String operation2;
-	private static String operator;
+	private static String operation3;
+	private static String operator1;
+	private static String operator2;
 	private static String rightForm;
 	private static String badForm;
 	private static String risk = "None";
@@ -68,13 +70,15 @@ class RiskCalculatorTest {
 		patient = new Patient();
 		operation1 = "trigger = 2";
 		operation2 = "P.age < 30";
-		operator = "AND";
-		rightForm = operation1 + " " + operator + " " + operation2;
+		operation3 = "P.sex = M";
+		operator1 = "OR";
+		operator2 = "AND";
+		rightForm = operation1 + " " + operator1 + " " + operation2 + " " + operator2 + " " + operation3;
 		badForm = operation1 + operation2;
 		rightFormula = new Formula(0, risk, rightForm);
 		badFormula = new Formula(0, risk, badForm);
-		operations = List.of(operation1, operation2);
-		operators = List.of(operator);
+		operations = List.of(operation1, operation2, operation3);
+		operators = List.of(operator1, operator2);
 	}
 
 	@Test
@@ -85,8 +89,8 @@ class RiskCalculatorTest {
 		when(formulaValidator.validate(anyString())).thenReturn(false, true);
 		when(formulaParser.getOperations(anyString())).thenReturn(operations);
 		when(formulaParser.getOperators(anyString())).thenReturn(operators);
-		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator);
-		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(true, true);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
+		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, true, true);
 		assertEquals(risk, riskCalculator.calculateRisk(patient));
 	}
 	
@@ -98,8 +102,8 @@ class RiskCalculatorTest {
 		when(formulaValidator.validate(anyString())).thenReturn(false, true);
 		when(formulaParser.getOperations(anyString())).thenReturn(operations);
 		when(formulaParser.getOperators(anyString())).thenReturn(operators);
-		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator);	
-		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, false);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);	
+		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, false, true);
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
 	
@@ -111,7 +115,7 @@ class RiskCalculatorTest {
 		when(formulaValidator.validate(anyString())).thenReturn(false, true);
 		when(formulaParser.getOperations(anyString())).thenReturn(operations);
 		when(formulaParser.getOperators(anyString())).thenReturn(operators);
-		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator);
+		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
 		doThrow(OperatorNotFoundException2.class)
 			.when(evaluator).evaluate(any(Patient.class), anyString());
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
