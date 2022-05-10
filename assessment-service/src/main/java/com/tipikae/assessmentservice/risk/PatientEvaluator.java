@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.exception.BadOperationException2;
 import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
@@ -21,6 +22,7 @@ import com.tipikae.assessmentservice.service.AgeProvider;
  * @version 1.0
  *
  */
+@Component
 public class PatientEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientEvaluator.class);
@@ -53,6 +55,8 @@ public class PatientEvaluator implements IEvaluator {
 				int age = ageProvider.calculateAge(patient.getDob());
 				
 				if(ArithmeticOperator.valueOfOperator(operator) != null) {
+					LOGGER.debug("evaluate: operator=" + operator + ", age=" + age 
+							+ ", expected=" + expected);
 					return ArithmeticOperator.valueOfOperator(operator).apply(age, Integer.valueOf(expected));
 				}
 				
@@ -61,6 +65,8 @@ public class PatientEvaluator implements IEvaluator {
 			
 			} else if (field.equals(SEX)) {
 				if(CharacterOperator.valueOfOperator(operator) != null) {
+					LOGGER.debug("evaluate: operator=" + operator + ", sex=" + patient.getSex() 
+							+ ", expected=" + expected);
 					return CharacterOperator.valueOfOperator(operator)
 							.apply(patient.getSex(), expected.charAt(0));
 				}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import java.util.List;
 import java.util.regex.Matcher;

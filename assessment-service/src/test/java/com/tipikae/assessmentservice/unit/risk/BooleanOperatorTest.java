@@ -1,10 +1,10 @@
-package com.tipikae.assessmentservice.unit.risk2;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.assessmentservice.risk2.BooleanOperator;
+import com.tipikae.assessmentservice.risk.BooleanOperator;
 
 class BooleanOperatorTest {
 

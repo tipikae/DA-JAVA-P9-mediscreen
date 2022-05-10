@@ -1,11 +1,11 @@
-package com.tipikae.assessmentservice.unit.risk2;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.assessmentservice.risk2.FormulaValidator;
+import com.tipikae.assessmentservice.risk.FormulaValidator;
 
 class FormulaValidatorTest {
 	

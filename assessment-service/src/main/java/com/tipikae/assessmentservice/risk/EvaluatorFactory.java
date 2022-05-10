@@ -1,11 +1,12 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Factory of Evaluator objects.
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 1.0
  *
  */
+@Component
 public class EvaluatorFactory {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluatorFactory.class);

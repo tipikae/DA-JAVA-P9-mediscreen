@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 				
 				try {
 					boolean result = evaluator.evaluate(patient, operation);
+					LOGGER.debug("calculateRisk: operation=" + operation + " is " + result);
 					results.add(result);
 				} catch (Exception e) {
 					LOGGER.debug("calculateRisk: evaluator error: " + e.getClass().getSimpleName() 
@@ -86,25 +87,36 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 				}
 			}
 			
-			if(results.isEmpty()) {
-				LOGGER.debug("calculateRisk: no operation evaluated with formula=" + formula.getForm());
-				continue;
-			}
-			
 			// evaluate final results
-			boolean result = true;
-			for(int i = 0; i < operators.size(); i++) {
-				String operator = operators.get(i);
-				boolean left = results.get(i);
-				boolean right = results.get(i + 1);
-				
-				if(BooleanOperator.valueOfOperator(operator) != null) {
-					result = result && (BooleanOperator.valueOfOperator(operator).apply(left, right));
+			LOGGER.debug("calculateRisk: final: results size=" + results.size());
+			boolean eval;
+			if(results.isEmpty()) {
+				LOGGER.debug("calculateRisk: final: no operation evaluated with formula=" 
+						+ formula.getForm());
+				continue;
+			} else if(results.size() == 1) {
+				eval = results.get(0);
+			} else {
+				eval = true;
+				for(int i = 0; i < operators.size(); i++) {
+					String operator = operators.get(i);
+					boolean left = results.get(i);
+					boolean right = results.get(i + 1);
+					boolean temp = left;
+					LOGGER.debug("calculateRisk: final: operator=" + operator + ", left=" + left 
+							+ ", right=" + right);
+					
+					if(BooleanOperator.valueOfOperator(operator) != null) {
+						temp = BooleanOperator.valueOfOperator(operator).apply(left, right);
+						LOGGER.debug("calculateRisk: final: adding " + temp);
+					}
+
+					eval = eval && temp;	
 				}
 			}
 			
-			if(result) {
-				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is valid");
+			if(eval) {
+				LOGGER.debug("calculateRisk: formula=" + formula.getForm() + " is evaluated");
 				return formula.getRisk();
 			}
 		}

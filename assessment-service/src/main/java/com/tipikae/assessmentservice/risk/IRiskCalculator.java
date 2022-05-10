@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import com.tipikae.assessmentservice.exception.RiskNotFoundException;
 import com.tipikae.assessmentservice.model.Patient;

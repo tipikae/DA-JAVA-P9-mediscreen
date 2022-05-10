@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.tipikae.assessmentservice.risk2;
+package com.tipikae.assessmentservice.risk;
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.exception.BadOperationException2;
@@ -23,6 +24,7 @@ import com.tipikae.assessmentservice.service.TriggerTermsCounter;
  * @version 1.0
  *
  */
+@Component
 public class TriggerEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TriggerEvaluator.class);
@@ -42,7 +44,7 @@ public class TriggerEvaluator implements IEvaluator {
 	@Override
 	public boolean evaluate(Patient patient, String operation) 
 			throws OperatorNotFoundException2, BadOperationException2, ClientException {
-		LOGGER.debug("evaluate method: patientId=" + patient.getId() + "operation=" + operation);
+		LOGGER.debug("evaluate method: patientId=" + patient.getId() + ", operation=" + operation);
 		List<String> elements = operationParser.getMethodElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
@@ -62,6 +64,8 @@ public class TriggerEvaluator implements IEvaluator {
 			int count = termsCounter.countTerms(notes);
 			
 			if(ArithmeticOperator.valueOfOperator(operator) != null) {
+				LOGGER.debug("evaluate: operator=" + operator + ", count=" + count 
+						+ ", expected=" + expected);
 				return ArithmeticOperator.valueOfOperator(operator).apply(count, Integer.valueOf(expected));
 			}
 			

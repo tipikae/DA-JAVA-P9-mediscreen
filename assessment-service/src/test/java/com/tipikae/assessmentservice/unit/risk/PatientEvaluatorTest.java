@@ -1,4 +1,4 @@
-package com.tipikae.assessmentservice.unit.risk2;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,8 +21,8 @@ import com.tipikae.assessmentservice.exception.BadOperationException2;
 import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
 import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk2.OperationParser;
-import com.tipikae.assessmentservice.risk2.PatientEvaluator;
+import com.tipikae.assessmentservice.risk.OperationParser;
+import com.tipikae.assessmentservice.risk.PatientEvaluator;
 import com.tipikae.assessmentservice.service.AgeProvider;
 
 @ExtendWith(MockitoExtension.class)

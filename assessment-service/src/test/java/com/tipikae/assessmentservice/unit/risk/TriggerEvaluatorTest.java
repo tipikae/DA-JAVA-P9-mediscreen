@@ -1,4 +1,4 @@
-package com.tipikae.assessmentservice.unit.risk2;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,8 +25,8 @@ import com.tipikae.assessmentservice.exception.ClientException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
 import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk2.OperationParser;
-import com.tipikae.assessmentservice.risk2.TriggerEvaluator;
+import com.tipikae.assessmentservice.risk.OperationParser;
+import com.tipikae.assessmentservice.risk.TriggerEvaluator;
 import com.tipikae.assessmentservice.service.TriggerTermsCounter;
 
 @ExtendWith(MockitoExtension.class)

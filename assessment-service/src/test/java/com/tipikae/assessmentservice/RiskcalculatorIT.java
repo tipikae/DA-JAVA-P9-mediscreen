@@ -43,7 +43,7 @@ class RiskcalculatorIT {
 	}
 	
 	@Test
-	void calculateRiskThrowsRiskNotFoundExceptionWhenPatientNotFound() throws RiskNotFoundException {
+	void calculateRiskReturnsNoneWhenPatientNotFound() throws RiskNotFoundException {
 		assertEquals("None", riskCalculator.calculateRisk(patientNotFound));
 	}
 

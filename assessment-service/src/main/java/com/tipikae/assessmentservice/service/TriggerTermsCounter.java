@@ -35,23 +35,27 @@ public class TriggerTermsCounter {
 	 * @return int
 	 */
 	public int countTerms(List<Note> notes) {
+		LOGGER.debug("countTerms");
 		List<String> terms = triggerRepository.findAll().stream()
 				.map(trigger -> trigger.getTerm())
 				.collect(Collectors.toList());
-		LOGGER.debug("countTerms: notes size=" + notes.size() + ", terms size=" + terms.size());
 		
-		return notes.parallelStream()
-						.map(note -> {
-							AtomicInteger count = new AtomicInteger(0);
-							String message = note.getE().toLowerCase();
-							terms.forEach(term -> {
-								if(message.contains(term.toLowerCase())) {
-									count.incrementAndGet();
-								}
-							});
-							return count.get();
-						})
-						.reduce(0, Integer::sum);
+		int counter = notes.parallelStream()
+				.map(note -> {
+					AtomicInteger count = new AtomicInteger(0);
+					String message = note.getE().toLowerCase();
+					terms.forEach(term -> {
+						if(message.contains(term.toLowerCase())) {
+							count.incrementAndGet();
+						}
+					});
+					return count.get();
+				})
+				.reduce(0, Integer::sum);
+		
+		LOGGER.debug("countTerms: notes size=" + notes.size() + ", terms size=" + terms.size() 
+			+ ", trigger terms=" + counter);
+		return counter;
 	}
 
 }

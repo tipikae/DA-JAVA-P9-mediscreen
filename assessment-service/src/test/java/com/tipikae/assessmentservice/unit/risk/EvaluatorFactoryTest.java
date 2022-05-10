@@ -1,4 +1,4 @@
-package com.tipikae.assessmentservice.unit.risk2;
+package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,9 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.risk2.EvaluatorFactory;
-import com.tipikae.assessmentservice.risk2.PatientEvaluator;
-import com.tipikae.assessmentservice.risk2.TriggerEvaluator;
+import com.tipikae.assessmentservice.risk.EvaluatorFactory;
+import com.tipikae.assessmentservice.risk.PatientEvaluator;
+import com.tipikae.assessmentservice.risk.TriggerEvaluator;
 
 @ExtendWith(MockitoExtension.class)
 class EvaluatorFactoryTest {
