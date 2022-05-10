@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tipikae.assessmentservice.assessment.Risk;
 import com.tipikae.assessmentservice.dto.AssessmentByFamilyDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
@@ -29,6 +28,10 @@ class AssessmentServiceIT {
 		long idBorderline = 2L;
 		long idInDanger = 3L;
 		long idEarlyOnset = 4L;
+		String none = "None";
+		String borderline = "Borderline";
+		String inDanger = "In Danger";
+		String earlyOnset = "Early onset";
 		String familyNone = "TestNone";
 		String familyBorderline = "TestBorderline";
 		String familyInDanger = "TestInDanger";
@@ -45,33 +48,33 @@ class AssessmentServiceIT {
 		AssessmentByFamilyDTO familyEarlyOnsetDTO = new AssessmentByFamilyDTO(familyEarlyOnset);
 		
 		assertTrue(assessmentService.assessDiabetesById(idNoneDTO).getMessage()
-				.endsWith(Risk.NONE.getLabel()));
+				.endsWith(none));
 		assertTrue(assessmentService.assessDiabetesById(idBorderlineDTO).getMessage()
-				.endsWith(Risk.BORDERLINE.getLabel()));
+				.endsWith(borderline));
 		assertTrue(assessmentService.assessDiabetesById(idInDangerDTO).getMessage()
-				.endsWith(Risk.INDANGER.getLabel()));
+				.endsWith(inDanger));
 		assertTrue(assessmentService.assessDiabetesById(idEarlyOnsetDTO).getMessage()
-				.endsWith(Risk.EARLYONSET.getLabel()));
+				.endsWith(earlyOnset));
 		
 		// family none
 		List<AssessmentDTO> assessmentsNone = assessmentService.assessDiabetesByFamilyName(familyNoneDTO);
 		assertTrue(assessmentsNone.size() == 1);
-		assertTrue(assessmentsNone.get(0).getMessage().endsWith(Risk.NONE.getLabel()));
+		assertTrue(assessmentsNone.get(0).getMessage().endsWith(none));
 		
 		// family borderline
 		List<AssessmentDTO> assessmentsBorderline = assessmentService.assessDiabetesByFamilyName(familyBorderlineDTO);
 		assertTrue(assessmentsBorderline.size() == 1);
-		assertTrue(assessmentsBorderline.get(0).getMessage().endsWith(Risk.BORDERLINE.getLabel()));
+		assertTrue(assessmentsBorderline.get(0).getMessage().endsWith(borderline));
 		
 		// family inDanger
 		List<AssessmentDTO> assessmentsInDanger = assessmentService.assessDiabetesByFamilyName(familyInDangerDTO);
 		assertTrue(assessmentsInDanger.size() == 1);
-		assertTrue(assessmentsInDanger.get(0).getMessage().endsWith(Risk.INDANGER.getLabel()));
+		assertTrue(assessmentsInDanger.get(0).getMessage().endsWith(inDanger));
 		
 		// family earlyOnset
 		List<AssessmentDTO> assessmentsEarlyonset = assessmentService.assessDiabetesByFamilyName(familyEarlyOnsetDTO);
 		assertTrue(assessmentsEarlyonset.size() == 1);
-		assertTrue(assessmentsEarlyonset.get(0).getMessage().endsWith(Risk.EARLYONSET.getLabel()));
+		assertTrue(assessmentsEarlyonset.get(0).getMessage().endsWith(earlyOnset));
 	}
 
 }

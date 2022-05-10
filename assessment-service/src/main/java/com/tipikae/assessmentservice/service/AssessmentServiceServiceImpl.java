@@ -11,22 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.assessmentservice.assessment.IProcessData;
-import com.tipikae.assessmentservice.assessment.IViewResult;
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.client.IPatientServiceClient;
-import com.tipikae.assessmentservice.converterDTO.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByFamilyDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
+import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
 import com.tipikae.assessmentservice.exception.PatientNotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.util.IUtil;
-import com.tipikae.assessmentservice.validation.Gender;
+import com.tipikae.assessmentservice.risk.IRiskCalculator;
+import com.tipikae.assessmentservice.risk.IViewResult;
 
 /**
  * Assessment service service.
@@ -49,13 +47,13 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private INoteServiceClient noteClient;
 	
 	@Autowired
-	private IProcessData processData;
-	
-	@Autowired
 	private IViewResult viewResult;
 	
 	@Autowired
-	private IUtil util;
+	private AgeProvider ageProvider;
+	
+	@Autowired
+	private IRiskCalculator riskCalculator;
 
 	/**
 	 * {@inheritDoc}
@@ -103,17 +101,10 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	// calculates risk and returns assessment
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
-		int age = util.calculateAge(patient.getDob());
-		
-		Gender gender;
-		if(patient.getSex() == 'M') {
-			gender = Gender.M;
-		} else {
-			gender = Gender.F;
-		}
+		int age = ageProvider.calculateAge(patient.getDob());
 		
 		try {
-			String result = processData.getRisk(age, gender, notes);
+			String result = riskCalculator.calculateRisk(patient);
 			return new Assessment(viewResult.getResultView(patient, age, result));
 		} catch (Exception e) {
 			LOGGER.debug("getAssessment: processData error: " + e.getMessage());

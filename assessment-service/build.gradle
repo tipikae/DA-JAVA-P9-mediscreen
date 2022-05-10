@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'org.liquibase.gradle' version '2.1.1'
 	id 'jacoco'
 }
 
@@ -27,12 +28,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'org.liquibase:liquibase-core:4.9.1'
 	implementation 'io.github.openfeign:feign-jackson'
 	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -45,6 +50,23 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+liquibase {
+    activities {
+        main {
+        	File propsFile = new File("${project.rootDir}/assessment-service/src/main/resources/liquibase.properties")
+		    Properties props = new Properties()
+		    InputStream fis = new FileInputStream(propsFile)
+		    props.load(fis)
+            fis.close()
+            
+        	driver props['driver']
+            url props['url']
+            username props['username']
+            password props['password']
+         }
+    }
 }
 
 test {
