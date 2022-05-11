@@ -1,21 +1,11 @@
-FROM jboss/keycloak:latest
-
-COPY --chown=jboss ./config.batch /tmp/config.batch
-
-RUN cd $JBOSS_HOME \
-  && ./bin/jboss-cli.sh --file=/tmp/config.batch \
-  && rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history \
-  && rm -rf $JBOSS_HOME/standalone/data \
-  && rm -rf $JBOSS_HOME/standalone/tmp \
-  && rm -rf /tmp/config.batch
-
-#ENV KEYCLOAK_USER admin
-#ENV KEYCLOAK_PASSWORD admin
-#ENV DB_VENDOR mysql
-#ENV DB_ADDR mysql-kc
-#ENV DB_PORT 3306
-#ENV DB_DATABASE keycloak
-#ENV DB_USER tipikae
-#ENV DB_PASSWORD 231045
-
+FROM quay.io/keycloak/keycloak:18.0.0
+WORKDIR /opt/keycloak
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev", "--db=mysql"]
+ENV KC_DB=mysql
+ENV KC_DB_URL=jdbc:mysql://mysql-kc:3306/keycloak
+ENV KC_DB_USERNAME=tipikae
+ENV KC_DB_PASSWORD=231045
+ENV KC_HOSTNAME=localhost
+ENV KEYCLOAK_ADMIN=admin
+ENV KEYCLOAK_ADMIN_PASSWORD=admin
 EXPOSE 8080
