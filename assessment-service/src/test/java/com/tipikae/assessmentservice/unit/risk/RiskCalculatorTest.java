@@ -1,7 +1,6 @@
 package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -96,7 +95,7 @@ class RiskCalculatorTest {
 		when(formulaParser.getOperations(anyString())).thenReturn(rightFormOperations);
 		when(formulaParser.getOperators(anyString())).thenReturn(rightFormOperators);
 		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
-		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, true, true);
+		when(evaluator.evaluate(anyString())).thenReturn(false, true, true);
 		assertEquals(risk, riskCalculator.calculateRisk(patient));
 	}
 	
@@ -109,7 +108,7 @@ class RiskCalculatorTest {
 		when(formulaParser.getOperations(anyString())).thenReturn(rightFormOperations);
 		when(formulaParser.getOperators(anyString())).thenReturn(rightFormOperators);
 		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);	
-		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false, false, true);
+		when(evaluator.evaluate(anyString())).thenReturn(false, false, true);
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
 	
@@ -122,7 +121,7 @@ class RiskCalculatorTest {
 		when(formulaParser.getOperations(anyString())).thenReturn(singleFormOperations);
 		when(formulaParser.getOperators(anyString())).thenReturn(List.of());
 		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator);	
-		when(evaluator.evaluate(any(Patient.class), anyString())).thenReturn(false);
+		when(evaluator.evaluate(anyString())).thenReturn(false);
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
 	
@@ -136,7 +135,7 @@ class RiskCalculatorTest {
 		when(formulaParser.getOperators(anyString())).thenReturn(rightFormOperators);
 		when(evaluatorFactory.getEvaluator(anyString())).thenReturn(evaluator, evaluator, evaluator);
 		doThrow(OperatorNotFoundException2.class)
-			.when(evaluator).evaluate(any(Patient.class), anyString());
+			.when(evaluator).evaluate(anyString());
 		assertThrows(RiskNotFoundException.class, () -> riskCalculator.calculateRisk(patient));
 	}
 	

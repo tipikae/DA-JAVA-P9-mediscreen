@@ -19,7 +19,6 @@ public interface IEvaluator {
 	
 	/**
 	 * Evaluate an operation.
-	 * @param patient Patient
 	 * @param operation String
 	 * @return boolean
 	 * @throws OperatorNotFoundException2 
@@ -27,7 +26,13 @@ public interface IEvaluator {
 	 * @throws BadOperationException2 
 	 * @throws ClientException 
 	 */
-	boolean evaluate(Patient patient, String operation) 
+	boolean evaluate(String operation) 
 			throws OperatorNotFoundException2, FieldNotFoundException2, 
 			BadOperationException2, ClientException;
+	
+	/**
+	 * Set patient.
+	 * @param patient
+	 */
+	void setPatient(Patient patient);
 }

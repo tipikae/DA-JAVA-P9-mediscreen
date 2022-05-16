@@ -73,11 +73,12 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			
 			// evaluate each operation
 			List<Boolean> results = new ArrayList<>();
+			evaluatorFactory.setPatient(patient);
 			for(String operation: operations) {
 				IEvaluator evaluator = evaluatorFactory.getEvaluator(operation);
 				
 				try {
-					boolean result = evaluator.evaluate(patient, operation);
+					boolean result = evaluator.evaluate(operation);
 					LOGGER.debug("calculateRisk: operation=" + operation + " is " + result);
 					results.add(result);
 				} catch (Exception e) {

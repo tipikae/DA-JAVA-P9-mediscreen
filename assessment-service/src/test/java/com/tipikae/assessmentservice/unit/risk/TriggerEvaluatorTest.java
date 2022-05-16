@@ -79,7 +79,8 @@ class TriggerEvaluatorTest {
 		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected));
-		assertTrue(triggerEvaluator.evaluate(patient, rightOperation));
+		triggerEvaluator.setPatient(patient);
+		assertTrue(triggerEvaluator.evaluate(rightOperation));
 	}
 
 	@Test
@@ -87,7 +88,8 @@ class TriggerEvaluatorTest {
 		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected) + 1);
-		assertFalse(triggerEvaluator.evaluate(patient, rightOperation));
+		triggerEvaluator.setPatient(patient);
+		assertFalse(triggerEvaluator.evaluate(rightOperation));
 	}
 	
 	@Test
@@ -95,7 +97,8 @@ class TriggerEvaluatorTest {
 			throws BadRequestException, HttpClientException {
 		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		doThrow(HttpClientException.class).when(noteClient).getPatientNotes(anyLong());
-		assertThrows(ClientException.class, () -> triggerEvaluator.evaluate(patient, rightOperation));
+		triggerEvaluator.setPatient(patient);
+		assertThrows(ClientException.class, () -> triggerEvaluator.evaluate(rightOperation));
 	}
 	
 	@Test
@@ -104,16 +107,18 @@ class TriggerEvaluatorTest {
 		when(operationParser.getMethodElements(anyString())).thenReturn(badOperatorParsed);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected));
+		triggerEvaluator.setPatient(patient);
 		assertThrows(OperatorNotFoundException2.class, 
-				() -> triggerEvaluator.evaluate(patient, badOperatorOperation));
+				() -> triggerEvaluator.evaluate(badOperatorOperation));
 	}
 	
 	@Test
 	void evaluateThrowsBadOperationExceptionWhenBadOperation() 
 			throws BadRequestException, HttpClientException {
 		when(operationParser.getMethodElements(anyString())).thenReturn(badOperationParsed);
+		triggerEvaluator.setPatient(patient);
 		assertThrows(BadOperationException2.class, 
-				() -> triggerEvaluator.evaluate(patient, badOperation));
+				() -> triggerEvaluator.evaluate(badOperation));
 	}
 
 }

@@ -31,12 +31,22 @@ public class PatientEvaluator implements IEvaluator {
 	
 	@Autowired
 	private OperationParser operationParser;
+	
+	private Patient patient;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean evaluate(Patient patient, String operation) 
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean evaluate(String operation) 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
 		List<String> elements = operationParser.getModelElements(PREFIX, operation);

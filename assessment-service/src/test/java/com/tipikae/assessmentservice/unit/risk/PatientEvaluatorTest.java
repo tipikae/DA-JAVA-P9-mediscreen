@@ -85,18 +85,26 @@ class PatientEvaluatorTest {
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageLess30Array, sexEqualMaleArray, ageMore30Array, sexEqualMaleArray);
-		assertTrue(patientEvaluator.evaluate(maleLess30, ageLess30));
-		assertTrue(patientEvaluator.evaluate(maleLess30, sexEqualMale));
-		assertTrue(patientEvaluator.evaluate(maleMore30, ageMore30));
-		assertTrue(patientEvaluator.evaluate(maleMore30, sexEqualMale));
+		patientEvaluator.setPatient(maleLess30);
+		assertTrue(patientEvaluator.evaluate(ageLess30));
+		patientEvaluator.setPatient(maleLess30);
+		assertTrue(patientEvaluator.evaluate(sexEqualMale));
+		patientEvaluator.setPatient(maleMore30);
+		assertTrue(patientEvaluator.evaluate(ageMore30));
+		patientEvaluator.setPatient(maleMore30);
+		assertTrue(patientEvaluator.evaluate(sexEqualMale));
 
 
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageLess30Array, sexEqualFemaleArray, ageMore30Array, sexEqualFemaleArray);
-		assertTrue(patientEvaluator.evaluate(femaleLess30, ageLess30));
-		assertTrue(patientEvaluator.evaluate(femaleLess30, sexEqualFemale));
-		assertTrue(patientEvaluator.evaluate(femaleMore30, ageMore30));
-		assertTrue(patientEvaluator.evaluate(femaleMore30, sexEqualFemale));
+		patientEvaluator.setPatient(femaleLess30);
+		assertTrue(patientEvaluator.evaluate(ageLess30));
+		patientEvaluator.setPatient(femaleLess30);
+		assertTrue(patientEvaluator.evaluate(sexEqualFemale));
+		patientEvaluator.setPatient(femaleMore30);
+		assertTrue(patientEvaluator.evaluate(ageMore30));
+		patientEvaluator.setPatient(femaleMore30);
+		assertTrue(patientEvaluator.evaluate(sexEqualFemale));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -105,66 +113,79 @@ class PatientEvaluatorTest {
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageMore30Array, sexEqualFemaleArray, ageLess30Array, sexEqualFemaleArray);
-		assertFalse(patientEvaluator.evaluate(maleLess30, ageMore30));
-		assertFalse(patientEvaluator.evaluate(maleLess30, sexEqualFemale));
-		assertFalse(patientEvaluator.evaluate(maleMore30, ageLess30));
-		assertFalse(patientEvaluator.evaluate(maleMore30, sexEqualFemale));
+		patientEvaluator.setPatient(maleLess30);
+		assertFalse(patientEvaluator.evaluate(ageMore30));
+		patientEvaluator.setPatient(maleLess30);
+		assertFalse(patientEvaluator.evaluate(sexEqualFemale));
+		patientEvaluator.setPatient(maleMore30);
+		assertFalse(patientEvaluator.evaluate(ageLess30));
+		patientEvaluator.setPatient(maleLess30);
+		assertFalse(patientEvaluator.evaluate(sexEqualFemale));
 
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageMore30Array, sexEqualMaleArray, ageLess30Array, sexEqualMaleArray);
-		assertFalse(patientEvaluator.evaluate(femaleLess30, ageMore30));
-		assertFalse(patientEvaluator.evaluate(femaleLess30, sexEqualMale));
-		assertFalse(patientEvaluator.evaluate(femaleMore30, ageLess30));
-		assertFalse(patientEvaluator.evaluate(femaleMore30, sexEqualMale));
+		patientEvaluator.setPatient(femaleLess30);
+		assertFalse(patientEvaluator.evaluate(ageMore30));
+		patientEvaluator.setPatient(femaleLess30);
+		assertFalse(patientEvaluator.evaluate(sexEqualMale));
+		patientEvaluator.setPatient(femaleMore30);
+		assertFalse(patientEvaluator.evaluate(ageLess30));
+		patientEvaluator.setPatient(femaleMore30);
+		assertFalse(patientEvaluator.evaluate(sexEqualMale));
 	}
 	
 	@Test
-	void evaluateThrowsOperatorNotFoundException2WhenAgeBadOperator() {
+	void evaluateThrowsOperatorNotFoundExceptionWhenAgeBadOperator() {
 		String operation = "P.age + 30";
 		List<String> parsed = Arrays.asList("age", "+", "30");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
+		patientEvaluator.setPatient(femaleMore30);
 		assertThrows(OperatorNotFoundException2.class, 
-				() -> patientEvaluator.evaluate(maleLess30, operation));
+				() -> patientEvaluator.evaluate(operation));
 		
 	}
 	
 	@Test
-	void evaluateThrowsOperatorNotFoundException2WhenSexBadOperator() {
+	void evaluateThrowsOperatorNotFoundExceptionWhenSexBadOperator() {
 		String operation = "P.sex + F";
 		List<String> parsed = Arrays.asList("sex", "+", "F");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
+		patientEvaluator.setPatient(femaleLess30);
 		assertThrows(OperatorNotFoundException2.class, 
-				() -> patientEvaluator.evaluate(femaleLess30, operation));
+				() -> patientEvaluator.evaluate(operation));
 		
 	}
 	
 	@Test
-	void evaluateThrowsFieldNotFoundException2WhenBadField() {
+	void evaluateThrowsFieldNotFoundExceptionWhenBadField() {
 		String operation = "P.city = city";
 		List<String> parsed = Arrays.asList("city", "=", "city");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
+		patientEvaluator.setPatient(femaleLess30);
 		assertThrows(FieldNotFoundException2.class, 
-				() -> patientEvaluator.evaluate(femaleLess30, operation));
+				() -> patientEvaluator.evaluate(operation));
 		
 	}
 	
 	@Test
-	void evaluateThrowsBadOperationException2WhenEmptyOperation() {
+	void evaluateThrowsBadOperationExceptionWhenEmptyOperation() {
 		String operation = "";
 		List<String> parsed = List.of();
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
+		patientEvaluator.setPatient(femaleLess30);
 		assertThrows(BadOperationException2.class, 
-				() -> patientEvaluator.evaluate(femaleLess30, operation));
+				() -> patientEvaluator.evaluate(operation));
 		
 	}
 	
 	@Test
-	void evaluateThrowsBadOperationException2WhenBadOperation() {
+	void evaluateThrowsBadOperationExceptionWhenBadOperation() {
 		String operation = "P.age =";
 		List<String> parsed = Arrays.asList("age", "=");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
+		patientEvaluator.setPatient(femaleLess30);
 		assertThrows(BadOperationException2.class, 
-				() -> patientEvaluator.evaluate(femaleLess30, operation));
+				() -> patientEvaluator.evaluate(operation));
 		
 	}
 

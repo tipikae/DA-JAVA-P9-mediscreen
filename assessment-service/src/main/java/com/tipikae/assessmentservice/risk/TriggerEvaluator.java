@@ -37,12 +37,22 @@ public class TriggerEvaluator implements IEvaluator {
 	
 	@Autowired
 	private TriggerTermsCounter termsCounter;
+	
+	private Patient patient;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean evaluate(Patient patient, String operation) 
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean evaluate(String operation) 
 			throws OperatorNotFoundException2, BadOperationException2, ClientException {
 		LOGGER.debug("evaluate method: patientId=" + patient.getId() + ", operation=" + operation);
 		List<String> elements = operationParser.getMethodElements(operation);
