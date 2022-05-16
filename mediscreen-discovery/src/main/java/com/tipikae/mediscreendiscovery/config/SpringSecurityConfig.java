@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.mediscreendiscovery;
+package com.tipikae.mediscreendiscovery.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,5 +21,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
+		super.configure(http);
 	}
 }
