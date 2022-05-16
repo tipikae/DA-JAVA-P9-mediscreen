@@ -1,7 +1,6 @@
 package com.tipikae.assessmentservice.unit.risk;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyChar;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -23,13 +22,9 @@ import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.OperationParser;
 import com.tipikae.assessmentservice.risk.PatientEvaluator;
-import com.tipikae.assessmentservice.service.AgeProvider;
 
 @ExtendWith(MockitoExtension.class)
 class PatientEvaluatorTest {
-	
-	@Mock
-	private AgeProvider ageProvider;
 	
 	@Mock
 	private OperationParser operationParser;
@@ -88,7 +83,6 @@ class PatientEvaluatorTest {
 	@Test
 	void evaluateReturnsTrueWhenOperationIsTrue() 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageLess30Array, sexEqualMaleArray, ageMore30Array, sexEqualMaleArray);
 		assertTrue(patientEvaluator.evaluate(maleLess30, ageLess30));
@@ -109,7 +103,6 @@ class PatientEvaluatorTest {
 	@Test
 	void evaluateReturnsFalseWhenOperationIsFalse() 
 			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22, 42, 22, 42);
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageMore30Array, sexEqualFemaleArray, ageLess30Array, sexEqualFemaleArray);
 		assertFalse(patientEvaluator.evaluate(maleLess30, ageMore30));
@@ -129,7 +122,6 @@ class PatientEvaluatorTest {
 	void evaluateThrowsOperatorNotFoundException2WhenAgeBadOperator() {
 		String operation = "P.age + 30";
 		List<String> parsed = Arrays.asList("age", "+", "30");
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(22);
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		assertThrows(OperatorNotFoundException2.class, 
 				() -> patientEvaluator.evaluate(maleLess30, operation));

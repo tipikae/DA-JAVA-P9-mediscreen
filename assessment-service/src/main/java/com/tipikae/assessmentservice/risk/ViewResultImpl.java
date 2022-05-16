@@ -24,10 +24,10 @@ public class ViewResultImpl implements IViewResult {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getResultView(Patient patient, int age, String result) {
+	public String getResultView(Patient patient, String result) {
 		LOGGER.debug("getResultView: patientId=" + patient.getId() + ", result=" + result);
 		return "Patient: " + patient.getGiven() + " " + patient.getFamily() 
-			+ " (age " + age + ") diabetes assessment is: " + result;
+			+ " (age " + patient.getAge() + ") diabetes assessment is: " + result;
 	}
 
 	/**

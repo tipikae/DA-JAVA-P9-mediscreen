@@ -14,7 +14,6 @@ import com.tipikae.assessmentservice.exception.BadOperationException2;
 import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
 import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.service.AgeProvider;
 
 /**
  * Patient operation evaluator.
@@ -29,9 +28,6 @@ public class PatientEvaluator implements IEvaluator {
 	private static final char PREFIX = 'P';
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
-	
-	@Autowired
-	private AgeProvider ageProvider;
 	
 	@Autowired
 	private OperationParser operationParser;
@@ -52,12 +48,11 @@ public class PatientEvaluator implements IEvaluator {
 			LOGGER.debug("field=" + field + ", operator=" + operator + ", expected=" + expected);
 			
 			if (field.equals(AGE)) {
-				int age = ageProvider.calculateAge(patient.getDob());
-				
 				if(ArithmeticOperator.valueOfOperator(operator) != null) {
-					LOGGER.debug("evaluate: operator=" + operator + ", age=" + age 
+					LOGGER.debug("evaluate: operator=" + operator + ", age=" + patient.getAge() 
 							+ ", expected=" + expected);
-					return ArithmeticOperator.valueOfOperator(operator).apply(age, Integer.valueOf(expected));
+					return ArithmeticOperator.valueOfOperator(operator)
+							.apply(patient.getAge(), Integer.valueOf(expected));
 				}
 				
 				LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
