@@ -109,10 +109,10 @@ class PatientEvaluatorTest {
 	}
 	
 	@Test
-	void evaluateThrowsFieldNotFoundExceptionWhenBadField() {
+	void evaluateThrowsBadOperationExceptionWhenBadField() {
 		String operation = "P.city = city";
 		patientEvaluator.setPatient(femaleLess30);
-		assertThrows(NotFoundException.class, 
+		assertThrows(BadOperationException.class, 
 				() -> patientEvaluator.evaluate(operation));
 	}
 	
