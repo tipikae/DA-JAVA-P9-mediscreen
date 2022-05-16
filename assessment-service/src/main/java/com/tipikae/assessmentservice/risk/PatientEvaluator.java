@@ -20,7 +20,7 @@ import com.tipikae.assessmentservice.model.Patient;
  * @version 1.0
  *
  */
-@Component
+@Component("patientEvaluator")
 public class PatientEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientEvaluator.class);

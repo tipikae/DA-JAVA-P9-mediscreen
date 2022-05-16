@@ -6,6 +6,7 @@ package com.tipikae.assessmentservice.risk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.model.Patient;
@@ -20,12 +21,14 @@ import com.tipikae.assessmentservice.model.Patient;
 public class EvaluatorFactory {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EvaluatorFactory.class);
-	private static final String START_MODEL = "(^[A-Z]{1,2}\\.).*";
+	private static final String START_MODEL = "(^[A-Z]{1}\\.).*";
 
 	@Autowired
+	@Qualifier("patientEvaluator")
 	private IEvaluator patientEvaluator;
 	
 	@Autowired
+	@Qualifier("triggerEvaluator")
 	private IEvaluator triggerEvaluator;
 	
 	private Patient patient;
