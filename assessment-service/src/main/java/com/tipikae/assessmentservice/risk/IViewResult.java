@@ -16,11 +16,10 @@ public interface IViewResult {
 	/**
 	 * Get the result view.
 	 * @param patient Patient
-	 * @param age int
 	 * @param result String
 	 * @return String
 	 */
-	String getResultView(Patient patient, int age, String result);
+	String getResultView(Patient patient, String result);
 	
 	/**
 	 * Get the error view.
