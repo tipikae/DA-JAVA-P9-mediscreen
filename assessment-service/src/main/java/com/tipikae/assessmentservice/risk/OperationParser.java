@@ -21,37 +21,17 @@ import org.slf4j.LoggerFactory;
 public class OperationParser {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(OperationParser.class);
-	private static final String MODEL_ELEMENTS = "%s\\.([a-zA-Z0-9]+)\\s?([=<>!]{1,2})\\s?([a-zA-Z0-9]+)";
-	private static final String METHOD_ELEMENTS = "([a-zA-Z0-9]+)\\s?([=<>!]{1,2})\\s?([a-zA-Z0-9]+)";
+	private static final String ELEMENTS = "([a-zA-Z0-9]+)\\s?([=<>!]{1,2})\\s?([a-zA-Z0-9]+)";
 
 	/**
-	 * Get elements of an operation with model.
-	 * @param model char
+	 * Get elements of an operation.
 	 * @param operation String
 	 * @return List
 	 */
-	public List<String> getModelElements(char model, String operation) {
-		LOGGER.debug("getModelElements: model=" + model + ", expression=" + operation);
-		String pattern = String.format(MODEL_ELEMENTS, model);
-		Matcher matcher = Pattern.compile(pattern).matcher(operation);
-		
-		return getElements(matcher);
-	}
-
-	/**
-	 * Get elements of an operation with method.
-	 * @param operation String
-	 * @return List
-	 */
-	public List<String> getMethodElements(String operation) {
+	public List<String> getElements(String operation) {
 		LOGGER.debug("getMethodElements: expression=" + operation);
-		Matcher matcher = Pattern.compile(METHOD_ELEMENTS).matcher(operation);
+		Matcher matcher = Pattern.compile(ELEMENTS).matcher(operation);
 		
-		return getElements(matcher);
-	}
-	
-	// return a list of found elements or an empty list.
-	private List<String> getElements(Matcher matcher) {
 		if(matcher.find()) {
     		int count = matcher.groupCount();
 		    

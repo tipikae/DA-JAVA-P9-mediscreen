@@ -23,7 +23,6 @@ import com.tipikae.assessmentservice.model.Patient;
 public class PatientEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientEvaluator.class);
-	private static final char PREFIX = 'P';
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
 	
@@ -45,7 +44,7 @@ public class PatientEvaluator implements IEvaluator {
 			throws NotFoundException, BadOperationException {
 		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
 		OperationParser operationParser = new OperationParser();
-		List<String> elements = operationParser.getModelElements(PREFIX, operation);
+		List<String> elements = operationParser.getElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
 			String field = elements.get(0);

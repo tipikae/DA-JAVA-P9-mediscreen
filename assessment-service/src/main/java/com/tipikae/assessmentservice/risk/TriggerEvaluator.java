@@ -51,7 +51,7 @@ public class TriggerEvaluator implements IEvaluator {
 			throws NotFoundException, BadOperationException, ClientException {
 		LOGGER.debug("evaluate method: patientId=" + patient.getId() + ", operation=" + operation);
 		OperationParser operationParser = new OperationParser();
-		List<String> elements = operationParser.getMethodElements(operation);
+		List<String> elements = operationParser.getElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
 			String method = elements.get(0);
