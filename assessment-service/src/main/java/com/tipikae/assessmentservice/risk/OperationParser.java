@@ -29,7 +29,7 @@ public class OperationParser {
 	 * @return List
 	 */
 	public List<String> getElements(String operation) {
-		LOGGER.debug("getMethodElements: expression=" + operation);
+		LOGGER.debug("getElements: operation=" + operation);
 		Matcher matcher = Pattern.compile(ELEMENTS).matcher(operation);
 		
 		if(matcher.find()) {
