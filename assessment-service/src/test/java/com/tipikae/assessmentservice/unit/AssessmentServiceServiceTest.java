@@ -31,7 +31,6 @@ import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
 import com.tipikae.assessmentservice.risk.IViewResult;
-import com.tipikae.assessmentservice.service.AgeProvider;
 import com.tipikae.assessmentservice.service.AssessmentServiceServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,9 +51,6 @@ class AssessmentServiceServiceTest {
 	@Mock
 	private IViewResult viewResult;
 	
-	@Mock
-	private AgeProvider ageProvider;
-	
 	@InjectMocks
 	private AssessmentServiceServiceImpl assessmentService;
 	
@@ -63,7 +59,6 @@ class AssessmentServiceServiceTest {
 	private static String given;
 	private static LocalDate dob;
 	private static char sex;
-	private static int age;
 	private static String message;
 	private static Patient patient;
 	private static Note note;
@@ -81,7 +76,6 @@ class AssessmentServiceServiceTest {
 		given = "given";
 		dob = LocalDate.of(2000, 01, 01);
 		sex = 'M';
-		age = 22;
 		message = "message";
 		patient = new Patient(patId, family, given, dob, sex, "address", "phone");
 		note = new Note("id", patId, dob, "e");
@@ -98,7 +92,6 @@ class AssessmentServiceServiceTest {
 			throws Exception {
 		when(patientClient.getPatientById(anyLong())).thenReturn(patient);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(age);
 		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertEquals(message, assessmentService.assessDiabetesById(assessmentByIdDTO).getMessage());
@@ -125,7 +118,6 @@ class AssessmentServiceServiceTest {
 			throws Exception {
 		when(patientClient.getPatientsByFamilyName(anyString())).thenReturn(patients);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(notes);
-		when(ageProvider.calculateAge(any(LocalDate.class))).thenReturn(age);
 		when(riskCalculator.calculateRisk(any(Patient.class))).thenReturn(risk);
 		when(assessmentConverter.convertModelToDTO(any(Assessment.class))).thenReturn(assessmentDTO);
 		assertTrue(assessmentService.assessDiabetesByFamilyName(assessmentByFamilyDTO).size() > 0);

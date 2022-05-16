@@ -50,9 +50,6 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private IViewResult viewResult;
 	
 	@Autowired
-	private AgeProvider ageProvider;
-	
-	@Autowired
 	private IRiskCalculator riskCalculator;
 
 	/**
@@ -101,11 +98,9 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	// calculates risk and returns assessment
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
-		int age = ageProvider.calculateAge(patient.getDob());
-		
 		try {
 			String result = riskCalculator.calculateRisk(patient);
-			return new Assessment(viewResult.getResultView(patient, age, result));
+			return new Assessment(viewResult.getResultView(patient, result));
 		} catch (Exception e) {
 			LOGGER.debug("getAssessment: processData error: " + e.getMessage());
 			return getError(patient, "Exception");
