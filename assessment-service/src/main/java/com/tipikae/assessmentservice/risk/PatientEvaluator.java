@@ -10,9 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.exception.BadOperationException2;
-import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
-import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
+import com.tipikae.assessmentservice.exception.BadOperationException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 
 /**
@@ -47,7 +46,7 @@ public class PatientEvaluator implements IEvaluator {
 	 */
 	@Override
 	public boolean evaluate(String operation) 
-			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
+			throws NotFoundException, BadOperationException {
 		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
 		List<String> elements = operationParser.getModelElements(PREFIX, operation);
 		
@@ -66,7 +65,7 @@ public class PatientEvaluator implements IEvaluator {
 				}
 				
 				LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
-				throw new OperatorNotFoundException2("Arithmetic operator=" + operator + " not found.");
+				throw new NotFoundException("Arithmetic operator=" + operator + " not found.");
 			
 			} else if (field.equals(SEX)) {
 				if(CharacterOperator.valueOfOperator(operator) != null) {
@@ -77,16 +76,16 @@ public class PatientEvaluator implements IEvaluator {
 				}
 				
 				LOGGER.debug("evaluate: Character operator=" + operator + " not found.");
-				throw new OperatorNotFoundException2("Character operator=" + operator + " not found.");
+				throw new NotFoundException("Character operator=" + operator + " not found.");
 			
 			} else {
 				LOGGER.debug("evaluate: Patient field=" + field + " not found.");
-				throw new FieldNotFoundException2("Patient field=" + field + " not found.");
+				throw new NotFoundException("Patient field=" + field + " not found.");
 			}
 		}
 		
 		LOGGER.debug("Operation incorrect: operation=" + operation);
-		throw new BadOperationException2("Operation incorrect: operation=" + operation);
+		throw new BadOperationException("Operation incorrect: operation=" + operation);
 	}
 
 }

@@ -19,7 +19,7 @@ import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
@@ -57,7 +57,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	 */
 	@Override
 	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO assessmentByIdDTO)
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws NotFoundException, BadRequestException, HttpClientException {
 		LOGGER.debug("assessDiabetesById: id=" + assessmentByIdDTO.getPatId());
 		Patient patient = patientClient.getPatientById(assessmentByIdDTO.getPatId());
 		List<Note> notes = noteClient.getPatientNotes(assessmentByIdDTO.getPatId());

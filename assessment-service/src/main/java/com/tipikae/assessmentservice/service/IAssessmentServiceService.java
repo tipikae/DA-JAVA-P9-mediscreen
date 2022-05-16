@@ -10,7 +10,7 @@ import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 
 /**
  * Assessment service service.
@@ -24,12 +24,12 @@ public interface IAssessmentServiceService {
 	 * Assess risk of diabetes of a patient.
 	 * @param dto AssessmentByIdDTO
 	 * @return AssessmentDTO
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	AssessmentDTO assessDiabetesById(AssessmentByIdDTO dto) 
-			throws PatientNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Assess risk of diabetes of a family.

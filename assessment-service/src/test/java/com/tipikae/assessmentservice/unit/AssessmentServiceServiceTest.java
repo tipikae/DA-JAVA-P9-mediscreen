@@ -25,7 +25,7 @@ import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
@@ -99,15 +99,15 @@ class AssessmentServiceServiceTest {
 
 	@Test
 	void assessDiabetesByIdThrowsExceptionWhenPatientNotFound() 
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatientById(anyLong());
-		assertThrows(PatientNotFoundException.class, 
+			throws NotFoundException, BadRequestException, HttpClientException {
+		doThrow(NotFoundException.class).when(patientClient).getPatientById(anyLong());
+		assertThrows(NotFoundException.class, 
 				() -> assessmentService.assessDiabetesById(assessmentByIdDTO));
 	}
 
 	@Test
 	void assessDiabetesByIdThrowsExceptionWhenBadRequest() 
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws NotFoundException, BadRequestException, HttpClientException {
 		doThrow(BadRequestException.class).when(noteClient).getPatientNotes(anyLong());
 		assertThrows(BadRequestException.class, 
 				() -> assessmentService.assessDiabetesById(assessmentByIdDTO));

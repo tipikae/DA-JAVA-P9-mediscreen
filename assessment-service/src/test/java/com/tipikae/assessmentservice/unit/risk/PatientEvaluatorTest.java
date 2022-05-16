@@ -16,9 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.assessmentservice.exception.BadOperationException2;
-import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
-import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
+import com.tipikae.assessmentservice.exception.BadOperationException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.OperationParser;
 import com.tipikae.assessmentservice.risk.PatientEvaluator;
@@ -82,7 +81,7 @@ class PatientEvaluatorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void evaluateReturnsTrueWhenOperationIsTrue() 
-			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
+			throws NotFoundException, BadOperationException {
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageLess30Array, sexEqualMaleArray, ageMore30Array, sexEqualMaleArray);
 		patientEvaluator.setPatient(maleLess30);
@@ -110,7 +109,7 @@ class PatientEvaluatorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void evaluateReturnsFalseWhenOperationIsFalse() 
-			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
+			throws NotFoundException, BadOperationException {
 		when(operationParser.getModelElements(anyChar(), anyString()))
 			.thenReturn(ageMore30Array, sexEqualFemaleArray, ageLess30Array, sexEqualFemaleArray);
 		patientEvaluator.setPatient(maleLess30);
@@ -140,7 +139,7 @@ class PatientEvaluatorTest {
 		List<String> parsed = Arrays.asList("age", "+", "30");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		patientEvaluator.setPatient(femaleMore30);
-		assertThrows(OperatorNotFoundException2.class, 
+		assertThrows(NotFoundException.class, 
 				() -> patientEvaluator.evaluate(operation));
 		
 	}
@@ -151,7 +150,7 @@ class PatientEvaluatorTest {
 		List<String> parsed = Arrays.asList("sex", "+", "F");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		patientEvaluator.setPatient(femaleLess30);
-		assertThrows(OperatorNotFoundException2.class, 
+		assertThrows(NotFoundException.class, 
 				() -> patientEvaluator.evaluate(operation));
 		
 	}
@@ -162,7 +161,7 @@ class PatientEvaluatorTest {
 		List<String> parsed = Arrays.asList("city", "=", "city");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		patientEvaluator.setPatient(femaleLess30);
-		assertThrows(FieldNotFoundException2.class, 
+		assertThrows(NotFoundException.class, 
 				() -> patientEvaluator.evaluate(operation));
 		
 	}
@@ -173,7 +172,7 @@ class PatientEvaluatorTest {
 		List<String> parsed = List.of();
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		patientEvaluator.setPatient(femaleLess30);
-		assertThrows(BadOperationException2.class, 
+		assertThrows(BadOperationException.class, 
 				() -> patientEvaluator.evaluate(operation));
 		
 	}
@@ -184,7 +183,7 @@ class PatientEvaluatorTest {
 		List<String> parsed = Arrays.asList("age", "=");
 		when(operationParser.getModelElements(anyChar(), anyString())).thenReturn(parsed);
 		patientEvaluator.setPatient(femaleLess30);
-		assertThrows(BadOperationException2.class, 
+		assertThrows(BadOperationException.class, 
 				() -> patientEvaluator.evaluate(operation));
 		
 	}

@@ -24,14 +24,14 @@ public class ControllerExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 	
 	/**
-	 * Handle a PatientNotFoundException.
-	 * @param e	PatientNotFoundException
+	 * Handle a NotFoundException.
+	 * @param e	NotFoundException
 	 * @return ControllerException
 	 */
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(PatientNotFoundException.class)
-	ControllerException exceptionHandler(PatientNotFoundException e) {
+	@ExceptionHandler(NotFoundException.class)
+	ControllerException exceptionHandler(NotFoundException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.NOT_FOUND.value(), 
 				e.getMessage());
 		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Patient not found.");

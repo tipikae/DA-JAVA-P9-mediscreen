@@ -19,11 +19,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tipikae.assessmentservice.client.INoteServiceClient;
-import com.tipikae.assessmentservice.exception.BadOperationException2;
+import com.tipikae.assessmentservice.exception.BadOperationException;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.ClientException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.OperationParser;
 import com.tipikae.assessmentservice.risk.TriggerEvaluator;
@@ -108,7 +108,7 @@ class TriggerEvaluatorTest {
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected));
 		triggerEvaluator.setPatient(patient);
-		assertThrows(OperatorNotFoundException2.class, 
+		assertThrows(NotFoundException.class, 
 				() -> triggerEvaluator.evaluate(badOperatorOperation));
 	}
 	
@@ -117,7 +117,7 @@ class TriggerEvaluatorTest {
 			throws BadRequestException, HttpClientException {
 		when(operationParser.getMethodElements(anyString())).thenReturn(badOperationParsed);
 		triggerEvaluator.setPatient(patient);
-		assertThrows(BadOperationException2.class, 
+		assertThrows(BadOperationException.class, 
 				() -> triggerEvaluator.evaluate(badOperation));
 	}
 

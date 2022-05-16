@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 
 import feign.Param;
@@ -25,13 +25,13 @@ public interface IPatientServiceClient {
 	 * Get a patient.
 	 * @param id long
 	 * @return Patient
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /patients/id/{id}")
 	Patient getPatientById(@Param("id") long id) 
-			throws PatientNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 	
 	@RequestLine("GET /patients/familyName/{familyName}")
 	List<Patient> getPatientsByFamilyName(@Param("familyName") String familyName) 
