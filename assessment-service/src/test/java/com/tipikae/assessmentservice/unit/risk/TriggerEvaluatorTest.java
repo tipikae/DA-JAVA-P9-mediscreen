@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -23,17 +22,12 @@ import com.tipikae.assessmentservice.exception.BadOperationException;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.ClientException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.risk.OperationParser;
 import com.tipikae.assessmentservice.risk.TriggerEvaluator;
 import com.tipikae.assessmentservice.service.TriggerTermsCounter;
 
 @ExtendWith(MockitoExtension.class)
 class TriggerEvaluatorTest {
-	
-	@Mock
-	private OperationParser operationParser;
 	
 	@Mock
 	private INoteServiceClient noteClient;
@@ -52,9 +46,6 @@ class TriggerEvaluatorTest {
 	private static String rightOperation;
 	private static String badOperatorOperation;
 	private static String badOperation;
-	private static List<String> rightParsed;
-	private static List<String> badOperatorParsed;
-	private static List<String> badOperationParsed;
 	
 	@BeforeAll
 	private static void setUp() {
@@ -64,19 +55,15 @@ class TriggerEvaluatorTest {
 		rightOperator = "=";
 		expected = "2";
 		rightOperation = rightMethod + " " + rightOperator + " " + expected;
-		rightParsed = List.of(rightMethod, rightOperator, expected);
 		
 		badOperator = "?";
 		badOperatorOperation = rightMethod + " " + badOperator + " " + expected;
-		badOperatorParsed = List.of(rightMethod, badOperator, expected);
 		
 		badOperation = rightMethod + " " + rightOperator;
-		badOperationParsed = List.of(rightMethod, rightOperator);
 	}
 
 	@Test
 	void evaluateReturnsTrueWhenOperationIsTrue() throws Exception {
-		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected));
 		triggerEvaluator.setPatient(patient);
@@ -85,7 +72,6 @@ class TriggerEvaluatorTest {
 
 	@Test
 	void evaluateReturnsFalseWhenOperationIsFalse() throws Exception {
-		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
 		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected) + 1);
 		triggerEvaluator.setPatient(patient);
@@ -95,27 +81,22 @@ class TriggerEvaluatorTest {
 	@Test
 	void evaluateThrowsClientExceptionWhenNoteClientError() 
 			throws BadRequestException, HttpClientException {
-		when(operationParser.getMethodElements(anyString())).thenReturn(rightParsed);
 		doThrow(HttpClientException.class).when(noteClient).getPatientNotes(anyLong());
 		triggerEvaluator.setPatient(patient);
 		assertThrows(ClientException.class, () -> triggerEvaluator.evaluate(rightOperation));
 	}
 	
 	@Test
-	void evaluateThrowsOperatorNotFoundExceptionWhenBadOperator() 
+	void evaluateThrowsBadOperationExceptionWhenBadOperator() 
 			throws BadRequestException, HttpClientException {
-		when(operationParser.getMethodElements(anyString())).thenReturn(badOperatorParsed);
-		when(noteClient.getPatientNotes(anyLong())).thenReturn(List.of());
-		when(termsCounter.countTerms(anyList())).thenReturn(Integer.valueOf(expected));
 		triggerEvaluator.setPatient(patient);
-		assertThrows(NotFoundException.class, 
+		assertThrows(BadOperationException.class, 
 				() -> triggerEvaluator.evaluate(badOperatorOperation));
 	}
 	
 	@Test
 	void evaluateThrowsBadOperationExceptionWhenBadOperation() 
 			throws BadRequestException, HttpClientException {
-		when(operationParser.getMethodElements(anyString())).thenReturn(badOperationParsed);
 		triggerEvaluator.setPatient(patient);
 		assertThrows(BadOperationException.class, 
 				() -> triggerEvaluator.evaluate(badOperation));

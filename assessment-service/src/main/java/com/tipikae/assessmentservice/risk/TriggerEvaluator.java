@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.client.INoteServiceClient;
 import com.tipikae.assessmentservice.exception.BadOperationException;
@@ -24,13 +23,9 @@ import com.tipikae.assessmentservice.service.TriggerTermsCounter;
  * @version 1.0
  *
  */
-@Component
 public class TriggerEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TriggerEvaluator.class);
-	
-	@Autowired
-	private OperationParser operationParser;
 	
 	@Autowired
 	private INoteServiceClient noteClient;
@@ -55,6 +50,7 @@ public class TriggerEvaluator implements IEvaluator {
 	public boolean evaluate(String operation) 
 			throws NotFoundException, BadOperationException, ClientException {
 		LOGGER.debug("evaluate method: patientId=" + patient.getId() + ", operation=" + operation);
+		OperationParser operationParser = new OperationParser();
 		List<String> elements = operationParser.getMethodElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {

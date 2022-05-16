@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.exception.BadOperationException;
@@ -28,9 +27,6 @@ public class PatientEvaluator implements IEvaluator {
 	private static final String AGE = "age";
 	private static final String SEX = "sex";
 	
-	@Autowired
-	private OperationParser operationParser;
-	
 	private Patient patient;
 
 	/**
@@ -48,6 +44,7 @@ public class PatientEvaluator implements IEvaluator {
 	public boolean evaluate(String operation) 
 			throws NotFoundException, BadOperationException {
 		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
+		OperationParser operationParser = new OperationParser();
 		List<String> elements = operationParser.getModelElements(PREFIX, operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
