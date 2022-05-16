@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * Formula parser.
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  *
  */
-@Component
 public class FormulaParser {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FormulaParser.class);

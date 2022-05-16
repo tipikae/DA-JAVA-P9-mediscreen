@@ -34,9 +34,6 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	private FormulaValidator formulaValidator;
 	
 	@Autowired
-	private FormulaParser formulaParser;
-	
-	@Autowired
 	private EvaluatorFactory evaluatorFactory;
 	
 
@@ -63,6 +60,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			}
 			
 			// parse formula in operations and boolean operators
+			FormulaParser formulaParser = new FormulaParser();
 			List<String> operations = formulaParser.getOperations(formula.getForm());
 			List<String> operators = formulaParser.getOperators(formula.getForm());
 			if(operations.size() != (operators.size() + 1)) {
