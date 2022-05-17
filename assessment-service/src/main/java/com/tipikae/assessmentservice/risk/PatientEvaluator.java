@@ -59,13 +59,13 @@ public class PatientEvaluator implements IEvaluator {
 				obj = getter.invoke(patient);
 			} catch (Exception e) {
 				LOGGER.debug("evaluate: invoke getter impossible: error=" + e.getMessage());
-				throw new BadOperationException("invoke getter impossible: error=" + e.getMessage());
+				throw new BadOperationException("Getter invokation impossible: error=" + e.getMessage());
 			}
 			
 			if(obj instanceof Integer) {
 				if(ArithmeticOperator.valueOfOperator(operator) != null) {
 					return ArithmeticOperator.valueOfOperator(operator)
-							.apply(patient.getAge(), Integer.valueOf(expected));
+							.apply((int) obj, Integer.valueOf(expected));
 				}
 				
 				LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
@@ -74,7 +74,7 @@ public class PatientEvaluator implements IEvaluator {
 			} else if(obj instanceof Character) {
 				if(CharacterOperator.valueOfOperator(operator) != null) {
 					return CharacterOperator.valueOfOperator(operator)
-							.apply(patient.getSex(), expected.charAt(0));
+							.apply((char) obj, expected.charAt(0));
 				}
 				
 				LOGGER.debug("evaluate: Character operator=" + operator + " not found.");
