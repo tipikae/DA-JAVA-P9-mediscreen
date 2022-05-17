@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.config;
+package com.tipikae.mediscreenUI.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

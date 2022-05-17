@@ -13,7 +13,7 @@ import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.service.IAssessmentServiceService;
 
 @SpringBootTest
@@ -23,7 +23,7 @@ class AssessmentServiceIT {
 	private IAssessmentServiceService assessmentService;
 
 	@Test
-	void test() throws PatientNotFoundException, BadRequestException, HttpClientException {
+	void test() throws NotFoundException, BadRequestException, HttpClientException {
 		long idNone = 1L;
 		long idBorderline = 2L;
 		long idInDanger = 3L;

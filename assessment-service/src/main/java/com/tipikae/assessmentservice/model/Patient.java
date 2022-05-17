@@ -1,6 +1,7 @@
 package com.tipikae.assessmentservice.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,4 +39,12 @@ public class Patient {
 	
 	private String address;
 	private String phone;
+	
+	/**
+	 * Returns the age according the dob.
+	 * @return int
+	 */
+	public int getAge() {
+		return Period.between(dob, LocalDate.now()).getYears();
+	}
 }

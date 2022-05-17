@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -34,7 +34,8 @@ public class PatientServiceErrorDecoder implements ErrorDecoder {
 				case 400:
 					return new BadRequestException(response.status() + ": " + response.reason());
 				case 404:
-					return new PatientNotFoundException(response.status() + ": " + response.reason());
+					return new NotFoundException("Patient not found: " + response.status() + ": " 
+							+ response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
 			}

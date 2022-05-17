@@ -23,7 +23,7 @@ import com.tipikae.assessmentservice.dto.AssessmentByFamilyDTO;
 import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.service.IAssessmentServiceService;
 
 @WebMvcTest(controllers = AssessmentServiceController.class)
@@ -54,7 +54,7 @@ class AssessmentServiceControllerTest {
 
 	@Test
 	void assessByIdReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class)
+		doThrow(NotFoundException.class)
 			.when(assessmentService).assessDiabetesById(any(AssessmentByIdDTO.class));
 		mockMvc.perform(post(ROOT + "/id")
 				.contentType(MediaType.APPLICATION_JSON)

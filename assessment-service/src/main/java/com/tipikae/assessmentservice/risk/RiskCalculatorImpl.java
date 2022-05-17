@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.exception.RiskNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Formula;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.repository.IFormulaRepository;
@@ -34,9 +34,6 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	private FormulaValidator formulaValidator;
 	
 	@Autowired
-	private FormulaParser formulaParser;
-	
-	@Autowired
 	private EvaluatorFactory evaluatorFactory;
 	
 
@@ -44,14 +41,14 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String calculateRisk(Patient patient) throws RiskNotFoundException {
+	public String calculateRisk(Patient patient) throws NotFoundException {
 		LOGGER.debug("calculateRisk: patientId=" + patient.getId());
 		
 		// get formulas list
 		List<Formula> formulas = formulaRepository.findAll();
 		if(formulas.isEmpty()) {
 			LOGGER.debug("calculateRisk: no formulas found.");
-			throw new RiskNotFoundException("No formulas found.");
+			throw new NotFoundException("No formulas found.");
 		}
 		
 		// search first formula valid and evaluated
@@ -63,6 +60,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			}
 			
 			// parse formula in operations and boolean operators
+			FormulaParser formulaParser = new FormulaParser();
 			List<String> operations = formulaParser.getOperations(formula.getForm());
 			List<String> operators = formulaParser.getOperators(formula.getForm());
 			if(operations.size() != (operators.size() + 1)) {
@@ -73,11 +71,12 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 			
 			// evaluate each operation
 			List<Boolean> results = new ArrayList<>();
+			evaluatorFactory.setPatient(patient);
 			for(String operation: operations) {
 				IEvaluator evaluator = evaluatorFactory.getEvaluator(operation);
 				
 				try {
-					boolean result = evaluator.evaluate(patient, operation);
+					boolean result = evaluator.evaluate(operation);
 					LOGGER.debug("calculateRisk: operation=" + operation + " is " + result);
 					results.add(result);
 				} catch (Exception e) {
@@ -122,7 +121,7 @@ public class RiskCalculatorImpl implements IRiskCalculator {
 		}
 		
 		LOGGER.debug("calculateRisk: no valid formula found");
-		throw new RiskNotFoundException("No valid formula found.");
+		throw new NotFoundException("No valid formula found.");
 	}
 
 }

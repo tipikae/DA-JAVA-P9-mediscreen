@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tipikae.assessmentservice.client.INoteServiceClient;
-import com.tipikae.assessmentservice.exception.BadOperationException2;
+import com.tipikae.assessmentservice.exception.BadOperationException;
 import com.tipikae.assessmentservice.exception.ClientException;
-import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.service.TriggerTermsCounter;
@@ -24,28 +24,36 @@ import com.tipikae.assessmentservice.service.TriggerTermsCounter;
  * @version 1.0
  *
  */
-@Component
+@Component("triggerEvaluator")
 public class TriggerEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TriggerEvaluator.class);
-	
-	@Autowired
-	private OperationParser operationParser;
 	
 	@Autowired
 	private INoteServiceClient noteClient;
 	
 	@Autowired
 	private TriggerTermsCounter termsCounter;
+	
+	private Patient patient;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean evaluate(Patient patient, String operation) 
-			throws OperatorNotFoundException2, BadOperationException2, ClientException {
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean evaluate(String operation) 
+			throws NotFoundException, BadOperationException, ClientException {
 		LOGGER.debug("evaluate method: patientId=" + patient.getId() + ", operation=" + operation);
-		List<String> elements = operationParser.getMethodElements(operation);
+		OperationParser operationParser = new OperationParser();
+		List<String> elements = operationParser.getElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
 			String method = elements.get(0);
@@ -70,11 +78,11 @@ public class TriggerEvaluator implements IEvaluator {
 			}
 			
 			LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
-			throw new OperatorNotFoundException2("Arithmetic operator=" + operator + " not found.");
+			throw new NotFoundException("Arithmetic operator=" + operator + " not found.");
 		}
 		
 		LOGGER.debug("Operation incorrect: operation=" + operation);
-		throw new BadOperationException2("Operation incorrect: operation=" + operation);
+		throw new BadOperationException("Operation incorrect: operation=" + operation);
 	}
 
 }

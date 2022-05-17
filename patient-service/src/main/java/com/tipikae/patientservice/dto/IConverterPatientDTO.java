@@ -1,15 +1,12 @@
 /**
  * 
  */
-package com.tipikae.patientservice.converter;
+package com.tipikae.patientservice.dto;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.tipikae.patientservice.dto.NewPatientDTO;
-import com.tipikae.patientservice.dto.PatientDTO;
-import com.tipikae.patientservice.dto.UpdatePatientDTO;
 import com.tipikae.patientservice.model.Patient;
 
 /**

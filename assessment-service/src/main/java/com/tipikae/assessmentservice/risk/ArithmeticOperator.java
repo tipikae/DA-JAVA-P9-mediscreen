@@ -16,37 +16,37 @@ public enum ArithmeticOperator implements BiFunction<Integer, Integer, Boolean> 
 	LESS_THAN ("<") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a < b;
+			return a.compareTo(b) < 0;
 		}
 	},
 	LESS_THAN_OR_EQUALS ("<=") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a <= b;
+			return a.compareTo(b) <= 0;
 		}
 	},
 	GREATER_THAN (">") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a > b;
+			return a.compareTo(b) > 0;
 		}
 	},
 	GREATER_THAN_OR_EQUALS (">=") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a >= b;
+			return a.compareTo(b) >= 0;
 		}
 	},
 	EQUALS ("=") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a == b;
+			return a.compareTo(b) == 0;
 		}
 	},
 	DIFFERENTS ("!=") {
 		@Override
 		public Boolean apply(Integer a, Integer b) {
-			return a != b;
+			return a.compareTo(b) != 0;
 		}
 	};
 	

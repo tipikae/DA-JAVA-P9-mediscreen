@@ -19,7 +19,7 @@ import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Assessment;
 import com.tipikae.assessmentservice.model.Note;
 import com.tipikae.assessmentservice.model.Patient;
@@ -50,9 +50,6 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	private IViewResult viewResult;
 	
 	@Autowired
-	private AgeProvider ageProvider;
-	
-	@Autowired
 	private IRiskCalculator riskCalculator;
 
 	/**
@@ -60,7 +57,7 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	 */
 	@Override
 	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO assessmentByIdDTO)
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws NotFoundException, BadRequestException, HttpClientException {
 		LOGGER.debug("assessDiabetesById: id=" + assessmentByIdDTO.getPatId());
 		Patient patient = patientClient.getPatientById(assessmentByIdDTO.getPatId());
 		List<Note> notes = noteClient.getPatientNotes(assessmentByIdDTO.getPatId());
@@ -101,11 +98,9 @@ public class AssessmentServiceServiceImpl implements IAssessmentServiceService {
 	// calculates risk and returns assessment
 	private Assessment getAssessment(Patient patient, List<Note> notes) {
 		LOGGER.debug("getAssessment: patId=" + patient.getId());
-		int age = ageProvider.calculateAge(patient.getDob());
-		
 		try {
 			String result = riskCalculator.calculateRisk(patient);
-			return new Assessment(viewResult.getResultView(patient, age, result));
+			return new Assessment(viewResult.getResultView(patient, result));
 		} catch (Exception e) {
 			LOGGER.debug("getAssessment: processData error: " + e.getMessage());
 			return getError(patient, "Exception");

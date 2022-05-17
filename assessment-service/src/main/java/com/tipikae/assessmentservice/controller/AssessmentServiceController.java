@@ -23,7 +23,7 @@ import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
 import com.tipikae.assessmentservice.dto.AssessmentDTO;
 import com.tipikae.assessmentservice.exception.BadRequestException;
 import com.tipikae.assessmentservice.exception.HttpClientException;
-import com.tipikae.assessmentservice.exception.PatientNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.service.IAssessmentServiceService;
 
 /**
@@ -46,14 +46,14 @@ public class AssessmentServiceController {
 	 * Assess by patient id.
 	 * @param assessmentByIdDTO AssessmentByIdDTO
 	 * @return ResponseEntity
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@PostMapping(value = "/id", consumes = {"application/json"})
 	public ResponseEntity<AssessmentDTO> assessById(
 			@RequestBody @Valid AssessmentByIdDTO assessmentByIdDTO) 
-					throws PatientNotFoundException, BadRequestException, HttpClientException {
+					throws NotFoundException, BadRequestException, HttpClientException {
 		LOGGER.info("assessById: patId=" + assessmentByIdDTO.getPatId());
 		AssessmentDTO assessmentDTO = assessmentService.assessDiabetesById(assessmentByIdDTO);
 		

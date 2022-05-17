@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.config;
+package com.tipikae.mediscreenUI.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.support.PageJacksonModule;
@@ -11,12 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
-import com.tipikae.mediscreenUI.client.IPatientServiceClient;
-import com.tipikae.mediscreenUI.errorDecoder.AssessmentServiceErrorDecoder;
-import com.tipikae.mediscreenUI.errorDecoder.NoteServiceErrorDecoder;
-import com.tipikae.mediscreenUI.errorDecoder.PatientServiceErrorDecoder;
 
 import feign.Feign;
 import feign.Logger;

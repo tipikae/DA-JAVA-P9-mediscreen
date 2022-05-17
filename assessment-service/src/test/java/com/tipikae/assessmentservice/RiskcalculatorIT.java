@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tipikae.assessmentservice.exception.RiskNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 import com.tipikae.assessmentservice.risk.IRiskCalculator;
 
@@ -35,7 +35,7 @@ class RiskcalculatorIT {
 	}
 
 	@Test
-	void calculateRiskReturnsRiskWhenOk() throws RiskNotFoundException {
+	void calculateRiskReturnsRiskWhenOk() throws NotFoundException {
 		assertEquals("None", riskCalculator.calculateRisk(patientNoneMore30F));
 		assertEquals("Borderline", riskCalculator.calculateRisk(patientBorderlineMore30M));
 		assertEquals("In Danger", riskCalculator.calculateRisk(patientInDangerLess30M));
@@ -43,7 +43,7 @@ class RiskcalculatorIT {
 	}
 	
 	@Test
-	void calculateRiskReturnsNoneWhenPatientNotFound() throws RiskNotFoundException {
+	void calculateRiskReturnsNoneWhenPatientNotFound() throws NotFoundException {
 		assertEquals("None", riskCalculator.calculateRisk(patientNotFound));
 	}
 

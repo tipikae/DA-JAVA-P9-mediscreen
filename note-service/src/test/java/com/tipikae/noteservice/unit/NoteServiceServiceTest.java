@@ -19,7 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tipikae.noteservice.converter.IConverterNoteDTO;
+import com.tipikae.noteservice.dto.IConverterNoteDTO;
 import com.tipikae.noteservice.dto.NewNoteDTO;
 import com.tipikae.noteservice.dto.NoteDTO;
 import com.tipikae.noteservice.dto.UpdateNoteDTO;

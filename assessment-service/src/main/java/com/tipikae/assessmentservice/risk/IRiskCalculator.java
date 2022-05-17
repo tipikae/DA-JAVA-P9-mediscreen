@@ -3,7 +3,7 @@
  */
 package com.tipikae.assessmentservice.risk;
 
-import com.tipikae.assessmentservice.exception.RiskNotFoundException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
 
 /**
@@ -18,7 +18,7 @@ public interface IRiskCalculator {
 	 * Calculate risk.
 	 * @param patient Patient
 	 * @return String
-	 * @throws RiskNotFoundException
+	 * @throws NotFoundException
 	 */
-	String calculateRisk(Patient patient) throws RiskNotFoundException;
+	String calculateRisk(Patient patient) throws NotFoundException;
 }

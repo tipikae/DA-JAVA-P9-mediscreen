@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.noteservice.converter.IConverterNoteDTO;
+import com.tipikae.noteservice.dto.IConverterNoteDTO;
 import com.tipikae.noteservice.dto.NewNoteDTO;
 import com.tipikae.noteservice.dto.NoteDTO;
 import com.tipikae.noteservice.dto.UpdateNoteDTO;

@@ -3,18 +3,16 @@
  */
 package com.tipikae.assessmentservice.risk;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.assessmentservice.exception.BadOperationException2;
-import com.tipikae.assessmentservice.exception.FieldNotFoundException2;
-import com.tipikae.assessmentservice.exception.OperatorNotFoundException2;
+import com.tipikae.assessmentservice.exception.BadOperationException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
 import com.tipikae.assessmentservice.model.Patient;
-import com.tipikae.assessmentservice.service.AgeProvider;
 
 /**
  * Patient operation evaluator.
@@ -22,28 +20,30 @@ import com.tipikae.assessmentservice.service.AgeProvider;
  * @version 1.0
  *
  */
-@Component
+@Component("patientEvaluator")
 public class PatientEvaluator implements IEvaluator {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientEvaluator.class);
-	private static final char PREFIX = 'P';
-	private static final String AGE = "age";
-	private static final String SEX = "sex";
 	
-	@Autowired
-	private AgeProvider ageProvider;
-	
-	@Autowired
-	private OperationParser operationParser;
+	private Patient patient;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean evaluate(Patient patient, String operation) 
-			throws OperatorNotFoundException2, FieldNotFoundException2, BadOperationException2 {
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean evaluate(String operation) 
+			throws NotFoundException, BadOperationException {
 		LOGGER.debug("evaluate patient: patientId=" + patient.getId() + ", operation=" + operation);
-		List<String> elements = operationParser.getModelElements(PREFIX, operation);
+		OperationParser operationParser = new OperationParser();
+		List<String> elements = operationParser.getElements(operation);
 		
 		if (!elements.isEmpty() && elements.size() == 3) {
 			String field = elements.get(0);
@@ -51,37 +51,40 @@ public class PatientEvaluator implements IEvaluator {
 			String expected = elements.get(2);
 			LOGGER.debug("field=" + field + ", operator=" + operator + ", expected=" + expected);
 			
-			if (field.equals(AGE)) {
-				int age = ageProvider.calculateAge(patient.getDob());
-				
+			String getterName = "get" + field.substring(0, 1).toUpperCase() + field.substring(1);
+			Object obj;
+			try {
+				Class<? extends Patient> clazz = patient.getClass();
+				Method getter = clazz.getMethod(getterName, (Class<?>[]) null);
+				obj = getter.invoke(patient);
+			} catch (Exception e) {
+				LOGGER.debug("evaluate: invoke getter impossible: error=" + e.getMessage());
+				throw new BadOperationException("Getter invokation impossible: error=" + e.getMessage());
+			}
+			
+			if(obj instanceof Integer) {
 				if(ArithmeticOperator.valueOfOperator(operator) != null) {
-					LOGGER.debug("evaluate: operator=" + operator + ", age=" + age 
-							+ ", expected=" + expected);
-					return ArithmeticOperator.valueOfOperator(operator).apply(age, Integer.valueOf(expected));
+					return ArithmeticOperator.valueOfOperator(operator)
+							.apply((int) obj, Integer.valueOf(expected));
 				}
 				
 				LOGGER.debug("evaluate: Arithmetic operator=" + operator + " not found.");
-				throw new OperatorNotFoundException2("Arithmetic operator=" + operator + " not found.");
-			
-			} else if (field.equals(SEX)) {
+				throw new NotFoundException("Arithmetic operator=" + operator + " not found.");
+				
+			} else if(obj instanceof Character) {
 				if(CharacterOperator.valueOfOperator(operator) != null) {
-					LOGGER.debug("evaluate: operator=" + operator + ", sex=" + patient.getSex() 
-							+ ", expected=" + expected);
 					return CharacterOperator.valueOfOperator(operator)
-							.apply(patient.getSex(), expected.charAt(0));
+							.apply((char) obj, expected.charAt(0));
 				}
 				
 				LOGGER.debug("evaluate: Character operator=" + operator + " not found.");
-				throw new OperatorNotFoundException2("Character operator=" + operator + " not found.");
-			
-			} else {
-				LOGGER.debug("evaluate: Patient field=" + field + " not found.");
-				throw new FieldNotFoundException2("Patient field=" + field + " not found.");
+				throw new NotFoundException("Character operator=" + operator + " not found.");
+				
 			}
 		}
 		
-		LOGGER.debug("Operation incorrect: operation=" + operation);
-		throw new BadOperationException2("Operation incorrect: operation=" + operation);
+		LOGGER.debug("evaluate: Operation incorrect: operation=" + operation);
+		throw new BadOperationException("Operation incorrect: operation=" + operation);
 	}
 
 }

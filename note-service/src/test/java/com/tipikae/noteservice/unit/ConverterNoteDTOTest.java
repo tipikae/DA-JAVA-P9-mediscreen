@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.tipikae.noteservice.converter.ConverterNoteDTOImpl;
-import com.tipikae.noteservice.converter.IConverterNoteDTO;
+import com.tipikae.noteservice.dto.ConverterNoteDTOImpl;
+import com.tipikae.noteservice.dto.IConverterNoteDTO;
 import com.tipikae.noteservice.dto.NewNoteDTO;
 import com.tipikae.noteservice.dto.UpdateNoteDTO;
 import com.tipikae.noteservice.model.Note;

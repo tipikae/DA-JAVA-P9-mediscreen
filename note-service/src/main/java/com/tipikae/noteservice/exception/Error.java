@@ -6,13 +6,13 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * Controller exception.
+ * Error POJO.
  * @author tipikae
  * @version 1.0
  *
  */
 @Data
-public class ControllerException implements Serializable {
+public class Error implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class ControllerException implements Serializable {
 	private String message;
 	private Date timestamp;
 	
-	public ControllerException(int code, String message) {
+	public Error(int code, String message) {
 		this.code = code;
 		this.message = message;
 		this.timestamp = new Date();
