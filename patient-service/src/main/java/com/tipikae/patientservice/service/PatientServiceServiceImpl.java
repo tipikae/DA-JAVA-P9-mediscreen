@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.tipikae.patientservice.converter.IConverterPatientDTO;
+import com.tipikae.patientservice.dto.IConverterPatientDTO;
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;

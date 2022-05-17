@@ -1,4 +1,4 @@
-package com.tipikae.patientservice.config;
+package com.tipikae.patientservice.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

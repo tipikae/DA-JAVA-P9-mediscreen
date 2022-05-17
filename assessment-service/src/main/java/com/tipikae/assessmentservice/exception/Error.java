@@ -6,7 +6,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * Controller exception.
+ * Error POJO.
  * @author tipikae
  * @version 1.0
  *

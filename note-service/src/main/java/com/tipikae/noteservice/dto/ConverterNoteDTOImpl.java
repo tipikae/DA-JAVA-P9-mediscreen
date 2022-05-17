@@ -1,16 +1,13 @@
 /**
  * 
  */
-package com.tipikae.noteservice.converter;
+package com.tipikae.noteservice.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.tipikae.noteservice.dto.NewNoteDTO;
-import com.tipikae.noteservice.dto.NoteDTO;
-import com.tipikae.noteservice.dto.UpdateNoteDTO;
 import com.tipikae.noteservice.model.Note;
 
 /**

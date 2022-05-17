@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.patientservice.converter;
+package com.tipikae.patientservice.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import com.tipikae.patientservice.dto.NewPatientDTO;
-import com.tipikae.patientservice.dto.PatientDTO;
-import com.tipikae.patientservice.dto.UpdatePatientDTO;
 import com.tipikae.patientservice.model.Patient;
 
 /**

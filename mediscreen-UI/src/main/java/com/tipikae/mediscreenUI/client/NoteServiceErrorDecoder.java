@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.errorDecoder;
+package com.tipikae.mediscreenUI.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

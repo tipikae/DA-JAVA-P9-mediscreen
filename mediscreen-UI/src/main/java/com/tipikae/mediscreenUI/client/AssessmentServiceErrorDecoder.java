@@ -1,28 +1,27 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.errorDecoder;
+package com.tipikae.mediscreenUI.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
 import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
 /**
- * Patient service error decoder.
+ * Assessment service error decoder for Feign.
  * @author tipikae
  * @version 1.0
  *
  */
-public class PatientServiceErrorDecoder implements ErrorDecoder {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceErrorDecoder.class);
+public class AssessmentServiceErrorDecoder implements ErrorDecoder {
+
+private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceErrorDecoder.class);
 	
 	private final ErrorDecoder defaultErrorDecoder = new Default();
 
@@ -36,8 +35,6 @@ public class PatientServiceErrorDecoder implements ErrorDecoder {
 					return new BadRequestException(response.status() + ": " + response.reason());
 				case 404:
 					return new PatientNotFoundException(response.status() + ": " + response.reason());
-				case 409:
-					return new PatientAlreadyExistException(response.status() + ": " + response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
 			}

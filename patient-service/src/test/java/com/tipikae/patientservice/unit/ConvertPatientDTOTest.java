@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import com.tipikae.patientservice.converter.ConverterPatientDTOImpl;
-import com.tipikae.patientservice.converter.IConverterPatientDTO;
+import com.tipikae.patientservice.dto.ConverterPatientDTOImpl;
+import com.tipikae.patientservice.dto.IConverterPatientDTO;
 import com.tipikae.patientservice.dto.NewPatientDTO;
 import com.tipikae.patientservice.dto.PatientDTO;
 import com.tipikae.patientservice.dto.UpdatePatientDTO;

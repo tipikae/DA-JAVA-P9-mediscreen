@@ -34,10 +34,10 @@ public class ControllerExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoteNotFoundException.class)
-	ControllerException exceptionHandler(NoteNotFoundException e) {
+	Error exceptionHandler(NoteNotFoundException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.NOT_FOUND.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.NOT_FOUND.value(), "Note not found.");
+		return new Error(HttpStatus.NOT_FOUND.value(), "Note not found.");
 	}
 	
 	/**
@@ -48,10 +48,10 @@ public class ControllerExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	ControllerException exceptionHandler(MethodArgumentNotValidException e) {
+	Error exceptionHandler(MethodArgumentNotValidException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.BAD_REQUEST.value(), "Method argument not valid.");
+		return new Error(HttpStatus.BAD_REQUEST.value(), "Method argument not valid.");
 	}
 	
 	/**
@@ -62,10 +62,10 @@ public class ControllerExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ConstraintViolationException.class)
-	ControllerException exceptionHandler(ConstraintViolationException e) {
+	Error exceptionHandler(ConstraintViolationException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.BAD_REQUEST.value(), "Validation failed.");
+		return new Error(HttpStatus.BAD_REQUEST.value(), "Validation failed.");
 	}
 	
 	/**
@@ -76,10 +76,10 @@ public class ControllerExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MissingPathVariableException.class)
-	ControllerException exceptionHandler(MissingPathVariableException e) {
+	Error exceptionHandler(MissingPathVariableException e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.BAD_REQUEST.value(), "Missing path variable.");
+		return new Error(HttpStatus.BAD_REQUEST.value(), "Missing path variable.");
 	}
 	
 	/**
@@ -90,10 +90,10 @@ public class ControllerExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(Exception.class)
-	ControllerException exceptionHandler(Exception e) {
+	Error exceptionHandler(Exception e) {
 		logException(e.getClass().getSimpleName(), HttpStatus.BAD_REQUEST.value(), 
 				e.getMessage());
-		return new ControllerException(HttpStatus.BAD_REQUEST.value(), "An exception occured.");
+		return new Error(HttpStatus.BAD_REQUEST.value(), "An exception occured.");
 	}
 
 	private void logException(String exception, int code, String message) {
