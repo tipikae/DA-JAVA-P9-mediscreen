@@ -20,6 +20,12 @@ import org.springframework.security.web.server.header.XFrameOptionsServerHttpHea
 @Configuration
 public class SecurityConfig {
 
+	/**
+	 * Build filter chain.
+	 * @param http ServerHttpSecurity
+	 * @param clientRegistrationRepository ReactiveClientRegistrationRepository
+	 * @return SecurityWebFilterChain
+	 */
 	@Bean
 	public SecurityWebFilterChain springSecurityFilterChain(
 			ServerHttpSecurity http,
@@ -35,6 +41,7 @@ public class SecurityConfig {
 		http.headers().frameOptions().mode(Mode.SAMEORIGIN);
 		// Disable CSRF in the gateway to prevent conflicts with proxied service CSRF
 		http.csrf().disable();
+		
 		return http.build();
 	}
 }
