@@ -16,13 +16,13 @@ public enum CharacterOperator implements BiFunction<Character, Character, Boolea
 	EQUALS ("=") {
 		@Override
 		public Boolean apply(Character a, Character b) {
-			return a == b;
+			return a.compareTo(b) == 0;
 		}
 	},
 	DIFFERENTS ("!=") {
 		@Override
 		public Boolean apply(Character a, Character b) {
-			return a != b;
+			return a.compareTo(b) != 0;
 		}
 	};
 
