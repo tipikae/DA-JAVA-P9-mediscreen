@@ -3,14 +3,20 @@
  */
 package com.tipikae.mediscreenUI.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/*import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.client.IPatientServiceClient;
@@ -51,6 +58,19 @@ public class PatientController {
 	
 	@Autowired
 	private INoteServiceClient noteClient;
+	
+	/*@GetMapping("/jwt")
+	@ResponseBody
+	public Map<String, String> jwt(HttpServletRequest request) {
+		KeycloakAuthenticationToken authenticationToken = 
+				(KeycloakAuthenticationToken) request.getUserPrincipal();
+		KeycloakPrincipal principal = 
+				(KeycloakPrincipal) authenticationToken.getPrincipal();
+		KeycloakSecurityContext context = principal.getKeycloakSecurityContext();
+		Map<String, String> map = new HashMap<>();
+		map.put("access_token", context.getTokenString());
+		return map;
+	}*/
 	
 	/**
 	 * Get all patients list.

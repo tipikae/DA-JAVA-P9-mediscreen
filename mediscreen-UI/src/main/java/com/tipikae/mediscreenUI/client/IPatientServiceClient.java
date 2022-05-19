@@ -34,6 +34,7 @@ public interface IPatientServiceClient {
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /patients/?page={page}&size={size}")
+    //@Headers("Content-Type: application/json")
 	Page<Patient> getPatients(@Param("page") int page, @Param("size") int size) 
 			throws BadRequestException, HttpClientException;
 	
