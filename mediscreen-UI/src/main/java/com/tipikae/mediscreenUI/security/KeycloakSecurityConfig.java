@@ -3,13 +3,13 @@
  */
 package com.tipikae.mediscreenUI.security;
 
-/*import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
+import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;*/
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 /**
  * Keycloak security configuration.
@@ -17,10 +17,8 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
  * @version 1.0
  *
  */
-//@KeycloakConfiguration
-public class KeycloakSecurityConfig {
-	/*extends KeycloakWebSecurityConfigurerAdapter {
-}
+@KeycloakConfiguration
+public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
 	@Override
 	protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
@@ -36,6 +34,6 @@ public class KeycloakSecurityConfig {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(keycloakAuthenticationProvider());
-	}*/
+	}
 
 }

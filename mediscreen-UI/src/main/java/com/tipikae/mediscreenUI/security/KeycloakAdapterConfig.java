@@ -3,7 +3,7 @@
  */
 package com.tipikae.mediscreenUI.security;
 
-//import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
  * @version 1.0
  *
  */
-//@Configuration
+@Configuration
 public class KeycloakAdapterConfig {
 
-	/*@Bean
+	@Bean
 	public KeycloakSpringBootConfigResolver springBootConfigResolver() {
 		return new KeycloakSpringBootConfigResolver();
-	}*/
+	}
 }
