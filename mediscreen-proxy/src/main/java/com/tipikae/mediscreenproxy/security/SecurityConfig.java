@@ -5,11 +5,11 @@ package com.tipikae.mediscreenproxy.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
+/*import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
+import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;*/
 
 /**
  * Security configuration.
@@ -17,7 +17,7 @@ import org.springframework.security.web.server.header.XFrameOptionsServerHttpHea
  * @version 1.0
  *
  */
-@Configuration
+//@Configuration
 public class SecurityConfig {
 
 	/**
@@ -26,7 +26,7 @@ public class SecurityConfig {
 	 * @param clientRegistrationRepository ReactiveClientRegistrationRepository
 	 * @return SecurityWebFilterChain
 	 */
-	@Bean
+	/*@Bean
 	public SecurityWebFilterChain springSecurityFilterChain(
 			ServerHttpSecurity http,
 			ReactiveClientRegistrationRepository clientRegistrationRepository) {
@@ -43,5 +43,5 @@ public class SecurityConfig {
 		http.csrf().disable();
 		
 		return http.build();
-	}
+	}*/
 }
