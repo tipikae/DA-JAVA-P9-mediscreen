@@ -3,6 +3,8 @@
  */
 package com.tipikae.mediscreenproxy.logging;
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -38,8 +40,15 @@ public class FiltersForLogging implements GlobalFilter, Ordered {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    	LOGGER.info("Pre-handle request: " + exchange.getRequest().getURI());
-        return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+    	StringBuilder sb = new StringBuilder(", params: ");
+    	if(!exchange.getRequest().getQueryParams().isEmpty()) {
+    		Set<String> keys = exchange.getRequest().getQueryParams().keySet();
+    		keys.stream()
+    			.forEach(k -> sb.append(k + "=" + exchange.getRequest().getQueryParams().get(k)));
+    	}
+    	LOGGER.info("Pre-handle request: " + exchange.getRequest().getURI() + sb.toString());
+        
+    	return chain.filter(exchange).then(Mono.fromRunnable(() -> {
         	  LOGGER.info("Post-handle response: " + exchange.getResponse().getStatusCode());
             }));
     }
