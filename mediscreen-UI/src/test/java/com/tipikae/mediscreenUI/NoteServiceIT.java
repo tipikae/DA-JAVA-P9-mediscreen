@@ -8,19 +8,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.service.INoteService;
 
 @SpringBootTest
 class NoteServiceIT {
 	
 	@Autowired
-	private INoteServiceClient noteClient;
+	private INoteService noteService;
 
 	@Test
 	void test() throws BadRequestException, HttpClientException, NotFoundException {
@@ -30,34 +30,34 @@ class NoteServiceIT {
 		
 		// save
 		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, e);
-		Note note = noteClient.addNote(newNoteDTO);
+		Note note = noteService.addNote(newNoteDTO);
 		assertEquals(e, note.getE());
-		assertThrows(BadRequestException.class, () -> noteClient.addNote(new NewNoteDTO(patId, "")));
+		assertThrows(BadRequestException.class, () -> noteService.addNote(new NewNoteDTO(patId, "")));
 		
 		// get
 		id = note.getId();
-		assertEquals(LocalDate.now(), noteClient.getNote(id).getDate());
-		assertThrows(NotFoundException.class, () -> noteClient.getNote("pouet"));
-		assertThrows(BadRequestException.class, () -> noteClient.getNote(""));
+		assertEquals(LocalDate.now(), noteService.getNote(id).getDate());
+		assertThrows(NotFoundException.class, () -> noteService.getNote("pouet"));
+		assertThrows(BadRequestException.class, () -> noteService.getNote(""));
 		
 		// get all patient's notes
-		assertTrue(noteClient.getPatientNotes(patId).size() == 1);
-		assertThrows(BadRequestException.class, () -> noteClient.getPatientNotes(0));
+		assertTrue(noteService.getPatientNotes(patId).size() > 0);
+		assertThrows(BadRequestException.class, () -> noteService.getPatientNotes(0));
 		
 		// update
 		String updatedE = e + " updated";
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO(updatedE);
-		noteClient.updateNote(id, updateNoteDTO);
-		assertEquals(updatedE, noteClient.getNote(id).getE());
-		assertThrows(NotFoundException.class, () -> noteClient.updateNote("pouet", updateNoteDTO));
-		assertThrows(BadRequestException.class, () -> noteClient.updateNote("", updateNoteDTO));
-		assertThrows(BadRequestException.class, () -> noteClient.updateNote("pouet", new UpdateNoteDTO("")));
+		noteService.updateNote(id, updateNoteDTO);
+		assertEquals(updatedE, noteService.getNote(id).getE());
+		assertThrows(NotFoundException.class, () -> noteService.updateNote("pouet", updateNoteDTO));
+		assertThrows(BadRequestException.class, () -> noteService.updateNote("", updateNoteDTO));
+		assertThrows(BadRequestException.class, () -> noteService.updateNote("pouet", new UpdateNoteDTO("")));
 		
 		// delete
-		noteClient.deleteNote(id);
+		noteService.deleteNote(id);
 		final String finalId = id;
-		assertThrows(NotFoundException.class, () -> noteClient.getNote(finalId));
-		assertThrows(BadRequestException.class, () -> noteClient.getNote(""));
+		assertThrows(NotFoundException.class, () -> noteService.getNote(finalId));
+		assertThrows(BadRequestException.class, () -> noteService.getNote(""));
 	}
 
 }

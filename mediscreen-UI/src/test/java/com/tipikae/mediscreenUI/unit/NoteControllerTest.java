@@ -17,8 +17,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
-import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.controller.NoteController;
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
@@ -26,6 +24,8 @@ import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.service.INoteService;
+import com.tipikae.mediscreenUI.service.IPatientService;
 
 @WebMvcTest(controllers = NoteController.class)
 class NoteControllerTest {
@@ -35,18 +35,18 @@ private static final String ROOT = "/note";
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private IPatientServiceClient patientClient;
+	private IPatientService patientService;
 	
 	@MockBean
-	private INoteServiceClient noteClient;
+	private INoteService noteService;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Get a note
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void getNoteReturns200AndNoteWhenOk() throws Exception {
-		when(noteClient.getNote(anyString())).thenReturn(new Note());
-		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		when(noteService.getNote(anyString())).thenReturn(new Note());
+		when(patientService.getPatient(anyLong())).thenReturn(new Patient());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/get"));
@@ -54,8 +54,8 @@ private static final String ROOT = "/note";
 	
 	@Test
 	void getNoteReturns404WhenNoteNotFound() throws Exception {
-		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
-		doThrow(NotFoundException.class).when(noteClient).getNote(anyString());
+		when(patientService.getPatient(anyLong())).thenReturn(new Patient());
+		doThrow(NotFoundException.class).when(noteService).getNote(anyString());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().is(200))
 			.andExpect(view().name("error/404"));
@@ -63,7 +63,7 @@ private static final String ROOT = "/note";
 	
 	@Test
 	void getNoteReturns404WhenPatientNotFound() throws Exception {
-		doThrow(NotFoundException.class).when(patientClient).getPatient(anyLong());
+		doThrow(NotFoundException.class).when(patientService).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1/pouet"))
 			.andExpect(status().is(200))
 			.andExpect(view().name("error/404"));
@@ -74,7 +74,7 @@ private static final String ROOT = "/note";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void showAddFormNoteReturns200FormWhenOk() throws Exception {
-		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		when(patientService.getPatient(anyLong())).thenReturn(new Patient());
 		mockMvc.perform(get(ROOT + "/add/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/add"));
@@ -87,7 +87,7 @@ private static final String ROOT = "/note";
 	void addNoteReturns3xxSuccessWhenOk() throws Exception {
 		long patId = 1;
 		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, "message");
-		when(noteClient.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
+		when(noteService.addNote(any(NewNoteDTO.class))).thenReturn(new Note());
 		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
 			.andExpect(status().is3xxRedirection())
@@ -98,7 +98,7 @@ private static final String ROOT = "/note";
 	void addNoteReturns3xxErrorWhenBadRequest() throws Exception {
 		long patId = 1;
 		NewNoteDTO newNoteDTO = new NewNoteDTO(patId, "message");
-		doThrow(BadRequestException.class).when(noteClient).addNote(any(NewNoteDTO.class));
+		doThrow(BadRequestException.class).when(noteService).addNote(any(NewNoteDTO.class));
 		mockMvc.perform(post(ROOT + "/add/" + patId)
 				.flashAttr("note", newNoteDTO))
 			.andExpect(status().is3xxRedirection())
@@ -110,8 +110,8 @@ private static final String ROOT = "/note";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void showUpdateFormNoteReturns200AndNoteWhenOk() throws Exception {
-		when(noteClient.getNote(anyString())).thenReturn(new Note());
-		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
+		when(noteService.getNote(anyString())).thenReturn(new Note());
+		when(patientService.getPatient(anyLong())).thenReturn(new Patient());
 		mockMvc.perform(get(ROOT + "/update/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("note/update"));
@@ -119,8 +119,8 @@ private static final String ROOT = "/note";
 	
 	@Test
 	void showUpdateFormNoteReturns404WhenNoteNotFound() throws Exception {
-		when(patientClient.getPatient(anyLong())).thenReturn(new Patient());
-		doThrow(NotFoundException.class).when(noteClient).getNote(anyString());
+		when(patientService.getPatient(anyLong())).thenReturn(new Patient());
+		doThrow(NotFoundException.class).when(noteService).getNote(anyString());
 		mockMvc.perform(get(ROOT + "/update/1/pouet"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -133,7 +133,7 @@ private static final String ROOT = "/note";
 	void updateNoteReturns3xxSuccessWhenOk() throws Exception {
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
-		doNothing().when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
+		doNothing().when(noteService).updateNote(anyString(), any(UpdateNoteDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
@@ -144,7 +144,7 @@ private static final String ROOT = "/note";
 	void updateNoteReturns3xxErrorWhenNoteNotFound() throws Exception {
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
-		doThrow(NotFoundException.class).when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
+		doThrow(NotFoundException.class).when(noteService).updateNote(anyString(), any(UpdateNoteDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
@@ -155,7 +155,7 @@ private static final String ROOT = "/note";
 	void updateNoteReturns3xxErrorWhenBadRequest() throws Exception {
 		long patId = 1;
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO("message");
-		doThrow(BadRequestException.class).when(noteClient).updateNote(anyString(), any(UpdateNoteDTO.class));
+		doThrow(BadRequestException.class).when(noteService).updateNote(anyString(), any(UpdateNoteDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + patId + "/pouet")
 				.flashAttr("note", updateNoteDTO))
 			.andExpect(status().is3xxRedirection())
@@ -168,7 +168,7 @@ private static final String ROOT = "/note";
 	@Test
 	void deleteNoteReturns3xxSuccessWhenOk() throws Exception {
 		long patId = 1;
-		doNothing().when(noteClient).deleteNote(anyString());
+		doNothing().when(noteService).deleteNote(anyString());
 		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?success=Note deleted."));
@@ -177,7 +177,7 @@ private static final String ROOT = "/note";
 	@Test
 	void deleteNoteReturns3xxErrorWhenNoteNotFound() throws Exception {
 		long patId = 1;
-		doThrow(NotFoundException.class).when(noteClient).deleteNote(anyString());
+		doThrow(NotFoundException.class).when(noteService).deleteNote(anyString());
 		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Note not found."));
@@ -186,7 +186,7 @@ private static final String ROOT = "/note";
 	@Test
 	void deleteNoteReturns3xxErrorWhenBadRequest() throws Exception {
 		long patId = 1;
-		doThrow(BadRequestException.class).when(noteClient).deleteNote(anyString());
+		doThrow(BadRequestException.class).when(noteService).deleteNote(anyString());
 		mockMvc.perform(get(ROOT + "/delete/" + patId + "/pouet"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patient/" + patId + "?error=Request error."));

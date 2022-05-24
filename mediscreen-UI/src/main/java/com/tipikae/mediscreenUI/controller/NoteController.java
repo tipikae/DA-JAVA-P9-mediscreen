@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
-import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.service.INoteService;
+import com.tipikae.mediscreenUI.service.IPatientService;
 
 /**
  * Note controller.
@@ -41,10 +41,10 @@ public class NoteController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NoteController.class);
 	
 	@Autowired
-	private INoteServiceClient noteClient;
+	private INoteService noteService;
 	
 	@Autowired
-	private IPatientServiceClient patientClient;
+	private IPatientService patientService;
 
 	/**
 	 * Get a note.
@@ -60,8 +60,8 @@ public class NoteController {
 			Model model) {
 		LOGGER.info("Getting a note with patientId=" + patId + " and id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(patId));
-			model.addAttribute("note", noteClient.getNote(id));
+			model.addAttribute("patient", patientService.getPatient(patId));
+			model.addAttribute("note", noteService.getNote(id));
 			return "note/get";
 		} catch (NotFoundException e) {
 			log("getNote", e);
@@ -88,7 +88,7 @@ public class NoteController {
     	}
 		
 		try {
-			model.addAttribute("patient", patientClient.getPatient(patId));
+			model.addAttribute("patient", patientService.getPatient(patId));
 			return "note/add";
 		} catch (NotFoundException e) {
 			log("showAddFormNote", e);
@@ -119,7 +119,7 @@ public class NoteController {
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("addNote: has errors:" + sb);
 			try {
-				model.addAttribute("patient", patientClient.getPatient(patId));
+				model.addAttribute("patient", patientService.getPatient(patId));
 				return "note/add";
 			} catch (NotFoundException e1) {
 				log("addNote", e1);
@@ -131,7 +131,7 @@ public class NoteController {
     	}
 		
 		try {
-			noteClient.addNote(newNoteDTO);
+			noteService.addNote(newNoteDTO);
 			return "redirect:/patient/" + patId + "?success=New note added.";
 		} catch (BadRequestException e) {
 			log("addNote", e);
@@ -156,8 +156,8 @@ public class NoteController {
 			Model model) {
 		LOGGER.info("Getting update form with patientId=" + patId + " and id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(patId));
-			model.addAttribute("note", noteClient.getNote(id));
+			model.addAttribute("patient", patientService.getPatient(patId));
+			model.addAttribute("note", noteService.getNote(id));
 			return "note/update";
 		} catch (NotFoundException e) {
 			log("showUpdateFormNote", e);
@@ -190,7 +190,7 @@ public class NoteController {
     		result.getAllErrors().stream().forEach(e -> sb.append(e.getDefaultMessage() + " "));
 			LOGGER.debug("updateNote: has errors:" + sb);
 			try {
-				model.addAttribute("patient", patientClient.getPatient(patId));
+				model.addAttribute("patient", patientService.getPatient(patId));
 				return "redirect:/note/update/" + patId + "/" + id + "?error=" + sb;
 			} catch (NotFoundException e1) {
 				log("updateNote", e1);
@@ -202,7 +202,7 @@ public class NoteController {
     	}
 		
 		try {
-			noteClient.updateNote(id, updateNoteDTO);
+			noteService.updateNote(id, updateNoteDTO);
 			return "redirect:/patient/" + patId + "?success=Note updated.";
 		} catch (NotFoundException e) {
 			log("updateNote", e);
@@ -228,7 +228,7 @@ public class NoteController {
 			@PathVariable("id") @NotBlank String id) {
 		LOGGER.info("Deleting note with id=" + id);
 		try {
-			noteClient.deleteNote(id);
+			noteService.deleteNote(id);
 			return "redirect:/patient/" + patId + "?success=Note deleted.";
 		} catch (NotFoundException e) {
 			log("deleteNote", e);
