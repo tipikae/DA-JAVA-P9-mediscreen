@@ -49,7 +49,7 @@ public interface IPatientService {
 	 * Add new patient.
 	 * @param newPatientDTO NewPatientDTO
 	 * @return Patient
-	 * @throws AlreadyExistsException
+	 * @throws ExistsException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
