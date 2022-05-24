@@ -13,17 +13,17 @@ import org.springframework.web.client.ResponseErrorHandler;
 
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 
 /**
- * PatientService error handler.
+ * Client error handler.
  * @author tipikae
  * @version 1.0
  *
  */
 @Component
-public class PatientServiceErrorHandler implements ResponseErrorHandler {
+public class ClientErrorHandler implements ResponseErrorHandler {
 
 	/**
 	 * {@inheritDoc}
@@ -39,14 +39,16 @@ public class PatientServiceErrorHandler implements ResponseErrorHandler {
 	 */
 	@Override
 	public void handleError(ClientHttpResponse httpResponse) throws IOException {
-		if (httpResponse.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
-            // handle SERVER_ERROR
-        } else if (httpResponse.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
-            // handle CLIENT_ERROR
-            if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-                throw new NotFoundException();
-            }
-        }
+		switch (httpResponse.getStatusCode()) {
+			case BAD_REQUEST:
+				throw new BadRequestException(httpResponse.getStatusText());
+			case NOT_FOUND:
+				throw new NotFoundException(httpResponse.getStatusText());
+			case CONFLICT:
+				throw new AlreadyExistsException(httpResponse.getStatusText());
+			default:
+				throw new HttpClientException(httpResponse.getStatusText());
+		}
 	}
 
 }
