@@ -3,13 +3,15 @@
  */
 package com.tipikae.mediscreenUI.exception;
 
+import java.io.IOException;
+
 /**
  * Client exception.
  * @author tipikae
  * @version 1.0
  *
  */
-public class ClientException extends MediscreenUIException {
+public class ClientException extends IOException {
 
 	private static final long serialVersionUID = 1L;
 

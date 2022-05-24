@@ -9,7 +9,7 @@ import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 
 import feign.Headers;
@@ -39,13 +39,13 @@ public interface INoteServiceClient {
 	 * Get a note.
 	 * @param id String
 	 * @return Note
-	 * @throws NoteNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /notes/id/{id}")
 	Note getNote(@Param("id") String id) 
-			throws NoteNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Add a note.
@@ -63,23 +63,23 @@ public interface INoteServiceClient {
 	 * Update a note.
 	 * @param id String
 	 * @param updateNoteDTO
-	 * @throws NoteNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("PUT /notes/{id}")
     @Headers("Content-Type: application/json")
 	void updateNote(@Param("id") String id, UpdateNoteDTO updateNoteDTO) 
-			throws NoteNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 
 	/**
 	 * Delete a note.
 	 * @param id String
-	 * @throws NoteNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("DELETE /notes/{id}")
 	void deleteNote(@Param("id") String id) 
-			throws NoteNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 }

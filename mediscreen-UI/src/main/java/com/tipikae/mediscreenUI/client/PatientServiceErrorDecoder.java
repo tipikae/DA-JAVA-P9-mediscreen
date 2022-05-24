@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -35,9 +35,9 @@ public class PatientServiceErrorDecoder implements ErrorDecoder {
 				case 400:
 					return new BadRequestException(response.status() + ": " + response.reason());
 				case 404:
-					return new PatientNotFoundException(response.status() + ": " + response.reason());
+					return new NotFoundException(response.status() + ": " + response.reason());
 				case 409:
-					return new PatientAlreadyExistException(response.status() + ": " + response.reason());
+					return new AlreadyExistsException(response.status() + ": " + response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
 			}

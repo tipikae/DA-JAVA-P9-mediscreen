@@ -9,8 +9,8 @@ import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
 import feign.Headers;
@@ -42,49 +42,49 @@ public interface IPatientServiceClient {
 	 * Get a patient.
 	 * @param id long
 	 * @return Patient
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("GET /patients/id/{id}")
 	Patient getPatient(@Param("id") long id) 
-			throws PatientNotFoundException, BadRequestException, HttpClientException;
+			throws NotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Add new patient.
 	 * @param newPatientDTO NewPatientDTO
 	 * @return Patient
-	 * @throws PatientAlreadyExistException
+	 * @throws AlreadyExistsException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("POST /patients/")
     @Headers("Content-Type: application/json")
 	Patient addPatient(NewPatientDTO newPatientDTO) 
-			throws PatientAlreadyExistException, BadRequestException, HttpClientException;
+			throws AlreadyExistsException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Update a patient.
 	 * @param id long
 	 * @param updatePatientDTO UpdatePatientDTO
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("PUT /patients/{id}")
     @Headers("Content-Type: application/json")
 	void updatePatient(@Param("id") long id, UpdatePatientDTO updatePatientDTO) 
-			 throws PatientNotFoundException, BadRequestException, HttpClientException;
+			 throws NotFoundException, BadRequestException, HttpClientException;
 	
 	/**
 	 * Delete a patient.
 	 * @param id long
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
 	@RequestLine("DELETE /patients/{id}")
 	void deletePatient(@Param("id") long id) 
-			 throws PatientNotFoundException, BadRequestException, HttpClientException;
+			 throws NotFoundException, BadRequestException, HttpClientException;
 	
 }

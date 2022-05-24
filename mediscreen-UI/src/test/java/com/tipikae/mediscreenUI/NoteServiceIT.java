@@ -13,7 +13,7 @@ import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 
 @SpringBootTest
@@ -23,7 +23,7 @@ class NoteServiceIT {
 	private INoteServiceClient noteClient;
 
 	@Test
-	void test() throws BadRequestException, HttpClientException, NoteNotFoundException {
+	void test() throws BadRequestException, HttpClientException, NotFoundException {
 		String id = null;
 		long patId = 10;
 		String e = "message";
@@ -37,7 +37,7 @@ class NoteServiceIT {
 		// get
 		id = note.getId();
 		assertEquals(LocalDate.now(), noteClient.getNote(id).getDate());
-		assertThrows(NoteNotFoundException.class, () -> noteClient.getNote("pouet"));
+		assertThrows(NotFoundException.class, () -> noteClient.getNote("pouet"));
 		assertThrows(BadRequestException.class, () -> noteClient.getNote(""));
 		
 		// get all patient's notes
@@ -49,14 +49,14 @@ class NoteServiceIT {
 		UpdateNoteDTO updateNoteDTO = new UpdateNoteDTO(updatedE);
 		noteClient.updateNote(id, updateNoteDTO);
 		assertEquals(updatedE, noteClient.getNote(id).getE());
-		assertThrows(NoteNotFoundException.class, () -> noteClient.updateNote("pouet", updateNoteDTO));
+		assertThrows(NotFoundException.class, () -> noteClient.updateNote("pouet", updateNoteDTO));
 		assertThrows(BadRequestException.class, () -> noteClient.updateNote("", updateNoteDTO));
 		assertThrows(BadRequestException.class, () -> noteClient.updateNote("pouet", new UpdateNoteDTO("")));
 		
 		// delete
 		noteClient.deleteNote(id);
 		final String finalId = id;
-		assertThrows(NoteNotFoundException.class, () -> noteClient.getNote(finalId));
+		assertThrows(NotFoundException.class, () -> noteClient.getNote(finalId));
 		assertThrows(BadRequestException.class, () -> noteClient.getNote(""));
 	}
 

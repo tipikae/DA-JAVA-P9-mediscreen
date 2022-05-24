@@ -30,8 +30,8 @@ import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
 /**
@@ -96,7 +96,7 @@ public class PatientController {
 			model.addAttribute("patient", patientClient.getPatient(id));
 			model.addAttribute("notes", noteClient.getPatientNotes(id));
 			return "patient/get";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("getPatient", e);
 			return "error/404";
 		} catch (Exception e) {
@@ -143,7 +143,7 @@ public class PatientController {
 		try {
 			model.addAttribute("patient", patientClient.addPatient(newPatientDTO));
 			return "redirect:/patient/all?success=New patient added.";
-		} catch (PatientAlreadyExistException e) {
+		} catch (AlreadyExistsException e) {
 			log("addPatient", e);
 			return "redirect:/patient/all?error=Patient already exists.";
 		} catch (BadRequestException e) {
@@ -167,7 +167,7 @@ public class PatientController {
 		try {
 			model.addAttribute("patient", patientClient.getPatient(id));
 			return "patient/update";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("showUpdateForm", e);
 			return "error/404";
 		} catch (Exception e) {
@@ -201,7 +201,7 @@ public class PatientController {
 		try {
 			patientClient.updatePatient(id, updatePatientDTO);
 			return "redirect:/patient/" + id + "?success=Patient updated.";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("updatePatient", e);
 			return "redirect:/patient/all?error=Patient not found.";
 		} catch (BadRequestException e) {
@@ -219,7 +219,7 @@ public class PatientController {
 		try {
 			patientClient.deletePatient(id);
 			return "redirect:/patient/all?success=Patient deleted.";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("deletePatient", e);
 			return "redirect:/patient/all?error=Patient not found.";
 		} catch (BadRequestException e) {

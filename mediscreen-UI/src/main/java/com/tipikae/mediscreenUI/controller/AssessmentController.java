@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
 
 /**
@@ -44,7 +44,7 @@ public class AssessmentController {
 	 * @param id long
 	 * @param model Model
 	 * @return String
-	 * @throws PatientNotFoundException 
+	 * @throws NotFoundException 
 	 */
 	@GetMapping("/id/{id}")
 	public String getAssessmentById(
@@ -56,7 +56,7 @@ public class AssessmentController {
 			model.addAttribute("assessment", 
 					assessmentClient.getAssessmentById(new AssessmentByIdDTO(id)));
 			return "patient/get :: #assessmentById";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			LOGGER.debug("getAssessmentById: patient with id=" + id + " not found.");
 			model.addAttribute("assessment", new Assessment("Error: patient not found."));
 			return "patient/get :: #assessmentById";

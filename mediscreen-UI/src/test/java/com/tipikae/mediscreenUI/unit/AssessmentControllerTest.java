@@ -21,7 +21,7 @@ import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.controller.AssessmentController;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
 
 @WebMvcTest(controllers = AssessmentController.class)
@@ -51,7 +51,7 @@ class AssessmentControllerTest {
 	void getAssessmentByIdReturns200ErrorWhenNotFound() throws Exception {
 		String expected = "Error: patient not found.";
 		Assessment assessment = new Assessment(expected);
-		doThrow(PatientNotFoundException.class)
+		doThrow(NotFoundException.class)
 			.when(assessmentClient).getAssessmentById(any(AssessmentByIdDTO.class));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())

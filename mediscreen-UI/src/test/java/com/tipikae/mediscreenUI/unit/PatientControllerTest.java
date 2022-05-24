@@ -28,8 +28,8 @@ import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
 @WebMvcTest(controllers = PatientController.class)
@@ -80,7 +80,7 @@ class PatientControllerTest {
 
 	@Test
 	void getPatientReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
+		doThrow(NotFoundException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -132,7 +132,7 @@ class PatientControllerTest {
 	void addPatientReturns3xxErrorWhenPatientAlreadyExists() throws Exception {
 		NewPatientDTO newPatientDTO = 
 				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(PatientAlreadyExistException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
+		doThrow(AlreadyExistsException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -164,7 +164,7 @@ class PatientControllerTest {
 
 	@Test
 	void showUpdateFormReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
+		doThrow(NotFoundException.class).when(patientClient).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/update/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -200,7 +200,7 @@ class PatientControllerTest {
 	void updatePatientReturns3xxErrorWhenPatientNotFound() throws Exception {
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(PatientNotFoundException.class)
+		doThrow(NotFoundException.class)
 			.when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/1")
 				.flashAttr("patient", updatePatientDTO))

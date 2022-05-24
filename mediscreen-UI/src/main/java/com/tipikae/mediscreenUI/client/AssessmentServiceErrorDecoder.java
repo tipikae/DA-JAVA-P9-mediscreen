@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -34,7 +34,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceEr
 				case 400:
 					return new BadRequestException(response.status() + ": " + response.reason());
 				case 404:
-					return new PatientNotFoundException(response.status() + ": " + response.reason());
+					return new NotFoundException(response.status() + ": " + response.reason());
 				default:
 					return new HttpClientException(response.status() + ": " + response.reason());
 			}

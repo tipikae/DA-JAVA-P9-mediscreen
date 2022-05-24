@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
 
 import feign.Headers;
@@ -25,11 +25,11 @@ public interface IAssessmentServiceClient {
 	 * Get an assessment by patientId.
 	 * @param assessmentByIdDTO AssessmentByIdDTO
 	 * @return Assessment
-	 * @throws PatientNotFoundException
+	 * @throws NotFoundException
 	 */
 	@RequestLine("GET /assess/id")
     @Headers("Content-Type: application/json")
-	Assessment getAssessmentById(AssessmentByIdDTO assessmentByIdDTO) throws PatientNotFoundException;
+	Assessment getAssessmentById(AssessmentByIdDTO assessmentByIdDTO) throws NotFoundException;
 
 	/**
 	 * Get an assessments list by family name.

@@ -25,8 +25,7 @@ import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
-import com.tipikae.mediscreenUI.exception.NoteNotFoundException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 
 /**
@@ -64,7 +63,7 @@ public class NoteController {
 			model.addAttribute("patient", patientClient.getPatient(patId));
 			model.addAttribute("note", noteClient.getNote(id));
 			return "note/get";
-		} catch (NoteNotFoundException | PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("getNote", e);
 			return "error/404";
 		} catch (Exception e) {
@@ -91,7 +90,7 @@ public class NoteController {
 		try {
 			model.addAttribute("patient", patientClient.getPatient(patId));
 			return "note/add";
-		} catch (PatientNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("showAddFormNote", e);
 			return "error/404";
 		} catch (Exception e) {
@@ -122,7 +121,7 @@ public class NoteController {
 			try {
 				model.addAttribute("patient", patientClient.getPatient(patId));
 				return "note/add";
-			} catch (PatientNotFoundException e1) {
+			} catch (NotFoundException e1) {
 				log("addNote", e1);
 				return "error/404";
 			} catch (Exception e1) {
@@ -160,7 +159,7 @@ public class NoteController {
 			model.addAttribute("patient", patientClient.getPatient(patId));
 			model.addAttribute("note", noteClient.getNote(id));
 			return "note/update";
-		} catch (PatientNotFoundException | NoteNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("showUpdateFormNote", e);
 			return "error/404";
 		} catch (Exception e) {
@@ -193,7 +192,7 @@ public class NoteController {
 			try {
 				model.addAttribute("patient", patientClient.getPatient(patId));
 				return "redirect:/note/update/" + patId + "/" + id + "?error=" + sb;
-			} catch (PatientNotFoundException e1) {
+			} catch (NotFoundException e1) {
 				log("updateNote", e1);
 				return "redirect:/note/" + patId + "/" + id + "?error=Patient not found.";
 			} catch (Exception e1) {
@@ -205,7 +204,7 @@ public class NoteController {
 		try {
 			noteClient.updateNote(id, updateNoteDTO);
 			return "redirect:/patient/" + patId + "?success=Note updated.";
-		} catch (NoteNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("updateNote", e);
 			return "redirect:/patient/" + patId + "?error=Note not found.";
 		} catch (BadRequestException e) {
@@ -231,7 +230,7 @@ public class NoteController {
 		try {
 			noteClient.deleteNote(id);
 			return "redirect:/patient/" + patId + "?success=Note deleted.";
-		} catch (NoteNotFoundException e) {
+		} catch (NotFoundException e) {
 			log("deleteNote", e);
 			return "redirect:/patient/" + patId + "?error=Note not found.";
 		} catch (BadRequestException e) {

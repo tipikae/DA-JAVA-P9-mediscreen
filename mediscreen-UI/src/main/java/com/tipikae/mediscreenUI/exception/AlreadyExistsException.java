@@ -9,11 +9,11 @@ package com.tipikae.mediscreenUI.exception;
  * @version 1.0
  *
  */
-public class PatientAlreadyExistException extends ClientException {
+public class AlreadyExistsException extends ClientException {
 
 	private static final long serialVersionUID = 1L;
 
-	public PatientAlreadyExistException(String message) {
+	public AlreadyExistsException(String message) {
 		super(message);
 	}
 

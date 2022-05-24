@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
 
 @SpringBootTest
@@ -21,7 +21,7 @@ class AssessmentServiceIT {
 	IAssessmentServiceClient assessmentClient;
 
 	@Test
-	void test() throws PatientNotFoundException {
+	void test() throws NotFoundException {
 		long idNone = 1L;
 		long idBorderline = 2L;
 		long idInDanger = 3L;

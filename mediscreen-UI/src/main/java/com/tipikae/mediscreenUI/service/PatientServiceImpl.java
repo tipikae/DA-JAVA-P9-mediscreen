@@ -15,8 +15,8 @@ import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 
 /**
@@ -35,7 +35,7 @@ public class PatientServiceImpl implements IPatientService {
 	@Autowired
 	public PatientServiceImpl(RestTemplateBuilder restTemplateBuilder) {
 		restTemplate = restTemplateBuilder
-		          .errorHandler(new PatientServiceErrorHandler())
+		          .errorHandler(new ClientErrorHandler())
 		          .build();
 	}
 
@@ -52,7 +52,7 @@ public class PatientServiceImpl implements IPatientService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Patient getPatient(long id) throws PatientNotFoundException, BadRequestException, HttpClientException {
+	public Patient getPatient(long id) throws NotFoundException, BadRequestException, HttpClientException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -62,7 +62,7 @@ public class PatientServiceImpl implements IPatientService {
 	 */
 	@Override
 	public Patient addPatient(NewPatientDTO newPatientDTO)
-			throws PatientAlreadyExistException, BadRequestException, HttpClientException {
+			throws AlreadyExistsException, BadRequestException, HttpClientException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,7 +72,7 @@ public class PatientServiceImpl implements IPatientService {
 	 */
 	@Override
 	public void updatePatient(long id, UpdatePatientDTO updatePatientDTO)
-			throws PatientNotFoundException, BadRequestException, HttpClientException {
+			throws NotFoundException, BadRequestException, HttpClientException {
 		// TODO Auto-generated method stub
 
 	}
@@ -81,7 +81,7 @@ public class PatientServiceImpl implements IPatientService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deletePatient(long id) throws PatientNotFoundException, BadRequestException, HttpClientException {
+	public void deletePatient(long id) throws NotFoundException, BadRequestException, HttpClientException {
 		// TODO Auto-generated method stub
 
 	}
