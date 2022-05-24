@@ -3,8 +3,6 @@
  */
 package com.tipikae.mediscreenUI.service;
 
-import org.springframework.data.domain.Page;
-
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
@@ -25,12 +23,11 @@ public interface IPatientService {
 	 * Get patients list.
 	 * @param page int
 	 * @param size int
-	 * @return Page
+	 * @return MyPageImpl
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	//@RequestLine("GET /patients/?page={page}&size={size}")
-	Page<Patient> getPatients(int page, int size) 
+	MyPageImpl<Patient> getPatients(int page, int size) 
 			throws BadRequestException, HttpClientException;
 	
 	/**
@@ -41,7 +38,6 @@ public interface IPatientService {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	//@RequestLine("GET /patients/id/{id}")
 	Patient getPatient(long id) 
 			throws NotFoundException, BadRequestException, HttpClientException;
 	
@@ -49,12 +45,10 @@ public interface IPatientService {
 	 * Add new patient.
 	 * @param newPatientDTO NewPatientDTO
 	 * @return Patient
-	 * @throws ExistsException
+	 * @throws AlreadyExistsException
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	//@RequestLine("POST /patients/")
-    //@Headers("Content-Type: application/json")
 	Patient addPatient(NewPatientDTO newPatientDTO) 
 			throws AlreadyExistsException, BadRequestException, HttpClientException;
 	
@@ -66,8 +60,6 @@ public interface IPatientService {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	//@RequestLine("PUT /patients/{id}")
-    //@Headers("Content-Type: application/json")
 	void updatePatient(long id, UpdatePatientDTO updatePatientDTO) 
 			 throws NotFoundException, BadRequestException, HttpClientException;
 	
@@ -78,7 +70,6 @@ public interface IPatientService {
 	 * @throws BadRequestException
 	 * @throws HttpClientException
 	 */
-	//@RequestLine("DELETE /patients/{id}")
 	void deletePatient(long id) 
 			 throws NotFoundException, BadRequestException, HttpClientException;
 }

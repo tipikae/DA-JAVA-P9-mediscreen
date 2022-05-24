@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tipikae.mediscreenUI.client.INoteServiceClient;
-import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.service.IPatientService;
 
 /**
  * Controller for Mediscreeen-UI.
@@ -47,7 +47,7 @@ public class PatientController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
 	
 	@Autowired
-	private IPatientServiceClient patientClient;
+	private IPatientService patientClient;
 	
 	@Autowired
 	private INoteServiceClient noteClient;

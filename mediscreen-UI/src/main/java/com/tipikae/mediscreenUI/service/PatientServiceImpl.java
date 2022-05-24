@@ -3,11 +3,14 @@
  */
 package com.tipikae.mediscreenUI.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,12 +32,15 @@ import com.tipikae.mediscreenUI.model.Patient;
 public class PatientServiceImpl implements IPatientService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
-	
+	private static final String ROOT = "/patient-service";
+
+	@Value(value = "${proxy.url:}")
+	private String proxyUrl;
 	private RestTemplate restTemplate;
 
 	@Autowired
 	public PatientServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-		restTemplate = restTemplateBuilder
+		this.restTemplate = restTemplateBuilder
 		          .errorHandler(new ClientErrorHandler())
 		          .build();
 	}
@@ -42,10 +48,16 @@ public class PatientServiceImpl implements IPatientService {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Page<Patient> getPatients(int page, int size) throws BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
-		return null;
+	public MyPageImpl<Patient> getPatients(int page, int size) throws BadRequestException, HttpClientException {
+		LOGGER.debug("getPatients: page=" + page + ", size=" + size);
+		String url = proxyUrl + ROOT + "/patients/?page={page}&size={size}";
+		Map<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("size", size);
+		
+		return restTemplate.getForObject(url, MyPageImpl.class, map);
 	}
 
 	/**
@@ -53,8 +65,12 @@ public class PatientServiceImpl implements IPatientService {
 	 */
 	@Override
 	public Patient getPatient(long id) throws NotFoundException, BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("getPatient: id=" + id);
+		String url = proxyUrl + ROOT + "/patients/id/{id}";
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		
+		return restTemplate.getForObject(url, Patient.class, map);
 	}
 
 	/**
@@ -63,8 +79,11 @@ public class PatientServiceImpl implements IPatientService {
 	@Override
 	public Patient addPatient(NewPatientDTO newPatientDTO)
 			throws AlreadyExistsException, BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.debug("addPatient: firstname=" + newPatientDTO.getGiven() 
+			+ ", lastname=" + newPatientDTO.getFamily());
+		String url = proxyUrl + ROOT + "/patients/";
+		
+		return restTemplate.postForObject(url, newPatientDTO, Patient.class);
 	}
 
 	/**
@@ -73,8 +92,12 @@ public class PatientServiceImpl implements IPatientService {
 	@Override
 	public void updatePatient(long id, UpdatePatientDTO updatePatientDTO)
 			throws NotFoundException, BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
+		LOGGER.debug("updatePatient: id=" + id);
+		String url = proxyUrl + ROOT + "/patients/{id}";
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
 
+		restTemplate.put(url, updatePatientDTO, map);
 	}
 
 	/**
@@ -82,8 +105,12 @@ public class PatientServiceImpl implements IPatientService {
 	 */
 	@Override
 	public void deletePatient(long id) throws NotFoundException, BadRequestException, HttpClientException {
-		// TODO Auto-generated method stub
+		LOGGER.debug("deletePatient: id=" + id);
+		String url = proxyUrl + ROOT + "/patients/{id}";
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
 
+		restTemplate.delete(url, map);
 	}
 
 }
