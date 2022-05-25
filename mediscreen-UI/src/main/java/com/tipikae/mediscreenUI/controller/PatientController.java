@@ -33,6 +33,7 @@ import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
 import com.tipikae.mediscreenUI.service.IPatientService;
+import com.tipikae.mediscreenUI.service.MyPageImpl;
 
 /**
  * Controller for Mediscreeen-UI.
@@ -77,9 +78,13 @@ public class PatientController {
 			}
 			
 			return "patient/list";
+		
 		} catch (Exception e) {
 			log("getAllPatients", e);
-			return "error/400";
+			model.addAttribute("patients", new MyPageImpl<Patient>(List.of()));
+			model.addAttribute("error", "An error occured while loading data.");
+			
+			return "patient/list";
 		}
 	}
 	
@@ -94,8 +99,6 @@ public class PatientController {
 		LOGGER.info("Getting patient with id=" + id);
 		try {
 			model.addAttribute("patient", patientClient.getPatient(id));
-			model.addAttribute("notes", noteClient.getPatientNotes(id));
-			return "patient/get";
 		} catch (NotFoundException e) {
 			log("getPatient", e);
 			return "error/404";
@@ -103,6 +106,16 @@ public class PatientController {
 			log("getPatient", e);
 			return "error/400";
 		}
+		
+		try {
+			model.addAttribute("notes", noteClient.getPatientNotes(id));
+		} catch (Exception e) {
+			log("getPatient", e);
+			model.addAttribute("notes", List.of());
+			model.addAttribute("error", "An error occured while loading data.");
+		}
+		
+		return "patient/get";
 	}
 	
 	/**

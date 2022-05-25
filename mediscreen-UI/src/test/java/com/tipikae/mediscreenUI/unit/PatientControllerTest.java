@@ -59,11 +59,11 @@ class PatientControllerTest {
 	}
 
 	@Test
-	void getAllPatientsReturns400WhenBadRequest() throws Exception {
+	void getAllPatientsReturns200WhenBadRequest() throws Exception {
 		doThrow(BadRequestException.class).when(patientClient).getPatients(anyInt(), anyInt());
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("error/400"));
+			.andExpect(view().name("patient/list"));
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
