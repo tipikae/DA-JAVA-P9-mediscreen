@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.service.INoteService;
 import com.tipikae.mediscreenUI.service.IPatientService;
 import com.tipikae.mediscreenUI.service.MyPageImpl;
 
@@ -48,10 +48,10 @@ public class PatientController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
 	
 	@Autowired
-	private IPatientService patientClient;
+	private IPatientService patientService;
 	
 	@Autowired
-	private INoteServiceClient noteClient;
+	private INoteService noteService;
 	
 	/**
 	 * Get all patients list.
@@ -67,7 +67,7 @@ public class PatientController {
 			@RequestParam(name="size", defaultValue="5")int size) {
 		LOGGER.info("Getting all patients");
 		try {
-			Page<Patient> patients = patientClient.getPatients(page, size);
+			Page<Patient> patients = patientService.getPatients(page, size);
 			model.addAttribute("patients", patients);
 			
 			if(patients.getTotalPages() > 1) {
@@ -98,7 +98,7 @@ public class PatientController {
 	public String getPatient(@PathVariable("id") @NotNull @Positive long id, Model model) {
 		LOGGER.info("Getting patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id));
+			model.addAttribute("patient", patientService.getPatient(id));
 		} catch (NotFoundException e) {
 			log("getPatient", e);
 			return "error/404";
@@ -108,7 +108,7 @@ public class PatientController {
 		}
 		
 		try {
-			model.addAttribute("notes", noteClient.getPatientNotes(id));
+			model.addAttribute("notes", noteService.getPatientNotes(id));
 		} catch (Exception e) {
 			log("getPatient", e);
 			model.addAttribute("notes", List.of());
@@ -154,7 +154,7 @@ public class PatientController {
     	}
 		
 		try {
-			model.addAttribute("patient", patientClient.addPatient(newPatientDTO));
+			model.addAttribute("patient", patientService.addPatient(newPatientDTO));
 			return "redirect:/patient/all?success=New patient added.";
 		} catch (AlreadyExistsException e) {
 			log("addPatient", e);
@@ -178,7 +178,7 @@ public class PatientController {
 	public String showUpdateForm(@PathVariable("id") @NotNull @Positive long id, Model model) {
 		LOGGER.info("Getting update form for patient with id=" + id);
 		try {
-			model.addAttribute("patient", patientClient.getPatient(id));
+			model.addAttribute("patient", patientService.getPatient(id));
 			return "patient/update";
 		} catch (NotFoundException e) {
 			log("showUpdateForm", e);
@@ -212,7 +212,7 @@ public class PatientController {
     	}
 		
 		try {
-			patientClient.updatePatient(id, updatePatientDTO);
+			patientService.updatePatient(id, updatePatientDTO);
 			return "redirect:/patient/" + id + "?success=Patient updated.";
 		} catch (NotFoundException e) {
 			log("updatePatient", e);
@@ -230,7 +230,7 @@ public class PatientController {
 	public String deletePatient(@PathVariable("id") @NotNull @Positive long id) {
 		LOGGER.info("Deleting patient with id=" + id);
 		try {
-			patientClient.deletePatient(id);
+			patientService.deletePatient(id);
 			return "redirect:/patient/all?success=Patient deleted.";
 		} catch (NotFoundException e) {
 			log("deletePatient", e);
