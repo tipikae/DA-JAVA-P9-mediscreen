@@ -17,12 +17,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.controller.AssessmentController;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.service.IAssessmentService;
 
 @WebMvcTest(controllers = AssessmentController.class)
 class AssessmentControllerTest {
@@ -31,7 +31,7 @@ class AssessmentControllerTest {
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private IAssessmentServiceClient assessmentClient;
+	private IAssessmentService assessmentService;
 	
 	private static final String ROOT = "/assess";
 	
@@ -39,7 +39,7 @@ class AssessmentControllerTest {
 
 	@Test
 	void getAssessmentByIdReturns200AssessmentWhenOk() throws Exception {
-		when(assessmentClient.getAssessmentById(any(AssessmentByIdDTO.class)))
+		when(assessmentService.getAssessmentById(any(AssessmentByIdDTO.class)))
 			.thenReturn(new Assessment(message));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())
@@ -52,7 +52,7 @@ class AssessmentControllerTest {
 		String expected = "Error: patient not found.";
 		Assessment assessment = new Assessment(expected);
 		doThrow(NotFoundException.class)
-			.when(assessmentClient).getAssessmentById(any(AssessmentByIdDTO.class));
+			.when(assessmentService).getAssessmentById(any(AssessmentByIdDTO.class));
 		mockMvc.perform(get(ROOT + "/id/1"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("assessment"))
@@ -62,7 +62,7 @@ class AssessmentControllerTest {
 
 	@Test
 	void getAssessmentByFamilyReturns200ListWhenOk() throws Exception {
-		when(assessmentClient.getAssessmentsByFamily(any(AssessmentByFamilyDTO.class)))
+		when(assessmentService.getAssessmentsByFamily(any(AssessmentByFamilyDTO.class)))
 			.thenReturn(List.of(new Assessment(message)));
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())
@@ -74,7 +74,7 @@ class AssessmentControllerTest {
 	void getAssessmentByFamilyReturns200ErrorWhenEmpty() throws Exception {
 		String expected = "No family members.";
 		List<Assessment> assessments = List.of(new Assessment(expected));
-		when(assessmentClient.getAssessmentsByFamily(any(AssessmentByFamilyDTO.class)))
+		when(assessmentService.getAssessmentsByFamily(any(AssessmentByFamilyDTO.class)))
 			.thenReturn(List.of());
 		mockMvc.perform(get(ROOT + "/familyName/pouet"))
 			.andExpect(status().isOk())

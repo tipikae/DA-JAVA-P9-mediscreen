@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.service.IAssessmentService;
 
 /**
  * Assessment controller.
@@ -37,7 +37,7 @@ public class AssessmentController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentController.class);
 	
 	@Autowired
-	private IAssessmentServiceClient assessmentClient;
+	private IAssessmentService assessmentService;
 	
 	/**
 	 * Get assessment by id.
@@ -54,7 +54,7 @@ public class AssessmentController {
 		
 		try {
 			model.addAttribute("assessment", 
-					assessmentClient.getAssessmentById(new AssessmentByIdDTO(id)));
+					assessmentService.getAssessmentById(new AssessmentByIdDTO(id)));
 			return "patient/get :: #assessmentById";
 		} catch (NotFoundException e) {
 			LOGGER.debug("getAssessmentById: patient with id=" + id + " not found.");
@@ -74,7 +74,7 @@ public class AssessmentController {
 			@PathVariable("familyName") @NotBlank String family,
 			Model model) {
 		LOGGER.info("getAssessmentByFamily: family=" + family);
-		List<Assessment> assessments = assessmentClient.getAssessmentsByFamily(new AssessmentByFamilyDTO(family));
+		List<Assessment> assessments = assessmentService.getAssessmentsByFamily(new AssessmentByFamilyDTO(family));
 		if(assessments.isEmpty()) {
 			model.addAttribute("assessments", List.of(new Assessment("No family members.")));
 			return "patient/get :: #assessmentByFamily";
