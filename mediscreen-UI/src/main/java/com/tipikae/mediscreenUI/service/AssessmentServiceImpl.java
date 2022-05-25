@@ -3,7 +3,6 @@
  */
 package com.tipikae.mediscreenUI.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
@@ -63,18 +61,7 @@ public class AssessmentServiceImpl implements IAssessmentService {
 		LOGGER.debug("getAssessmentsByFamily: family=" + assessmentByFamilyDTO.getFamilyName());
 		String url = proxyUrl + ROOT + "/assess/familyName";
 		
-		try {
-			return JsonToCollectionUtil.jsonArrayToList(
-					restTemplate.postForObject(url, assessmentByFamilyDTO, String.class), 
-					Assessment.class);
-		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return restTemplate.postForObject(url, assessmentByFamilyDTO, List.class);
 	}
 
 }
