@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class SecurityController {
-
+	
+	@GetMapping("/login")
+	public String getloginForm() {
+		return "security/login";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) throws ServletException {
 		request.logout();
