@@ -24,8 +24,6 @@ public interface IAssessmentService {
 	 * @return Assessment
 	 * @throws NotFoundException
 	 */
-	//@RequestLine("GET /assess/id")
-    //@Headers("Content-Type: application/json")
 	Assessment getAssessmentById(AssessmentByIdDTO assessmentByIdDTO) throws NotFoundException;
 
 	/**
@@ -33,7 +31,5 @@ public interface IAssessmentService {
 	 * @param assessmentByFamilyDTO AssessmentByFamilyDTO
 	 * @return List
 	 */
-	//@RequestLine("GET /assess/familyName")
-    //@Headers("Content-Type: application/json")
 	List<Assessment> getAssessmentsByFamily(AssessmentByFamilyDTO assessmentByFamilyDTO);
 }
