@@ -7,11 +7,23 @@ header {
 .spacer40 {
 	margin-top: 40px;
 }
+.padding40 {
+	padding: 40px;
+}
 .red {
 	color: red;
 }
 .green {
 	color: green;
+}
+.center {
+	text-align: center;
+}
+.border1 {
+	border: 1px solid #858585;
+}
+.radius {
+	border-radius: 5px;
 }
 .logo {
 	display: inline-block;
