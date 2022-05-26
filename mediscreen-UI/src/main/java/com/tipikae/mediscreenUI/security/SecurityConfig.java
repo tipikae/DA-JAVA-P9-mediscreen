@@ -22,22 +22,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private MyAuthenticationProvider authenticationProvider;
+	
+	@Autowired
+	private MyLogoutHandler logoutHandler;
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider);
+    }
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		http.authorizeRequests().anyRequest().authenticated();
-	}
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+        	.csrf().disable()
+        	.authorizeRequests()
+		    .anyRequest().authenticated()
+		    .and()
+		    .formLogin().permitAll()
+		    .defaultSuccessUrl("/patient/all", true)
+		    .failureUrl("/login?error=true")
+	        .and()
+	        .logout()
+	        .addLogoutHandler(logoutHandler)
+	        .deleteCookies("JSESSIONID");
+    }
 
 }
