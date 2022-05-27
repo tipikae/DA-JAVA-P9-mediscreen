@@ -6,13 +6,20 @@ package com.tipikae.mediscreenUI.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -57,7 +64,15 @@ public class PatientServiceImpl implements IPatientService {
 		map.put("page", page);
 		map.put("size", size);
 		
-		return restTemplate.getForObject(url, MyPageImpl.class, map);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + getAccessToken());
+		headers.add("Content-Type", "application/x-www-form-urlencoded");
+		HttpEntity<Void> entity = new HttpEntity<>(headers);
+		
+		MyPageImpl<Patient> pageImpl = restTemplate.exchange(url, HttpMethod.GET, entity, MyPageImpl.class, map).getBody();
+		
+		return pageImpl;
+		
 	}
 
 	/**
@@ -111,6 +126,19 @@ public class PatientServiceImpl implements IPatientService {
 		map.put("id", id);
 
 		restTemplate.delete(url, map);
+	}
+	
+	private String getAccessToken() {
+		ServletRequestAttributes attr = (ServletRequestAttributes) 
+			    RequestContextHolder.currentRequestAttributes();
+		HttpSession session= attr.getRequest().getSession(false);
+		if(session != null && session.getAttribute("access_token") != null) {
+			LOGGER.debug("getAccessToken: session and token exist");
+			return (String) session.getAttribute("access_token");
+		}
+
+		LOGGER.debug("getAccessToken: session not exists");
+		return null;
 	}
 
 }
