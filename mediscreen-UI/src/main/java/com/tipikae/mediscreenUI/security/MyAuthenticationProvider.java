@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +26,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -85,6 +89,11 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			    			((List)jwt.getClaim("realm_access").asMap().get("roles"));
 			    	if(roles.contains("USER")) {
 			    		LOGGER.debug("authenticate: authenticated");
+			    		ServletRequestAttributes attr = (ServletRequestAttributes) 
+			    			    RequestContextHolder.currentRequestAttributes();
+			    			HttpSession session= attr.getRequest().getSession(true);
+			    			session.setAttribute("access_token", accessToken);
+			    			session.setAttribute("refresh_token", refreshToken);
 			    		
 			    		return new UsernamePasswordAuthenticationToken(
 			    				username, password, new ArrayList<>());
