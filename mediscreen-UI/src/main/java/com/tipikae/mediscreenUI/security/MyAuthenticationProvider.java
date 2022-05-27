@@ -5,7 +5,6 @@ package com.tipikae.mediscreenUI.security;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +48,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	@Value("${keycloak.client_id:mediscreen-proxy}")
 	private String clientId;
 	
-	@Value("${keycloak.client_secret:PWeoya0glZUlqsPi190Ke0EjlBPvu4pA}")
+	@Value("${keycloak.client_secret:dXQz51i8e0Ae8iCCzdHFb4aLr0sBhL0T}")
 	private String clientSecret;
 	
 	@Value("${keycloak.grant_type:password}")
@@ -62,6 +61,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 		LOGGER.debug("authenticate: username=" + username + ", password=" + password);
 		
 		if(!username.isBlank() && !password.isBlank()) {
+    		ServletRequestAttributes attr = (ServletRequestAttributes) 
+    			    RequestContextHolder.currentRequestAttributes();
+			HttpSession session= attr.getRequest().getSession(true);
 			RestTemplate restTemplate = new RestTemplate();
 			String url = tokenEndpoint;
 			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
@@ -89,11 +91,8 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			    			((List)jwt.getClaim("realm_access").asMap().get("roles"));
 			    	if(roles.contains("USER")) {
 			    		LOGGER.debug("authenticate: authenticated");
-			    		ServletRequestAttributes attr = (ServletRequestAttributes) 
-			    			    RequestContextHolder.currentRequestAttributes();
-			    			HttpSession session= attr.getRequest().getSession(true);
-			    			session.setAttribute("access_token", accessToken);
-			    			session.setAttribute("refresh_token", refreshToken);
+		    			session.setAttribute("access_token", accessToken);
+		    			session.setAttribute("refresh_token", refreshToken);
 			    		
 			    		return new UsernamePasswordAuthenticationToken(
 			    				username, password, new ArrayList<>());
