@@ -69,8 +69,13 @@ public class MyLogoutHandler implements LogoutHandler {
 		try {
 			String resp = restTemplate.postForObject(url, entity, String.class);
 			LOGGER.debug("logout: resp=" + resp);
+			session.removeAttribute("access_token");
+			session.removeAttribute("refresh_token");
+			request.logout();
 		} catch (RestClientException e) {
 			LOGGER.debug("logout: RestClientException: " + e.getMessage());
+		} catch (ServletException e) {
+			LOGGER.debug("logout: ServletException: " + e.getMessage());
 		}
 	}
 
