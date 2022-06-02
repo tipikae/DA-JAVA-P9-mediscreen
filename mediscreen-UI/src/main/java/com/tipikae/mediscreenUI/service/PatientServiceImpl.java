@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.keycloak.adapters.springsecurity.client.KeycloakRestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,36 +41,42 @@ public class PatientServiceImpl implements IPatientService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
 	private static final String ROOT = "/patient-service";
+	
+	@Autowired
+	private KeycloakRestTemplate keycloakRestTemplate;
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
-	private RestTemplate restTemplate;
+	//private RestTemplate restTemplate;
 
-	@Autowired
+	/*@Autowired
 	public PatientServiceImpl(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder
 		          .errorHandler(new ClientErrorHandler())
 		          .build();
-	}
+	}*/
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public MyPageImpl<Patient> getPatients(int page, int size) throws BadRequestException, HttpClientException {
+	public MyPageImpl<Patient> getPatients(int page, int size) 
+			throws BadRequestException, HttpClientException {
 		LOGGER.debug("getPatients: page=" + page + ", size=" + size);
 		String url = proxyUrl + ROOT + "/patients/?page={page}&size={size}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		map.put("size", size);
 		
-		HttpHeaders headers = new HttpHeaders();
+		/*HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + getAccessToken());
 		headers.add("Content-Type", "application/x-www-form-urlencoded");
-		HttpEntity<Void> entity = new HttpEntity<>(headers);
+		HttpEntity<Void> entity = new HttpEntity<>(headers);*/
 		
-		MyPageImpl<Patient> pageImpl = restTemplate.exchange(url, HttpMethod.GET, entity, MyPageImpl.class, map).getBody();
+		/*MyPageImpl<Patient> pageImpl = keycloakRestTemplate.exchange(
+				url, HttpMethod.GET, entity, MyPageImpl.class, map).getBody();*/
+		MyPageImpl<Patient> pageImpl = keycloakRestTemplate.getForObject(url, MyPageImpl.class, map);
 		
 		return pageImpl;
 		
@@ -85,7 +92,7 @@ public class PatientServiceImpl implements IPatientService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		
-		return restTemplate.getForObject(url, Patient.class, map);
+		return keycloakRestTemplate.getForObject(url, Patient.class, map);
 	}
 
 	/**
@@ -98,7 +105,7 @@ public class PatientServiceImpl implements IPatientService {
 			+ ", lastname=" + newPatientDTO.getFamily());
 		String url = proxyUrl + ROOT + "/patients/";
 		
-		return restTemplate.postForObject(url, newPatientDTO, Patient.class);
+		return keycloakRestTemplate.postForObject(url, newPatientDTO, Patient.class);
 	}
 
 	/**
@@ -112,7 +119,7 @@ public class PatientServiceImpl implements IPatientService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 
-		restTemplate.put(url, updatePatientDTO, map);
+		keycloakRestTemplate.put(url, updatePatientDTO, map);
 	}
 
 	/**
@@ -125,7 +132,7 @@ public class PatientServiceImpl implements IPatientService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 
-		restTemplate.delete(url, map);
+		keycloakRestTemplate.delete(url, map);
 	}
 	
 	private String getAccessToken() {

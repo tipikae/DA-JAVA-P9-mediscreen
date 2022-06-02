@@ -18,8 +18,8 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
  * @version 1.0
  *
  */
-@EnableWebSecurity
-@Configuration
+//@EnableWebSecurity
+//@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired

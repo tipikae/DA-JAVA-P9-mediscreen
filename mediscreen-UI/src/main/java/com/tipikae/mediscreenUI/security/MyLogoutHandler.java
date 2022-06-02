@@ -35,11 +35,8 @@ public class MyLogoutHandler implements LogoutHandler {
 	@Value("${keycloak.endpoint.logout:http://localhost:8070/realms/mediscreen/protocol/openid-connect/logout}")
 	private String logoutEndpoint;
 	
-	@Value("${keycloak.client_id:mediscreen-proxy}")
+	@Value("${keycloak.client_id:mediscreen-app}")
 	private String clientId;
-	
-	@Value("${keycloak.client_secret:PWeoya0glZUlqsPi190Ke0EjlBPvu4pA}")
-	private String clientSecret;
 
 	/**
 	 * {@inheritDoc}
@@ -48,7 +45,7 @@ public class MyLogoutHandler implements LogoutHandler {
 	public void logout(HttpServletRequest request, HttpServletResponse response, 
 			Authentication authentication) {
 		LOGGER.debug("logout: username=" + authentication.getName());
-		HttpSession session = request.getSession();
+		/*HttpSession session = request.getSession();
 		String accessToken = (String) session.getAttribute("access_token");
 		String refreshToken = (String) session.getAttribute("refresh_token");
 		
@@ -59,7 +56,6 @@ public class MyLogoutHandler implements LogoutHandler {
 		String url = logoutEndpoint;
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 		map.add("client_id", clientId);
-		map.add("client_secret", clientSecret);
 		map.add("refresh_token", refreshToken);
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -76,7 +72,14 @@ public class MyLogoutHandler implements LogoutHandler {
 			LOGGER.debug("logout: RestClientException: " + e.getMessage());
 		} catch (ServletException e) {
 			LOGGER.debug("logout: ServletException: " + e.getMessage());
+		}*/
+		
+		try {
+			request.logout();
+		} catch (ServletException e) {
+			LOGGER.debug("logout: failed: " + e.getMessage());
 		}
+		
 	}
 
 }

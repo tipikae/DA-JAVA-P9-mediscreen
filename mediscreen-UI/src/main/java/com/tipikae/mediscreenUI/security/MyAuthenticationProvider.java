@@ -48,12 +48,10 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	@Value("${keycloak.client_id:mediscreen-proxy}")
 	private String clientId;
 	
-	@Value("${keycloak.client_secret:dXQz51i8e0Ae8iCCzdHFb4aLr0sBhL0T}")
-	private String clientSecret;
-	
 	@Value("${keycloak.grant_type:password}")
 	private String grantType;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
@@ -71,7 +69,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			map.add("password", password);
 			map.add("grant_type", grantType);
 			map.add("client_id", clientId);
-			map.add("client_secret", clientSecret);
 			HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, null);
 			
 			try {
@@ -88,8 +85,8 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			    	LOGGER.debug("authenticate: refresh_token=" + refreshToken);
 			    	DecodedJWT jwt = JWT.decode(accessToken);
 			    	List<String> roles = 
-			    			((List)jwt.getClaim("realm_access").asMap().get("roles"));
-			    	if(roles.contains("USER")) {
+			    			((List<String>)jwt.getClaims().get("roles"));
+			    	if(roles.contains("ROLE_USER")) {
 			    		LOGGER.debug("authenticate: authenticated");
 		    			session.setAttribute("access_token", accessToken);
 		    			session.setAttribute("refresh_token", refreshToken);
@@ -98,7 +95,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			    				username, password, new ArrayList<>());
 			    	}
 			    	
-			    	LOGGER.debug("authenticate: no USER role: " + roles.toString());
+			    	LOGGER.debug("authenticate: no ROLE_USER role: " + roles.toString());
 			    	return null;
 			    }
 				
