@@ -15,6 +15,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -74,10 +75,14 @@ public class AssessmentServiceImpl implements IAssessmentService {
 				url, HttpMethod.POST, getHttpEntity(), List.class, assessmentByFamilyDTO).getBody();
 	}
 	
+	/*private RequestEntity<Void> getRequestEntity() {
+		
+	}*/
+	
 	private HttpEntity<Void> getHttpEntity() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + getAccessToken());
-		headers.add("Content-Type", "application/x-www-form-urlencoded");
+		headers.add("Content-Type", "application/json");
 		
 		return new HttpEntity<>(headers);
 	}
