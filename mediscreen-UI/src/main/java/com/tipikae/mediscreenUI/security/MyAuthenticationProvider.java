@@ -51,7 +51,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	@Value("${keycloak.grant_type:password}")
 	private String grantType;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
@@ -85,7 +84,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			    	LOGGER.debug("authenticate: refresh_token=" + refreshToken);
 			    	DecodedJWT jwt = JWT.decode(accessToken);
 			    	List<String> roles = 
-			    			((List<String>)jwt.getClaims().get("roles"));
+			    			(List<String>)jwt.getClaims().get("roles").asList(String.class);
 			    	if(roles.contains("ROLE_USER")) {
 			    		LOGGER.debug("authenticate: authenticated");
 		    			session.setAttribute("access_token", accessToken);
