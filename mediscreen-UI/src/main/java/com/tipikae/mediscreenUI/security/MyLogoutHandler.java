@@ -45,7 +45,7 @@ public class MyLogoutHandler implements LogoutHandler {
 	public void logout(HttpServletRequest request, HttpServletResponse response, 
 			Authentication authentication) {
 		LOGGER.debug("logout: username=" + authentication.getName());
-		/*HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		String accessToken = (String) session.getAttribute("access_token");
 		String refreshToken = (String) session.getAttribute("refresh_token");
 		
@@ -72,12 +72,6 @@ public class MyLogoutHandler implements LogoutHandler {
 			LOGGER.debug("logout: RestClientException: " + e.getMessage());
 		} catch (ServletException e) {
 			LOGGER.debug("logout: ServletException: " + e.getMessage());
-		}*/
-		
-		try {
-			request.logout();
-		} catch (ServletException e) {
-			LOGGER.debug("logout: failed: " + e.getMessage());
 		}
 		
 	}

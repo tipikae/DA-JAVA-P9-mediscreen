@@ -45,7 +45,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	@Value("${keycloak.endpoint.token:http://localhost:8070/realms/mediscreen/protocol/openid-connect/token}")
 	private String tokenEndpoint;
 	
-	@Value("${keycloak.client_id:mediscreen-proxy}")
+	@Value("${keycloak.client_id:mediscreen-app}")
 	private String clientId;
 	
 	@Value("${keycloak.grant_type:password}")
