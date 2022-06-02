@@ -7,17 +7,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.ClientErrorHandler;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
@@ -56,7 +64,8 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("patId", patId);
 		
-		return restTemplate.getForObject(url, List.class, map);
+		return restTemplate.exchange(
+				url, HttpMethod.GET, getHttpEntity(), List.class, map).getBody();
 	}
 
 	/**
@@ -69,7 +78,8 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		
-		return restTemplate.getForObject(url, Note.class, map);
+		return restTemplate.exchange(
+				url, HttpMethod.GET, getHttpEntity(), Note.class, map).getBody();
 	}
 
 	/**
@@ -80,7 +90,8 @@ public class NoteServiceImpl implements INoteService {
 		LOGGER.debug("addNote: patientId=" + newNoteDTO.getPatId());
 		String url = proxyUrl + ROOT + "/notes/";
 		
-		return restTemplate.postForObject(url, newNoteDTO, Note.class);
+		return restTemplate.exchange(
+				url, HttpMethod.POST, getHttpEntity(), Note.class, newNoteDTO).getBody();
 	}
 
 	/**
@@ -94,6 +105,8 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		restTemplate.put(url, updateNoteDTO, map);
+		restTemplate.exchange(
+				url, HttpMethod.PUT, getHttpEntity(), Void.class, updateNoteDTO);
 	}
 
 	/**
@@ -106,6 +119,29 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		restTemplate.delete(url, map);
+		restTemplate.exchange(
+				url, HttpMethod.DELETE, getHttpEntity(), Void.class, map);
+	}
+	
+	private HttpEntity<Void> getHttpEntity() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + getAccessToken());
+		headers.add("Content-Type", "application/x-www-form-urlencoded");
+		
+		return new HttpEntity<>(headers);
+	}
+	
+	private String getAccessToken() {
+		ServletRequestAttributes attr = (ServletRequestAttributes) 
+			    RequestContextHolder.currentRequestAttributes();
+		HttpSession session= attr.getRequest().getSession(false);
+		if(session != null && session.getAttribute("access_token") != null) {
+			LOGGER.debug("getAccessToken: session and token exist");
+			return (String) session.getAttribute("access_token");
+		}
+
+		LOGGER.debug("getAccessToken: session not exists");
+		return null;
 	}
 
 }
