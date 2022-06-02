@@ -9,11 +9,11 @@ package com.tipikae.mediscreenUI.exception;
  * @version 1.0
  *
  */
-public class PatientNotFoundException extends ClientException {
+public class NotFoundException extends ClientException {
 
 	private static final long serialVersionUID = 1L;
 
-	public PatientNotFoundException(String message) {
+	public NotFoundException(String message) {
 		super(message);
 	}
 

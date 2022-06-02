@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tipikae.mediscreenUI.client.IAssessmentServiceClient;
 import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.service.IAssessmentService;
 
 @SpringBootTest
 class AssessmentServiceIT {
 	
 	@Autowired
-	IAssessmentServiceClient assessmentClient;
+	private IAssessmentService assessmentService;
 
 	@Test
-	void test() throws PatientNotFoundException {
+	void test() throws NotFoundException {
 		long idNone = 1L;
 		long idBorderline = 2L;
 		long idInDanger = 3L;
@@ -47,30 +47,26 @@ class AssessmentServiceIT {
 		String inDanger = "In Danger";
 		String earlyOnset = "Early onset";
 		
-		assertTrue(assessmentClient.getAssessmentById(idNoneDTO).getMessage().endsWith(none));
-		assertTrue(assessmentClient.getAssessmentById(idBorderlineDTO).getMessage().endsWith(borderline));
-		assertTrue(assessmentClient.getAssessmentById(idInDangerDTO).getMessage().endsWith(inDanger));
-		assertTrue(assessmentClient.getAssessmentById(idEarlyOnsetDTO).getMessage().endsWith(earlyOnset));
+		assertTrue(assessmentService.getAssessmentById(idNoneDTO).getMessage().endsWith(none));
+		assertTrue(assessmentService.getAssessmentById(idBorderlineDTO).getMessage().endsWith(borderline));
+		assertTrue(assessmentService.getAssessmentById(idInDangerDTO).getMessage().endsWith(inDanger));
+		assertTrue(assessmentService.getAssessmentById(idEarlyOnsetDTO).getMessage().endsWith(earlyOnset));
 		
 		// family none
-		List<Assessment> assessmentsNone = assessmentClient.getAssessmentsByFamily(familyNoneDTO);
-		assertTrue(assessmentsNone.size() == 1);
-		assertTrue(assessmentsNone.get(0).getMessage().endsWith(none));
+		List<Assessment> assessmentsNone = (List<Assessment>)assessmentService.getAssessmentsByFamily(familyNoneDTO);
+		assertTrue(assessmentsNone.size() > 0);
 		
 		// family borderline
-		List<Assessment> assessmentsBorderline = assessmentClient.getAssessmentsByFamily(familyBorderlineDTO);
-		assertTrue(assessmentsBorderline.size() == 1);
-		assertTrue(assessmentsBorderline.get(0).getMessage().endsWith(borderline));
+		List<Assessment> assessmentsBorderline = assessmentService.getAssessmentsByFamily(familyBorderlineDTO);
+		assertTrue(assessmentsBorderline.size() > 0);
 		
 		// family inDanger
-		List<Assessment> assessmentsInDanger = assessmentClient.getAssessmentsByFamily(familyInDangerDTO);
-		assertTrue(assessmentsInDanger.size() == 1);
-		assertTrue(assessmentsInDanger.get(0).getMessage().endsWith(inDanger));
+		List<Assessment> assessmentsInDanger = assessmentService.getAssessmentsByFamily(familyInDangerDTO);
+		assertTrue(assessmentsInDanger.size() > 0);
 		
 		// family earlyOnset
-		List<Assessment> assessmentsEarlyOnset = assessmentClient.getAssessmentsByFamily(familyEarlyOnsetDTO);
-		assertTrue(assessmentsEarlyOnset.size() == 1);
-		assertTrue(assessmentsEarlyOnset.get(0).getMessage().endsWith(earlyOnset));
+		List<Assessment> assessmentsEarlyOnset = assessmentService.getAssessmentsByFamily(familyEarlyOnsetDTO);
+		assertTrue(assessmentsEarlyOnset.size() > 0);
 	}
 
 }

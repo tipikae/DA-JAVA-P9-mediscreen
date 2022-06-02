@@ -9,7 +9,7 @@ package com.tipikae.mediscreenUI.exception;
  * @version 1.0
  *
  */
-public class ClientException extends MediscreenUIException {
+public class ClientException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

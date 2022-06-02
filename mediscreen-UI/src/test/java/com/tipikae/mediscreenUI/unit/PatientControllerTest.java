@@ -18,19 +18,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.tipikae.mediscreenUI.client.INoteServiceClient;
-import com.tipikae.mediscreenUI.client.IPatientServiceClient;
 import com.tipikae.mediscreenUI.controller.PatientController;
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.PatientAlreadyExistException;
-import com.tipikae.mediscreenUI.exception.PatientNotFoundException;
+import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.service.INoteService;
+import com.tipikae.mediscreenUI.service.IPatientService;
+import com.tipikae.mediscreenUI.service.MyPageImpl;
 
 @WebMvcTest(controllers = PatientController.class)
 class PatientControllerTest {
@@ -41,10 +41,10 @@ class PatientControllerTest {
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private IPatientServiceClient patientClient;
+	private IPatientService patientService;
 	
 	@MockBean
-	private INoteServiceClient noteClient;
+	private INoteService noteService;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Get all patients
@@ -52,18 +52,18 @@ class PatientControllerTest {
 	@Test
 	void getAllPatientsReturns200ListWhenOk() throws Exception {
 		Patient patient = new Patient(1L, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		when(patientClient.getPatients(anyInt(), anyInt())).thenReturn(new PageImpl<>(List.of(patient)));
+		when(patientService.getPatients(anyInt(), anyInt())).thenReturn(new MyPageImpl<>(List.of(patient)));
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/list"));
 	}
 
 	@Test
-	void getAllPatientsReturns400WhenBadRequest() throws Exception {
-		doThrow(BadRequestException.class).when(patientClient).getPatients(anyInt(), anyInt());
+	void getAllPatientsReturns200WhenBadRequest() throws Exception {
+		doThrow(BadRequestException.class).when(patientService).getPatients(anyInt(), anyInt());
 		mockMvc.perform(get(ROOT + "/all"))
 			.andExpect(status().isOk())
-			.andExpect(view().name("error/400"));
+			.andExpect(view().name("patient/list"));
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ class PatientControllerTest {
 	@Test
 	void getPatientReturns200PatientWhenOk() throws Exception {
 		Patient patient = new Patient(1L, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		when(patientClient.getPatient(anyLong())).thenReturn(patient);
+		when(patientService.getPatient(anyLong())).thenReturn(patient);
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patient/get"));
@@ -80,7 +80,7 @@ class PatientControllerTest {
 
 	@Test
 	void getPatientReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
+		doThrow(NotFoundException.class).when(patientService).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -88,7 +88,7 @@ class PatientControllerTest {
 
 	@Test
 	void getPatientReturns400WhenHttpClientException() throws Exception {
-		doThrow(HttpClientException.class).when(patientClient).getPatient(anyLong());
+		doThrow(HttpClientException.class).when(patientService).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/400"));
@@ -111,7 +111,7 @@ class PatientControllerTest {
 	void addPatientReturns3xxSuccessWhenOk() throws Exception {
 		NewPatientDTO newPatientDTO = 
 				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		when(patientClient.addPatient(any(NewPatientDTO.class))).thenReturn(new Patient());
+		when(patientService.addPatient(any(NewPatientDTO.class))).thenReturn(new Patient());
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -132,7 +132,7 @@ class PatientControllerTest {
 	void addPatientReturns3xxErrorWhenPatientAlreadyExists() throws Exception {
 		NewPatientDTO newPatientDTO = 
 				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(PatientAlreadyExistException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
+		doThrow(AlreadyExistsException.class).when(patientService).addPatient(any(NewPatientDTO.class));
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -143,7 +143,7 @@ class PatientControllerTest {
 	void addPatientReturns3xxErrorWhenBadRequest() throws Exception {
 		NewPatientDTO newPatientDTO = 
 				new NewPatientDTO("family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(BadRequestException.class).when(patientClient).addPatient(any(NewPatientDTO.class));
+		doThrow(BadRequestException.class).when(patientService).addPatient(any(NewPatientDTO.class));
 		mockMvc.perform(post(ROOT + "/add")
 				.flashAttr("patient", newPatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -155,7 +155,7 @@ class PatientControllerTest {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Test
 	void showUpdateFormReturns200UpdateWhenOk() throws Exception {
-		when(patientClient.getPatient(anyLong()))
+		when(patientService.getPatient(anyLong()))
 			.thenReturn(new Patient(1, "family", "given", LocalDate.of(2000, 01, 01), 'F', "address", "phone"));
 		mockMvc.perform(get(ROOT + "/update/1"))
 			.andExpect(status().isOk())
@@ -164,7 +164,7 @@ class PatientControllerTest {
 
 	@Test
 	void showUpdateFormReturns404WhenPatientNotFound() throws Exception {
-		doThrow(PatientNotFoundException.class).when(patientClient).getPatient(anyLong());
+		doThrow(NotFoundException.class).when(patientService).getPatient(anyLong());
 		mockMvc.perform(get(ROOT + "/update/1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("error/404"));
@@ -178,7 +178,7 @@ class PatientControllerTest {
 		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doNothing().when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
+		doNothing().when(patientService).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -200,8 +200,8 @@ class PatientControllerTest {
 	void updatePatientReturns3xxErrorWhenPatientNotFound() throws Exception {
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(PatientNotFoundException.class)
-			.when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
+		doThrow(NotFoundException.class)
+			.when(patientService).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/1")
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
@@ -213,7 +213,7 @@ class PatientControllerTest {
 		int id = 1;
 		UpdatePatientDTO updatePatientDTO = 
 				new UpdatePatientDTO(LocalDate.of(2000, 01, 01), 'F', "address", "phone");
-		doThrow(BadRequestException.class).when(patientClient).updatePatient(anyLong(), any(UpdatePatientDTO.class));
+		doThrow(BadRequestException.class).when(patientService).updatePatient(anyLong(), any(UpdatePatientDTO.class));
 		mockMvc.perform(post(ROOT + "/update/" + id)
 				.flashAttr("patient", updatePatientDTO))
 			.andExpect(status().is3xxRedirection())
