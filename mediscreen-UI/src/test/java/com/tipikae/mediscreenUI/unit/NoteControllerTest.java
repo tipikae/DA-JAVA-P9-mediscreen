@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tipikae.mediscreenUI.controller.NoteController;
@@ -24,12 +25,17 @@ import com.tipikae.mediscreenUI.exception.BadRequestException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.security.MyAuthenticationFailureHandler;
+import com.tipikae.mediscreenUI.security.MyAuthenticationProvider;
+import com.tipikae.mediscreenUI.security.MyLogoutHandler;
 import com.tipikae.mediscreenUI.service.INoteService;
 import com.tipikae.mediscreenUI.service.IPatientService;
 
 @WebMvcTest(controllers = NoteController.class)
+@WithMockUser
 class NoteControllerTest {
-private static final String ROOT = "/note"; 
+	
+	private static final String ROOT = "/note"; 
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,6 +45,15 @@ private static final String ROOT = "/note";
 	
 	@MockBean
 	private INoteService noteService;
+	
+	@MockBean
+	private MyAuthenticationProvider authenticationProvider;
+	
+	@MockBean
+	private MyAuthenticationFailureHandler authenticationFailureHandler;
+	
+	@MockBean
+	private MyLogoutHandler logoutHandler;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Get a note

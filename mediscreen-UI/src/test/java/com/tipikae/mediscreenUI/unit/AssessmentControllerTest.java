@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tipikae.mediscreenUI.controller.AssessmentController;
@@ -22,9 +23,13 @@ import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
 import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.security.MyAuthenticationFailureHandler;
+import com.tipikae.mediscreenUI.security.MyAuthenticationProvider;
+import com.tipikae.mediscreenUI.security.MyLogoutHandler;
 import com.tipikae.mediscreenUI.service.IAssessmentService;
 
 @WebMvcTest(controllers = AssessmentController.class)
+@WithMockUser
 class AssessmentControllerTest {
 	
 	@Autowired
@@ -32,6 +37,15 @@ class AssessmentControllerTest {
 	
 	@MockBean
 	private IAssessmentService assessmentService;
+	
+	@MockBean
+	private MyAuthenticationProvider authenticationProvider;
+	
+	@MockBean
+	private MyAuthenticationFailureHandler authenticationFailureHandler;
+	
+	@MockBean
+	private MyLogoutHandler logoutHandler;
 	
 	private static final String ROOT = "/assess";
 	

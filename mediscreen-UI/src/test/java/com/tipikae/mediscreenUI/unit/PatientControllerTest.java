@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tipikae.mediscreenUI.controller.PatientController;
@@ -28,11 +29,15 @@ import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.security.MyAuthenticationFailureHandler;
+import com.tipikae.mediscreenUI.security.MyAuthenticationProvider;
+import com.tipikae.mediscreenUI.security.MyLogoutHandler;
 import com.tipikae.mediscreenUI.service.INoteService;
 import com.tipikae.mediscreenUI.service.IPatientService;
 import com.tipikae.mediscreenUI.service.MyPageImpl;
 
 @WebMvcTest(controllers = PatientController.class)
+@WithMockUser
 class PatientControllerTest {
 	
 	private static final String ROOT = "/patient"; 
@@ -45,6 +50,15 @@ class PatientControllerTest {
 	
 	@MockBean
 	private INoteService noteService;
+	
+	@MockBean
+	private MyAuthenticationProvider authenticationProvider;
+	
+	@MockBean
+	private MyAuthenticationFailureHandler authenticationFailureHandler;
+	
+	@MockBean
+	private MyLogoutHandler logoutHandler;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Get all patients
