@@ -6,20 +6,15 @@ package com.tipikae.mediscreenUI.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -29,6 +24,7 @@ import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.util.HttpUtility;
 
 /**
  * Patient service.
@@ -41,6 +37,9 @@ public class PatientServiceImpl implements IPatientService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
 	private static final String ROOT = "/patient-service";
+	
+	@Autowired
+	private HttpUtility httpUtility;
 	
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
@@ -67,7 +66,7 @@ public class PatientServiceImpl implements IPatientService {
 		map.put("size", size);
 		
 		return restTemplate.exchange(
-				url, HttpMethod.GET, getHttpEntity(), MyPageImpl.class, map).getBody();
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), MyPageImpl.class, map).getBody();
 		
 	}
 
@@ -82,7 +81,7 @@ public class PatientServiceImpl implements IPatientService {
 		map.put("id", id);
 		
 		return restTemplate.exchange(
-				url, HttpMethod.GET, getHttpEntity(), Patient.class, map).getBody();
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), Patient.class, map).getBody();
 	}
 
 	/**
@@ -94,9 +93,10 @@ public class PatientServiceImpl implements IPatientService {
 		LOGGER.debug("addPatient: firstname=" + newPatientDTO.getGiven() 
 			+ ", lastname=" + newPatientDTO.getFamily());
 		String url = proxyUrl + ROOT + "/patients/";
+		HttpEntity<NewPatientDTO> entity = new HttpEntity<>(newPatientDTO, httpUtility.getAuthHeadersJson());
 		
 		return restTemplate.exchange(
-				url, HttpMethod.POST, getHttpEntity(), Patient.class, newPatientDTO).getBody();
+				url, HttpMethod.POST, entity, Patient.class, new HashMap<>()).getBody();
 	}
 
 	/**
@@ -109,44 +109,23 @@ public class PatientServiceImpl implements IPatientService {
 		String url = proxyUrl + ROOT + "/patients/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-
-		restTemplate.exchange(
-				url, HttpMethod.PUT, getHttpEntity(), Void.class, updatePatientDTO);
+		HttpEntity<UpdatePatientDTO> entity = new HttpEntity<>(updatePatientDTO, httpUtility.getAuthHeadersJson());
+		
+		restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class, map);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deletePatient(long id) throws NotFoundException, BadRequestException, HttpClientException {
+	public void deletePatient(long id) 
+			throws NotFoundException, BadRequestException, HttpClientException {
 		LOGGER.debug("deletePatient: id=" + id);
 		String url = proxyUrl + ROOT + "/patients/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 
-		restTemplate.exchange(
-				url, HttpMethod.DELETE, getHttpEntity(), Void.class, map);
-	}
-	
-	private HttpEntity<Void> getHttpEntity() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer " + getAccessToken());
-		headers.add("Content-Type", "application/x-www-form-urlencoded");
-		
-		return new HttpEntity<>(headers);
-	}
-	
-	private String getAccessToken() {
-		ServletRequestAttributes attr = (ServletRequestAttributes) 
-			    RequestContextHolder.currentRequestAttributes();
-		HttpSession session= attr.getRequest().getSession(false);
-		if(session != null && session.getAttribute("access_token") != null) {
-			LOGGER.debug("getAccessToken: session and token exist");
-			return (String) session.getAttribute("access_token");
-		}
-
-		LOGGER.debug("getAccessToken: session not exists");
-		return null;
+		restTemplate.exchange(url, HttpMethod.DELETE, httpUtility.getHttpEntity(), Void.class, map);
 	}
 
 }

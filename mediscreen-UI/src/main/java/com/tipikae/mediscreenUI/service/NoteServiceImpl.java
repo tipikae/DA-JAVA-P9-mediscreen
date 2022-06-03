@@ -7,20 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
@@ -29,6 +24,7 @@ import com.tipikae.mediscreenUI.exception.ClientErrorHandler;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.util.HttpUtility;
 
 /**
  * Note service client.
@@ -41,6 +37,9 @@ public class NoteServiceImpl implements INoteService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceImpl.class);
 	private static final String ROOT = "/note-service";
+	
+	@Autowired
+	private HttpUtility httpUtility;
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
@@ -65,7 +64,7 @@ public class NoteServiceImpl implements INoteService {
 		map.put("patId", patId);
 		
 		return restTemplate.exchange(
-				url, HttpMethod.GET, getHttpEntity(), List.class, map).getBody();
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), List.class, map).getBody();
 	}
 
 	/**
@@ -79,7 +78,7 @@ public class NoteServiceImpl implements INoteService {
 		map.put("id", id);
 		
 		return restTemplate.exchange(
-				url, HttpMethod.GET, getHttpEntity(), Note.class, map).getBody();
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), Note.class, map).getBody();
 	}
 
 	/**
@@ -89,9 +88,10 @@ public class NoteServiceImpl implements INoteService {
 	public Note addNote(NewNoteDTO newNoteDTO) throws BadRequestException, HttpClientException {
 		LOGGER.debug("addNote: patientId=" + newNoteDTO.getPatId());
 		String url = proxyUrl + ROOT + "/notes/";
+		HttpEntity<NewNoteDTO> entity = new HttpEntity<>(newNoteDTO, httpUtility.getAuthHeadersJson());
 		
 		return restTemplate.exchange(
-				url, HttpMethod.POST, getHttpEntity(), Note.class, newNoteDTO).getBody();
+				url, HttpMethod.POST, entity, Note.class, new HashMap<>()).getBody();
 	}
 
 	/**
@@ -104,9 +104,9 @@ public class NoteServiceImpl implements INoteService {
 		String url = proxyUrl + ROOT + "/notes/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		restTemplate.put(url, updateNoteDTO, map);
-		restTemplate.exchange(
-				url, HttpMethod.PUT, getHttpEntity(), Void.class, updateNoteDTO);
+		HttpEntity<UpdateNoteDTO> entity = new HttpEntity<>(updateNoteDTO, httpUtility.getAuthHeadersJson());
+		
+		restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class, map);
 	}
 
 	/**
@@ -118,30 +118,8 @@ public class NoteServiceImpl implements INoteService {
 		String url = proxyUrl + ROOT + "/notes/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		restTemplate.delete(url, map);
-		restTemplate.exchange(
-				url, HttpMethod.DELETE, getHttpEntity(), Void.class, map);
-	}
-	
-	private HttpEntity<Void> getHttpEntity() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer " + getAccessToken());
-		headers.add("Content-Type", "application/x-www-form-urlencoded");
 		
-		return new HttpEntity<>(headers);
-	}
-	
-	private String getAccessToken() {
-		ServletRequestAttributes attr = (ServletRequestAttributes) 
-			    RequestContextHolder.currentRequestAttributes();
-		HttpSession session= attr.getRequest().getSession(false);
-		if(session != null && session.getAttribute("access_token") != null) {
-			LOGGER.debug("getAccessToken: session and token exist");
-			return (String) session.getAttribute("access_token");
-		}
-
-		LOGGER.debug("getAccessToken: session not exists");
-		return null;
+		restTemplate.exchange(url, HttpMethod.DELETE, httpUtility.getHttpEntity(), Void.class, map);
 	}
 
 }
