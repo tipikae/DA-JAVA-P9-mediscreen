@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.tipikae.mediscreenUI.service;
+package com.tipikae.mediscreenUI.exception;
 
 import java.io.IOException;
 
@@ -10,11 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
-
-import com.tipikae.mediscreenUI.exception.BadRequestException;
-import com.tipikae.mediscreenUI.exception.HttpClientException;
-import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
-import com.tipikae.mediscreenUI.exception.NotFoundException;
 
 /**
  * Client error handler.

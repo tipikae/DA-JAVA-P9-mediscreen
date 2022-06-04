@@ -12,15 +12,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.tipikae.mediscreenUI.dto.NewNoteDTO;
 import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
 import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.ClientErrorHandler;
 import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.util.HttpUtility;
 
 /**
  * Note service client.
@@ -33,6 +37,9 @@ public class NoteServiceImpl implements INoteService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceImpl.class);
 	private static final String ROOT = "/note-service";
+	
+	@Autowired
+	private HttpUtility httpUtility;
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
@@ -56,7 +63,8 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("patId", patId);
 		
-		return restTemplate.getForObject(url, List.class, map);
+		return restTemplate.exchange(
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), List.class, map).getBody();
 	}
 
 	/**
@@ -69,7 +77,8 @@ public class NoteServiceImpl implements INoteService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		
-		return restTemplate.getForObject(url, Note.class, map);
+		return restTemplate.exchange(
+				url, HttpMethod.GET, httpUtility.getHttpEntity(), Note.class, map).getBody();
 	}
 
 	/**
@@ -79,8 +88,10 @@ public class NoteServiceImpl implements INoteService {
 	public Note addNote(NewNoteDTO newNoteDTO) throws BadRequestException, HttpClientException {
 		LOGGER.debug("addNote: patientId=" + newNoteDTO.getPatId());
 		String url = proxyUrl + ROOT + "/notes/";
+		HttpEntity<NewNoteDTO> entity = new HttpEntity<>(newNoteDTO, httpUtility.getAuthHeadersJson());
 		
-		return restTemplate.postForObject(url, newNoteDTO, Note.class);
+		return restTemplate.exchange(
+				url, HttpMethod.POST, entity, Note.class, new HashMap<>()).getBody();
 	}
 
 	/**
@@ -93,7 +104,9 @@ public class NoteServiceImpl implements INoteService {
 		String url = proxyUrl + ROOT + "/notes/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		restTemplate.put(url, updateNoteDTO, map);
+		HttpEntity<UpdateNoteDTO> entity = new HttpEntity<>(updateNoteDTO, httpUtility.getAuthHeadersJson());
+		
+		restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class, map);
 	}
 
 	/**
@@ -105,7 +118,8 @@ public class NoteServiceImpl implements INoteService {
 		String url = proxyUrl + ROOT + "/notes/{id}";
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		restTemplate.delete(url, map);
+		
+		restTemplate.exchange(url, HttpMethod.DELETE, httpUtility.getHttpEntity(), Void.class, map);
 	}
 
 }

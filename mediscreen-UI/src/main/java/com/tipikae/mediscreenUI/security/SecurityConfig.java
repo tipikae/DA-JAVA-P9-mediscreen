@@ -18,12 +18,15 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
  * @version 1.0
  *
  */
-//@EnableWebSecurity
-//@Configuration
+@EnableWebSecurity
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private MyAuthenticationProvider authenticationProvider;
+	
+	@Autowired
+	private MyAuthenticationFailureHandler authenticationFailureHandler;
 	
 	@Autowired
 	private MyLogoutHandler logoutHandler;
@@ -47,11 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    .anyRequest().authenticated()
 		    .and()
 		    .formLogin().permitAll()
+		    .failureHandler(authenticationFailureHandler)
 		    .defaultSuccessUrl("/patient/all", true)
 		    .failureUrl("/login?error=true")
 	        .and()
 	        .logout()
 	        .addLogoutHandler(logoutHandler)
+	        .logoutSuccessUrl("/patient/all")
 	        .deleteCookies("JSESSIONID");
     }
 	
@@ -59,5 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 	    return new HttpSessionEventPublisher();
 	}
+	
+	/*@Bean
+	public MyAuthenticationLogout myAuthenticationLogout() {
+		return new MyAuthenticationLogout();
+	}*/
 
 }
