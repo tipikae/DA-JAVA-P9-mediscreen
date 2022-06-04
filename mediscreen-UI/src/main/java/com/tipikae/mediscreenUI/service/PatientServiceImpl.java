@@ -36,7 +36,7 @@ import com.tipikae.mediscreenUI.util.HttpUtility;
 public class PatientServiceImpl implements IPatientService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
-	private static final String ROOT = "/patient-service";
+	private static final String ROOT = "/patient";
 	
 	@Autowired
 	private HttpUtility httpUtility;

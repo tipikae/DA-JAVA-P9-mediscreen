@@ -32,13 +32,14 @@ import com.tipikae.mediscreenUI.util.HttpUtility;
 public class AssessmentServiceImpl implements IAssessmentService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceImpl.class);
-	private static final String ROOT = "/assessment-service";
+	private static final String ROOT = "/assessment";
 	
 	@Autowired
 	private HttpUtility httpUtility;
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
+	
 	private RestTemplate restTemplate;
 
 	@Autowired

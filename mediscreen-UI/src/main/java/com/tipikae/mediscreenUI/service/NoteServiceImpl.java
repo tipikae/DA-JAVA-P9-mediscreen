@@ -36,7 +36,7 @@ import com.tipikae.mediscreenUI.util.HttpUtility;
 public class NoteServiceImpl implements INoteService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceImpl.class);
-	private static final String ROOT = "/note-service";
+	private static final String ROOT = "/note";
 	
 	@Autowired
 	private HttpUtility httpUtility;
