@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 import com.tipikae.mediscreenUI.dto.NewPatientDTO;
 import com.tipikae.mediscreenUI.dto.UpdatePatientDTO;
@@ -15,6 +17,8 @@ import com.tipikae.mediscreenUI.exception.HttpClientException;
 import com.tipikae.mediscreenUI.exception.AlreadyExistsException;
 import com.tipikae.mediscreenUI.exception.NotFoundException;
 import com.tipikae.mediscreenUI.model.Patient;
+import com.tipikae.mediscreenUI.security.MyAuthentication;
+import com.tipikae.mediscreenUI.security.MyLogout;
 import com.tipikae.mediscreenUI.service.IPatientService;
 
 @SpringBootTest
@@ -22,6 +26,20 @@ class PatientServiceIT {
 	
 	@Autowired
 	private IPatientService patientService;
+	
+	@Autowired
+	private MyAuthentication myAuthentication;
+	
+	@Autowired
+	private MyLogout myLogout;
+	
+	private String username = "user1";
+	private String password = "user1";
+	
+	private void authenticate() {
+		Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
+		myAuthentication.authenticate(authentication);
+	}
 	
 	@Test
 	void test() 
@@ -33,6 +51,9 @@ class PatientServiceIT {
 		char sex = 'F';
 		String address = "address";
 		String phone = "phone";
+		
+		// authentication
+		authenticate();
 		
 		// save
 		NewPatientDTO newPatientDTO = 
@@ -67,6 +88,9 @@ class PatientServiceIT {
 		assertThrows(NotFoundException.class, () -> patientService.deletePatient(10000));
 		patientService.deletePatient(id);
 		assertThrows(NotFoundException.class, () -> patientService.deletePatient(id));
+		
+		// logout
+		myLogout.logout();
 	}
 
 }
