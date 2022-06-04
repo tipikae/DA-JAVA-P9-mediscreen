@@ -39,10 +39,12 @@ public class SecurityConfig {
 	@Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
 	     http
-	        .authorizeExchange(exchanges -> 
+	     	.authorizeExchange(exchanges -> 
 	        		exchanges
-	        			.pathMatchers("/**").hasRole("USER")
-		             	.anyExchange().authenticated())
+	        			//.pathMatchers("/swagger-ui.html", "/webjars/**").permitAll()
+	        			.pathMatchers("/**").permitAll()
+	        			//.pathMatchers("/**").hasRole("USER")
+		             	)//.anyExchange().authenticated())
 	        .oauth2ResourceServer(oauth2ResourceServer ->
 	        	oauth2ResourceServer.jwt(jwt ->
 	        			jwt.jwtAuthenticationConverter(grantedAuthoritiesExtractor())));
