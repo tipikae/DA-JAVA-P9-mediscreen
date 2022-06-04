@@ -35,6 +35,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.liquibase:liquibase-core:4.9.1'
 	implementation 'io.github.openfeign:feign-jackson'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
