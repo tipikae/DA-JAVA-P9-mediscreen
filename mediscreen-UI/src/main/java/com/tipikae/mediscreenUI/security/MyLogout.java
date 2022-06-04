@@ -67,7 +67,7 @@ public class MyLogout {
 		LOGGER.debug("logout: access_token=" + accessToken);
 		LOGGER.debug("logout: refresh_token=" + refreshToken);
 		
-		// create a restTemplate request for logging out from keycloak
+		// create a restTemplate request for login out from keycloak
 		RestTemplate restTemplate = new RestTemplate();
 		String url = logoutEndpoint;
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();

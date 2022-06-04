@@ -79,7 +79,7 @@ public class MyAuthentication {
     				(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 			HttpSession session= attr.getRequest().getSession(true);
 			
-			// create a restTemplate request for logging in from keycloak
+			// create a restTemplate request for login in from keycloak
 			RestTemplate restTemplate = new RestTemplate();
 			String url = tokenEndpoint;
 			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
