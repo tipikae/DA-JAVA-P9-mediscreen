@@ -39,6 +39,7 @@ public class AssessmentServiceImpl implements IAssessmentService {
 
 	@Value(value = "${proxy.url:}")
 	private String proxyUrl;
+	
 	private RestTemplate restTemplate;
 
 	@Autowired

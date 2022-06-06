@@ -39,8 +39,9 @@ public class SecurityConfig {
 	@Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
 	     http
-	        .authorizeExchange(exchanges -> 
+	     	.authorizeExchange(exchanges -> 
 	        		exchanges
+	        			.pathMatchers("/webjars/**", "/v3/api-docs/**", "/*/v3/api-docs").permitAll()
 	        			.pathMatchers("/**").hasRole("USER")
 		             	.anyExchange().authenticated())
 	        .oauth2ResourceServer(oauth2ResourceServer ->
