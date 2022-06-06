@@ -41,10 +41,9 @@ public class SecurityConfig {
 	     http
 	     	.authorizeExchange(exchanges -> 
 	        		exchanges
-	        			//.pathMatchers("/swagger-ui.html", "/webjars/**").permitAll()
-	        			.pathMatchers("/**").permitAll()
-	        			//.pathMatchers("/**").hasRole("USER")
-		             	)//.anyExchange().authenticated())
+	        			.pathMatchers("/webjars/**", "/v3/api-docs/**", "/*/v3/api-docs").permitAll()
+	        			.pathMatchers("/**").hasRole("USER")
+		             	.anyExchange().authenticated())
 	        .oauth2ResourceServer(oauth2ResourceServer ->
 	        	oauth2ResourceServer.jwt(jwt ->
 	        			jwt.jwtAuthenticationConverter(grantedAuthoritiesExtractor())));
