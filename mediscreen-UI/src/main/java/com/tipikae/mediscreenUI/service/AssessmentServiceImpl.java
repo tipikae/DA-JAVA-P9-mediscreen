@@ -32,7 +32,7 @@ import com.tipikae.mediscreenUI.util.HttpUtility;
 public class AssessmentServiceImpl implements IAssessmentService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceImpl.class);
-	private static final String ROOT = "/assessment";
+	private static final String ROOT = "/assessment-service";
 	
 	@Autowired
 	private HttpUtility httpUtility;
