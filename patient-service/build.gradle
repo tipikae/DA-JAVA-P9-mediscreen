@@ -6,6 +6,11 @@ plugins {
 	id 'jacoco'
 }
 
+bootJar {
+    baseName = 'PatientService'
+    version =  '1.0.0'
+}
+
 group = 'com.tipikae'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
