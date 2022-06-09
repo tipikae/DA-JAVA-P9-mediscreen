@@ -16,7 +16,7 @@ services:
     cap_add:
       - SYS_NICE
     volumes:
-      - mediscreen-volume:/var/lib/mysql
+      - mysql-kc:/var/lib/mysql
     networks:
       - mediscreen-network
     healthcheck:
@@ -27,15 +27,56 @@ services:
 
   keycloak:
     container_name: keycloak
-    build: .
+    build: ./keycloak
     image: keycloak
     ports:
       - 8070:8080
     restart: on-failure
     environment:
       JDBC_PARAMS: useSSL=false&allowPublicKeyRetrieval=true
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     depends_on:
       mysql-kc:
+        condition: service_healthy
+    networks:
+      - mediscreen-network
+       
+  config:
+    container_name: config
+    build: ./mediscreen-config
+    image: config
+    ports:
+      - 8888:8888
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent localhost:8888/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - mediscreen-network
+       
+  eureka:
+    container_name: eureka
+    build: ./mediscreen-discovery
+    image: eureka
+    ports:
+      - 8761:8761
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      config:
         condition: service_healthy
     networks:
       - mediscreen-network
@@ -54,7 +95,7 @@ services:
     cap_add:
       - SYS_NICE
     volumes:
-      - mediscreen-volume:/var/lib/mysql
+      - mysql-patient:/var/lib/mysql
     networks:
       - mediscreen-network
     healthcheck:
@@ -79,6 +120,8 @@ services:
     depends_on:
       mysql-patient:
         condition: service_healthy
+      eureka:
+        condition: service_healthy
     networks:
       - mediscreen-network
       
@@ -92,9 +135,14 @@ services:
       MONGO_INITDB_ROOT_USERNAME: tipikae
       MONGO_INITDB_ROOT_PASSWORD: 231045
       MONGO_INITDB_DATABASE: mediscreen
+    healthcheck:
+      test:  ["CMD", "./mongodb/docker-healthcheck"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - mediscreen-volume:/var/lib/mongodb
+      - ./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo-note:/var/lib/mongodb
     networks:
       - mediscreen-network
       
@@ -112,10 +160,35 @@ services:
       retries: 5
       start_period: 40s
     depends_on:
-      mongodb-note:
+      mongo-note:
+        condition: service_healthy
+      eureka:
         condition: service_healthy
     networks:
       - mediscreen-network
+      
+  mysql-assessment:
+    container_name: mysql-assessment
+    image: mysql:8.0.27
+    ports:
+      - 3309:3306
+    restart: on-failure
+    environment:
+      MYSQL_USER: tipikae
+      MYSQL_PASSWORD: 231045
+      MYSQL_DATABASE: mediscreen
+      MYSQL_ROOT_PASSWORD: root
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - mysql-assessment:/var/lib/mysql
+    networks:
+      - mediscreen-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
       
   assessment:
     container_name: assessment
@@ -131,9 +204,53 @@ services:
       retries: 5
       start_period: 40s
     depends_on:
+      mysql-assessment:
+        condition: service_healthy
       note:
         condition: service_healthy
       patient:
+        condition: service_healthy
+    networks:
+      - mediscreen-network
+      
+  proxy:
+    container_name: proxy
+    build: ./mediscreen-proxy
+    image: proxy
+    ports:
+      - 8080:8080
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      assessment:
+        condition: service_healthy
+    networks:
+      - mediscreen-network
+      
+  frontend:
+    container_name: frontend
+    build: ./mediscreen-UI
+    image: frontend
+    ports:
+      - 8090:8090
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      proxy:
         condition: service_healthy
     networks:
       - mediscreen-network
@@ -142,5 +259,7 @@ networks:
   mediscreen-network:
 
 volumes:
-  mediscreen-volume:
-  mongodb-volume:
+  mysql-kc:
+  mysql-patient:
+  mysql-assessment:
+  mongo-note:
