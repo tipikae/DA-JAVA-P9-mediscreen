@@ -69,6 +69,8 @@ services:
     ports:
       - 8761:8761
     restart: on-failure
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
       interval: 20s
@@ -111,6 +113,8 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-patient:3306/mediscreen?enabledTLSProtocols=TLSv1.2
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8081/actuator/health | grep UP || exit 1"
       interval: 20s
@@ -153,6 +157,8 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_HOST=mongo-note
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
       interval: 20s
@@ -197,6 +203,7 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-assessment:3306/mediscreen?enabledTLSProtocols=TLSv1.2
     healthcheck:
       test: "curl --fail --silent localhost:8083/actuator/health | grep UP || exit 1"
       interval: 20s
@@ -222,6 +229,8 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak:8070/realms/mediscreen
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
       interval: 20s
@@ -243,6 +252,7 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8090/actuator/health | grep UP || exit 1"
       interval: 20s
