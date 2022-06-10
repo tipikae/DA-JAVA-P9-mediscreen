@@ -204,6 +204,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-assessment:3306/mediscreen?enabledTLSProtocols=TLSv1.2
+      - SPRING_CONFIG_IMPORT=configserver:http://config:8888
     healthcheck:
       test: "curl --fail --silent localhost:8083/actuator/health | grep UP || exit 1"
       interval: 20s
