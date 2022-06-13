@@ -11,6 +11,32 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 		
 	<changeSet author="tipikae" id="1">
+		<createTable tableName="patient">
+			<column name="id" type="int" autoIncrement="true">
+           		<constraints nullable="false" primaryKey="true"/>
+           	</column>
+           	<column name="family" type="varchar(50)">
+           		<constraints nullable="false"/>
+           	</column>
+           	<column name="given" type="varchar(50)">
+           		<constraints nullable="false"/>
+           	</column>
+           	<column name="dob" type="date">
+           		<constraints nullable="false"/>
+           	</column>
+           	<column name="sex" type="char(1)">
+           		<constraints nullable="false"/>
+           	</column>
+           	<column name="address" type="varchar(128)">
+           		<constraints nullable="false"/>
+           	</column>
+           	<column name="phone" type="varchar(20)">
+           		<constraints nullable="false"/>
+           	</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="tipikae" id="2">
 		<loadData encoding="UTF-8"
 				file="data/patients-prod.csv"
 				quotchar="'"
