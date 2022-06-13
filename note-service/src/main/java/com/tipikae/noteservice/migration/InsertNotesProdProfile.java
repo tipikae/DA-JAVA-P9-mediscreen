@@ -25,7 +25,7 @@ import io.mongock.api.annotations.RollbackExecution;
  *
  */
 @Profile("prod")
-@ChangeUnit(id = "InsertDataProdProfile", order = "2", author = "tipikae")
+@ChangeUnit(id = "InsertNotesProdProfile", order = "2", author = "tipikae")
 public class InsertNotesProdProfile {
 	
 	private final static String NOTES_COLL_NAME = "notes";
