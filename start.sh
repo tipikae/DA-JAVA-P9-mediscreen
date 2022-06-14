@@ -7,8 +7,8 @@ docker-compose build
 echo "-----------------------------------------------Starting the database ---------------------------------------------"
 docker-compose  up -d keycloak-db
 docker-compose  up -d patient-db
-docker-compose  up -d assessment-db
 docker-compose  up -d note-db
+docker-compose  up -d assessment-db
 sleep 15s
 
 echo "-----------------------------------------------Starting the config microservice ----------------------------------"
