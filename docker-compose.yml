@@ -103,7 +103,7 @@ services:
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak-service:8070/realms/mediscreen
+      #- SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak-service:8080/realms/mediscreen
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
