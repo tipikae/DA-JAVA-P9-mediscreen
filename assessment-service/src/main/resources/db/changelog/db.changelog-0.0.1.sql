@@ -26,8 +26,8 @@ INSERT INTO formula(risk, form) VALUES
 	('Early onset', '[trigger >= 8]');
 
 --changeset tipikae:3
-/*create table trigger*/
-CREATE TABLE trigger (
+/*create table trigger_terms*/
+CREATE TABLE trigger_terms (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	term VARCHAR(64) NOT NULL,
 	
@@ -35,8 +35,8 @@ CREATE TABLE trigger (
 );
 
 --changeset tipikae:4
-/*insert values into trigger table*/
-INSERT INTO trigger(term) VALUES 
+/*insert values into trigger_terms table*/
+INSERT INTO trigger_terms(term) VALUES 
 	('Hemoglobin A1C'), 
 	('Microalbumin'), 
 	('Height'), 

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @Entity
-@Table(name = "trigger")
+@Table(name = "trigger_terms")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
