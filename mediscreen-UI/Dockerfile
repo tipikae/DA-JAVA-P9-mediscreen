@@ -8,7 +8,7 @@ COPY --chown=gradle:gradle build.gradle $APP_HOME/
 COPY --chown=gradle:gradle src $APP_HOME/src
 RUN gradle --no-daemon bootJar
 
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:11-jdk-alpine
 ARG BUILD_HOME
 ENV APP_HOME=$BUILD_HOME
 RUN apk --no-cache add curl

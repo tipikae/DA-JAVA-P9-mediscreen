@@ -1,6 +1,6 @@
 ARG BUILD_HOME=/mediscreen-discovery
 
-FROM gradle:7.2.0-jdk8 as build-image
+FROM gradle:7.2.0-jdk11-alpine as build-image
 ARG BUILD_HOME
 ENV APP_HOME=$BUILD_HOME
 WORKDIR $APP_HOME
