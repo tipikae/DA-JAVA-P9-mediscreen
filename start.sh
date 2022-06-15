@@ -30,10 +30,10 @@ sleep 15s
 echo "-----------------------------------------------Run the other microservices-----------------------------------------"
 docker-compose up -d patient-service
 docker-compose up -d note-service
-sleep 15s
+sleep 30s
 docker-compose up -d assessment-service
 
 echo "-----------------------------------------------Run the frontend-----------------------------------------"
 docker-compose up -d frontend
-sleep 60s
+sleep 30s
 echo "Done"
