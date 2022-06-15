@@ -6,7 +6,7 @@ ENV KC_DB=mysql
 ENV KC_DB_URL=jdbc:mysql://keycloak-db:3306/keycloak
 ENV KC_DB_USERNAME=tipikae
 ENV KC_DB_PASSWORD=231045
-ENV KC_HOSTNAME=keycloak-service
+#ENV KC_HOSTNAME=keycloak-service
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=admin
 EXPOSE 8080
