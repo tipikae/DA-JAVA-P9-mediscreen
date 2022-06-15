@@ -71,7 +71,7 @@ public class MyAuthentication {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
-		LOGGER.debug("authenticate: username=" + username + ", password=" + password);
+		LOGGER.info("authenticate: trying to authenticate username=" + username);
 		
 		// check if credentials are valid
 		if(!username.isBlank() && !password.isBlank()) {
@@ -117,7 +117,7 @@ public class MyAuthentication {
 				    	List<String> roles = 
 				    			(List<String>)jwt.getClaims().get(CLAIM_ROLES).asList(String.class);
 				    	if(roles.contains(ROLE_USER)) {
-				    		LOGGER.debug("authenticate: authenticated");
+				    		LOGGER.debug("authenticate: username=" + username + " is authenticated");
 				    		
 				    		return new UsernamePasswordAuthenticationToken(
 				    				username, password, new ArrayList<>());

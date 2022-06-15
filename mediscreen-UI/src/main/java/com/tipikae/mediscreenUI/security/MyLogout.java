@@ -58,7 +58,7 @@ public class MyLogout {
 	public void logout(HttpServletRequest request, HttpServletResponse response, 
 			Authentication authentication) {
 		String username = authentication == null ? "null" : authentication.getName();
-		LOGGER.debug("logout: username=" + username + " trying to logout.");
+		LOGGER.info("logout: trying to logout username=" + username);
 		
 		// retrieve tokens from session
 		HttpSession session = request.getSession();
@@ -88,7 +88,7 @@ public class MyLogout {
 			
 			// logout from security
 			request.logout();
-			LOGGER.debug("logout: username=" + username + " is logged out.");
+			LOGGER.info("logout: username=" + username + " is logged out.");
 		} catch (RestClientException e) {
 			LOGGER.debug("logout: RestClientException: " + e.getMessage());
 		} catch (ServletException e) {
