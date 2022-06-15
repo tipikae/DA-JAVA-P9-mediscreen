@@ -75,7 +75,7 @@ services:
   config-service:
     container_name: config-service
     build: ./mediscreen-config
-    image: config
+    image: config-service
     ports:
       - 8888:8888
     restart: on-failure
@@ -85,7 +85,7 @@ services:
   eureka-server:
     container_name: eureka-server
     build: ./mediscreen-discovery
-    image: eureka
+    image: eureka-server
     ports:
       - 8761:8761
     restart: on-failure
@@ -97,13 +97,12 @@ services:
   gateway-service:
     container_name: gateway-service
     build: ./mediscreen-proxy
-    image: proxy
+    image: gateway-service
     ports:
       - 8080:8080
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      #- SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak-service:8080/realms/mediscreen
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
@@ -111,7 +110,7 @@ services:
   keycloak-service:
     container_name: keycloak-service
     build: ./keycloak
-    image: keycloak
+    image: keycloak-service
     ports:
       - 8070:8080
     restart: on-failure
@@ -123,7 +122,7 @@ services:
   patient-service:
     container_name: patient-service
     build: ./patient-service
-    image: patientservice
+    image: patient-service
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
@@ -135,7 +134,7 @@ services:
   note-service:
     container_name: note-service
     build: ./note-service
-    image: noteservice
+    image: note-service
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
@@ -147,7 +146,7 @@ services:
   assessment-service:
     container_name: assessment-service
     build: ./assessment-service
-    image: assessmentservice
+    image: assessment-service
     restart: on-failure
     environment:
       - SPRING_PROFILES_ACTIVE=prod
