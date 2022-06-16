@@ -61,7 +61,7 @@ tasks.named('test') {
 liquibase {
     activities {
         main {
-        	File propsFile = new File("${project.rootDir}/src/main/resources/liquibase.properties")//assessment-service/
+        	File propsFile = new File("${project.rootDir}/assessment-service/src/main/resources/liquibase.properties")//assessment-service/
 		    Properties props = new Properties()
 		    InputStream fis = new FileInputStream(propsFile)
 		    props.load(fis)
