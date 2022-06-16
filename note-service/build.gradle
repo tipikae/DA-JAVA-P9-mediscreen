@@ -40,6 +40,7 @@ dependencies {
 	implementation 'io.mongock:mongock-springboot:5.0.39'
 	implementation 'io.mongock:mongodb-springdata-v3-driver:5.0.39'
 	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+	implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

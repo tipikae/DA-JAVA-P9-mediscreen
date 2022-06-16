@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
   	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.0'
   	testImplementation 'org.springframework.boot:spring-boot-starter-test'
   	testImplementation 'org.springframework.security:spring-security-test'
 	
