@@ -14,7 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @version 1.0
  *
  */
-@Component
+@Component("CustomRequestLoggingInterceptor")
 public class CustomRequestLoggingInterceptor implements HandlerInterceptor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomRequestLoggingInterceptor.class);
