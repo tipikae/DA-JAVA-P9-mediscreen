@@ -25,6 +25,10 @@ sleep 15s
 
 echo "-----------------------------------------------Starting the authentication microservice-----------------------------"
 docker-compose up -d keycloak-service
+sleep 15s  
+
+echo "-----------------------------------------------Starting the tracing microservice-----------------------------"
+docker-compose up -d zipkin-server
 sleep 15s 
 
 echo "-----------------------------------------------Run the other microservices-----------------------------------------"

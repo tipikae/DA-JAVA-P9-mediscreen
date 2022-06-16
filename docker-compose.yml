@@ -118,6 +118,15 @@ services:
       JDBC_PARAMS: useSSL=false&allowPublicKeyRetrieval=true
     networks:
       - mediscreen-network
+  
+  zipkin-server:
+    container_name: zipkin-server
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    restart: on-failure
+    networks:
+      - mediscreen-network
       
   patient-service:
     container_name: patient-service
