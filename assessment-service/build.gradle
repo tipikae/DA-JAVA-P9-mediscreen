@@ -38,6 +38,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.8.RELEASE'
 	implementation 'org.liquibase:liquibase-core:4.9.1'
 	implementation 'io.github.openfeign:feign-jackson'
 	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
@@ -61,7 +62,7 @@ tasks.named('test') {
 liquibase {
     activities {
         main {
-        	File propsFile = new File("${project.rootDir}/assessment-service/src/main/resources/liquibase.properties")//assessment-service/
+        	File propsFile = new File("${project.rootDir}/patient-service/src/main/resources/liquibase.properties")//assessment-service/
 		    Properties props = new Properties()
 		    InputStream fis = new FileInputStream(propsFile)
 		    props.load(fis)
