@@ -79,6 +79,8 @@ services:
     ports:
       - 8888:8888
     restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
     networks:
       - mediscreen-network
        
@@ -93,6 +95,8 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - config-service
       
   gateway-service:
     container_name: gateway-service
@@ -106,6 +110,8 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - eureka-server
 
   keycloak-service:
     container_name: keycloak-service
@@ -118,6 +124,8 @@ services:
       JDBC_PARAMS: useSSL=false&allowPublicKeyRetrieval=true
     networks:
       - mediscreen-network
+    depends_on:
+      - keycloak-db
   
   zipkin-server:
     container_name: zipkin-server
@@ -139,6 +147,9 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - patient-db
+      - gateway-service
       
   note-service:
     container_name: note-service
@@ -151,6 +162,9 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - note-db
+      - gateway-service
       
   assessment-service:
     container_name: assessment-service
@@ -163,6 +177,10 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - assessment-db
+      - patient-service
+      - note-service
       
   frontend:
     container_name: frontend
@@ -176,6 +194,8 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - gateway-service
 
 networks:
   mediscreen-network:
