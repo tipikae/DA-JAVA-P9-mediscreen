@@ -59,10 +59,15 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+def rootProjectCheck = new File("${project.rootDir}/assessment-service")
+def rootProject = ""
+if(rootProjectCheck.exists()) rootProject = "${project.rootDir}/assessment-service"
+if(!rootProjectCheck.exists()) rootProject = "${project.rootDir}"
+        	
 liquibase {
     activities {
         main {
-        	File propsFile = new File("${project.rootDir}/patient-service/src/main/resources/liquibase.properties")//assessment-service/
+        	File propsFile = new File("${rootProject}/src/main/resources/liquibase.properties")
 		    Properties props = new Properties()
 		    InputStream fis = new FileInputStream(propsFile)
 		    props.load(fis)
