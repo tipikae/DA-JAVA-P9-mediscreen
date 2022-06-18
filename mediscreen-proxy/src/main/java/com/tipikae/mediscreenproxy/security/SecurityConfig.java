@@ -42,7 +42,9 @@ public class SecurityConfig {
 	     	.authorizeExchange(exchanges -> 
 	        		exchanges
 	        			.pathMatchers("/webjars/**", "/v3/api-docs/**", "/*/v3/api-docs").permitAll()
-	        			.pathMatchers("/**").hasRole("USER")
+	        			.pathMatchers("/patient-service/**", "/note-service/**", "/assessment-service/**")
+	        				.hasRole("USER")
+	        			.pathMatchers("/**").hasRole("ADMIN")
 		             	.anyExchange().authenticated())
 	        .oauth2ResourceServer(oauth2ResourceServer ->
 	        	oauth2ResourceServer.jwt(jwt ->
