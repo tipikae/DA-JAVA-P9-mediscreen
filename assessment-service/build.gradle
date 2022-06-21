@@ -42,6 +42,7 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core:4.9.1'
 	implementation 'io.github.openfeign:feign-jackson'
 	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+	implementation 'de.codecentric:spring-boot-admin-starter-client:2.6.6'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
