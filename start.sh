@@ -15,6 +15,10 @@ echo "-----------------------------------------------Starting the config microse
 docker-compose up -d config-service
 sleep 15s 
 
+echo "-----------------------------------------------Starting the admin microservice------------------------------------"
+docker-compose up -d admin-server
+sleep 15s 
+
 echo "-----------------------------------------------Starting the registration microservice-----------------------------"
 docker-compose up -d eureka-server
 sleep 15s 

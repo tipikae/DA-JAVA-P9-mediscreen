@@ -84,6 +84,19 @@ services:
     networks:
       - mediscreen-network
        
+  admin-server:
+    container_name: admin-server
+    build: ./admin-server
+    image: admin-server
+    ports:
+      - 8050:8050
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+       
   eureka-server:
     container_name: eureka-server
     build: ./mediscreen-discovery
@@ -92,6 +105,7 @@ services:
       - 8761:8761
     restart: on-failure
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
