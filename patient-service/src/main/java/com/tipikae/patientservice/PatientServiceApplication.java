@@ -3,11 +3,13 @@ package com.tipikae.patientservice;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
 @SpringBootApplication
+@EnableAutoConfiguration
 @OpenAPIDefinition(info =
 	@Info(title = "Patient Service API", 
 		version = "1.0", 
