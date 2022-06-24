@@ -96,6 +96,8 @@ services:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
     networks:
       - mediscreen-network
+    depends_on:
+      - config-service
        
   eureka-server:
     container_name: eureka-server
