@@ -43,7 +43,7 @@ services:
     image: mongo:latest
     restart: on-failure
     ports:
-      - 27018:27017
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: tipikae
       MONGO_INITDB_ROOT_PASSWORD: 231045
