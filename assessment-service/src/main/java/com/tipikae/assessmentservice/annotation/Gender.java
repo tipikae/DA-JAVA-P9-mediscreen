@@ -11,6 +11,13 @@ package com.tipikae.assessmentservice.annotation;
  */
 public enum Gender {
 
+	/**
+	 * Male.
+	 */
 	M,
+	
+	/**
+	 * Female.
+	 */
 	F;
 }

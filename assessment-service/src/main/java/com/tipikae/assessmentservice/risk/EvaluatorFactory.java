@@ -33,10 +33,19 @@ public class EvaluatorFactory {
 	
 	private Patient patient;
 	
+	/**
+	 * Set the patient.
+	 * @param patient
+	 */
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 	
+	/**
+	 * Get an evaluator.
+	 * @param operation
+	 * @return IEvaluator
+	 */
 	public IEvaluator getEvaluator(String operation) {
 		LOGGER.debug("getEvaluator: operation=" + operation);
 		if(operation.matches(START_MODEL)) {

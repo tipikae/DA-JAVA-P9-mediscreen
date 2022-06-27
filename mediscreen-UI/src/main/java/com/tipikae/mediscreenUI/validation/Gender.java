@@ -11,6 +11,13 @@ package com.tipikae.mediscreenUI.validation;
  */
 public enum Gender {
 
+	/**
+	 * Male
+	 */
 	M,
+	
+	/**
+	 * Female.
+	 */
 	F;
 }

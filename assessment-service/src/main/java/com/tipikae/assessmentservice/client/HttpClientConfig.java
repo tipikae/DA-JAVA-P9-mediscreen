@@ -27,6 +27,10 @@ public class HttpClientConfig {
 	@Autowired
 	private EurekaClient discoveryClient;
 	
+	/**
+	 * Get PatientService client.
+	 * @return IPatientServiceClient
+	 */
 	@Bean
 	public IPatientServiceClient getPatientServiceClient() {
 		return Feign.builder()
@@ -36,6 +40,10 @@ public class HttpClientConfig {
 				.target(IPatientServiceClient.class, serviceUrl(PATIENT_SERVICE));
 	}
 	
+	/**
+	 * Get NoteService client.
+	 * @return INoteServiceClient
+	 */
 	@Bean
 	public INoteServiceClient getNoteServiceClient() {
 		return Feign.builder()
@@ -45,6 +53,10 @@ public class HttpClientConfig {
 				.target(INoteServiceClient.class, serviceUrl(NOTE_SERVICE));
 	}
 	
+	/**
+	 * Set Feign log level.
+	 * @return Logger.Level
+	 */
 	@Bean
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;

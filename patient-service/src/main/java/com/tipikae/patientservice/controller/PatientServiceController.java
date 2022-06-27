@@ -83,7 +83,7 @@ public class PatientServiceController {
 	
 	/**
 	 * Get a patients list by family name.
-	 * @param familyName String
+	 * @param family String
 	 * @return ResponseEntity
 	 */
 	@GetMapping("/familyName/{familyName}")

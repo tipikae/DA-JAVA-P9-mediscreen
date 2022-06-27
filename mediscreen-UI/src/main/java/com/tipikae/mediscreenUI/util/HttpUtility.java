@@ -35,7 +35,7 @@ public class HttpUtility {
 	}
 	
 	/**
-	 * Get an HttpHeaders object.
+	 * Get an HttpHeaders object with content-type to JSON.
 	 * @return HttpHeaders
 	 */
 	public HttpHeaders getAuthHeadersJson() {
@@ -46,6 +46,10 @@ public class HttpUtility {
 		return headers;
 	}
 	
+	/**
+	 * Get an HttpHeaders object with content-type to XFORM.
+	 * @return HttpHeaders
+	 */
 	public HttpHeaders getAuthHeadersXForm() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(AUTHORIZATION, BEARER + " " + sessionUtility.getAccessToken());

@@ -13,12 +13,19 @@ import java.util.function.BinaryOperator;
  */
 public enum BooleanOperator implements BinaryOperator<Boolean> {
 
+	/**
+	 * And operator.
+	 */
 	AND ("AND") {
 		@Override
 		public Boolean apply(Boolean a, Boolean b) {
 			return a && b;
 		}
 	},
+	
+	/**
+	 * Or operator.
+	 */
 	OR ("OR") {
 		@Override
 		public Boolean apply(Boolean a, Boolean b) {
@@ -32,6 +39,11 @@ public enum BooleanOperator implements BinaryOperator<Boolean> {
 		this.operator = operator;
 	}
 	
+	/**
+	 * Get a value of an operator.
+	 * @param operator
+	 * @return BooleanOperator
+	 */
 	public static BooleanOperator valueOfOperator(String operator) {
 	    for (BooleanOperator o : values()) {
 	        if (o.operator.equals(operator)) {
