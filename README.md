@@ -36,10 +36,18 @@ Execute the script `start.sh` (it may take more than 15 minutes to build the pro
 
 
 ## Documentation
-- API with **Swagger**: in your browser, open [localhost:8080/webjars/swagger-ui/index.html](http://localhost:8080/webjars/swagger-ui/index.html?urls.primaryName=note),
+API with **Swagger**: in your browser, open [localhost:8080/webjars/swagger-ui/index.html](http://localhost:8080/webjars/swagger-ui/index.html?urls.primaryName=note),
 
 
-- Code with **Javadoc**: execute the Gradle `javadoc` task, then in your browser, open `build/docs/javadoc/index.html` of each sub-projects,
+Tests with **Jacoco**:
+- prerequisites:
+- keycloak-service, keycloak-db and note-db must be running,
+- in root folder, execute `gradle clean bootJar`
+- execute `java -jar` for mediscreen-config, mediscreen-discovery, mediscreen-proxy, note-service, patient-service, assessment-service and mediscreen-UI in each `*sub-project*/build/libs`,
+- execute the `gradle check` task, then in your browser, open `build/jacocoHtml/index.html` of each sub-projects,
 
 
-- Tests with **Jacoco**: execute the Gradle `verification` task, then in your browser, open `build/jacocoHtml/index.html` of each sub-projects.
+Code with **Javadoc**: 
+- prerequisites: execute above tests prerequisites,
+- execute the `gradle javadoc` task, then in your browser, open `build/docs/javadoc/index.html` of each sub-projects.
+
