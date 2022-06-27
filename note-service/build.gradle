@@ -73,7 +73,8 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                 "com/tipikae/noteservice/dto/*",
                 "com/tipikae/noteservice/model/*",
-                "com/tipikae/noteservice/exception/*"
+                "com/tipikae/noteservice/exception/*",
+                "com/tipikae/noteservice/migration/*"
             ])
         }))
     }
