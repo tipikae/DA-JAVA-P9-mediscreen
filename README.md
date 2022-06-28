@@ -47,7 +47,5 @@ Tests with **Jacoco**:
 - execute the `gradle check` task, then in your browser, open `build/jacocoHtml/index.html` of each sub-projects,
 
 
-Code with **Javadoc**: 
-- prerequisites: execute above tests prerequisites,
-- execute the `gradle javadoc` task, then in your browser, open `build/docs/javadoc/index.html` of each sub-projects.
+Code with **Javadoc**: execute the `gradle javadoc` task, then in your browser, open `build/docs/javadoc/index.html` of each sub-projects.
 
