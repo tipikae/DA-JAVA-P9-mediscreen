@@ -1,0 +1,125 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.liquibase.gradle' version '2.1.1'
+	id 'jacoco'
+}
+
+group = 'com.tipikae'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+bootJar {
+    baseName = 'PatientService'
+    version =  project.property('version')
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2021.0.1")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.8.RELEASE'
+	implementation 'org.liquibase:liquibase-core:4.9.1'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+	implementation 'de.codecentric:spring-boot-admin-starter-client:2.6.6'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def rootProjectCheck = new File("${project.rootDir}/patient-service")
+def rootProject = ""
+if(rootProjectCheck.exists()) rootProject = "${project.rootDir}/patient-service"
+if(!rootProjectCheck.exists()) rootProject = "${project.rootDir}"
+
+liquibase {
+    activities {
+        main {
+        	File propsFile = new File(rootProject + "/src/main/resources/liquibase.properties")
+		    Properties props = new Properties()
+		    InputStream fis = new FileInputStream(propsFile)
+		    props.load(fis)
+            fis.close()
+            
+        	driver props['driver']
+            url props['url']
+            username props['username']
+            password props['password']
+         }
+    }
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }               
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+	afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                "com/tipikae/patientservice/dto/*",
+                "com/tipikae/patientservice/model/*",
+                "com/tipikae/patientservice/exception/*"
+            ])
+        }))
+    }
+    
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.5
+      }
+    }
+  }
+}

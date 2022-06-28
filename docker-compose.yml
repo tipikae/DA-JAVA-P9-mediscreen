@@ -1,0 +1,223 @@
+version: '3.9'
+
+services:
+
+  keycloak-db:
+    container_name: keycloak-db
+    image: mysql:8.0.27
+    ports:
+      - 3307:3306
+    restart: on-failure
+    environment:
+      MYSQL_USER: tipikae
+      MYSQL_PASSWORD: 231045
+      MYSQL_DATABASE: keycloak
+      MYSQL_ROOT_PASSWORD: root
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - keycloak-db:/var/lib/mysql
+    networks:
+      - mediscreen-network
+      
+  patient-db:
+    container_name: patient-db
+    image: mysql:8.0.27
+    ports:
+      - 3308:3306
+    restart: on-failure
+    environment:
+      MYSQL_USER: tipikae
+      MYSQL_PASSWORD: 231045
+      MYSQL_DATABASE: mediscreen
+      MYSQL_ROOT_PASSWORD: root
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - patient-db:/var/lib/mysql
+    networks:
+      - mediscreen-network
+      
+  note-db:
+    container_name: note-db
+    image: mongo:latest
+    restart: on-failure
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tipikae
+      MONGO_INITDB_ROOT_PASSWORD: 231045
+      MONGO_INITDB_DATABASE: mediscreen
+    volumes:
+      - ./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - note-db:/var/lib/mongodb
+    networks:
+      - mediscreen-network
+      
+  assessment-db:
+    container_name: assessment-db
+    image: mysql:8.0.27
+    ports:
+      - 3309:3306
+    restart: on-failure
+    environment:
+      MYSQL_USER: tipikae
+      MYSQL_PASSWORD: 231045
+      MYSQL_DATABASE: mediscreen
+      MYSQL_ROOT_PASSWORD: root
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - assessment-db:/var/lib/mysql
+    networks:
+      - mediscreen-network
+       
+  config-service:
+    container_name: config-service
+    build: ./mediscreen-config
+    image: config-service
+    ports:
+      - 8888:8888
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - mediscreen-network
+       
+  admin-server:
+    container_name: admin-server
+    build: ./admin-server
+    image: admin-server
+    ports:
+      - 8050:8050
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - config-service
+       
+  eureka-server:
+    container_name: eureka-server
+    build: ./mediscreen-discovery
+    image: eureka-server
+    ports:
+      - 8761:8761
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - config-service
+      
+  gateway-service:
+    container_name: gateway-service
+    build: ./mediscreen-proxy
+    image: gateway-service
+    ports:
+      - 8080:8080
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - eureka-server
+
+  keycloak-service:
+    container_name: keycloak-service
+    build: ./keycloak
+    image: keycloak-service
+    ports:
+      - 8070:8080
+    restart: on-failure
+    environment:
+      JDBC_PARAMS: useSSL=false&allowPublicKeyRetrieval=true
+    networks:
+      - mediscreen-network
+    depends_on:
+      - keycloak-db
+  
+  zipkin-server:
+    container_name: zipkin-server
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    restart: on-failure
+    networks:
+      - mediscreen-network
+      
+  patient-service:
+    container_name: patient-service
+    build: ./patient-service
+    image: patient-service
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://patient-db:3306/mediscreen?enabledTLSProtocols=TLSv1.2
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - patient-db
+      - gateway-service
+      
+  note-service:
+    container_name: note-service
+    build: ./note-service
+    image: note-service
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_HOST=note-db
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - note-db
+      - gateway-service
+      
+  assessment-service:
+    container_name: assessment-service
+    build: ./assessment-service
+    image: assessment-service
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://assessment-db:3306/mediscreen?enabledTLSProtocols=TLSv1.2
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - assessment-db
+      - patient-service
+      - note-service
+      
+  frontend:
+    container_name: frontend
+    build: ./mediscreen-UI
+    image: frontend
+    ports:
+      - 8090:8090
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:8888
+    networks:
+      - mediscreen-network
+    depends_on:
+      - gateway-service
+
+networks:
+  mediscreen-network:
+
+volumes:
+  keycloak-db:
+  patient-db:
+  note-db:
+  assessment-db:
