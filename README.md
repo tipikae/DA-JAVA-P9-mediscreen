@@ -41,9 +41,9 @@ API with **Swagger**: in your browser, open [localhost:8080/webjars/swagger-ui/i
 
 Tests with **Jacoco**:
 - prerequisites:
-- keycloak-service, keycloak-db and note-db must be running,
-- in root folder, execute `gradle clean bootJar`
-- execute `java -jar` for mediscreen-config, mediscreen-discovery, mediscreen-proxy, note-service, patient-service, assessment-service and mediscreen-UI in each `*sub-project*/build/libs`,
+    - keycloak-service, keycloak-db and note-db must be running,
+    - in root folder, execute `gradle clean bootJar`
+    - execute `java -jar` for mediscreen-config, mediscreen-discovery, mediscreen-proxy, note-service, patient-service, assessment-service and mediscreen-UI in each `*sub-project*/build/libs`,
 - execute the `gradle check` task, then in your browser, open `build/jacocoHtml/index.html` of each sub-projects,
 
 
