@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 /**
  * Assessment model.
  * @author tipikae
- * @category 1.0
+ * @version 1.0
  *
  */
 @Data

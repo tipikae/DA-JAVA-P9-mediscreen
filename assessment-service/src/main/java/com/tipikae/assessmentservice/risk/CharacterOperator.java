@@ -13,12 +13,19 @@ import java.util.function.BiFunction;
  */
 public enum CharacterOperator implements BiFunction<Character, Character, Boolean> {
 
+	/**
+	 * Equals operator.
+	 */
 	EQUALS ("=") {
 		@Override
 		public Boolean apply(Character a, Character b) {
 			return a.compareTo(b) == 0;
 		}
 	},
+	
+	/**
+	 * Differents operator.
+	 */
 	DIFFERENTS ("!=") {
 		@Override
 		public Boolean apply(Character a, Character b) {
@@ -32,6 +39,11 @@ public enum CharacterOperator implements BiFunction<Character, Character, Boolea
 		this.operator = operator;
 	}
 	
+	/**
+	 * Get a value of an operator.
+	 * @param operator
+	 * @return CharacterOperator
+	 */
 	public static CharacterOperator valueOfOperator(String operator) {
 	    for (CharacterOperator o : values()) {
 	        if (o.operator.equals(operator)) {

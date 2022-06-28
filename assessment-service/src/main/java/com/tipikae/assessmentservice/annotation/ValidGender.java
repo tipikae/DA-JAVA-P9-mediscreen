@@ -30,6 +30,10 @@ import javax.validation.Payload;
 @Constraint(validatedBy = GenderValidator.class)
 public @interface ValidGender {
 
+	/**
+	 * Default message.
+	 * @return String
+	 */
 	String message() default "must be M or F";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

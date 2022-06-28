@@ -5,14 +5,14 @@ plugins {
 	id 'jacoco'
 }
 
+group = 'com.tipikae'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
 bootJar {
     baseName = 'NoteService'
-    version =  '1.0.0'
+    version =  project.property('version')
 }
-
-group = 'com.tipikae'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -73,7 +73,8 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                 "com/tipikae/noteservice/dto/*",
                 "com/tipikae/noteservice/model/*",
-                "com/tipikae/noteservice/exception/*"
+                "com/tipikae/noteservice/exception/*",
+                "com/tipikae/noteservice/migration/*"
             ])
         }))
     }

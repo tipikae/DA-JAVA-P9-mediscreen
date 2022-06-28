@@ -60,14 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .deleteCookies("JSESSIONID");
     }
 	
+	/**
+	 * Get HttpSessionEventPublisher bean.
+	 * @return HttpSessionEventPublisher
+	 */
 	@Bean
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 	    return new HttpSessionEventPublisher();
 	}
-	
-	/*@Bean
-	public MyAuthenticationLogout myAuthenticationLogout() {
-		return new MyAuthenticationLogout();
-	}*/
 
 }

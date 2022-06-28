@@ -226,6 +226,11 @@ public class PatientController {
 		}
 	}
 	
+	/**
+	 * Delete a patient.
+	 * @param id
+	 * @return String
+	 */
 	@GetMapping("/delete/{id}")
 	public String deletePatient(@PathVariable("id") @NotNull @Positive long id) {
 		LOGGER.info("Deleting patient with id=" + id);

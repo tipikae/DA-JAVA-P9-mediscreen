@@ -22,7 +22,14 @@ public class SessionUtility {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(SessionUtility.class);
 	
+	/**
+	 * Access token key value.
+	 */
 	public static final String KEY_ACCESS_TOKEN = "access_token";
+	
+	/**
+	 * Refresh token key value.
+	 */
 	public static final String KEY_REFRESH_TOKEN = "refresh_token";
 
 	/**

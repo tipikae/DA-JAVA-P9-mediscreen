@@ -25,7 +25,7 @@ public interface IConverterNoteDTO {
 	/**
 	 * Convert an UpdateNoteDTO to a Note.
 	 * @param updateNoteDTO UpdateNoteDTO
-	 * @param Note note
+	 * @param note Note
 	 * @return Note
 	 */
 	Note convertUpdateNoteDTOToNote(UpdateNoteDTO updateNoteDTO, Note note);
