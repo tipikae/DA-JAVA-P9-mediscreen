@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.tipikae.mediscreenproxy.logging","l":"LoggingFilter"},{"p":"com.tipikae.mediscreenproxy","l":"MediscreenProxyApplication"},{"p":"com.tipikae.mediscreenproxy.doc","l":"OpenApiConfig"},{"p":"com.tipikae.mediscreenproxy.security","l":"SecurityConfig"}];updateSearchResults();

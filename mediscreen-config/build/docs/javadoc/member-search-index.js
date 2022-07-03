@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.tipikae.mediscreenconfig","c":"MediscreenConfigApplication","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"com.tipikae.mediscreenconfig","c":"MediscreenConfigApplication","l":"MediscreenConfigApplication()","u":"%3Cinit%3E()"}];updateSearchResults();

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mediscreen-UI</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.mediscreenUI.service</a> &gt; <span class="el_source">NoteServiceImpl.java</span></div><h1>NoteServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.mediscreenUI.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.tipikae.mediscreenUI.dto.NewNoteDTO;
+import com.tipikae.mediscreenUI.dto.UpdateNoteDTO;
+import com.tipikae.mediscreenUI.exception.BadRequestException;
+import com.tipikae.mediscreenUI.exception.ClientErrorHandler;
+import com.tipikae.mediscreenUI.exception.HttpClientException;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
+import com.tipikae.mediscreenUI.model.Note;
+import com.tipikae.mediscreenUI.util.HttpUtility;
+
+/**
+ * Note service client.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Service
+public class NoteServiceImpl implements INoteService {
+	
+<span class="fc" id="L38">	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceImpl.class);</span>
+	private static final String ROOT = &quot;/note-service&quot;;
+	
+	@Autowired
+	private HttpUtility httpUtility;
+
+	@Value(value = &quot;${proxy.url:}&quot;)
+	private String proxyUrl;
+	private RestTemplate restTemplate;
+
+	@Autowired
+<span class="fc" id="L49">	public NoteServiceImpl(RestTemplateBuilder restTemplateBuilder) {</span>
+<span class="fc" id="L50">		this.restTemplate = restTemplateBuilder</span>
+<span class="fc" id="L51">		          .errorHandler(new ClientErrorHandler())</span>
+<span class="fc" id="L52">		          .build();</span>
+<span class="fc" id="L53">	}</span>
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public List&lt;Note&gt; getPatientNotes(long patId) throws BadRequestException, HttpClientException {
+<span class="fc" id="L61">		LOGGER.debug(&quot;getPatientNotes: patientId=&quot; + patId);</span>
+<span class="fc" id="L62">		String url = proxyUrl + ROOT + &quot;/notes/search?patId={patId}&quot;;</span>
+<span class="fc" id="L63">		Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L64">		map.put(&quot;patId&quot;, patId);</span>
+		
+<span class="fc" id="L66">		return restTemplate.exchange(</span>
+<span class="fc" id="L67">				url, HttpMethod.GET, httpUtility.getHttpEntity(), List.class, map).getBody();</span>
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Note getNote(String id) throws NotFoundException, BadRequestException, HttpClientException {
+<span class="fc" id="L75">		LOGGER.debug(&quot;getNote: id=&quot; + id);</span>
+<span class="fc" id="L76">		String url = proxyUrl + ROOT + &quot;/notes/id/{id}&quot;;</span>
+<span class="fc" id="L77">		Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L78">		map.put(&quot;id&quot;, id);</span>
+		
+<span class="fc" id="L80">		return restTemplate.exchange(</span>
+<span class="fc" id="L81">				url, HttpMethod.GET, httpUtility.getHttpEntity(), Note.class, map).getBody();</span>
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Note addNote(NewNoteDTO newNoteDTO) throws BadRequestException, HttpClientException {
+<span class="fc" id="L89">		LOGGER.debug(&quot;addNote: patientId=&quot; + newNoteDTO.getPatId());</span>
+<span class="fc" id="L90">		String url = proxyUrl + ROOT + &quot;/notes/&quot;;</span>
+<span class="fc" id="L91">		HttpEntity&lt;NewNoteDTO&gt; entity = new HttpEntity&lt;&gt;(newNoteDTO, httpUtility.getAuthHeadersJson());</span>
+		
+<span class="fc" id="L93">		return restTemplate.exchange(</span>
+<span class="fc" id="L94">				url, HttpMethod.POST, entity, Note.class, new HashMap&lt;&gt;()).getBody();</span>
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void updateNote(String id, UpdateNoteDTO updateNoteDTO)
+			throws NotFoundException, BadRequestException, HttpClientException {
+<span class="fc" id="L103">		LOGGER.debug(&quot;updateNote: id=&quot; + id);</span>
+<span class="fc" id="L104">		String url = proxyUrl + ROOT + &quot;/notes/{id}&quot;;</span>
+<span class="fc" id="L105">		Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L106">		map.put(&quot;id&quot;, id);</span>
+<span class="fc" id="L107">		HttpEntity&lt;UpdateNoteDTO&gt; entity = new HttpEntity&lt;&gt;(updateNoteDTO, httpUtility.getAuthHeadersJson());</span>
+		
+<span class="fc" id="L109">		restTemplate.exchange(url, HttpMethod.PUT, entity, Void.class, map);</span>
+<span class="fc" id="L110">	}</span>
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteNote(String id) throws NotFoundException, BadRequestException, HttpClientException {
+<span class="fc" id="L117">		LOGGER.debug(&quot;deleteNote: id=&quot; + id);</span>
+<span class="fc" id="L118">		String url = proxyUrl + ROOT + &quot;/notes/{id}&quot;;</span>
+<span class="fc" id="L119">		Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L120">		map.put(&quot;id&quot;, id);</span>
+		
+<span class="fc" id="L122">		restTemplate.exchange(url, HttpMethod.DELETE, httpUtility.getHttpEntity(), Void.class, map);</span>
+<span class="fc" id="L123">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,9 @@
+com.tipikae.patientservice
+com.tipikae.patientservice.controller
+com.tipikae.patientservice.dto
+com.tipikae.patientservice.exception
+com.tipikae.patientservice.logging
+com.tipikae.patientservice.model
+com.tipikae.patientservice.repository
+com.tipikae.patientservice.service
+com.tipikae.patientservice.validation

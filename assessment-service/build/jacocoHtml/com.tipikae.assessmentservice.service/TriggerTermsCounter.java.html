@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TriggerTermsCounter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assessment-service</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.assessmentservice.service</a> &gt; <span class="el_source">TriggerTermsCounter.java</span></div><h1>TriggerTermsCounter.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.assessmentservice.service;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.repository.ITriggerRepository;
+
+/**
+ * Terms reader.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Service
+<span class="fc" id="L25">public class TriggerTermsCounter {</span>
+	
+<span class="fc" id="L27">	private static final Logger LOGGER = LoggerFactory.getLogger(TriggerTermsCounter.class);</span>
+	
+	@Autowired
+	private ITriggerRepository triggerRepository;
+	
+	/**
+	 * Count terms in notes list.
+	 * @param notes List
+	 * @return int
+	 */
+	public int countTerms(List&lt;Note&gt; notes) {
+<span class="fc" id="L38">		LOGGER.debug(&quot;countTerms&quot;);</span>
+<span class="fc" id="L39">		List&lt;String&gt; terms = triggerRepository.findAll().stream()</span>
+<span class="fc" id="L40">				.map(trigger -&gt; trigger.getTerm())</span>
+<span class="fc" id="L41">				.collect(Collectors.toList());</span>
+		
+<span class="fc" id="L43">		int counter = notes.parallelStream()</span>
+<span class="fc" id="L44">				.map(note -&gt; {</span>
+<span class="fc" id="L45">					AtomicInteger count = new AtomicInteger(0);</span>
+<span class="fc" id="L46">					String message = note.getE().toLowerCase();</span>
+<span class="fc" id="L47">					terms.forEach(term -&gt; {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">						if(message.contains(term.toLowerCase())) {</span>
+<span class="fc" id="L49">							count.incrementAndGet();</span>
+						}
+<span class="fc" id="L51">					});</span>
+<span class="fc" id="L52">					return count.get();</span>
+				})
+<span class="fc" id="L54">				.reduce(0, Integer::sum);</span>
+		
+<span class="fc" id="L56">		LOGGER.debug(&quot;countTerms: notes size=&quot; + notes.size() + &quot;, terms size=&quot; + terms.size() </span>
+			+ &quot;, trigger terms=&quot; + counter);
+<span class="fc" id="L58">		return counter;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - PatientServiceControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>PatientServiceControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.patientservice.unit.html">com.tipikae.patientservice.unit</a> &gt; PatientServiceControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">15</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.204s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">addPatientReturns201PatientWhenOk()</td>
+<td class="success">0.025s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addPatientReturns400WhenBadDTOParameter()</td>
+<td class="success">0.028s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addPatientReturns409WhenAlreadyExists()</td>
+<td class="success">0.196s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deletePatientReturns200WhenOk()</td>
+<td class="success">0.529s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deletePatientReturns400WhenBadIdParameter()</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deletePatientReturns404WhenNotFound()</td>
+<td class="success">0.020s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllPatientsReturns200ListWhenOk()</td>
+<td class="success">0.061s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientByIdReturns200PatientWhenOk()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientByIdReturns400WhenBadIdParameter()</td>
+<td class="success">0.020s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientByIdReturns404WhenNotFound()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientsByFamilyReturns200ListWhenOk()</td>
+<td class="success">0.149s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientReturns200WhenOk()</td>
+<td class="success">0.022s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientReturns400WhenBadDTOParameter()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientReturns400WhenBadIdParameter()</td>
+<td class="success">0.057s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientReturns404WhenNotFound()</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>15:02:36.727 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:02:36.779 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:02:36.962 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest] from class [org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper]
+15:02:37.001 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest], using SpringBootContextLoader
+15:02:37.018 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest]: class path resource [com/tipikae/patientservice/unit/PatientServiceControllerTest-context.xml] does not exist
+15:02:37.019 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest]: class path resource [com/tipikae/patientservice/unit/PatientServiceControllerTestContext.groovy] does not exist
+15:02:37.020 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:02:37.022 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.tipikae.patientservice.unit.PatientServiceControllerTest]: PatientServiceControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:02:37.276 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.tipikae.patientservice.unit.PatientServiceControllerTest]
+15:02:37.523 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/home/tipikae/workspace/sts_mediscreen/mediscreen/patient-service/build/classes/java/main/com/tipikae/patientservice/PatientServiceApplication.class]
+15:02:37.525 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.tipikae.patientservice.PatientServiceApplication for test class com.tipikae.patientservice.unit.PatientServiceControllerTest
+15:02:37.534 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - @TestExecutionListeners is not present for class [com.tipikae.patientservice.unit.PatientServiceControllerTest]: using defaults.
+15:02:37.535 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+15:02:37.602 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@767599a7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5f5effb0, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@25d0cb3a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@345cbf40, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6e3eb0cd, org.springframework.test.context.support.DirtiesContextTestExecutionListener@463561c5, org.springframework.test.context.transaction.TransactionalTestExecutionListener@659feb22, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3468ee6e, org.springframework.test.context.event.EventPublishingTestExecutionListener@2f4b98f6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@421def93, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@58c1da09, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2b2954e1, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@58d6e55a, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@751ae8a4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@235d659c]
+15:02:37.614 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@1084f78c testClass = PatientServiceControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@25f723b0 testClass = PatientServiceControllerTest, locations = '{}', classes = '{class com.tipikae.patientservice.PatientServiceApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@304d0259, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@36cc9385, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@da664958, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d2f2352c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@10a0fe30, [ImportsContextCustomizer@4aa11206 key = [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration, org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration, org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration, org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration, org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration, org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration, org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration, org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration, org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration, org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration, org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration, org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration, org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration, org.springframework.boot.test.autoconfigure.web.reactive.WebTestClientAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@44536de4, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@77b919a3, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@6952225a, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+2022-06-28 15:02:41.834  INFO [patient-service,,] 20857 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:41.838  INFO [patient-service,,] 20857 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=patient-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-06-28 15:02:43.601  INFO [patient-service,,] 20857 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:44.416  INFO [patient-service,,] 20857 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=patient-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:02:44.419  INFO [patient-service,,] 20857 --- [    Test worker] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-https://github.com/tipikae/DA-JAVA-P9-mediscreen-config/patient-service.properties'}]
+2022-06-28 15:02:44.501  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.unit.PatientServiceControllerTest  : The following 1 profile is active: &quot;dev&quot;
+2022-06-28 15:02:44.524  INFO [patient-service,,] 20857 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:44.525  INFO [patient-service,,] 20857 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=patient-service, profiles=[dev], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:02:49.115  INFO [patient-service,,] 20857 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:49.118  INFO [patient-service,,] 20857 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:49.123  INFO [patient-service,,] 20857 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+2022-06-28 15:02:49.204  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.unit.PatientServiceControllerTest  : Started PatientServiceControllerTest in 11.4 seconds (JVM running for 15.222)
+2022-06-28 15:02:49.390 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: DELETE, Request URL: http://localhost/patients/1, Parameters: null
+2022-06-28 15:02:49.673  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Deleting patient with id=1
+2022-06-28 15:02:49.700 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:49.781 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: POST, Request URL: http://localhost/patients/, Parameters: null
+2022-06-28 15:02:49.919  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Adding patient
+2022-06-28 15:02:49.924 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching PatientAlreadyExistsException, code: 409, message: null
+2022-06-28 15:02:49.956 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 409
+2022-06-28 15:02:49.973 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/patients/0, Parameters: null
+2022-06-28 15:02:50.014 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching ConstraintViolationException, code: 400, message: updatePatient.id: must be greater than 0
+2022-06-28 15:02:50.017 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 400
+2022-06-28 15:02:50.034 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: POST, Request URL: http://localhost/patients/, Parameters: null
+2022-06-28 15:02:50.043 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching MethodArgumentNotValidException, code: 400, message: Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.tipikae.patientservice.dto.PatientDTO&gt; com.tipikae.patientservice.controller.PatientServiceController.addPatient(com.tipikae.patientservice.dto.NewPatientDTO) throws com.tipikae.patientservice.exception.PatientAlreadyExistsException: [Field error in object 'newPatientDTO' on field 'given': rejected value [null]; codes [NotBlank.newPatientDTO.given,NotBlank.given,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [newPatientDTO.given,given]; arguments []; default message [given]]; default message [Firstname must not be empty.]] 
+2022-06-28 15:02:50.045 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 400
+2022-06-28 15:02:50.066 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/patients/1, Parameters: null
+2022-06-28 15:02:50.071  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Updating patient with id=1
+2022-06-28 15:02:50.073 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:50.090 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/patients/0, Parameters: null
+2022-06-28 15:02:50.096 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching MethodArgumentNotValidException, code: 400, message: Validation failed for argument [1] in public org.springframework.http.ResponseEntity&lt;java.lang.Object&gt; com.tipikae.patientservice.controller.PatientServiceController.updatePatient(long,com.tipikae.patientservice.dto.UpdatePatientDTO) throws com.tipikae.patientservice.exception.PatientNotFoundException: [Field error in object 'updatePatientDTO' on field 'phone': rejected value []; codes [NotBlank.updatePatientDTO.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [updatePatientDTO.phone,phone]; arguments []; default message [phone]]; default message [Phone number must not be empty.]] 
+2022-06-28 15:02:50.098 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 400
+2022-06-28 15:02:50.118 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/patients/familyName/family, Parameters: null
+2022-06-28 15:02:50.131  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Getting patients with familyName=family
+2022-06-28 15:02:50.142 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:50.265 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: POST, Request URL: http://localhost/patients/, Parameters: null
+2022-06-28 15:02:50.269  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Adding patient
+2022-06-28 15:02:50.273 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 201
+2022-06-28 15:02:50.295 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: DELETE, Request URL: http://localhost/patients/1, Parameters: null
+2022-06-28 15:02:50.297  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Deleting patient with id=1
+2022-06-28 15:02:50.299 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching PatientNotFoundException, code: 404, message: null
+2022-06-28 15:02:50.301 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+2022-06-28 15:02:50.318 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/patients/id/0, Parameters: null
+2022-06-28 15:02:50.322 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching ConstraintViolationException, code: 400, message: getPatientById.id: must be greater than 0
+2022-06-28 15:02:50.324 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 400
+2022-06-28 15:02:50.341 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/patients/id/1, Parameters: null
+2022-06-28 15:02:50.343  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Getting patient with id=1
+2022-06-28 15:02:50.345 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:50.370 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/patients/, Parameters: null
+2022-06-28 15:02:50.377  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Getting all patients.
+2022-06-28 15:02:50.411 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:50.431 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/patients/1, Parameters: null
+2022-06-28 15:02:50.435  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Updating patient with id=1
+2022-06-28 15:02:50.437 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching PatientNotFoundException, code: 404, message: null
+2022-06-28 15:02:50.439 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+2022-06-28 15:02:50.455 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: DELETE, Request URL: http://localhost/patients/0, Parameters: null
+2022-06-28 15:02:50.458 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching ConstraintViolationException, code: 400, message: deletePatient.id: must be greater than 0
+2022-06-28 15:02:50.460 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 400
+2022-06-28 15:02:50.477 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/patients/id/1, Parameters: null
+2022-06-28 15:02:50.478  INFO [patient-service,,] 20857 --- [    Test worker] c.t.p.c.PatientServiceController         : Getting patient with id=1
+2022-06-28 15:02:50.480 ERROR [patient-service,,] 20857 --- [    Test worker] c.t.p.e.ControllerExceptionHandler       : Catching PatientNotFoundException, code: 404, message: null
+2022-06-28 15:02:50.482 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:03:15</p>
+</div>
+</div>
+</body>
+</html>

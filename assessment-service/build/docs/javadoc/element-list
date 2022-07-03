@@ -1,0 +1,11 @@
+com.tipikae.assessmentservice
+com.tipikae.assessmentservice.annotation
+com.tipikae.assessmentservice.client
+com.tipikae.assessmentservice.controller
+com.tipikae.assessmentservice.dto
+com.tipikae.assessmentservice.exception
+com.tipikae.assessmentservice.logging
+com.tipikae.assessmentservice.model
+com.tipikae.assessmentservice.repository
+com.tipikae.assessmentservice.risk
+com.tipikae.assessmentservice.service

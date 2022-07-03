@@ -1,0 +1,9 @@
+com.tipikae.noteservice
+com.tipikae.noteservice.controller
+com.tipikae.noteservice.dto
+com.tipikae.noteservice.exception
+com.tipikae.noteservice.logging
+com.tipikae.noteservice.migration
+com.tipikae.noteservice.model
+com.tipikae.noteservice.repository
+com.tipikae.noteservice.service

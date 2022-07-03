@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - NoteServiceControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>NoteServiceControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.noteservice.unit.html">com.tipikae.noteservice.unit</a> &gt; NoteServiceControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">12</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.752s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">addNewNoteReturns201AndNoteDTOWhenOk()</td>
+<td class="success">0.039s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addNewNoteReturns400WhenZeroPatientId()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteNoteReturns200WhenOk()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteNoteReturns400WhenBlankId()</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteNoteReturns404WhenNotFound()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNoteReturns200AndNoteDTOWhenOk()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNoteReturns400WhenBlankId()</td>
+<td class="success">0.022s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNoteReturns404WhenNotFound()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientNotesReturns200AndNoteDTOsWhenOk()</td>
+<td class="success">0.155s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateNoteReturns200WhenOk()</td>
+<td class="success">0.022s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateNoteReturns400WhenBlankId()</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateNoteReturns404WhenNotFound()</td>
+<td class="success">0.386s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 15:02:12.901  INFO [note-service,,] 20724 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.noteservice.unit.NoteServiceControllerTest], using SpringBootContextLoader
+2022-06-28 15:02:12.903  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.noteservice.unit.NoteServiceControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 15:02:12.903  INFO [note-service,,] 20724 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.noteservice.unit.NoteServiceControllerTest]: NoteServiceControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 15:02:12.919  INFO [note-service,,] 20724 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.noteservice.NoteServiceApplication for test class com.tipikae.noteservice.unit.NoteServiceControllerTest
+2022-06-28 15:02:12.922  INFO [note-service,,] 20724 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 15:02:12.923  INFO [note-service,,] 20724 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@dfb3f45, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6efd0f14, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@58107cbb, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@70dbf8e7, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@248ef0ae, org.springframework.test.context.support.DirtiesContextTestExecutionListener@220dce84, org.springframework.test.context.transaction.TransactionalTestExecutionListener@79a38bda, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@569048c9, org.springframework.test.context.event.EventPublishingTestExecutionListener@548d935, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@49fd4ef6, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2ce5f148, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7867221d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3ba5dd55, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@180cae29, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1b6073d1]
+2022-06-28 15:02:14.145  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:14.146  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=note-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-06-28 15:02:15.191  INFO [note-service,,] 20724 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:16.029  INFO [note-service,,] 20724 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=note-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:02:16.030  INFO [note-service,,] 20724 --- [    Test worker] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-https://github.com/tipikae/DA-JAVA-P9-mediscreen-config/note-service.properties'}]
+2022-06-28 15:02:16.066  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.unit.NoteServiceControllerTest     : The following 1 profile is active: &quot;dev&quot;
+2022-06-28 15:02:16.075  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:02:16.076  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=note-service, profiles=[dev], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:02:16.898  INFO [note-service,,] 20724 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2022-06-28 15:02:16.923  INFO [note-service,,] 20724 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 1 MongoDB repository interfaces.
+2022-06-28 15:02:17.118  INFO [note-service,,] 20724 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5c1a25ab-9b21-3531-aa4e-b873fcbf9cdd
+2022-06-28 15:02:18.129  WARN [note-service,,] 20724 --- [    Test worker] o.s.c.s.a.z.ZipkinAutoConfiguration      : Check result of the [RestTemplateSender{http://localhost:9411/api/v2/spans}] contains an error [CheckResult{ok=false, error=org.springframework.web.client.ResourceAccessException: I/O error on POST request for &quot;http://localhost:9411/api/v2/spans&quot;: Connexion refusée; nested exception is java.net.ConnectException: Connexion refusée}]
+2022-06-28 15:02:18.261  INFO [note-service,,] 20724 --- [    Test worker] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2022-06-28 15:02:18.269  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:7}] to localhost:27017
+2022-06-28 15:02:18.270  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=13, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=4638419}
+2022-06-28 15:02:18.275  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:8}] to localhost:27017
+2022-06-28 15:02:18.301  WARN [note-service,,] 20724 --- [    Test worker] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2022-06-28 15:02:18.433  WARN [note-service,,] 20724 --- [    Test worker] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2022-06-28 15:02:18.619  INFO [note-service,,] 20724 --- [    Test worker] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:9}] to localhost:27017
+2022-06-28 15:02:18.690  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.core.builder.RunnerBuilderBase     : Mongock runner COMMUNITY version[5.0.39]
+2022-06-28 15:02:18.690  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.core.builder.RunnerBuilderBase     : Running Mongock with NO metadata
+2022-06-28 15:02:18.696  INFO [note-service,,] 20724 --- [    Test worker] org.reflections.Reflections              : Reflections took 5 ms to scan 1 urls, producing 2 keys and 5 values
+2022-06-28 15:02:18.701  INFO [note-service,,] 20724 --- [    Test worker] org.reflections.Reflections              : Reflections took 4 ms to scan 1 urls, producing 2 keys and 5 values
+2022-06-28 15:02:21.207  INFO [note-service,,] 20724 --- [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2022-06-28 15:02:21.403  WARN [note-service,,] 20724 --- [    Test worker] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2022-06-28 15:02:21.526  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 18 endpoint(s) beneath base path '/actuator'
+2022-06-28 15:02:21.563 ERROR [note-service,,] 20724 --- [gistrationTask1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.IllegalStateException: couldn't determine local port. Please set spring.boot.admin.client.instance.service-base-url.
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getLocalServerPort(DefaultApplicationFactory.java:192) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getServiceBaseUrl(DefaultApplicationFactory.java:104) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getServiceUrl(ServletApplicationFactory.java:63) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getManagementBaseUrl(ServletApplicationFactory.java:76) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getHealthUrl(DefaultApplicationFactory.java:154) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.createApplication(DefaultApplicationFactory.java:80) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:56) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.18.jar:5.3.18]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
+
+2022-06-28 15:02:21.622  INFO [note-service,,] 20724 --- [    Test worker] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2022-06-28 15:02:21.636  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-06-28 15:02:21.637  INFO [note-service,,] 20724 --- [    Test worker] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-06-28 15:02:21.644  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-06-28 15:02:21.644  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-06-28 15:02:21.645  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-06-28 15:02:21.645  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-06-28 15:02:21.646  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-06-28 15:02:21.646  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-06-28 15:02:21.647  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-06-28 15:02:21.829  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-06-28 15:02:21.832  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2022-06-28 15:02:21.835  INFO [note-service,,] 20724 --- [    Test worker] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-06-28 15:02:21.839  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1656421341839 with initial instances count: 4
+2022-06-28 15:02:21.850  INFO [note-service,,] 20724 --- [    Test worker] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application NOTE-SERVICE with eureka with status UP
+2022-06-28 15:02:21.851  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1656421341851, current=UP, previous=STARTING]
+2022-06-28 15:02:21.851  INFO [note-service,,] 20724 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTE-SERVICE/172.20.10.4:note-service:8082: registering service...
+2022-06-28 15:02:21.889  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.unit.NoteServiceControllerTest     : Started NoteServiceControllerTest in 8.959 seconds (JVM running for 37.308)
+2022-06-28 15:02:21.903  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.c.e.o.migrate.MigrateExecutorBase  : Mongock skipping the data migration. All change set items are already executed or there is no change set item.
+2022-06-28 15:02:21.904  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock releasing the lock
+2022-06-28 15:02:21.905  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock releasing the lock
+2022-06-28 15:02:21.911  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock released the lock
+2022-06-28 15:02:21.912  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.c.e.o.migrate.MigrateExecutorBase  : Mongock has finished
+2022-06-28 15:02:21.929 ERROR [note-service,,] 20724 --- [gistrationTask1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.IllegalStateException: couldn't determine local port. Please set spring.boot.admin.client.instance.service-base-url.
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getLocalServerPort(DefaultApplicationFactory.java:192) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getServiceBaseUrl(DefaultApplicationFactory.java:104) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getServiceUrl(ServletApplicationFactory.java:63) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getManagementBaseUrl(ServletApplicationFactory.java:76) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getHealthUrl(DefaultApplicationFactory.java:154) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.createApplication(DefaultApplicationFactory.java:80) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:56) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.18.jar:5.3.18]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
+
+2022-06-28 15:02:21.994  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:21.995  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:21.998  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.052  INFO [note-service,,] 20724 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTE-SERVICE/172.20.10.4:note-service:8082 - registration status: 204
+2022-06-28 15:02:22.069 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/notes/id, Parameters: null
+2022-06-28 15:02:22.291  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Updating note with id=id
+2022-06-28 15:02:22.304 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching NoteNotFoundException, code: 404, message: null
+2022-06-28 15:02:22.320 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+2022-06-28 15:02:22.346  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.347  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.350  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.357 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching HttpRequestMethodNotSupportedException, code: 400, message: Request method 'GET' not supported
+2022-06-28 15:02:22.369  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.370  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.373  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.388 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/notes/search, Parameters: patId=1
+2022-06-28 15:02:22.404  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Getting notes for patient with id=1
+2022-06-28 15:02:22.419 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:22.527  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.528  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.532  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.536 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: POST, Request URL: http://localhost/notes/, Parameters: null
+2022-06-28 15:02:22.549  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Adding a new note
+2022-06-28 15:02:22.555 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 201
+2022-06-28 15:02:22.568  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.568  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.571  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-06-28 15:02:22.575 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching HttpRequestMethodNotSupportedException, code: 400, message: Request method 'DELETE' not supported
+2022-06-28 15:02:22.588  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.588  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.591  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.596 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: PUT, Request URL: http://localhost/notes/id, Parameters: null
+2022-06-28 15:02:22.598  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Updating note with id=id
+2022-06-28 15:02:22.601 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:22.610  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.610  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.613  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-06-28 15:02:22.618 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/notes/id/id, Parameters: null
+2022-06-28 15:02:22.620  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Getting a note id = id
+2022-06-28 15:02:22.622 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching NoteNotFoundException, code: 404, message: null
+2022-06-28 15:02:22.623 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+2022-06-28 15:02:22.635  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.635  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.639  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2022-06-28 15:02:22.643 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching HttpRequestMethodNotSupportedException, code: 400, message: Request method 'POST' not supported
+2022-06-28 15:02:22.654  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.655  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.658  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.661 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: DELETE, Request URL: http://localhost/notes/id, Parameters: null
+2022-06-28 15:02:22.664  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Deleting note with id=id
+2022-06-28 15:02:22.667 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:02:22.677  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.678  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.681  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.684 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching HttpRequestMethodNotSupportedException, code: 400, message: Request method 'PUT' not supported
+2022-06-28 15:02:22.694  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.695  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.697  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-06-28 15:02:22.700 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: DELETE, Request URL: http://localhost/notes/id, Parameters: null
+2022-06-28 15:02:22.702  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Deleting note with id=id
+2022-06-28 15:02:22.703 ERROR [note-service,,] 20724 --- [    Test worker] c.t.n.e.ControllerExceptionHandler       : Catching NoteNotFoundException, code: 404, message: null
+2022-06-28 15:02:22.704 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 404
+2022-06-28 15:02:22.714  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:02:22.714  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:02:22.717  INFO [note-service,,] 20724 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2022-06-28 15:02:22.721 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/notes/id/id, Parameters: null
+2022-06-28 15:02:22.723  INFO [note-service,,] 20724 --- [    Test worker] c.t.n.controller.NoteServiceController   : Getting a note id = id
+2022-06-28 15:02:22.725 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:02:30</p>
+</div>
+</div>
+</body>
+</html>

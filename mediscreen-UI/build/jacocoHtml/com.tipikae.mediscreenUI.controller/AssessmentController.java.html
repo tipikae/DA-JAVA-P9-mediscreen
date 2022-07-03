@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssessmentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mediscreen-UI</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.mediscreenUI.controller</a> &gt; <span class="el_source">AssessmentController.java</span></div><h1>AssessmentController.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.mediscreenUI.controller;
+
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
+import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
+import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.service.IAssessmentService;
+
+/**
+ * Assessment controller.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Controller
+@RequestMapping(&quot;/assess&quot;)
+<span class="fc" id="L35">public class AssessmentController {</span>
+
+<span class="fc" id="L37">	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentController.class);</span>
+	
+	@Autowired
+	private IAssessmentService assessmentService;
+	
+	/**
+	 * Get assessment by id.
+	 * @param id long
+	 * @param model Model
+	 * @return String
+	 * @throws NotFoundException 
+	 */
+	@GetMapping(&quot;/id/{id}&quot;)
+	public String getAssessmentById(
+			@PathVariable(&quot;id&quot;) @NotNull @Positive long id,
+			Model model) {
+<span class="fc" id="L53">		LOGGER.info(&quot;getAssessmentById: id=&quot; + id);</span>
+		
+		try {
+<span class="fc" id="L56">			model.addAttribute(&quot;assessment&quot;, </span>
+<span class="fc" id="L57">					assessmentService.getAssessmentById(new AssessmentByIdDTO(id)));</span>
+<span class="fc" id="L58">			return &quot;patient/get :: #assessmentById&quot;;</span>
+<span class="fc" id="L59">		} catch (NotFoundException e) {</span>
+<span class="fc" id="L60">			LOGGER.debug(&quot;getAssessmentById: patient with id=&quot; + id + &quot; not found.&quot;);</span>
+<span class="fc" id="L61">			model.addAttribute(&quot;assessment&quot;, new Assessment(&quot;Error: patient not found.&quot;));</span>
+<span class="fc" id="L62">			return &quot;patient/get :: #assessmentById&quot;;</span>
+		}
+	}
+	
+	/**
+	 * Get assessment by family name.
+	 * @param family String
+	 * @param model Model
+	 * @return String
+	 */
+	@GetMapping(&quot;/familyName/{familyName}&quot;)
+	public String getAssessmentByFamily(
+			@PathVariable(&quot;familyName&quot;) @NotBlank String family,
+			Model model) {
+<span class="fc" id="L76">		LOGGER.info(&quot;getAssessmentByFamily: family=&quot; + family);</span>
+<span class="fc" id="L77">		List&lt;Assessment&gt; assessments = assessmentService.getAssessmentsByFamily(new AssessmentByFamilyDTO(family));</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		if(assessments.isEmpty()) {</span>
+<span class="fc" id="L79">			model.addAttribute(&quot;assessments&quot;, List.of(new Assessment(&quot;No family members.&quot;)));</span>
+<span class="fc" id="L80">			return &quot;patient/get :: #assessmentByFamily&quot;;</span>
+		}
+		
+<span class="fc" id="L83">		model.addAttribute(&quot;assessments&quot;, assessments);</span>
+<span class="fc" id="L84">		return &quot;patient/get :: #assessmentByFamily&quot;;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

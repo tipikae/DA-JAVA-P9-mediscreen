@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - PatientServiceIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>PatientServiceIT</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.patientservice.html">com.tipikae.patientservice</a> &gt; PatientServiceIT</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.756s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">test()</td>
+<td class="success">0.756s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 15:03:11.327  INFO [patient-service,,] 20857 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.patientservice.PatientServiceIT], using SpringBootContextLoader
+2022-06-28 15:03:11.329  INFO [patient-service,,] 20857 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.patientservice.PatientServiceIT]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 15:03:11.330  INFO [patient-service,,] 20857 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.patientservice.PatientServiceIT]: PatientServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 15:03:11.332  INFO [patient-service,,] 20857 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.patientservice.PatientServiceApplication for test class com.tipikae.patientservice.PatientServiceIT
+2022-06-28 15:03:11.336  INFO [patient-service,,] 20857 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 15:03:11.337  INFO [patient-service,,] 20857 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@695ad870, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@567e96cb, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@17daaa29, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3edd04ff, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1fbd20c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2311d436, org.springframework.test.context.transaction.TransactionalTestExecutionListener@61d8b99f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3774b3a7, org.springframework.test.context.event.EventPublishingTestExecutionListener@68c06cf7, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@45dda5bd, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@616df8d8, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@731686d9, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@185afb98, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@30025563, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3e27c083]
+2022-06-28 15:03:11.348 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: family=family, given=given
+2022-06-28 15:03:11.437  INFO [patient-service,,] 20857 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PATIENT-SERVICE/172.20.10.4:patient-service:8081 - registration status: 204
+Hibernate: select patient0_.id as id1_0_, patient0_.address as address2_0_, patient0_.dob as dob3_0_, patient0_.family as family4_0_, patient0_.given as given5_0_, patient0_.phone as phone6_0_, patient0_.sex as sex7_0_ from patient patient0_ where patient0_.family=? and patient0_.given=?
+Hibernate: insert into patient (id, address, dob, family, given, phone, sex) values (default, ?, ?, ?, ?, ?, ?)
+2022-06-28 15:03:11.832 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: family=family, given=given
+Hibernate: select patient0_.id as id1_0_, patient0_.address as address2_0_, patient0_.dob as dob3_0_, patient0_.family as family4_0_, patient0_.given as given5_0_, patient0_.phone as phone6_0_, patient0_.sex as sex7_0_ from patient patient0_ where patient0_.family=? and patient0_.given=?
+2022-06-28 15:03:11.862 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: Patient with family=family, given=given already exists.
+2022-06-28 15:03:11.863 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=5
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+2022-06-28 15:03:11.901 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=100000
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+2022-06-28 15:03:11.906 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: patient with id=100000 not found.
+2022-06-28 15:03:11.907 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientsByFamily: family=family
+Hibernate: select patient0_.id as id1_0_, patient0_.address as address2_0_, patient0_.dob as dob3_0_, patient0_.family as family4_0_, patient0_.given as given5_0_, patient0_.phone as phone6_0_, patient0_.sex as sex7_0_ from patient patient0_ where patient0_.family=?
+2022-06-28 15:03:11.929 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientsByFamily: family=anyFamily
+Hibernate: select patient0_.id as id1_0_, patient0_.address as address2_0_, patient0_.dob as dob3_0_, patient0_.family as family4_0_, patient0_.given as given5_0_, patient0_.phone as phone6_0_, patient0_.sex as sex7_0_ from patient patient0_ where patient0_.family=?
+2022-06-28 15:03:11.938 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getAllPatients
+Hibernate: select patient0_.id as id1_0_, patient0_.address as address2_0_, patient0_.dob as dob3_0_, patient0_.family as family4_0_, patient0_.given as given5_0_, patient0_.phone as phone6_0_, patient0_.sex as sex7_0_ from patient patient0_ order by patient0_.family asc, patient0_.given asc limit ?
+Hibernate: select count(patient0_.id) as col_0_0_ from patient patient0_
+2022-06-28 15:03:11.995 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : updatePatient: id=5
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+Hibernate: update patient set address=?, dob=?, family=?, given=?, phone=?, sex=? where id=?
+2022-06-28 15:03:12.046 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=5
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+2022-06-28 15:03:12.051 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : deletePatient: id=5
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+Hibernate: delete from patient where id=?
+2022-06-28 15:03:12.074 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=5
+Hibernate: select patient0_.id as id1_0_0_, patient0_.address as address2_0_0_, patient0_.dob as dob3_0_0_, patient0_.family as family4_0_0_, patient0_.given as given5_0_0_, patient0_.phone as phone6_0_0_, patient0_.sex as sex7_0_0_ from patient patient0_ where patient0_.id=?
+2022-06-28 15:03:12.080 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: patient with id=5 not found.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:03:15</p>
+</div>
+</div>
+</body>
+</html>

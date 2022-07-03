@@ -1,0 +1,60 @@
+header {
+	padding: 20px;
+}
+.spacer20 {
+	margin-top: 20px;
+}
+.spacer40 {
+	margin-top: 40px;
+}
+.padding40 {
+	padding: 40px;
+}
+.red {
+	color: red;
+}
+.green {
+	color: green;
+}
+.center {
+	text-align: center;
+}
+.border1 {
+	border: 1px solid #858585;
+}
+.radius {
+	border-radius: 5px;
+}
+.logo {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background-image: url(../img/logo.png);
+  	background-repeat: no-repeat;
+	background-size: 100% 100%;
+  	background-position: center;
+  	background-origin: content-box;
+}
+.bottom-right {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 40px;
+}
+.center {
+	max-width: 400px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+.top-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 40px;
+}
+.bold {
+	font-weight: bold;
+}
+.spacer-right20 {
+	margin-right: 20px;
+}

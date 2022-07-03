@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TriggerEvaluator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assessment-service</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.assessmentservice.risk</a> &gt; <span class="el_source">TriggerEvaluator.java</span></div><h1>TriggerEvaluator.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.assessmentservice.risk;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.tipikae.assessmentservice.client.INoteServiceClient;
+import com.tipikae.assessmentservice.exception.BadOperationException;
+import com.tipikae.assessmentservice.exception.ClientException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
+import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.model.Patient;
+import com.tipikae.assessmentservice.service.TriggerTermsCounter;
+
+/**
+ * Trigger operation evaluator.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Component(&quot;triggerEvaluator&quot;)
+<span class="fc" id="L28">public class TriggerEvaluator implements IEvaluator {</span>
+	
+<span class="fc" id="L30">	private static final Logger LOGGER = LoggerFactory.getLogger(TriggerEvaluator.class);</span>
+	
+	@Autowired
+	private INoteServiceClient noteClient;
+	
+	@Autowired
+	private TriggerTermsCounter termsCounter;
+	
+	private Patient patient;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setPatient(Patient patient) {
+<span class="fc" id="L45">		this.patient = patient;</span>
+<span class="fc" id="L46">	}</span>
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean evaluate(String operation) 
+			throws NotFoundException, BadOperationException, ClientException {
+<span class="fc" id="L54">		LOGGER.debug(&quot;evaluate method: patientId=&quot; + patient.getId() + &quot;, operation=&quot; + operation);</span>
+<span class="fc" id="L55">		OperationParser operationParser = new OperationParser();</span>
+<span class="fc" id="L56">		List&lt;String&gt; elements = operationParser.getElements(operation);</span>
+		
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">		if (!elements.isEmpty() &amp;&amp; elements.size() == 3) {</span>
+<span class="fc" id="L59">			String method = elements.get(0);</span>
+<span class="fc" id="L60">			String operator = elements.get(1);</span>
+<span class="fc" id="L61">			String expected = elements.get(2);</span>
+<span class="fc" id="L62">			LOGGER.debug(&quot;method=&quot; + method + &quot;, operator=&quot; + operator + &quot;, expected=&quot; + expected);</span>
+			
+			List&lt;Note&gt; notes;
+			try {
+<span class="fc" id="L66">				notes = noteClient.getPatientNotes(patient.getId());</span>
+<span class="fc" id="L67">			} catch (Exception e) {</span>
+<span class="fc" id="L68">				LOGGER.debug(&quot;evaluate: exception=&quot; + e.getClass().getSimpleName() + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L69">				throw new ClientException(e.getClass().getSimpleName() + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L70">			}</span>
+			
+<span class="fc" id="L72">			int count = termsCounter.countTerms(notes);</span>
+			
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">			if(ArithmeticOperator.valueOfOperator(operator) != null) {</span>
+<span class="fc" id="L75">				LOGGER.debug(&quot;evaluate: operator=&quot; + operator + &quot;, count=&quot; + count </span>
+						+ &quot;, expected=&quot; + expected);
+<span class="fc" id="L77">				return ArithmeticOperator.valueOfOperator(operator).apply(count, Integer.valueOf(expected));</span>
+			}
+			
+<span class="nc" id="L80">			LOGGER.debug(&quot;evaluate: Arithmetic operator=&quot; + operator + &quot; not found.&quot;);</span>
+<span class="nc" id="L81">			throw new NotFoundException(&quot;Arithmetic operator=&quot; + operator + &quot; not found.&quot;);</span>
+		}
+		
+<span class="fc" id="L84">		LOGGER.debug(&quot;Operation incorrect: operation=&quot; + operation);</span>
+<span class="fc" id="L85">		throw new BadOperationException(&quot;Operation incorrect: operation=&quot; + operation);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

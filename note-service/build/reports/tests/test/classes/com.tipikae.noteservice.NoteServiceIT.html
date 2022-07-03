@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - NoteServiceIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>NoteServiceIT</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.noteservice.html">com.tipikae.noteservice</a> &gt; NoteServiceIT</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.162s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">test()</td>
+<td class="success">1.162s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>15:01:47.645 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:01:47.689 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:01:47.832 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.tipikae.noteservice.NoteServiceIT] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+15:01:47.869 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.noteservice.NoteServiceIT], using SpringBootContextLoader
+15:01:47.887 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.tipikae.noteservice.NoteServiceIT]: class path resource [com/tipikae/noteservice/NoteServiceIT-context.xml] does not exist
+15:01:47.888 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.tipikae.noteservice.NoteServiceIT]: class path resource [com/tipikae/noteservice/NoteServiceITContext.groovy] does not exist
+15:01:47.889 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.tipikae.noteservice.NoteServiceIT]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:01:47.892 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.tipikae.noteservice.NoteServiceIT]: NoteServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:01:48.023 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.tipikae.noteservice.NoteServiceIT]
+15:01:48.305 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/home/tipikae/workspace/sts_mediscreen/mediscreen/note-service/build/classes/java/main/com/tipikae/noteservice/NoteServiceApplication.class]
+15:01:48.308 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.tipikae.noteservice.NoteServiceApplication for test class com.tipikae.noteservice.NoteServiceIT
+15:01:48.738 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.tipikae.noteservice.NoteServiceIT]: using defaults.
+15:01:48.740 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+15:01:48.779 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@32f1fafe, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@236eccd1, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@5d512ddb, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@707ca986, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4de79b7d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@183ade54, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4c51077d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5974b7e8, org.springframework.test.context.event.EventPublishingTestExecutionListener@2839e3c8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@66bf40e5, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2291d9a0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5e26f1ed, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@39666e42, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@25c2a9e3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@9b23822]
+15:01:48.788 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@494c8f29 testClass = NoteServiceIT, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4f379769 testClass = NoteServiceIT, locations = '{}', classes = '{class com.tipikae.noteservice.NoteServiceApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@7187bac9, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@44a6a68e, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@61c42416, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2f66f0d0, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1174a305, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@70e29e14], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+2022-06-28 15:01:52.467  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:52.471  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=note-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-06-28 15:01:54.373  INFO [note-service,,] 20724 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:55.220  INFO [note-service,,] 20724 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=note-service, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:01:55.223  INFO [note-service,,] 20724 --- [    Test worker] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-https://github.com/tipikae/DA-JAVA-P9-mediscreen-config/note-service.properties'}]
+2022-06-28 15:01:55.315  INFO [note-service,,] 20724 --- [    Test worker] com.tipikae.noteservice.NoteServiceIT    : The following 1 profile is active: &quot;dev&quot;
+2022-06-28 15:01:55.352  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:55.353  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=note-service, profiles=[dev], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:01:57.983  INFO [note-service,,] 20724 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2022-06-28 15:01:58.292  INFO [note-service,,] 20724 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 295 ms. Found 1 MongoDB repository interfaces.
+2022-06-28 15:01:59.097  INFO [note-service,,] 20724 --- [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5c1a25ab-9b21-3531-aa4e-b873fcbf9cdd
+2022-06-28 15:02:02.201  WARN [note-service,,] 20724 --- [    Test worker] o.s.c.s.a.z.ZipkinAutoConfiguration      : Check result of the [RestTemplateSender{http://localhost:9411/api/v2/spans}] contains an error [CheckResult{ok=false, error=org.springframework.web.client.ResourceAccessException: I/O error on POST request for &quot;http://localhost:9411/api/v2/spans&quot;: Connexion refusée; nested exception is java.net.ConnectException: Connexion refusée}]
+2022-06-28 15:02:02.515  INFO [note-service,,] 20724 --- [    Test worker] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2022-06-28 15:02:02.740  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:5}] to localhost:27017
+2022-06-28 15:02:02.741  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=13, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=73580402}
+2022-06-28 15:02:02.742  INFO [note-service,,] 20724 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:4}] to localhost:27017
+2022-06-28 15:02:02.897  WARN [note-service,,] 20724 --- [    Test worker] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2022-06-28 15:02:03.228  WARN [note-service,,] 20724 --- [    Test worker] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class org.joda.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might want to check your annotation setup at the converter implementation.
+2022-06-28 15:02:04.242  INFO [note-service,,] 20724 --- [    Test worker] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:6}] to localhost:27017
+2022-06-28 15:02:04.549  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.core.builder.RunnerBuilderBase     : Mongock runner COMMUNITY version[5.0.39]
+2022-06-28 15:02:04.553  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.core.builder.RunnerBuilderBase     : Running Mongock with NO metadata
+2022-06-28 15:02:04.728  INFO [note-service,,] 20724 --- [    Test worker] org.reflections.Reflections              : Reflections took 126 ms to scan 1 urls, producing 2 keys and 5 values
+2022-06-28 15:02:04.746  INFO [note-service,,] 20724 --- [    Test worker] org.reflections.Reflections              : Reflections took 6 ms to scan 1 urls, producing 2 keys and 5 values
+2022-06-28 15:02:09.890  INFO [note-service,,] 20724 --- [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2022-06-28 15:02:10.225  WARN [note-service,,] 20724 --- [    Test worker] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2022-06-28 15:02:10.424  INFO [note-service,,] 20724 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 18 endpoint(s) beneath base path '/actuator'
+2022-06-28 15:02:10.581  INFO [note-service,,] 20724 --- [    Test worker] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2022-06-28 15:02:10.790  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-06-28 15:02:10.802  INFO [note-service,,] 20724 --- [    Test worker] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-06-28 15:02:10.880  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-06-28 15:02:10.881  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-06-28 15:02:10.882  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-06-28 15:02:10.882  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-06-28 15:02:10.882  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-06-28 15:02:10.883  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-06-28 15:02:10.883  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-06-28 15:02:11.295  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-06-28 15:02:11.305  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2022-06-28 15:02:11.312  INFO [note-service,,] 20724 --- [    Test worker] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-06-28 15:02:11.323  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1656421331322 with initial instances count: 4
+2022-06-28 15:02:11.341  INFO [note-service,,] 20724 --- [    Test worker] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application NOTE-SERVICE with eureka with status UP
+2022-06-28 15:02:11.342  INFO [note-service,,] 20724 --- [    Test worker] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1656421331342, current=UP, previous=STARTING]
+2022-06-28 15:02:11.363  INFO [note-service,,] 20724 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTE-SERVICE/172.20.10.4:note-service:8082: registering service...
+2022-06-28 15:02:11.430  INFO [note-service,,] 20724 --- [    Test worker] com.tipikae.noteservice.NoteServiceIT    : Started NoteServiceIT in 22.529 seconds (JVM running for 26.849)
+2022-06-28 15:02:11.487  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.c.e.o.migrate.MigrateExecutorBase  : Mongock skipping the data migration. All change set items are already executed or there is no change set item.
+2022-06-28 15:02:11.490  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock releasing the lock
+2022-06-28 15:02:11.491  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock releasing the lock
+2022-06-28 15:02:11.554  INFO [note-service,,] 20724 --- [    Test worker] i.m.driver.core.lock.LockManagerDefault  : Mongock released the lock
+2022-06-28 15:02:11.555  INFO [note-service,,] 20724 --- [    Test worker] i.m.r.c.e.o.migrate.MigrateExecutorBase  : Mongock has finished
+2022-06-28 15:02:11.600 ERROR [note-service,,] 20724 --- [gistrationTask1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.lang.IllegalStateException: couldn't determine local port. Please set spring.boot.admin.client.instance.service-base-url.
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getLocalServerPort(DefaultApplicationFactory.java:192) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getServiceBaseUrl(DefaultApplicationFactory.java:104) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getServiceUrl(ServletApplicationFactory.java:63) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.ServletApplicationFactory.getManagementBaseUrl(ServletApplicationFactory.java:76) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.getHealthUrl(DefaultApplicationFactory.java:154) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationFactory.createApplication(DefaultApplicationFactory.java:80) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:56) ~[spring-boot-admin-client-2.6.6.jar:2.6.6]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.18.jar:5.3.18]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
+
+2022-06-28 15:02:11.738  INFO [note-service,,] 20724 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTE-SERVICE/172.20.10.4:note-service:8082 - registration status: 204
+2022-06-28 15:02:12.503 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : addNote: patId=1
+2022-06-28 15:02:12.604 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: id=62bafbd4f5f88800c7d2eaf6
+2022-06-28 15:02:12.658 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: id=pouet
+2022-06-28 15:02:12.664 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: note with id=pouet not found.
+2022-06-28 15:02:12.665 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getPatientNotes: patId=1
+2022-06-28 15:02:12.712 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : updateNote: id=62bafbd4f5f88800c7d2eaf6
+2022-06-28 15:02:12.733 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: id=62bafbd4f5f88800c7d2eaf6
+2022-06-28 15:02:12.740 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : deleteNote: id=62bafbd4f5f88800c7d2eaf6
+2022-06-28 15:02:12.759 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: id=62bafbd4f5f88800c7d2eaf6
+2022-06-28 15:02:12.764 DEBUG [note-service,,] 20724 --- [    Test worker] c.t.n.service.NoteServiceServiceImpl     : getNoteById: note with id=62bafbd4f5f88800c7d2eaf6 not found.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:02:30</p>
+</div>
+</div>
+</body>
+</html>

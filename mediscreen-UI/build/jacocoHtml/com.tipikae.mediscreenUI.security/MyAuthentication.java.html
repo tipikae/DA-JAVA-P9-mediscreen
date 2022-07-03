@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyAuthentication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mediscreen-UI</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.mediscreenUI.security</a> &gt; <span class="el_source">MyAuthentication.java</span></div><h1>MyAuthentication.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.mediscreenUI.security;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.json.JsonParseException;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.tipikae.mediscreenUI.util.SessionUtility;
+
+/**
+ * My custom authentication.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Component
+<span class="fc" id="L44">public class MyAuthentication {</span>
+
+<span class="fc" id="L46">	private static final Logger LOGGER = LoggerFactory.getLogger(MyAuthentication.class);</span>
+	private static final String CLAIM_ROLES = &quot;roles&quot;;
+	private static final String ROLE_USER = &quot;ROLE_USER&quot;;
+	
+	@Autowired
+	private SessionUtility sessionUtility;
+	
+	@Autowired
+	private MyLogout authenticationLogout;
+	
+	@Value(&quot;${keycloak.endpoint.token:}&quot;)
+	private String tokenEndpoint;
+	
+	@Value(&quot;${keycloak.client_id:}&quot;)
+	private String clientId;
+	
+	@Value(&quot;${keycloak.grant_type:}&quot;)
+	private String grantType;
+
+	/**
+	 * Authenticate a user.
+	 * @param authentication Authentication
+	 * @return Authentication
+	 * @throws AuthenticationException
+	 */
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+<span class="fc" id="L72">		String username = authentication.getName();</span>
+<span class="fc" id="L73">		String password = authentication.getCredentials().toString();</span>
+<span class="fc" id="L74">		LOGGER.info(&quot;authenticate: trying to authenticate username=&quot; + username);</span>
+		
+		// check if credentials are valid
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">		if(!username.isBlank() &amp;&amp; !password.isBlank()) {</span>
+    		ServletRequestAttributes attr = 
+<span class="fc" id="L79">    				(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();</span>
+<span class="fc" id="L80">			HttpSession session= attr.getRequest().getSession(true);</span>
+			
+			// create a restTemplate request for login in from keycloak
+<span class="fc" id="L83">			RestTemplate restTemplate = new RestTemplate();</span>
+<span class="fc" id="L84">			String url = tokenEndpoint;</span>
+<span class="fc" id="L85">			MultiValueMap&lt;String, String&gt; map = new LinkedMultiValueMap&lt;&gt;();</span>
+<span class="fc" id="L86">			map.add(&quot;username&quot;, username);</span>
+<span class="fc" id="L87">			map.add(&quot;password&quot;, password);</span>
+<span class="fc" id="L88">			map.add(&quot;grant_type&quot;, grantType);</span>
+<span class="fc" id="L89">			map.add(&quot;client_id&quot;, clientId);</span>
+<span class="fc" id="L90">			HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; entity = new HttpEntity&lt;&gt;(map, null);</span>
+			
+			try {
+				// call keycloak
+<span class="fc" id="L94">				String response = restTemplate.postForObject(url, entity, String.class);</span>
+<span class="fc" id="L95">				LOGGER.debug(&quot;authenticate: response=&quot; + response);</span>
+				
+				// parse the response for getting tokens
+<span class="fc" id="L98">				JsonParser springParser = JsonParserFactory.getJsonParser();</span>
+<span class="fc" id="L99">			    Map&lt;String, Object&gt; parsedResponse = springParser.parseMap(response);</span>
+			    
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">			    if(parsedResponse.get(sessionUtility.getAccessTokenKey()) != null </span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">			    		&amp;&amp; parsedResponse.get(sessionUtility.getRefreshTokenKey()) != null) {</span>
+			    	// get tokens
+<span class="fc" id="L104">			    	String accessToken = (String) parsedResponse.get(sessionUtility.getAccessTokenKey());</span>
+<span class="fc" id="L105">			    	String refreshToken = (String) parsedResponse.get(sessionUtility.getRefreshTokenKey());</span>
+<span class="fc" id="L106">			    	LOGGER.debug(&quot;authenticate: access_token=&quot; + accessToken);</span>
+<span class="fc" id="L107">			    	LOGGER.debug(&quot;authenticate: refresh_token=&quot; + refreshToken);</span>
+			    	
+			    	// save tokens
+<span class="fc" id="L110">	    			session.setAttribute(sessionUtility.getAccessTokenKey(), accessToken);</span>
+<span class="fc" id="L111">	    			session.setAttribute(sessionUtility.getRefreshTokenKey(), refreshToken);</span>
+			    	
+	    			// get roles and check if right role is present
+<span class="fc" id="L114">			    	DecodedJWT jwt = JWT.decode(accessToken);</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">			    	if(jwt.getClaims().get(CLAIM_ROLES) != null </span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">			    			&amp;&amp; !jwt.getClaims().get(CLAIM_ROLES).isNull()) {</span>
+<span class="fc" id="L117">				    	List&lt;String&gt; roles = </span>
+<span class="fc" id="L118">				    			(List&lt;String&gt;)jwt.getClaims().get(CLAIM_ROLES).asList(String.class);</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">				    	if(roles.contains(ROLE_USER)) {</span>
+<span class="fc" id="L120">				    		LOGGER.debug(&quot;authenticate: username=&quot; + username + &quot; is authenticated&quot;);</span>
+				    		
+<span class="fc" id="L122">				    		return new UsernamePasswordAuthenticationToken(</span>
+				    				username, password, new ArrayList&lt;&gt;());
+				    	}
+			    	}
+			    	
+			    	// failure: call logout
+<span class="nc" id="L128">			    	LOGGER.debug(&quot;authenticate: no ROLE_USER role, calling logout&quot;);</span>
+<span class="nc" id="L129">			    	authenticationLogout.logout();</span>
+<span class="nc" id="L130">			    	throw new BadCredentialsException(&quot;Unauthorized access.&quot;);</span>
+			    }
+				
+<span class="nc" id="L133">			    LOGGER.debug(&quot;authenticate: no access_token returned&quot;);</span>
+<span class="nc" id="L134">			    throw new AuthenticationServiceException(&quot;An error occured.&quot;);</span>
+<span class="nc" id="L135">			} catch (RestClientException e) {</span>
+<span class="nc" id="L136">				LOGGER.debug(&quot;authenticate: RestClientException: &quot; + e.getMessage());</span>
+<span class="nc" id="L137">			} catch(JsonParseException e) {</span>
+<span class="nc" id="L138">				LOGGER.debug(&quot;authenticate: JsonParseException: &quot; + e.getMessage());</span>
+<span class="nc" id="L139">			}</span>
+			
+<span class="nc" id="L141">			throw new AuthenticationServiceException(&quot;Service error.&quot;);</span>
+		}
+		
+<span class="nc" id="L144">		LOGGER.debug(&quot;authenticate: username or password is blank&quot;);</span>
+<span class="nc" id="L145">		throw new BadCredentialsException(&quot;Incorrect credentials&quot;);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

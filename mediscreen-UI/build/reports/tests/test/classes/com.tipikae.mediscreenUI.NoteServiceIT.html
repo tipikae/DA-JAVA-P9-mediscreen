@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - NoteServiceIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>NoteServiceIT</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.mediscreenUI.html">com.tipikae.mediscreenUI</a> &gt; NoteServiceIT</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.506s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">test()</td>
+<td class="success">1.506s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 15:01:22.185  INFO 20595 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.mediscreenUI.NoteServiceIT], using SpringBootContextLoader
+2022-06-28 15:01:22.187  INFO 20595 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.mediscreenUI.NoteServiceIT]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 15:01:22.188  INFO 20595 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.mediscreenUI.NoteServiceIT]: NoteServiceIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 15:01:22.191  INFO 20595 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.mediscreenUI.MediscreenUiApplication for test class com.tipikae.mediscreenUI.NoteServiceIT
+2022-06-28 15:01:22.196  INFO 20595 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 15:01:22.198  INFO 20595 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@27a4a890, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@474e0ab4, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@19b5f793, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6eae9895, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6c4c4df8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5be0e16f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6d5f8cef, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@77afcbe1, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@79026b61, org.springframework.test.context.event.EventPublishingTestExecutionListener@25b506b7, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@349cde1a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3d65fbab, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@57d6d605, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5a5be2f6, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@8658ba9, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1a4f91ad, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7bc81a1f]
+2022-06-28 15:01:22.211  INFO 20595 --- [    Test worker] c.t.m.security.MyAuthentication          : authenticate: trying to authenticate username=user1
+2022-06-28 15:01:22.661 DEBUG 20595 --- [    Test worker] c.t.m.security.MyAuthentication          : authenticate: response={&quot;access_token&quot;:&quot;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpdkwweGRPV3JaNjBCTER6Wlk4MTc4d3BzREs0LVdjLXB3ZFRFclNlMzVNIn0.eyJleHAiOjE2NTY0MjE1ODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYTI4N2Y4M2UtNDkyNy00YTQyLWI5NzAtMmEzNzRjNDRjN2I4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWVkaXNjcmVlbi1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTI0OTg1ZDYtNmNlYy00ZjgyLWIwYjgtZmU1YTc1YzFhZTJlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwOTAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIlVTRVIiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sIm5hbWUiOiJVc2VyMSIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIxIiwiZ2l2ZW5fbmFtZSI6IlVzZXIxIiwiZW1haWwiOiJ1c2VyMUB1c2VyMS5jb20ifQ.VKEGMo-zH7U6ndXpvrH5JAR3BautxRxlu_a63MF1He9JS4TCsRXWrxYM7Kb8UmvpP2BUsscHExcT81qV1-jF5xfFDn_HDR3P2YNJLxnB4rSgmrFDUlGrd7GRN5TjQvSgjmP1QzD-MVNZIraLex0wUDpRoC9F_0dhsf46M_boXC_sPvvD2c3Yao_ZL5gYyit9AXjmkUaxMa2Iyn0iFwat3bzyfXGonW0C_8FP4vRuxLhEYWdew4CsKAWymKn_FpfE1k3CC9SH5NXqjTpFpzwHZlfpa_laBJM85rHq10EG9puAl-WPBtr7X3inNeWIVxYXXWTbB0_2siUGag1Uc0SXwA&quot;,&quot;expires_in&quot;:300,&quot;refresh_expires_in&quot;:1800,&quot;refresh_token&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1NTdkZWYzMy1kOTcyLTQ2ZDgtODFkMi1jZDkyNmE5NmI5NTEifQ.eyJleHAiOjE2NTY0MjMwODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYzhjYTVkMTItNTA5OC00MzRmLTk3NTQtZDE0YjgxMDFhMjcyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiUmVmcmVzaCIsImF6cCI6Im1lZGlzY3JlZW4tYXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSJ9.VFNFoG3vIqxZZR7T0iYPSLjGflnXfCsQ3g9niMnwl5A&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;not-before-policy&quot;:1654696655,&quot;session_state&quot;:&quot;924985d6-6cec-4f82-b0b8-fe5a75c1ae2e&quot;,&quot;scope&quot;:&quot;profile email&quot;}
+2022-06-28 15:01:22.662 DEBUG 20595 --- [    Test worker] c.t.m.security.MyAuthentication          : authenticate: access_token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpdkwweGRPV3JaNjBCTER6Wlk4MTc4d3BzREs0LVdjLXB3ZFRFclNlMzVNIn0.eyJleHAiOjE2NTY0MjE1ODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYTI4N2Y4M2UtNDkyNy00YTQyLWI5NzAtMmEzNzRjNDRjN2I4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWVkaXNjcmVlbi1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTI0OTg1ZDYtNmNlYy00ZjgyLWIwYjgtZmU1YTc1YzFhZTJlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwOTAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIlVTRVIiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sIm5hbWUiOiJVc2VyMSIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIxIiwiZ2l2ZW5fbmFtZSI6IlVzZXIxIiwiZW1haWwiOiJ1c2VyMUB1c2VyMS5jb20ifQ.VKEGMo-zH7U6ndXpvrH5JAR3BautxRxlu_a63MF1He9JS4TCsRXWrxYM7Kb8UmvpP2BUsscHExcT81qV1-jF5xfFDn_HDR3P2YNJLxnB4rSgmrFDUlGrd7GRN5TjQvSgjmP1QzD-MVNZIraLex0wUDpRoC9F_0dhsf46M_boXC_sPvvD2c3Yao_ZL5gYyit9AXjmkUaxMa2Iyn0iFwat3bzyfXGonW0C_8FP4vRuxLhEYWdew4CsKAWymKn_FpfE1k3CC9SH5NXqjTpFpzwHZlfpa_laBJM85rHq10EG9puAl-WPBtr7X3inNeWIVxYXXWTbB0_2siUGag1Uc0SXwA
+2022-06-28 15:01:22.663 DEBUG 20595 --- [    Test worker] c.t.m.security.MyAuthentication          : authenticate: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1NTdkZWYzMy1kOTcyLTQ2ZDgtODFkMi1jZDkyNmE5NmI5NTEifQ.eyJleHAiOjE2NTY0MjMwODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYzhjYTVkMTItNTA5OC00MzRmLTk3NTQtZDE0YjgxMDFhMjcyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiUmVmcmVzaCIsImF6cCI6Im1lZGlzY3JlZW4tYXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSJ9.VFNFoG3vIqxZZR7T0iYPSLjGflnXfCsQ3g9niMnwl5A
+2022-06-28 15:01:22.665 DEBUG 20595 --- [    Test worker] c.t.m.security.MyAuthentication          : authenticate: username=user1 is authenticated
+2022-06-28 15:01:22.666 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : addNote: patientId=10
+2022-06-28 15:01:22.666 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:22.794 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : addNote: patientId=10
+2022-06-28 15:01:22.795 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:22.873 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=62bafba24ec33b5abdbcb5f7
+2022-06-28 15:01:22.877 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:22.946 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=pouet
+2022-06-28 15:01:22.947 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:22.998 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=
+2022-06-28 15:01:22.998 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.049 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getPatientNotes: patientId=10
+2022-06-28 15:01:23.050 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.096 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getPatientNotes: patientId=0
+2022-06-28 15:01:23.097 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.142 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : updateNote: id=62bafba24ec33b5abdbcb5f7
+2022-06-28 15:01:23.142 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.223 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=62bafba24ec33b5abdbcb5f7
+2022-06-28 15:01:23.223 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.271 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : updateNote: id=pouet
+2022-06-28 15:01:23.271 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.327 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : updateNote: id=
+2022-06-28 15:01:23.327 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.383 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : updateNote: id=pouet
+2022-06-28 15:01:23.384 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.438 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : deleteNote: id=62bafba24ec33b5abdbcb5f7
+2022-06-28 15:01:23.438 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.496 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=62bafba24ec33b5abdbcb5f7
+2022-06-28 15:01:23.496 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.545 DEBUG 20595 --- [    Test worker] c.t.m.service.NoteServiceImpl            : getNote: id=
+2022-06-28 15:01:23.546 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.585  INFO 20595 --- [    Test worker] c.t.mediscreenUI.security.MyLogout       : logout: trying to logout username=null
+2022-06-28 15:01:23.586 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.security.MyLogout       : logout: access_token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJpdkwweGRPV3JaNjBCTER6Wlk4MTc4d3BzREs0LVdjLXB3ZFRFclNlMzVNIn0.eyJleHAiOjE2NTY0MjE1ODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYTI4N2Y4M2UtNDkyNy00YTQyLWI5NzAtMmEzNzRjNDRjN2I4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWVkaXNjcmVlbi1hcHAiLCJzZXNzaW9uX3N0YXRlIjoiOTI0OTg1ZDYtNmNlYy00ZjgyLWIwYjgtZmU1YTc1YzFhZTJlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwOTAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIlVTRVIiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sIm5hbWUiOiJVc2VyMSIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIxIiwiZ2l2ZW5fbmFtZSI6IlVzZXIxIiwiZW1haWwiOiJ1c2VyMUB1c2VyMS5jb20ifQ.VKEGMo-zH7U6ndXpvrH5JAR3BautxRxlu_a63MF1He9JS4TCsRXWrxYM7Kb8UmvpP2BUsscHExcT81qV1-jF5xfFDn_HDR3P2YNJLxnB4rSgmrFDUlGrd7GRN5TjQvSgjmP1QzD-MVNZIraLex0wUDpRoC9F_0dhsf46M_boXC_sPvvD2c3Yao_ZL5gYyit9AXjmkUaxMa2Iyn0iFwat3bzyfXGonW0C_8FP4vRuxLhEYWdew4CsKAWymKn_FpfE1k3CC9SH5NXqjTpFpzwHZlfpa_laBJM85rHq10EG9puAl-WPBtr7X3inNeWIVxYXXWTbB0_2siUGag1Uc0SXwA
+2022-06-28 15:01:23.588 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.security.MyLogout       : logout: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1NTdkZWYzMy1kOTcyLTQ2ZDgtODFkMi1jZDkyNmE5NmI5NTEifQ.eyJleHAiOjE2NTY0MjMwODIsImlhdCI6MTY1NjQyMTI4MiwianRpIjoiYzhjYTVkMTItNTA5OC00MzRmLTk3NTQtZDE0YjgxMDFhMjcyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDcwL3JlYWxtcy9tZWRpc2NyZWVuIiwic3ViIjoiNjcxYjMzOTgtOTJiYy00OTYyLWEzYzYtOThmNTZlNjI1Njg0IiwidHlwIjoiUmVmcmVzaCIsImF6cCI6Im1lZGlzY3JlZW4tYXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjkyNDk4NWQ2LTZjZWMtNGY4Mi1iMGI4LWZlNWE3NWMxYWUyZSJ9.VFNFoG3vIqxZZR7T0iYPSLjGflnXfCsQ3g9niMnwl5A
+2022-06-28 15:01:23.592 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.util.SessionUtility     : getAccessToken: session and token exist
+2022-06-28 15:01:23.708 DEBUG 20595 --- [    Test worker] c.t.mediscreenUI.security.MyLogout       : logout: resp from keycloak=null
+2022-06-28 15:01:23.708  INFO 20595 --- [    Test worker] c.t.mediscreenUI.security.MyLogout       : logout: username=null is logged out.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:01:40</p>
+</div>
+</div>
+</body>
+</html>

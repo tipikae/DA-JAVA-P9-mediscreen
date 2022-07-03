@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RiskcalculatorIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RiskcalculatorIT</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.assessmentservice.html">com.tipikae.assessmentservice</a> &gt; RiskcalculatorIT</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.610s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">calculateRiskReturnsNoneWhenPatientNotFound()</td>
+<td class="success">0.036s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">calculateRiskReturnsRiskWhenOk()</td>
+<td class="success">0.574s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 14:59:16.717  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.assessmentservice.RiskcalculatorIT], using SpringBootContextLoader
+2022-06-28 14:59:16.718  INFO [assessment-service,,] 20065 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.assessmentservice.RiskcalculatorIT]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 14:59:16.718  INFO [assessment-service,,] 20065 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.assessmentservice.RiskcalculatorIT]: RiskcalculatorIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 14:59:16.720  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.assessmentservice.AssessmentServiceApplication for test class com.tipikae.assessmentservice.RiskcalculatorIT
+2022-06-28 14:59:16.723  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 14:59:16.724  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@65982755, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@768964f3, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6e9707c9, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@205bd261, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4ddfbb0, org.springframework.test.context.support.DirtiesContextTestExecutionListener@394ea924, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6fb1488b, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@118757c6, org.springframework.test.context.event.EventPublishingTestExecutionListener@7a6c3e3d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3627bfdd, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@53375c82, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@78a51845, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@63235cba, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@68f1de54, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@14b4c84]
+2022-06-28 14:59:16.732 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: patientId=1
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+2022-06-28 14:59:16.738 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &lt; 2] is valid.
+2022-06-28 14:59:16.738 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.738 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.739 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt; 2
+2022-06-28 14:59:16.739 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=1, operation=trigger &lt; 2
+2022-06-28 14:59:16.739 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt; 2
+2022-06-28 14:59:16.739 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;, expected=2
+2022-06-28 14:59:16.751 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=1
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;, count=1, expected=2
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt; 2 is true
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: formula=[trigger &lt; 2] is evaluated
+2022-06-28 14:59:16.758 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: patientId=2
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+2022-06-28 14:59:16.762 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &lt; 2] is valid.
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt; 2
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=2, operation=trigger &lt; 2
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt; 2
+2022-06-28 14:59:16.763 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;, expected=2
+2022-06-28 14:59:16.772 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.777 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=2
+2022-06-28 14:59:16.778 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;, count=2, expected=2
+2022-06-28 14:59:16.778 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt; 2 is false
+2022-06-28 14:59:16.778 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:16.778 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 2] AND [P.age &lt; 30] is valid.
+2022-06-28 14:59:16.778 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.780 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.780 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 2
+2022-06-28 14:59:16.780 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=2, operation=trigger = 2
+2022-06-28 14:59:16.780 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 2
+2022-06-28 14:59:16.780 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=2
+2022-06-28 14:59:16.789 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.797 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=2
+2022-06-28 14:59:16.797 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=2, expected=2
+2022-06-28 14:59:16.798 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 2 is true
+2022-06-28 14:59:16.798 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:16.798 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=2, operation=P.age &lt; 30
+2022-06-28 14:59:16.798 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is false
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=2
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F] is valid.
+2022-06-28 14:59:16.799 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:16.800 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:16.800 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 3
+2022-06-28 14:59:16.800 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=2, operation=trigger = 3
+2022-06-28 14:59:16.800 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 3
+2022-06-28 14:59:16.800 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=3
+2022-06-28 14:59:16.810 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.815 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=2
+2022-06-28 14:59:16.815 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=2, expected=3
+2022-06-28 14:59:16.815 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 3 is false
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=2, operation=P.age &lt; 30
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is false
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = F
+2022-06-28 14:59:16.816 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=2, operation=P.sex = F
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = F
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=F
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = F is false
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=false
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=false
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.817 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30] is valid.
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 2
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=2, operation=trigger &gt;= 2
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 2
+2022-06-28 14:59:16.818 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=2
+2022-06-28 14:59:16.831 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.836 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=2
+2022-06-28 14:59:16.836 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=2, expected=2
+2022-06-28 14:59:16.837 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 2 is true
+2022-06-28 14:59:16.837 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt;= 5
+2022-06-28 14:59:16.837 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=2, operation=trigger &lt;= 5
+2022-06-28 14:59:16.837 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt;= 5
+2022-06-28 14:59:16.837 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;=, expected=5
+2022-06-28 14:59:16.846 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=2
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;=, count=2, expected=5
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt;= 5 is true
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &gt;= 30
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=2, operation=P.age &gt;= 30
+2022-06-28 14:59:16.851 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &gt;= 30
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&gt;=, expected=30
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &gt;= 30 is true
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30] is evaluated
+2022-06-28 14:59:16.852 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: patientId=3
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+2022-06-28 14:59:16.857 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &lt; 2] is valid.
+2022-06-28 14:59:16.857 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.857 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.857 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt; 2
+2022-06-28 14:59:16.858 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger &lt; 2
+2022-06-28 14:59:16.858 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt; 2
+2022-06-28 14:59:16.858 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;, expected=2
+2022-06-28 14:59:16.867 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.873 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.874 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;, count=3, expected=2
+2022-06-28 14:59:16.874 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt; 2 is false
+2022-06-28 14:59:16.875 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:16.875 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 2] AND [P.age &lt; 30] is valid.
+2022-06-28 14:59:16.875 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.876 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.876 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 2
+2022-06-28 14:59:16.876 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger = 2
+2022-06-28 14:59:16.876 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 2
+2022-06-28 14:59:16.876 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=2
+2022-06-28 14:59:16.888 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.893 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.893 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=3, expected=2
+2022-06-28 14:59:16.893 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 2 is false
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.age &lt; 30
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=2
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F] is valid.
+2022-06-28 14:59:16.894 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:16.895 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:16.895 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 3
+2022-06-28 14:59:16.895 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger = 3
+2022-06-28 14:59:16.895 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 3
+2022-06-28 14:59:16.895 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=3
+2022-06-28 14:59:16.905 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.909 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=3, expected=3
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 3 is true
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.age &lt; 30
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:16.910 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = F
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.sex = F
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = F
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=F
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = F is false
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.911 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30] is valid.
+2022-06-28 14:59:16.912 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:16.912 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:16.912 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 2
+2022-06-28 14:59:16.913 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger &gt;= 2
+2022-06-28 14:59:16.913 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 2
+2022-06-28 14:59:16.913 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=2
+2022-06-28 14:59:16.922 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.926 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.926 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=3, expected=2
+2022-06-28 14:59:16.927 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 2 is true
+2022-06-28 14:59:16.927 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt;= 5
+2022-06-28 14:59:16.927 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger &lt;= 5
+2022-06-28 14:59:16.927 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt;= 5
+2022-06-28 14:59:16.927 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;=, expected=5
+2022-06-28 14:59:16.935 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;=, count=3, expected=5
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt;= 5 is true
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &gt;= 30
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.age &gt;= 30
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &gt;= 30
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&gt;=, expected=30
+2022-06-28 14:59:16.940 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &gt;= 30 is false
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M] is valid.
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 3
+2022-06-28 14:59:16.941 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=3, operation=trigger = 3
+2022-06-28 14:59:16.942 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 3
+2022-06-28 14:59:16.942 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=3
+2022-06-28 14:59:16.949 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.958 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=2, terms size=22, trigger terms=3
+2022-06-28 14:59:16.959 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=3, expected=3
+2022-06-28 14:59:16.959 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 3 is true
+2022-06-28 14:59:16.959 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:16.960 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.age &lt; 30
+2022-06-28 14:59:16.960 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:16.961 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:16.962 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:16.962 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = M
+2022-06-28 14:59:16.962 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=3, operation=P.sex = M
+2022-06-28 14:59:16.962 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = M
+2022-06-28 14:59:16.963 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=M
+2022-06-28 14:59:16.964 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = M is true
+2022-06-28 14:59:16.964 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:16.964 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.964 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.964 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:16.965 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:16.965 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M] is evaluated
+2022-06-28 14:59:16.965 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: patientId=4
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+2022-06-28 14:59:16.970 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &lt; 2] is valid.
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &lt; 2]
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt; 2
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &lt; 2
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt; 2
+2022-06-28 14:59:16.971 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;, expected=2
+2022-06-28 14:59:16.985 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:16.990 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:16.990 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;, count=9, expected=2
+2022-06-28 14:59:16.990 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt; 2 is false
+2022-06-28 14:59:16.990 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 2] AND [P.age &lt; 30] is valid.
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 2] AND [P.age &lt; 30]
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 2
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 2
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 2
+2022-06-28 14:59:16.991 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=2
+2022-06-28 14:59:17.009 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.016 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=2
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 2 is false
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.017 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=2
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F] is valid.
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 3
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 3
+2022-06-28 14:59:17.018 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 3
+2022-06-28 14:59:17.019 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=3
+2022-06-28 14:59:17.028 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.032 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.032 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=3
+2022-06-28 14:59:17.032 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 3 is false
+2022-06-28 14:59:17.032 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = F
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.sex = F
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = F
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=F
+2022-06-28 14:59:17.033 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = F is true
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30] is valid.
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 2] AND [trigger &lt;= 5] AND [P.age &gt;= 30]
+2022-06-28 14:59:17.034 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 2
+2022-06-28 14:59:17.035 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &gt;= 2
+2022-06-28 14:59:17.035 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 2
+2022-06-28 14:59:17.035 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=2
+2022-06-28 14:59:17.044 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=9, expected=2
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 2 is true
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt;= 5
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &lt;= 5
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt;= 5
+2022-06-28 14:59:17.049 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;=, expected=5
+2022-06-28 14:59:17.060 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;=, count=9, expected=5
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt;= 5 is false
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &gt;= 30
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &gt;= 30
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &gt;= 30
+2022-06-28 14:59:17.065 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&gt;=, expected=30
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &gt;= 30 is false
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=false
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M] is valid.
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:17.066 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 3] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:17.067 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 3
+2022-06-28 14:59:17.067 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 3
+2022-06-28 14:59:17.067 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 3
+2022-06-28 14:59:17.067 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=3
+2022-06-28 14:59:17.081 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.090 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=3
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 3 is false
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.091 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = M
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.sex = M
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = M
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=M
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = M is false
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 4] AND [P.age &lt; 30] is valid.
+2022-06-28 14:59:17.092 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 4] AND [P.age &lt; 30]
+2022-06-28 14:59:17.093 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 4] AND [P.age &lt; 30]
+2022-06-28 14:59:17.093 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 4
+2022-06-28 14:59:17.093 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 4
+2022-06-28 14:59:17.093 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 4
+2022-06-28 14:59:17.093 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=4
+2022-06-28 14:59:17.111 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.115 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.115 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=4
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 4 is false
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=2
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.116 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 5] AND [trigger &lt;= 6] AND [P.age &lt; 30] AND [P.sex = F] is valid.
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 5] AND [trigger &lt;= 6] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 5] AND [trigger &lt;= 6] AND [P.age &lt; 30] AND [P.sex = F]
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 5
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &gt;= 5
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 5
+2022-06-28 14:59:17.117 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=5
+2022-06-28 14:59:17.129 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.135 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.136 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=9, expected=5
+2022-06-28 14:59:17.136 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 5 is true
+2022-06-28 14:59:17.137 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt;= 6
+2022-06-28 14:59:17.138 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &lt;= 6
+2022-06-28 14:59:17.138 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt;= 6
+2022-06-28 14:59:17.139 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;=, expected=6
+2022-06-28 14:59:17.155 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.161 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.162 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;=, count=9, expected=6
+2022-06-28 14:59:17.162 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt;= 6 is false
+2022-06-28 14:59:17.163 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.163 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.164 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.164 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.165 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.165 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = F
+2022-06-28 14:59:17.166 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.sex = F
+2022-06-28 14:59:17.166 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = F
+2022-06-28 14:59:17.167 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=F
+2022-06-28 14:59:17.167 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = F is true
+2022-06-28 14:59:17.168 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=4
+2022-06-28 14:59:17.168 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:17.168 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.169 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.169 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.170 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=true
+2022-06-28 14:59:17.170 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding true
+2022-06-28 14:59:17.171 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 6] AND [trigger &lt;= 7] AND [P.age &gt;= 30] is valid.
+2022-06-28 14:59:17.171 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 6] AND [trigger &lt;= 7] AND [P.age &gt;= 30]
+2022-06-28 14:59:17.171 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 6] AND [trigger &lt;= 7] AND [P.age &gt;= 30]
+2022-06-28 14:59:17.172 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 6
+2022-06-28 14:59:17.172 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &gt;= 6
+2022-06-28 14:59:17.173 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 6
+2022-06-28 14:59:17.173 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=6
+2022-06-28 14:59:17.185 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.191 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.192 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=9, expected=6
+2022-06-28 14:59:17.192 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 6 is true
+2022-06-28 14:59:17.193 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt;= 7
+2022-06-28 14:59:17.193 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &lt;= 7
+2022-06-28 14:59:17.194 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt;= 7
+2022-06-28 14:59:17.194 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;=, expected=7
+2022-06-28 14:59:17.205 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;=, count=9, expected=7
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt;= 7 is false
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &gt;= 30
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &gt;= 30
+2022-06-28 14:59:17.210 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &gt;= 30
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&gt;=, expected=30
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &gt;= 30 is false
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=false
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 6] AND [P.age &lt; 30] AND [P.sex = M] is valid.
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 6] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:17.211 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 6] AND [P.age &lt; 30] AND [P.sex = M]
+2022-06-28 14:59:17.212 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 6
+2022-06-28 14:59:17.212 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 6
+2022-06-28 14:59:17.212 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 6
+2022-06-28 14:59:17.212 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=6
+2022-06-28 14:59:17.227 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.232 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.232 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=6
+2022-06-28 14:59:17.232 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 6 is false
+2022-06-28 14:59:17.232 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.232 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.sex = M
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.sex = M
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.sex = M
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=sex, operator==, expected=M
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.sex = M is false
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=3
+2022-06-28 14:59:17.233 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=true, right=false
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger = 7] AND [P.age &lt; 30] is valid.
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger = 7] AND [P.age &lt; 30]
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger = 7] AND [P.age &lt; 30]
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger = 7
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger = 7
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger = 7
+2022-06-28 14:59:17.234 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator==, expected=7
+2022-06-28 14:59:17.257 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.266 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.267 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator==, count=9, expected=7
+2022-06-28 14:59:17.269 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger = 7 is false
+2022-06-28 14:59:17.270 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=P.age &lt; 30
+2022-06-28 14:59:17.271 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : evaluate patient: patientId=4, operation=P.age &lt; 30
+2022-06-28 14:59:17.271 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=P.age &lt; 30
+2022-06-28 14:59:17.271 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.PatientEvaluator              : field=age, operator=&lt;, expected=30
+2022-06-28 14:59:17.272 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=P.age &lt; 30 is true
+2022-06-28 14:59:17.272 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=2
+2022-06-28 14:59:17.273 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: operator=AND, left=false, right=true
+2022-06-28 14:59:17.273 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: adding false
+2022-06-28 14:59:17.274 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &gt;= 8] is valid.
+2022-06-28 14:59:17.274 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &gt;= 8]
+2022-06-28 14:59:17.275 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &gt;= 8]
+2022-06-28 14:59:17.275 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &gt;= 8
+2022-06-28 14:59:17.276 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=4, operation=trigger &gt;= 8
+2022-06-28 14:59:17.276 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &gt;= 8
+2022-06-28 14:59:17.277 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&gt;=, expected=8
+2022-06-28 14:59:17.290 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.295 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=4, terms size=22, trigger terms=9
+2022-06-28 14:59:17.296 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&gt;=, count=9, expected=8
+2022-06-28 14:59:17.296 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &gt;= 8 is true
+2022-06-28 14:59:17.296 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:17.296 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: formula=[trigger &gt;= 8] is evaluated
+2022-06-28 14:59:17.309 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: patientId=10
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+2022-06-28 14:59:17.313 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaValidator              : validate: formula=[trigger &lt; 2] is valid.
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperations: from formula=[trigger &lt; 2]
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.FormulaParser                 : getOperators: from formula=[trigger &lt; 2]
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.EvaluatorFactory              : getEvaluator: operation=trigger &lt; 2
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate method: patientId=10, operation=trigger &lt; 2
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.OperationParser               : getElements: operation=trigger &lt; 2
+2022-06-28 14:59:17.314 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : method=trigger, operator=&lt;, expected=2
+2022-06-28 14:59:17.328 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms
+Hibernate: select trigger0_.id as id1_1_, trigger0_.term as term2_1_ from trigger_terms trigger0_
+2022-06-28 14:59:17.334 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.service.TriggerTermsCounter        : countTerms: notes size=0, terms size=22, trigger terms=0
+2022-06-28 14:59:17.334 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.TriggerEvaluator              : evaluate: operator=&lt;, count=0, expected=2
+2022-06-28 14:59:17.334 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: operation=trigger &lt; 2 is true
+2022-06-28 14:59:17.335 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: final: results size=1
+2022-06-28 14:59:17.335 DEBUG [assessment-service,,] 20065 --- [    Test worker] c.t.a.risk.RiskCalculatorImpl            : calculateRisk: formula=[trigger &lt; 2] is evaluated
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 14:59:21</p>
+</div>
+</div>
+</body>
+</html>

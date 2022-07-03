@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteServiceController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">note-service</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.noteservice.controller</a> &gt; <span class="el_source">NoteServiceController.java</span></div><h1>NoteServiceController.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.noteservice.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tipikae.noteservice.dto.NewNoteDTO;
+import com.tipikae.noteservice.dto.NoteDTO;
+import com.tipikae.noteservice.dto.UpdateNoteDTO;
+import com.tipikae.noteservice.exception.NoteNotFoundException;
+import com.tipikae.noteservice.service.INoteServiceService;
+
+/**
+ * Note controller.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@RestController
+@Validated
+@RequestMapping(&quot;/notes&quot;)
+<span class="fc" id="L44">public class NoteServiceController {</span>
+
+<span class="fc" id="L46">	private static final Logger LOGGER = LoggerFactory.getLogger(NoteServiceController.class);</span>
+	
+	@Autowired
+	private INoteServiceService noteService;
+	
+	/**
+	 * Add a ne note.
+	 * @param newNoteDTO NewNoteDTO
+	 * @return ResponseEntity
+	 */
+	@PostMapping(value = &quot;/&quot;, consumes = {&quot;application/json&quot;})
+	public ResponseEntity&lt;NoteDTO&gt; addNewNote(@RequestBody @Valid NewNoteDTO newNoteDTO) {
+<span class="fc" id="L58">		LOGGER.info(&quot;Adding a new note&quot;);</span>
+<span class="fc" id="L59">		NoteDTO noteDTO = noteService.addNote(newNoteDTO);</span>
+		
+<span class="fc" id="L61">		return new ResponseEntity&lt;NoteDTO&gt;(noteDTO, HttpStatus.CREATED);</span>
+	}
+	
+	/**
+	 * Get a note.
+	 * @param id String
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
+	@GetMapping(&quot;/id/{id}&quot;)
+	public ResponseEntity&lt;NoteDTO&gt; getNote(@PathVariable(&quot;id&quot;) @NotBlank String id) 
+			throws NoteNotFoundException {
+<span class="fc" id="L73">		LOGGER.info(&quot;Getting a note id = &quot; + id);</span>
+<span class="fc" id="L74">		NoteDTO noteDTO = noteService.getNoteById(id);</span>
+		
+<span class="fc" id="L76">		return new ResponseEntity&lt;NoteDTO&gt;(noteDTO, HttpStatus.OK);</span>
+	}
+	
+	/**
+	 * Get all patient's notes.
+	 * @param patId long
+	 * @return ResponseEntity
+	 */
+	@GetMapping(&quot;/search&quot;)
+	public ResponseEntity&lt;List&lt;NoteDTO&gt;&gt; getPatientNotes(
+			@RequestParam(name = &quot;patId&quot;, required = true) @NotNull @Positive long patId) {
+<span class="fc" id="L87">		LOGGER.info(&quot;Getting notes for patient with id=&quot; + patId);</span>
+<span class="fc" id="L88">		List&lt;NoteDTO&gt; noteDTOs = noteService.getPatientNotes(patId);</span>
+		
+<span class="fc" id="L90">		return new ResponseEntity&lt;List&lt;NoteDTO&gt;&gt;(noteDTOs, HttpStatus.OK);</span>
+	}
+	
+	/**
+	 * Update a note.
+	 * @param id String
+	 * @param updateNoteDTO
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
+	@PutMapping(value = &quot;/{id}&quot;, consumes = {&quot;application/json&quot;})
+	public ResponseEntity&lt;Object&gt; updateNote(
+			@PathVariable(&quot;id&quot;) @NotBlank String id, 
+			@RequestBody @Valid UpdateNoteDTO updateNoteDTO) 
+					throws NoteNotFoundException {
+<span class="fc" id="L105">		LOGGER.info(&quot;Updating note with id=&quot; + id);</span>
+<span class="fc" id="L106">		noteService.updateNote(id, updateNoteDTO);</span>
+		
+<span class="fc" id="L108">		return new ResponseEntity&lt;Object&gt;(HttpStatus.OK);</span>
+	}
+	
+	/**
+	 * Delete a note.
+	 * @param id String
+	 * @return ResponseEntity
+	 * @throws NoteNotFoundException
+	 */
+	@DeleteMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;Object&gt; deleteNote(@PathVariable(&quot;id&quot;) @NotBlank String id) 
+			throws NoteNotFoundException {
+<span class="fc" id="L120">		LOGGER.info(&quot;Deleting note with id=&quot; + id);</span>
+<span class="fc" id="L121">		noteService.deleteNote(id);</span>
+		
+<span class="fc" id="L123">		return new ResponseEntity&lt;Object&gt;(HttpStatus.OK);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.tipikae.mediscreendiscovery","l":"MediscreenDiscoveryApplication"},{"p":"com.tipikae.mediscreendiscovery.config","l":"SpringSecurityConfig"}];updateSearchResults();

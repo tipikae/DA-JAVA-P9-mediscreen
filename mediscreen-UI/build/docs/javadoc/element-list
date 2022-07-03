@@ -1,0 +1,10 @@
+com.tipikae.mediscreenUI
+com.tipikae.mediscreenUI.controller
+com.tipikae.mediscreenUI.dto
+com.tipikae.mediscreenUI.exception
+com.tipikae.mediscreenUI.logging
+com.tipikae.mediscreenUI.model
+com.tipikae.mediscreenUI.security
+com.tipikae.mediscreenUI.service
+com.tipikae.mediscreenUI.util
+com.tipikae.mediscreenUI.validation

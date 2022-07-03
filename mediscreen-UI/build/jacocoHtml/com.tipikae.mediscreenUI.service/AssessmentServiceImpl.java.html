@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssessmentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mediscreen-UI</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.mediscreenUI.service</a> &gt; <span class="el_source">AssessmentServiceImpl.java</span></div><h1>AssessmentServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.mediscreenUI.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.tipikae.mediscreenUI.dto.AssessmentByFamilyDTO;
+import com.tipikae.mediscreenUI.dto.AssessmentByIdDTO;
+import com.tipikae.mediscreenUI.exception.ClientErrorHandler;
+import com.tipikae.mediscreenUI.exception.NotFoundException;
+import com.tipikae.mediscreenUI.model.Assessment;
+import com.tipikae.mediscreenUI.util.HttpUtility;
+
+/**
+ * Assessment service.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Service
+public class AssessmentServiceImpl implements IAssessmentService {
+	
+<span class="fc" id="L34">	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceImpl.class);</span>
+	private static final String ROOT = &quot;/assessment-service&quot;;
+	
+	@Autowired
+	private HttpUtility httpUtility;
+
+	@Value(value = &quot;${proxy.url:}&quot;)
+	private String proxyUrl;
+	
+	private RestTemplate restTemplate;
+
+	@Autowired
+<span class="fc" id="L46">	public AssessmentServiceImpl(RestTemplateBuilder restTemplateBuilder) {</span>
+<span class="fc" id="L47">		this.restTemplate = restTemplateBuilder</span>
+<span class="fc" id="L48">		          .errorHandler(new ClientErrorHandler())</span>
+<span class="fc" id="L49">		          .build();</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Assessment getAssessmentById(AssessmentByIdDTO assessmentByIdDTO) throws NotFoundException {
+<span class="fc" id="L57">		LOGGER.debug(&quot;getAssessmentById: patientId=&quot; + assessmentByIdDTO.getPatId());</span>
+<span class="fc" id="L58">		String url = proxyUrl + ROOT + &quot;/assess/id&quot;;</span>
+<span class="fc" id="L59">		HttpEntity&lt;AssessmentByIdDTO&gt; entity = </span>
+<span class="fc" id="L60">				new HttpEntity&lt;&gt;(assessmentByIdDTO, httpUtility.getAuthHeadersJson());</span>
+		
+<span class="fc" id="L62">		return restTemplate.exchange(</span>
+<span class="fc" id="L63">				url, HttpMethod.POST, entity, Assessment.class, assessmentByIdDTO).getBody();</span>
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public List&lt;Assessment&gt; getAssessmentsByFamily(AssessmentByFamilyDTO assessmentByFamilyDTO) {
+<span class="fc" id="L72">		LOGGER.debug(&quot;getAssessmentsByFamily: family=&quot; + assessmentByFamilyDTO.getFamilyName());</span>
+<span class="fc" id="L73">		String url = proxyUrl + ROOT + &quot;/assess/familyName&quot;;</span>
+<span class="fc" id="L74">		HttpEntity&lt;AssessmentByFamilyDTO&gt; entity = </span>
+<span class="fc" id="L75">				new HttpEntity&lt;&gt;(assessmentByFamilyDTO, httpUtility.getAuthHeadersJson());</span>
+		
+<span class="fc" id="L77">		return restTemplate.exchange(</span>
+<span class="fc" id="L78">				url, HttpMethod.POST, entity, List.class, assessmentByFamilyDTO).getBody();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

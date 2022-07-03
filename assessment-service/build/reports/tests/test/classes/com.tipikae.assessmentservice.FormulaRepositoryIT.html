@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - FormulaRepositoryIT</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>FormulaRepositoryIT</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.assessmentservice.html">com.tipikae.assessmentservice</a> &gt; FormulaRepositoryIT</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.151s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">test()</td>
+<td class="success">0.151s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 14:59:10.943  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.assessmentservice.FormulaRepositoryIT], using SpringBootContextLoader
+2022-06-28 14:59:10.944  INFO [assessment-service,,] 20065 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.assessmentservice.FormulaRepositoryIT]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 14:59:10.945  INFO [assessment-service,,] 20065 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.assessmentservice.FormulaRepositoryIT]: FormulaRepositoryIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 14:59:10.947  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.assessmentservice.AssessmentServiceApplication for test class com.tipikae.assessmentservice.FormulaRepositoryIT
+2022-06-28 14:59:10.951  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 14:59:10.952  INFO [assessment-service,,] 20065 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@12205a5b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7f1702a9, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@56e643b2, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@534d77ba, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@432f1d0a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@46a5d8c, org.springframework.test.context.transaction.TransactionalTestExecutionListener@60757560, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@583d3e73, org.springframework.test.context.event.EventPublishingTestExecutionListener@63c1bf33, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@351108fa, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7e84a54d, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4ffbc248, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@21adc4a3, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1c465eb4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@47b33ebc]
+Hibernate: insert into formula (id, form, risk) values (default, ?, ?)
+Hibernate: select formula0_.id as id1_0_0_, formula0_.form as form2_0_0_, formula0_.risk as risk3_0_0_ from formula formula0_ where formula0_.id=?
+Hibernate: select formula0_.id as id1_0_, formula0_.form as form2_0_, formula0_.risk as risk3_0_ from formula formula0_
+Hibernate: select formula0_.id as id1_0_0_, formula0_.form as form2_0_0_, formula0_.risk as risk3_0_0_ from formula formula0_ where formula0_.id=?
+Hibernate: update formula set form=?, risk=? where id=?
+Hibernate: select formula0_.id as id1_0_0_, formula0_.form as form2_0_0_, formula0_.risk as risk3_0_0_ from formula formula0_ where formula0_.id=?
+Hibernate: select formula0_.id as id1_0_0_, formula0_.form as form2_0_0_, formula0_.risk as risk3_0_0_ from formula formula0_ where formula0_.id=?
+Hibernate: delete from formula where id=?
+Hibernate: select formula0_.id as id1_0_0_, formula0_.form as form2_0_0_, formula0_.risk as risk3_0_0_ from formula formula0_ where formula0_.id=?
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 14:59:21</p>
+</div>
+</div>
+</body>
+</html>

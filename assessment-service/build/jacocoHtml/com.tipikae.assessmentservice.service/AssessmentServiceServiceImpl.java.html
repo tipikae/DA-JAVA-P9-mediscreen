@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssessmentServiceServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assessment-service</a> &gt; <a href="index.source.html" class="el_package">com.tipikae.assessmentservice.service</a> &gt; <span class="el_source">AssessmentServiceServiceImpl.java</span></div><h1>AssessmentServiceServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.tipikae.assessmentservice.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tipikae.assessmentservice.client.INoteServiceClient;
+import com.tipikae.assessmentservice.client.IPatientServiceClient;
+import com.tipikae.assessmentservice.dto.AssessmentByFamilyDTO;
+import com.tipikae.assessmentservice.dto.AssessmentByIdDTO;
+import com.tipikae.assessmentservice.dto.AssessmentDTO;
+import com.tipikae.assessmentservice.dto.IConverterAssessmentDTO;
+import com.tipikae.assessmentservice.exception.BadRequestException;
+import com.tipikae.assessmentservice.exception.HttpClientException;
+import com.tipikae.assessmentservice.exception.NotFoundException;
+import com.tipikae.assessmentservice.model.Assessment;
+import com.tipikae.assessmentservice.model.Note;
+import com.tipikae.assessmentservice.model.Patient;
+import com.tipikae.assessmentservice.risk.IRiskCalculator;
+import com.tipikae.assessmentservice.risk.IViewResult;
+
+/**
+ * Assessment service service.
+ * @author tipikae
+ * @version 1.0
+ *
+ */
+@Service
+<span class="fc" id="L36">public class AssessmentServiceServiceImpl implements IAssessmentServiceService {</span>
+	
+<span class="fc" id="L38">	private static final Logger LOGGER = LoggerFactory.getLogger(AssessmentServiceServiceImpl.class);</span>
+	
+	@Autowired
+	private IConverterAssessmentDTO assessmentConverter;
+	
+	@Autowired
+	private IPatientServiceClient patientClient;
+	
+	@Autowired
+	private INoteServiceClient noteClient;
+	
+	@Autowired
+	private IViewResult viewResult;
+	
+	@Autowired
+	private IRiskCalculator riskCalculator;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public AssessmentDTO assessDiabetesById(AssessmentByIdDTO assessmentByIdDTO)
+			throws NotFoundException, BadRequestException, HttpClientException {
+<span class="fc" id="L61">		LOGGER.debug(&quot;assessDiabetesById: id=&quot; + assessmentByIdDTO.getPatId());</span>
+<span class="fc" id="L62">		Patient patient = patientClient.getPatientById(assessmentByIdDTO.getPatId());</span>
+<span class="fc" id="L63">		List&lt;Note&gt; notes = noteClient.getPatientNotes(assessmentByIdDTO.getPatId());</span>
+		
+<span class="fc" id="L65">		return assessmentConverter.convertModelToDTO(getAssessment(patient, notes));</span>
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List&lt;AssessmentDTO&gt; assessDiabetesByFamilyName(AssessmentByFamilyDTO assessmentByFamilyDTO)
+			throws BadRequestException, HttpClientException {
+<span class="fc" id="L74">		List&lt;Patient&gt; patients = patientClient.getPatientsByFamilyName(assessmentByFamilyDTO.getFamilyName());</span>
+<span class="fc" id="L75">		LOGGER.debug(&quot;assessDiabetesByFamilyName: family=&quot; + assessmentByFamilyDTO.getFamilyName() </span>
+<span class="fc" id="L76">			+ &quot;, size=&quot; + patients.size());</span>
+<span class="fc" id="L77">		List&lt;AssessmentDTO&gt; assessmentDTOs = new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L79">		patients.parallelStream().forEach(patient -&gt; {</span>
+			try {
+				List&lt;Note&gt; notes;
+<span class="fc" id="L82">				notes = noteClient.getPatientNotes(patient.getId());</span>
+<span class="fc" id="L83">				assessmentDTOs.add(assessmentConverter.convertModelToDTO(getAssessment(patient, notes)));</span>
+<span class="nc" id="L84">			} catch (BadRequestException e) {</span>
+<span class="nc" id="L85">				LOGGER.debug(&quot;assessDiabetesByFamilyName: BadRequestException: &quot; + e.getMessage());</span>
+<span class="nc" id="L86">				assessmentDTOs.add(assessmentConverter</span>
+<span class="nc" id="L87">						.convertModelToDTO(getError(patient, &quot;BadRequestException&quot;)));</span>
+<span class="nc" id="L88">			} catch (HttpClientException e) {</span>
+<span class="nc" id="L89">				LOGGER.debug(&quot;assessDiabetesByFamilyName: HttpClientException: &quot; + e.getMessage());</span>
+<span class="nc" id="L90">				assessmentDTOs.add(assessmentConverter</span>
+<span class="nc" id="L91">						.convertModelToDTO(getError(patient, &quot;HttpClientException&quot;)));</span>
+<span class="pc" id="L92">			}</span>
+<span class="fc" id="L93">		});</span>
+		
+<span class="fc" id="L95">		return assessmentDTOs;</span>
+	}
+	
+	// calculates risk and returns assessment
+	private Assessment getAssessment(Patient patient, List&lt;Note&gt; notes) {
+<span class="fc" id="L100">		LOGGER.debug(&quot;getAssessment: patId=&quot; + patient.getId());</span>
+		try {
+<span class="fc" id="L102">			String result = riskCalculator.calculateRisk(patient);</span>
+<span class="fc" id="L103">			return new Assessment(viewResult.getResultView(patient, result));</span>
+<span class="nc" id="L104">		} catch (Exception e) {</span>
+<span class="nc" id="L105">			LOGGER.debug(&quot;getAssessment: processData error: &quot; + e.getMessage());</span>
+<span class="nc" id="L106">			return getError(patient, &quot;Exception&quot;);</span>
+		}
+	}
+	
+	// returns assessment with error message
+	private Assessment getError(Patient patient, String error) {
+<span class="nc" id="L112">		LOGGER.debug(&quot;getError: patientId=&quot; + patient.getId());</span>
+		
+<span class="nc" id="L114">		return new Assessment(viewResult.getErrorView(patient, error));</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

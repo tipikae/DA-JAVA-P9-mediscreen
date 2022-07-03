@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - PatientServiceServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>PatientServiceServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.patientservice.unit.html">com.tipikae.patientservice.unit</a> &gt; PatientServiceServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">10</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.347s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">addPatientReturnsPatientWhenOk()</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addPatientThorwsExceptionWhenAlreadyExists()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deletePatientCallsDeleteWhenOk()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deletePatientThrowsExceptionWhenNotFound()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllPatients()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientByIdReturnsPatientWhenOk()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientByIdThrowsExceptionWhenNotFound()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPatientsByFamily()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientCallsSaveWhenOk()</td>
+<td class="success">0.288s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePatientThrowsExceptionWhenNotFound()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 15:02:51.040 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : updatePatient: id=1
+2022-06-28 15:02:51.060 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : deletePatient: id=1
+2022-06-28 15:02:51.061 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : deletePatient: patient with id=1 not found.
+2022-06-28 15:02:51.067 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : updatePatient: id=1
+2022-06-28 15:02:51.068 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : updatePatient: patient with id=1 not found.
+2022-06-28 15:02:51.080 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: family=family, given=given
+2022-06-28 15:02:51.087 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientsByFamily: family=family
+2022-06-28 15:02:51.093 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: family=family, given=given
+2022-06-28 15:02:51.094 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : addPatient: Patient with family=family, given=given already exists.
+2022-06-28 15:02:51.101 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getAllPatients
+2022-06-28 15:02:51.110 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=10
+2022-06-28 15:02:51.111 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: patient with id=10 not found.
+2022-06-28 15:02:51.116 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : deletePatient: id=1
+2022-06-28 15:02:51.124 DEBUG [patient-service,,] 20857 --- [    Test worker] c.t.p.service.PatientServiceServiceImpl  : getPatientById: id=1
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:03:15</p>
+</div>
+</div>
+</body>
+</html>

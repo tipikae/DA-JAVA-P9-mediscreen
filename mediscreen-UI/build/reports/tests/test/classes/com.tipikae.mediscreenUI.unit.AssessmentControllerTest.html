@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AssessmentControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AssessmentControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.tipikae.mediscreenUI.unit.html">com.tipikae.mediscreenUI.unit</a> &gt; AssessmentControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">4</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.256s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getAssessmentByFamilyReturns200ErrorWhenEmpty()</td>
+<td class="success">1.177s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAssessmentByFamilyReturns200ListWhenOk()</td>
+<td class="success">0.020s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAssessmentByIdReturns200AssessmentWhenOk()</td>
+<td class="success">0.036s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAssessmentByIdReturns200ErrorWhenNotFound()</td>
+<td class="success">0.023s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-06-28 15:01:23.724  INFO 20595 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tipikae.mediscreenUI.unit.AssessmentControllerTest], using SpringBootContextLoader
+2022-06-28 15:01:23.725  INFO 20595 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.tipikae.mediscreenUI.unit.AssessmentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-06-28 15:01:23.726  INFO 20595 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.tipikae.mediscreenUI.unit.AssessmentControllerTest]: AssessmentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-06-28 15:01:23.758  INFO 20595 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.tipikae.mediscreenUI.MediscreenUiApplication for test class com.tipikae.mediscreenUI.unit.AssessmentControllerTest
+2022-06-28 15:01:23.763  INFO 20595 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-06-28 15:01:23.764  INFO 20595 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7896b4ae, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@390eca81, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@10047379, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@243161cb, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@694f8227, org.springframework.test.context.support.DirtiesContextTestExecutionListener@265a074d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@15f63744, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ae62308, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@2f2dd0c9, org.springframework.test.context.event.EventPublishingTestExecutionListener@593bda0e, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@7d538a7a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@762618bb, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@37cc352e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@30a06273, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@51413e47, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@17640714, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@41d72593]
+2022-06-28 15:01:24.912  INFO 20595 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:24.912  INFO 20595 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=mediscreen-ui, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-06-28 15:01:26.109  INFO 20595 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:26.896  INFO 20595 --- [    Test worker] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=mediscreen-ui, profiles=[default], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:01:26.897  INFO 20595 --- [    Test worker] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-https://github.com/tipikae/DA-JAVA-P9-mediscreen-config/mediscreen-ui.properties'}]
+2022-06-28 15:01:26.931  INFO 20595 --- [    Test worker] c.t.m.unit.AssessmentControllerTest      : The following 1 profile is active: &quot;dev&quot;
+2022-06-28 15:01:26.935  INFO 20595 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Fetching config from server at : http://localhost:8888
+2022-06-28 15:01:26.936  INFO 20595 --- [    Test worker] o.s.b.context.config.ConfigDataLoader    : Located environment: name=mediscreen-ui, profiles=[dev], label=null, version=2b2f7075225d237bc6d7433ab5da68d5e56d02bc, state=null
+2022-06-28 15:01:27.834  INFO 20595 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-06-28 15:01:28.307  INFO 20595 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-06-28 15:01:28.308  INFO 20595 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-06-28 15:01:28.310  INFO 20595 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2022-06-28 15:01:28.343  INFO 20595 --- [    Test worker] c.t.m.unit.AssessmentControllerTest      : Started AssessmentControllerTest in 4.573 seconds (JVM running for 28.688)
+2022-06-28 15:01:28.473 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/assess/familyName/pouet, Parameters: null
+2022-06-28 15:01:28.544  INFO 20595 --- [    Test worker] c.t.m.controller.AssessmentController    : getAssessmentByFamily: family=pouet
+2022-06-28 15:01:29.502 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:01:29.545 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/assess/familyName/pouet, Parameters: null
+2022-06-28 15:01:29.545  INFO 20595 --- [    Test worker] c.t.m.controller.AssessmentController    : getAssessmentByFamily: family=pouet
+2022-06-28 15:01:29.550 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:01:29.569 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/assess/id/1, Parameters: null
+2022-06-28 15:01:29.572  INFO 20595 --- [    Test worker] c.t.m.controller.AssessmentController    : getAssessmentById: id=1
+2022-06-28 15:01:29.590 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+2022-06-28 15:01:29.611 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : preHandle =&gt; Method: GET, Request URL: http://localhost/assess/id/1, Parameters: null
+2022-06-28 15:01:29.612  INFO 20595 --- [    Test worker] c.t.m.controller.AssessmentController    : getAssessmentById: id=1
+2022-06-28 15:01:29.613 DEBUG 20595 --- [    Test worker] c.t.m.controller.AssessmentController    : getAssessmentById: patient with id=1 not found.
+2022-06-28 15:01:29.616 DEBUG 20595 --- [    Test worker] c.t.m.l.CustomRequestLoggingInterceptor  : afterCompletion =&gt; Response Status: 200
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at 28 juin 2022 à 15:01:40</p>
+</div>
+</div>
+</body>
+</html>
