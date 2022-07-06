@@ -33,6 +33,8 @@ Execute the script `start.sh` (it may take more than 15 minutes to build the pro
 
 **Zipkin**: [localhost:9411](http://localhost:9411).
 
+**Databases**: for all 4 databases: username=`tipikae`, password=`231045`
+
 
 
 ## Documentation
